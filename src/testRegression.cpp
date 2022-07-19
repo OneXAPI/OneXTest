@@ -54,6 +54,18 @@ void regression(){
     result = TC_UpbitSpot_1_7(td);
     result?(pass++):(fail++);
     printResult(td, result);
+    result = TC_UpbitSpot_2_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_2_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_2_3(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_2_4(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
 
     std::cout << "Test Executed : " << pass+fail << "   Pass : " << pass << "   Fail : " << fail << std::endl;
 }
