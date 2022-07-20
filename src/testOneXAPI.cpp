@@ -5,7 +5,7 @@
 
 static const std::string getInfoExpectedResult = R"({"success":true,"data":{"supportedExchanges":[{"exchange":"Upbit","instrument":"Spot"}],"onexapiVersion":"0.0.0"}})";
 
-bool TC_OneXAPI_1_1(testDataType& testData){
+bool TC_OneXAPI_getInfo_1(testDataType& testData){
     try{
         testData.testCaseId = __func__;
         testData.testSubject = "OneXAPI::getInfo";
@@ -28,7 +28,7 @@ bool TC_OneXAPI_1_1(testDataType& testData){
     return false;
 }
 
-bool TC_OneXAPI_1_2(testDataType& testData){
+bool TC_OneXAPI_getInfo_2(testDataType& testData){
     try{
         testData.testCaseId = __func__;
         testData.testSubject = "OneXAPI::getInfo";
@@ -52,7 +52,7 @@ bool TC_OneXAPI_1_2(testDataType& testData){
     return false;
 }
 
-bool TC_OneXAPI_1_3(testDataType& testData){
+bool TC_OneXAPI_getInfo_3(testDataType& testData){
     try{
         testData.testCaseId = __func__;
         testData.testSubject = "OneXAPI::getInfo";
@@ -77,7 +77,7 @@ bool TC_OneXAPI_1_3(testDataType& testData){
     return false;
 }
 
-bool TC_OneXAPI_1_4(testDataType& testData){
+bool TC_OneXAPI_getInfo_4(testDataType& testData){
     try{
         testData.testCaseId = __func__;
         testData.testSubject = "OneXAPI::getInfo";
