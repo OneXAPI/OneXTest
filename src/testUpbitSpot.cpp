@@ -944,3 +944,103 @@ bool TC_UpbitSpot_isSubscribingBalance_4(testDataType& testData){
     return false;
 }
 
+static const std::string getSubscribingTickersExpectedResult = R"({"success":true,"data":{"tickers":[]}})";
+
+bool TC_UpbitSpot_getSubscribingTickers_1(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingTickers";
+        testData.expectedResult = getSubscribingTickersExpectedResult;
+
+        OneXAPI::Upbit::Spot client;
+        std::string response = client.getSubscribingTickers();
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_getSubscribingTickers_2(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingTickers";
+        testData.expectedResult = getSubscribingTickersExpectedResult;
+
+        OneXAPI::Upbit::Spot client;
+        std::string input = "";
+        std::string response = client.getSubscribingTickers(input);
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_getSubscribingTickers_3(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingTickers";
+        testData.expectedResult = getSubscribingTickersExpectedResult;
+
+        OneXAPI::Upbit::Spot client;
+        std::string input = "{}";
+        std::string response = client.getSubscribingTickers(input);
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_getSubscribingTickers_4(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingTickers";
+        testData.expectedResult = getSubscribingTickersExpectedResult;
+
+        OneXAPI::Upbit::Spot client;
+        std::string input = "Bqbqb@";
+        std::string response = client.getSubscribingTickers(input);
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}

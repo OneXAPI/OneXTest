@@ -132,6 +132,18 @@ void regression(){
     result = TC_UpbitSpot_isSubscribingBalance_4(td);
     result?(pass++):(fail++);
     printResult(td, result);
+    result = TC_UpbitSpot_getSubscribingTickers_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_getSubscribingTickers_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_getSubscribingTickers_3(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_getSubscribingTickers_4(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
 
     std::cout << "Executed : " << pass+fail << "   Pass : " << pass << "   Fail : " << fail << std::endl;
 }
