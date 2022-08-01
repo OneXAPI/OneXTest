@@ -208,7 +208,7 @@ bool TC_UpbitSpot_Object_7(testDataType& testData){
     return false;
 }
 
-static const std::string getConfigExpectedResult = R"({"success":true,"data":{"requestedApiCount":0,"exchange":"Upbit","instrument":"Spot","accessKey":"","secretKey":"","restEndpoint":"https://api.upbit.com/v1","publicWebsocketEndpoint":"wss://api.upbit.com/websocket/v1","privateWebsocketEndpoint":"","restRequestTimeout":5000,"websocketConnectTimeout":30000,"websocketIdleTimeout":5000}})";
+static const std::string getConfigExpectedResult = R"({"success":true,"data":{"requestedApiCount":0,"exchange":"Upbit","instrument":"Spot","accessKey":"","secretKey":"","restEndpoint":"https://api.upbit.com/v1","publicWebsocketEndpoint":"wss://api.upbit.com/websocket/v1","privateWebsocketEndpoint":"","restRequestTimeout":5000,"websocketConnectTimeout":5000,"websocketIdleTimeout":5000}})";
 
 bool TC_UpbitSpot_getConfig_1(testDataType& testData){
     try{
@@ -943,3 +943,4 @@ bool TC_UpbitSpot_isSubscribingBalance_4(testDataType& testData){
     }
     return false;
 }
+
