@@ -144,6 +144,18 @@ void regression(){
     result = TC_UpbitSpot_getSubscribingTickers_4(td);
     result?(pass++):(fail++);
     printResult(td, result);
+    result = TC_UpbitSpot_getSubscribingOrderbooks_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_getSubscribingOrderbooks_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_getSubscribingOrderbooks_3(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_getSubscribingOrderbooks_4(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
 
     std::cout << "Executed : " << pass+fail << "   Pass : " << pass << "   Fail : " << fail << std::endl;
 }

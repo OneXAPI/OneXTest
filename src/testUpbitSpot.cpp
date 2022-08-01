@@ -1044,3 +1044,104 @@ bool TC_UpbitSpot_getSubscribingTickers_4(testDataType& testData){
     }
     return false;
 }
+
+static const std::string getSubscribingOrderbooksExpectedResult = R"({"success":true,"data":{"orderbooks":[]}})";
+
+bool TC_UpbitSpot_getSubscribingOrderbooks_1(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingOrderbooks";
+        testData.expectedResult = getSubscribingOrderbooksExpectedResult;
+
+        OneXAPI::Upbit::Spot client;
+        std::string response = client.getSubscribingOrderbooks();
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_getSubscribingOrderbooks_2(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingOrderbooks";
+        testData.expectedResult = getSubscribingOrderbooksExpectedResult;
+
+        OneXAPI::Upbit::Spot client;
+        std::string input = "";
+        std::string response = client.getSubscribingOrderbooks(input);
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_getSubscribingOrderbooks_3(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingOrderbooks";
+        testData.expectedResult = getSubscribingOrderbooksExpectedResult;
+
+        OneXAPI::Upbit::Spot client;
+        std::string input = "{}";
+        std::string response = client.getSubscribingOrderbooks(input);
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_getSubscribingOrderbooks_4(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingOrderbooks";
+        testData.expectedResult = getSubscribingOrderbooksExpectedResult;
+
+        OneXAPI::Upbit::Spot client;
+        std::string input = "Bqbqb@";
+        std::string response = client.getSubscribingOrderbooks(input);
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
