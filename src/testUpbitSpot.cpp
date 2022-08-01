@@ -431,8 +431,8 @@ std::map<std::string, bool> hasExpectedResult = {
     {"fetchDepositHistory", true},
     {"fetchDepositAddress", true},
     {"isDepositCompleted", true},
-    {"subscribeBalance", true},
-    {"unsubscribeBalance", true},
+    {"subscribeBalance", false},
+    {"unsubscribeBalance", false},
     {"isSubscribingBalance", true},
     /* Trade */
     {"getOrderRoundingRule", true},
@@ -625,6 +625,309 @@ bool TC_UpbitSpot_has_6(testDataType& testData){
         OneXAPI::Upbit::Spot client;
         std::string input = R"({"api":"notExistApi"})";
         std::string response = client.has(input);
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+static const std::string subscribeBalanceExpectedResult = R"({"success":false,"data":{"errorType":"NOT_SUPPORTED_API","errorMsg":""}})";
+
+bool TC_UpbitSpot_subscribeBalance_1(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().subscribeBalance";
+        testData.expectedResult = subscribeBalanceExpectedResult;
+
+        OneXAPI::Upbit::Spot client;
+        std::string response = client.subscribeBalance();
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_subscribeBalance_2(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().subscribeBalance";
+        testData.expectedResult = subscribeBalanceExpectedResult;
+
+        OneXAPI::Upbit::Spot client;
+        std::string input = "";
+        std::string response = client.subscribeBalance(input);
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_subscribeBalance_3(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().subscribeBalance";
+        testData.expectedResult = subscribeBalanceExpectedResult;
+
+        OneXAPI::Upbit::Spot client;
+        std::string input = "{}";
+        std::string response = client.subscribeBalance(input);
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_subscribeBalance_4(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().subscribeBalance";
+        testData.expectedResult = subscribeBalanceExpectedResult;
+
+        OneXAPI::Upbit::Spot client;
+        std::string input = "Bqbqb@";
+        std::string response = client.subscribeBalance(input);
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+static const std::string unsubscribeBalanceExpectedResult = R"({"success":false,"data":{"errorType":"NOT_SUPPORTED_API","errorMsg":""}})";
+
+bool TC_UpbitSpot_unsubscribeBalance_1(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().subscribeBalance";
+        testData.expectedResult = unsubscribeBalanceExpectedResult;
+
+        OneXAPI::Upbit::Spot client;
+        std::string response = client.unsubscribeBalance();
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_unsubscribeBalance_2(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().subscribeBalance";
+        testData.expectedResult = unsubscribeBalanceExpectedResult;
+
+        OneXAPI::Upbit::Spot client;
+        std::string input = "";
+        std::string response = client.unsubscribeBalance(input);
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_unsubscribeBalance_3(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().subscribeBalance";
+        testData.expectedResult = unsubscribeBalanceExpectedResult;
+
+        OneXAPI::Upbit::Spot client;
+        std::string input = "{}";
+        std::string response = client.unsubscribeBalance(input);
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_unsubscribeBalance_4(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().subscribeBalance";
+        testData.expectedResult = unsubscribeBalanceExpectedResult;
+
+        OneXAPI::Upbit::Spot client;
+        std::string input = "Bqbqb@";
+        std::string response = client.unsubscribeBalance(input);
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+static const std::string isSubscribingBalanceExpectedResult = R"({"success":true,"data":{"isSubscribing":false}})";
+
+bool TC_UpbitSpot_isSubscribingBalance_1(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().subscribeBalance";
+        testData.expectedResult = isSubscribingBalanceExpectedResult;
+
+        OneXAPI::Upbit::Spot client;
+        std::string response = client.isSubscribingBalance();
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_isSubscribingBalance_2(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().subscribeBalance";
+        testData.expectedResult = isSubscribingBalanceExpectedResult;
+
+        OneXAPI::Upbit::Spot client;
+        std::string input = "";
+        std::string response = client.isSubscribingBalance(input);
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_isSubscribingBalance_3(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().subscribeBalance";
+        testData.expectedResult = isSubscribingBalanceExpectedResult;
+
+        OneXAPI::Upbit::Spot client;
+        std::string input = "{}";
+        std::string response = client.isSubscribingBalance(input);
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_isSubscribingBalance_4(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().subscribeBalance";
+        testData.expectedResult = isSubscribingBalanceExpectedResult;
+
+        OneXAPI::Upbit::Spot client;
+        std::string input = "Bqbqb@";
+        std::string response = client.isSubscribingBalance(input);
 
         testData.actualResult = response;
 

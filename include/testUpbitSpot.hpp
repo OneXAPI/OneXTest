@@ -27,3 +27,18 @@ extern bool TC_UpbitSpot_has_3(testDataType& testData);
 extern bool TC_UpbitSpot_has_4(testDataType& testData);
 extern bool TC_UpbitSpot_has_5(testDataType& testData);
 extern bool TC_UpbitSpot_has_6(testDataType& testData);
+
+extern bool TC_UpbitSpot_subscribeBalance_1(testDataType& testData);
+extern bool TC_UpbitSpot_subscribeBalance_2(testDataType& testData);
+extern bool TC_UpbitSpot_subscribeBalance_3(testDataType& testData);
+extern bool TC_UpbitSpot_subscribeBalance_4(testDataType& testData);
+
+extern bool TC_UpbitSpot_unsubscribeBalance_1(testDataType& testData);
+extern bool TC_UpbitSpot_unsubscribeBalance_2(testDataType& testData);
+extern bool TC_UpbitSpot_unsubscribeBalance_3(testDataType& testData);
+extern bool TC_UpbitSpot_unsubscribeBalance_4(testDataType& testData);
+
+extern bool TC_UpbitSpot_isSubscribingBalance_1(testDataType& testData);
+extern bool TC_UpbitSpot_isSubscribingBalance_2(testDataType& testData);
+extern bool TC_UpbitSpot_isSubscribingBalance_3(testDataType& testData);
+extern bool TC_UpbitSpot_isSubscribingBalance_4(testDataType& testData);
