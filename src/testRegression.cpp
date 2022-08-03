@@ -31,6 +31,36 @@ void regression(){
     result = TC_OneXAPI_getInfo_4(td);
     result?(pass++):(fail++);
     printResult(td, result);
+    result = TC_OneXAPI_getLoggerConfig_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_OneXAPI_getLoggerConfig_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_OneXAPI_getLoggerConfig_3(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_OneXAPI_getLoggerConfig_4(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_OneXAPI_setLoggerConfig_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_OneXAPI_setLoggerConfig_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_OneXAPI_setLoggerConfig_3(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_OneXAPI_setLoggerConfig_4(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_OneXAPI_setLoggerConfig_5(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_OneXAPI_setLoggerConfig_6(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
 
     /* UpbitSpot */
     result = TC_UpbitSpot_Object_1(td);
