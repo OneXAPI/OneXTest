@@ -1,4 +1,5 @@
 #include "../include/testUpbitSpot.hpp"
+#include "../include/testTool.hpp"
 #include <iostream>
 
 #define EXCEPTION_MSG               std::string("exception occurred : ") + e.what()
@@ -311,11 +312,256 @@ bool TC_UpbitSpot_getConfig_4(testDataType& testData){
     return false;
 }
 
+bool TC_UpbitSpot_setConfig_1(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().setConfig";
+        testData.expectedResult = R"({"success":false,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":""}})";
+
+        OneXAPI::Upbit::Spot client;
+
+        std::string response = client.setConfig("");
+
+        testData.actualResult = response;
+        
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_setConfig_2(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().setConfig";
+        testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0}})";
+
+        OneXAPI::Upbit::Spot client;
+
+        std::string response = client.setConfig("{}");
+
+        testData.actualResult = response;
+        
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_setConfig_3(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().setConfig";
+        testData.expectedResult = R"({"success":false,"data":{"errorType":"WRONG_VALUE_TYPE","errorMsg":"~~~"}})";
+        testData.actualResult.clear();
+
+        OneXAPI::Upbit::Spot client;
+        std::string input, response;
+
+        input = R"({"accessKey":1.1354})";
+        response = client.setConfig(input);
+        testData.actualResult.append(response + "\n");
+        if(!errorResponseChecker(response, "WRONG_VALUE_TYPE")){
+            return false;
+        }
+        input = R"({"secretKey":11354})";
+        response = client.setConfig(input);
+        testData.actualResult.append(response + "\n");
+        if(!errorResponseChecker(response, "WRONG_VALUE_TYPE")){
+            return false;
+        }
+        input = R"({"restEndpoint":null})";
+        response = client.setConfig(input);
+        testData.actualResult.append(response + "\n");
+        if(!errorResponseChecker(response, "WRONG_VALUE_TYPE")){
+            return false;
+        }
+        input = R"({"publicWebsocketEndpoint":true})";
+        response = client.setConfig(input);
+        testData.actualResult.append(response + "\n");
+        if(!errorResponseChecker(response, "WRONG_VALUE_TYPE")){
+            return false;
+        }
+        input = R"({"privateWebsocketEndpoint":{}})";
+        response = client.setConfig(input);
+        testData.actualResult.append(response + "\n");
+        if(!errorResponseChecker(response, "WRONG_VALUE_TYPE")){
+            return false;
+        }
+        input = R"({"restRequestTimeout":1.1354})";
+        response = client.setConfig(input);
+        testData.actualResult.append(response + "\n");
+        if(!errorResponseChecker(response, "WRONG_VALUE_TYPE")){
+            return false;
+        }
+        input = R"({"websocketConnectTimeout":"ffaew"})";
+        response = client.setConfig(input);
+        testData.actualResult.append(response + "\n");
+        if(!errorResponseChecker(response, "WRONG_VALUE_TYPE")){
+            return false;
+        }
+        input = R"({"websocketIdleTimeout":false})";
+        response = client.setConfig(input);
+        testData.actualResult.append(response + "\n");
+        if(!errorResponseChecker(response, "WRONG_VALUE_TYPE")){
+            return false;
+        }
+
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_setConfig_4(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().setConfig";
+        testData.expectedResult = R"({"success":false,"data":{"errorType":"WRONG_VALUE","errorMsg":"~~~"}})";
+        testData.actualResult.clear();
+
+        OneXAPI::Upbit::Spot client;
+        std::string input, response;
+
+        input = R"({"restEndpoint":"wrongEndpoint"})";
+        response = client.setConfig(input);
+        testData.actualResult.append(response + "\n");
+        if(!errorResponseChecker(response, "WRONG_VALUE")){
+            return false;
+        }
+        input = R"({"publicWebsocketEndpoint":"wrongEndpoint"})";
+        response = client.setConfig(input);
+        testData.actualResult.append(response + "\n");
+        if(!errorResponseChecker(response, "WRONG_VALUE")){
+            return false;
+        }
+        input = R"({"privateWebsocketEndpoint":"wrongEndpoint"})";
+        response = client.setConfig(input);
+        testData.actualResult.append(response + "\n");
+        if(!errorResponseChecker(response, "WRONG_VALUE")){
+            return false;
+        }
+
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_setConfig_5(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().setConfig";
+        testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"requestedKey":"requestedValue"}})";
+        testData.actualResult.clear();
+
+        OneXAPI::Upbit::Spot client;
+        std::string input, response;
+
+        std::vector<std::pair<std::string,std::string>> testList = {
+            {"accessKey",R"("test access key")"},
+            {"secretKey",R"("test secret key")"},
+            {"restEndpoint",R"("https://api.upbit.com/v1")"},
+            {"publicWebsocketEndpoint",R"("wss://api.upbit.com/websocket/v1")"},
+            {"restRequestTimeout","1378331"},
+            {"websocketConnectTimeout","3787123"},
+            {"websocketIdleTimeout","8941313531215"}
+        };
+        for(const auto& testItem : testList){
+            input = R"({")" + testItem.first + R"(":)" + testItem.second + R"(})";
+            response = client.setConfig(input);
+            testData.actualResult.append(response + "\n");
+
+            rapidjson::Document respDoc;
+            OneXAPI::Internal::Util::parseJson(respDoc, response);
+            if(!respDoc["success"].GetBool()){
+                return false;
+            }
+            else if(!respDoc["data"].HasMember(testItem.first)){
+                return false;
+            }
+            else if(respDoc["data"][testItem.first].IsString()){
+                std::string answer = boost::replace_all_copy(testItem.second, "\"", "");
+                if(answer.compare(respDoc["data"][testItem.first].GetString()) != 0){
+                    return false;
+                }
+            }
+            else if(respDoc["data"][testItem.first].IsUint64()){
+                if(testItem.second.compare(std::to_string(respDoc["data"][testItem.first].GetUint64())) != 0){
+                    return false;
+                }                
+            }
+            else{
+                return false;
+            }
+        }
+
+        response = client.getConfig();
+        testData.actualResult.append("getConfig result : \n" + response);
+        rapidjson::Document respDoc;
+        OneXAPI::Internal::Util::parseJson(respDoc, response);
+        for(const auto& testItem : testList){
+            if(!respDoc["success"].GetBool()){
+                return false;
+            }
+            else if(!respDoc["data"].HasMember(testItem.first)){
+                return false;
+            }
+            else if(respDoc["data"][testItem.first].IsString()){
+                std::string answer = boost::replace_all_copy(testItem.second, "\"", "");
+                if(answer.compare(respDoc["data"][testItem.first].GetString()) != 0){
+                    return false;
+                }
+            }
+            else if(respDoc["data"][testItem.first].IsUint64()){
+                if(testItem.second.compare(std::to_string(respDoc["data"][testItem.first].GetUint64())) != 0){
+                    return false;
+                }                
+            }
+            else{
+                return false;
+            }
+        }
+
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
 static const std::string getEndpointCandidatesExpectedResult = R"({"success":true,"data":{"requestedApiCount":0,"restEndpoints":["https://api.upbit.com/v1"],"publicWebsocketEndpoints":["wss://api.upbit.com/websocket/v1"],"privateWebsocketEndpoints":[]}})";
 
 bool TC_UpbitSpot_getEndpointCandidates_1(testDataType& testData){
     try{
-
         testData.testCaseId = __func__;
         testData.testSubject = "OneXAPI::Upbit::Spot().getEndpointCandidates";
         testData.expectedResult = getEndpointCandidatesExpectedResult;
@@ -442,7 +688,7 @@ std::map<std::string, bool> hasExpectedResult = {
     {"orderMarketBuy", true},
     {"orderMarketSell", true},
     {"orderCancel", true},
-    {"fetchTradingFee", false},
+    {"fetchTradingFee", true},
     {"fetchOrderInfo", true},
     {"fetchOpenOrders", true},
     /* Markets */
@@ -592,6 +838,7 @@ bool TC_UpbitSpot_has_5(testDataType& testData){
         testData.testCaseId = __func__;
         testData.testSubject = "OneXAPI::Upbit::Spot().has";
         testData.expectedResult.clear();
+        testData.actualResult.clear();
 
         OneXAPI::Upbit::Spot client;
 

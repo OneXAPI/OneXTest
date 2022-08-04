@@ -16,6 +16,12 @@ extern bool TC_UpbitSpot_getConfig_2(testDataType& testData);
 extern bool TC_UpbitSpot_getConfig_3(testDataType& testData);
 extern bool TC_UpbitSpot_getConfig_4(testDataType& testData);
 
+extern bool TC_UpbitSpot_setConfig_1(testDataType& testData);
+extern bool TC_UpbitSpot_setConfig_2(testDataType& testData);
+extern bool TC_UpbitSpot_setConfig_3(testDataType& testData);
+extern bool TC_UpbitSpot_setConfig_4(testDataType& testData);
+extern bool TC_UpbitSpot_setConfig_5(testDataType& testData);
+
 extern bool TC_UpbitSpot_getEndpointCandidates_1(testDataType& testData);
 extern bool TC_UpbitSpot_getEndpointCandidates_2(testDataType& testData);
 extern bool TC_UpbitSpot_getEndpointCandidates_3(testDataType& testData);
