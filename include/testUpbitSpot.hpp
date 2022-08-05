@@ -51,6 +51,9 @@ extern bool TC_UpbitSpot_fetchAllCurrencies_2(testDataType& testData);
 extern bool TC_UpbitSpot_fetchBalance_1(testDataType& testData);
 extern bool TC_UpbitSpot_fetchBalance_2(testDataType& testData);
 
+extern bool TC_UpbitSpot_fetchWalletStatus_1(testDataType& testData);
+extern bool TC_UpbitSpot_fetchWalletStatus_2(testDataType& testData);
+
 extern bool TC_UpbitSpot_subscribeBalance_1(testDataType& testData);
 extern bool TC_UpbitSpot_subscribeBalance_2(testDataType& testData);
 extern bool TC_UpbitSpot_subscribeBalance_3(testDataType& testData);

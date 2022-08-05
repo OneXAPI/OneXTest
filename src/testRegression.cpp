@@ -174,6 +174,12 @@ void regression(){
     result = TC_UpbitSpot_fetchBalance_2(td);
     result?(pass++):(fail++);
     printResult(td, result);
+    result = TC_UpbitSpot_fetchWalletStatus_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_fetchWalletStatus_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
     result = TC_UpbitSpot_subscribeBalance_1(td);
     result?(pass++):(fail++);
     printResult(td, result);

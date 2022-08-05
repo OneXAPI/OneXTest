@@ -1294,6 +1294,125 @@ bool TC_UpbitSpot_fetchBalance_2(testDataType& testData){
     return false;
 }
 
+bool TC_UpbitSpot_fetchWalletStatus_1(testDataType& testData){
+    try{
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().fetchWalletStatus";
+        testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["currencies"][currency]["chains"]
+            response["data"]["currencies"][currency]["chains"]["chain"] = "" response["data"]["currencies"][currency]["chains"]["withdrawEnable"] is bool
+            response["data"]["currencies"][currency]["chains"]["depositEnable"] is bool
+            and size of response["data"]["currencies"][currency]["chains"] must be 1)";
+        testData.actualResult.clear();
+
+        OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
+
+        std::string response = client.fetchWalletStatus(R"({})");
+        testData.actualResult = response;
+        rapidjson::Document respDoc;
+        OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+        if(!respDoc["success"].GetBool()){
+            return false;
+        }
+        else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+            return false;
+        }
+        else if(respDoc["data"]["currencies"].MemberCount() == 0){
+            return false;
+        }
+        for(auto currencyPtr = respDoc["data"]["currencies"].MemberBegin(); currencyPtr != respDoc["data"]["currencies"].MemberEnd(); currencyPtr++){
+            if(!currencyPtr->name.IsString()){
+                return false;
+            }
+            else if(!currencyPtr->value["chains"].IsArray()){
+                return false;
+            }
+            else if(currencyPtr->value["chains"].Size() != 1){
+                return false;
+            }
+            else if(std::string("").compare(currencyPtr->value["chains"][0]["chain"].GetString()) != 0){
+                return false;
+            }
+            else if(!currencyPtr->value["chains"][0]["withdrawEnable"].IsBool()){
+                return false;
+            }
+            else if(!currencyPtr->value["chains"][0]["depositEnable"].IsBool()){
+                return false;
+            }
+        }
+
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_fetchWalletStatus_2(testDataType& testData){
+    try{
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().fetchWalletStatus";
+        testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["currencies"][currency]["chains"]
+            response["data"]["currencies"][currency]["chains"]["chain"] = "" response["data"]["currencies"][currency]["chains"]["withdrawEnable"] is bool
+            response["data"]["currencies"][currency]["chains"]["depositEnable"] is bool
+            size of response["data"]["currencies"] is 1
+            and size of response["data"]["currencies"][currency]["chains"] must be 1)";
+        testData.actualResult.clear();
+
+        OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
+
+        std::string response = client.fetchWalletStatus(R"({"currency":"bTC"})");
+        testData.actualResult = response;
+        rapidjson::Document respDoc;
+        OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+        if(!respDoc["success"].GetBool()){
+            return false;
+        }
+        else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+            return false;
+        }
+        else if(respDoc["data"]["currencies"].MemberCount() != 1){
+            return false;
+        }
+        for(auto currencyPtr = respDoc["data"]["currencies"].MemberBegin(); currencyPtr != respDoc["data"]["currencies"].MemberEnd(); currencyPtr++){
+            if(!currencyPtr->name.IsString()){
+                return false;
+            }
+            else if(!currencyPtr->value["chains"].IsArray()){
+                return false;
+            }
+            else if(currencyPtr->value["chains"].Size() != 1){
+                return false;
+            }
+            else if(std::string("").compare(currencyPtr->value["chains"][0]["chain"].GetString()) != 0){
+                return false;
+            }
+            else if(!currencyPtr->value["chains"][0]["withdrawEnable"].IsBool()){
+                return false;
+            }
+            else if(!currencyPtr->value["chains"][0]["depositEnable"].IsBool()){
+                return false;
+            }
+        }
+
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
 static const std::string subscribeBalanceExpectedResult = R"({"success":false,"data":{"errorType":"NOT_SUPPORTED_API","errorMsg":"~~~"}})";
 
 bool TC_UpbitSpot_subscribeBalance_1(testDataType& testData){
