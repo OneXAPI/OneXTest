@@ -941,6 +941,66 @@ bool TC_UpbitSpot_getWithdrawRoundingRule_2(testDataType& testData){
     return false;
 }
 
+bool TC_UpbitSpot_setWithdrawRoundingRule_1(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().setWithdrawRoundingRule";
+        testData.expectedResult = R"({"success":false,"data":{"errorType":"WRONG_VALUE","errorMsg":"~~~"}})";
+
+        OneXAPI::Upbit::Spot client;
+        std::string input = R"({"roundingRule":"wrongData"})";
+        std::string response = client.setWithdrawRoundingRule(input);
+
+        testData.actualResult = response;
+
+        if(!errorResponseChecker(response, "WRONG_VALUE")){
+            return false;
+        }
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_setWithdrawRoundingRule_2(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().setWithdrawRoundingRule";
+        testData.expectedResult.clear();
+        testData.actualResult.clear();
+        std::string getCheckStr = "";
+        OneXAPI::Upbit::Spot client;
+        std::vector<std::string> testList = {
+            "ceil",
+            "floor",
+            "round"
+        };
+        for(const auto& testItem : testList){
+            testData.expectedResult.append(R"({"success":true,"data":{"requestedApiCount":0,"roundingRule":")" + testItem + R"("}})" + "\n");
+            std::string input = R"({"roundingRule":")" + testItem + R"("})";
+            std::string response = client.setWithdrawRoundingRule(input);
+            
+            testData.actualResult.append(response + "\n");
+            getCheckStr.append(client.getWithdrawRoundingRule() + "\n");
+        }
+        if(testData.actualResult.compare(testData.expectedResult) == 0 && getCheckStr.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
 static const std::string subscribeBalanceExpectedResult = R"({"success":false,"data":{"errorType":"NOT_SUPPORTED_API","errorMsg":"~~~"}})";
 
 bool TC_UpbitSpot_subscribeBalance_1(testDataType& testData){

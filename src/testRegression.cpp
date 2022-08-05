@@ -147,6 +147,12 @@ void regression(){
     result = TC_UpbitSpot_getWithdrawRoundingRule_2(td);
     result?(pass++):(fail++);
     printResult(td, result);
+    result = TC_UpbitSpot_setWithdrawRoundingRule_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_setWithdrawRoundingRule_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
     result = TC_UpbitSpot_subscribeBalance_1(td);
     result?(pass++):(fail++);
     printResult(td, result);
