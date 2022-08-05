@@ -941,7 +941,7 @@ bool TC_UpbitSpot_getWithdrawRoundingRule_2(testDataType& testData){
     return false;
 }
 
-static const std::string subscribeBalanceExpectedResult = R"({"success":false,"data":{"errorType":"NOT_SUPPORTED_API","errorMsg":""}})";
+static const std::string subscribeBalanceExpectedResult = R"({"success":false,"data":{"errorType":"NOT_SUPPORTED_API","errorMsg":"~~~"}})";
 
 bool TC_UpbitSpot_subscribeBalance_1(testDataType& testData){
     try{
@@ -954,7 +954,7 @@ bool TC_UpbitSpot_subscribeBalance_1(testDataType& testData){
 
         testData.actualResult = response;
 
-        if(response.compare(testData.expectedResult) == 0){
+        if(errorResponseChecker(response, "NOT_SUPPORTED_API")){
             return true;
         }
     }
@@ -979,7 +979,7 @@ bool TC_UpbitSpot_subscribeBalance_2(testDataType& testData){
 
         testData.actualResult = response;
 
-        if(response.compare(testData.expectedResult) == 0){
+        if(errorResponseChecker(response, "NOT_SUPPORTED_API")){
             return true;
         }
     }
@@ -1004,7 +1004,7 @@ bool TC_UpbitSpot_subscribeBalance_3(testDataType& testData){
 
         testData.actualResult = response;
 
-        if(response.compare(testData.expectedResult) == 0){
+        if(errorResponseChecker(response, "NOT_SUPPORTED_API")){
             return true;
         }
     }
@@ -1029,7 +1029,7 @@ bool TC_UpbitSpot_subscribeBalance_4(testDataType& testData){
 
         testData.actualResult = response;
 
-        if(response.compare(testData.expectedResult) == 0){
+        if(errorResponseChecker(response, "NOT_SUPPORTED_API")){
             return true;
         }
     }
@@ -1055,7 +1055,7 @@ bool TC_UpbitSpot_unsubscribeBalance_1(testDataType& testData){
 
         testData.actualResult = response;
 
-        if(response.compare(testData.expectedResult) == 0){
+        if(errorResponseChecker(response, "NOT_SUPPORTED_API")){
             return true;
         }
     }
@@ -1080,7 +1080,7 @@ bool TC_UpbitSpot_unsubscribeBalance_2(testDataType& testData){
 
         testData.actualResult = response;
 
-        if(response.compare(testData.expectedResult) == 0){
+        if(errorResponseChecker(response, "NOT_SUPPORTED_API")){
             return true;
         }
     }
@@ -1105,7 +1105,7 @@ bool TC_UpbitSpot_unsubscribeBalance_3(testDataType& testData){
 
         testData.actualResult = response;
 
-        if(response.compare(testData.expectedResult) == 0){
+        if(errorResponseChecker(response, "NOT_SUPPORTED_API")){
             return true;
         }
     }
@@ -1130,7 +1130,7 @@ bool TC_UpbitSpot_unsubscribeBalance_4(testDataType& testData){
 
         testData.actualResult = response;
 
-        if(response.compare(testData.expectedResult) == 0){
+        if(errorResponseChecker(response, "NOT_SUPPORTED_API")){
             return true;
         }
     }
