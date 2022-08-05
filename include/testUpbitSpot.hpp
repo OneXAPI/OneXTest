@@ -40,6 +40,13 @@ extern bool TC_UpbitSpot_getWithdrawRoundingRule_2(testDataType& testData);
 extern bool TC_UpbitSpot_setWithdrawRoundingRule_1(testDataType& testData);
 extern bool TC_UpbitSpot_setWithdrawRoundingRule_2(testDataType& testData);
 
+extern bool TC_UpbitSpot_withdraw_1(testDataType& testData);
+extern bool TC_UpbitSpot_withdraw_2(testDataType& testData);
+extern bool TC_UpbitSpot_withdraw_3(testDataType& testData);
+
+extern bool TC_UpbitSpot_fetchAllCurrencies_1(testDataType& testData);
+extern bool TC_UpbitSpot_fetchAllCurrencies_2(testDataType& testData);
+
 extern bool TC_UpbitSpot_subscribeBalance_1(testDataType& testData);
 extern bool TC_UpbitSpot_subscribeBalance_2(testDataType& testData);
 extern bool TC_UpbitSpot_subscribeBalance_3(testDataType& testData);
