@@ -1,4 +1,5 @@
 #include "../include/testOneXAPI.hpp"
+#include "../include/testTool.hpp"
 
 #define EXCEPTION_MSG               std::string("exception occurred : ") + e.what()
 #define UNEXPECTED_EXCEPTION_MSG    "unexpected exception occurred"
@@ -310,7 +311,7 @@ bool TC_OneXAPI_setLoggerConfig_5(testDataType& testData){
     try{
         testData.testCaseId = __func__;
         testData.testSubject = "OneXAPI::setLoggerConfig";
-        testData.expectedResult = R"({"success":true,"data":{"main":{"outputMethod":"file","logLevel":"off"},"websocket":{"outputMethod":"terminal","logLevel":"off"}}})";
+        testData.expectedResult = R"({"success":false,"data":{"errorType":"WRONG_VALUE","errorMsg":"~~~"}})";
 
         // {
         //     "main":{
@@ -328,7 +329,7 @@ bool TC_OneXAPI_setLoggerConfig_5(testDataType& testData){
 
         testData.actualResult = response;
 
-        if(response.compare(testData.expectedResult) == 0){
+        if(errorResponseChecker(response, "WRONG_VALUE")){
             return true;
         }
     }
