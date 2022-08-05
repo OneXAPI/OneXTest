@@ -2,6 +2,7 @@
 
 #include "OneXAPI.hpp"
 #include "testDataTypes.hpp"
+#include "testKeys.hpp"
 
 extern bool TC_UpbitSpot_Object_1(testDataType& testData);
 extern bool TC_UpbitSpot_Object_2(testDataType& testData);
@@ -46,6 +47,9 @@ extern bool TC_UpbitSpot_withdraw_3(testDataType& testData);
 
 extern bool TC_UpbitSpot_fetchAllCurrencies_1(testDataType& testData);
 extern bool TC_UpbitSpot_fetchAllCurrencies_2(testDataType& testData);
+
+extern bool TC_UpbitSpot_fetchBalance_1(testDataType& testData);
+extern bool TC_UpbitSpot_fetchBalance_2(testDataType& testData);
 
 extern bool TC_UpbitSpot_subscribeBalance_1(testDataType& testData);
 extern bool TC_UpbitSpot_subscribeBalance_2(testDataType& testData);

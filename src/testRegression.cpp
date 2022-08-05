@@ -168,6 +168,12 @@ void regression(){
     result = TC_UpbitSpot_fetchAllCurrencies_2(td);
     result?(pass++):(fail++);
     printResult(td, result);
+    result = TC_UpbitSpot_fetchBalance_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_fetchBalance_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
     result = TC_UpbitSpot_subscribeBalance_1(td);
     result?(pass++):(fail++);
     printResult(td, result);
