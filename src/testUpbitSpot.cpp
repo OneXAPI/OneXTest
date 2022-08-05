@@ -820,9 +820,10 @@ bool TC_UpbitSpot_has_4(testDataType& testData){
 
         testData.actualResult = response;
 
-        if(response.compare(testData.expectedResult) == 0){
-            return true;
+        if(!errorResponseChecker(response, "JSON_PARSING_ERROR")){
+            return false;
         }
+        return true;
     }
     catch(std::exception& e){
         testData.actualResult = EXCEPTION_MSG;
@@ -867,11 +868,63 @@ bool TC_UpbitSpot_has_6(testDataType& testData){
     try{
         testData.testCaseId = __func__;
         testData.testSubject = "OneXAPI::Upbit::Spot().has";
-        testData.expectedResult = R"({"success":false,"data":{"errorType":"WRONG_VALUE","errorMsg":"SPOT does not have an API - notExistApi"}})";
+        testData.expectedResult = R"({"success":false,"data":{"errorType":"WRONG_VALUE","errorMsg":"~~~"}})";
 
         OneXAPI::Upbit::Spot client;
         std::string input = R"({"api":"notExistApi"})";
         std::string response = client.has(input);
+
+        testData.actualResult = response;
+
+        if(!errorResponseChecker(response, "WRONG_VALUE")){
+            return false;
+        }
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+static const std::string getWithdrawRoundingRuleExpectedResult = R"({"success":true,"data":{"requestedApiCount":0,"roundingRule":"round"}})";
+
+bool TC_UpbitSpot_getWithdrawRoundingRule_1(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().getWithdrawRoundingRule";
+        testData.expectedResult = getWithdrawRoundingRuleExpectedResult;
+
+        OneXAPI::Upbit::Spot client;
+        std::string response = client.getWithdrawRoundingRule();
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_getWithdrawRoundingRule_2(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().getWithdrawRoundingRule";
+        testData.expectedResult = getWithdrawRoundingRuleExpectedResult;
+
+        OneXAPI::Upbit::Spot client;
+        std::string input = R"({})";
+        std::string response = client.getWithdrawRoundingRule(input);
 
         testData.actualResult = response;
 
