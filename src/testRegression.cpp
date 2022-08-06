@@ -62,6 +62,8 @@ void regression(){
     result?(pass++):(fail++);
     printResult(td, result);
 
+    WS_LOGGER.setLevel("info");
+	WS_LOGGER.setMethod("file");
     /* UpbitSpot */
     result = TC_UpbitSpot_Object_1(td);
     result?(pass++):(fail++);
@@ -189,6 +191,9 @@ void regression(){
     result = TC_UpbitSpot_getSubscribingTickers_4(td);
     result?(pass++):(fail++);
     printResult(td, result);
+    result = TC_UpbitSpot_getSubscribingTickers_5(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
     result = TC_UpbitSpot_getSubscribingOrderbooks_1(td);
     result?(pass++):(fail++);
     printResult(td, result);
@@ -201,6 +206,37 @@ void regression(){
     result = TC_UpbitSpot_getSubscribingOrderbooks_4(td);
     result?(pass++):(fail++);
     printResult(td, result);
-
+    result = TC_UpbitSpot_getSubscribingOrderbooks_5(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_subscribeTicker_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_subscribeTicker_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_subscribeTicker_3(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_subscribeTicker_4(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_unsubscribeTicker_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_unsubscribeTicker_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_unsubscribeTicker_3(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_unsubscribeTicker_4(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_unsubscribeTicker_5(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    
     std::cout << "Executed : " << pass+fail << "   Pass : " << pass << "   Fail : " << fail << std::endl;
+    WS_LOGGER.info("regression end");
 }
