@@ -2,6 +2,7 @@
 #include "../include/testTool.hpp"
 #include <iostream>
 
+
 #define EXCEPTION_MSG               std::string("exception occurred : ") + e.what()
 #define UNEXPECTED_EXCEPTION_MSG    "unexpected exception occurred"
 
@@ -820,9 +821,10 @@ bool TC_UpbitSpot_has_4(testDataType& testData){
 
         testData.actualResult = response;
 
-        if(response.compare(testData.expectedResult) == 0){
-            return true;
+        if(!errorResponseChecker(response, "JSON_PARSING_ERROR")){
+            return false;
         }
+        return true;
     }
     catch(std::exception& e){
         testData.actualResult = EXCEPTION_MSG;
@@ -867,7 +869,7 @@ bool TC_UpbitSpot_has_6(testDataType& testData){
     try{
         testData.testCaseId = __func__;
         testData.testSubject = "OneXAPI::Upbit::Spot().has";
-        testData.expectedResult = R"({"success":false,"data":{"errorType":"WRONG_VALUE","errorMsg":"SPOT does not have an API - notExistApi"}})";
+        testData.expectedResult = R"({"success":false,"data":{"errorType":"WRONG_VALUE","errorMsg":"~~~"}})";
 
         OneXAPI::Upbit::Spot client;
         std::string input = R"({"api":"notExistApi"})";
@@ -875,9 +877,532 @@ bool TC_UpbitSpot_has_6(testDataType& testData){
 
         testData.actualResult = response;
 
+        if(!errorResponseChecker(response, "WRONG_VALUE")){
+            return false;
+        }
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+static const std::string getWithdrawRoundingRuleExpectedResult = R"({"success":true,"data":{"requestedApiCount":0,"roundingRule":"round"}})";
+
+bool TC_UpbitSpot_getWithdrawRoundingRule_1(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().getWithdrawRoundingRule";
+        testData.expectedResult = getWithdrawRoundingRuleExpectedResult;
+
+        OneXAPI::Upbit::Spot client;
+        std::string response = client.getWithdrawRoundingRule();
+
+        testData.actualResult = response;
+
         if(response.compare(testData.expectedResult) == 0){
             return true;
         }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_getWithdrawRoundingRule_2(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().getWithdrawRoundingRule";
+        testData.expectedResult = getWithdrawRoundingRuleExpectedResult;
+
+        OneXAPI::Upbit::Spot client;
+        std::string input = R"({})";
+        std::string response = client.getWithdrawRoundingRule(input);
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_setWithdrawRoundingRule_1(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().setWithdrawRoundingRule";
+        testData.expectedResult = R"({"success":false,"data":{"errorType":"WRONG_VALUE","errorMsg":"~~~"}})";
+
+        OneXAPI::Upbit::Spot client;
+        std::string input = R"({"roundingRule":"wrongData"})";
+        std::string response = client.setWithdrawRoundingRule(input);
+
+        testData.actualResult = response;
+
+        if(!errorResponseChecker(response, "WRONG_VALUE")){
+            return false;
+        }
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_setWithdrawRoundingRule_2(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().setWithdrawRoundingRule";
+        testData.expectedResult.clear();
+        testData.actualResult.clear();
+        std::string getCheckStr = "";
+        OneXAPI::Upbit::Spot client;
+        std::vector<std::string> testList = {
+            "ceil",
+            "floor",
+            "round"
+        };
+        for(const auto& testItem : testList){
+            testData.expectedResult.append(R"({"success":true,"data":{"requestedApiCount":0,"roundingRule":")" + testItem + R"("}})" + "\n");
+            std::string input = R"({"roundingRule":")" + testItem + R"("})";
+            std::string response = client.setWithdrawRoundingRule(input);
+            
+            testData.actualResult.append(response + "\n");
+            getCheckStr.append(client.getWithdrawRoundingRule() + "\n");
+        }
+        if(testData.actualResult.compare(testData.expectedResult) == 0 && getCheckStr.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_withdraw_1(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().withdraw";
+        testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+        testData.actualResult.clear();
+        std::vector<std::string> testList = {
+            R"({"currency":"bTc","address":"0x1345"})",
+            R"({"currency":"bTc","amount":1.535478})",
+            R"({"address":"fwlnvlwnlkfsd","amount":13384.13541345})"
+        };
+        OneXAPI::Upbit::Spot client;
+
+        for(const auto& testItem : testList){
+            std::string response = client.withdraw(testItem);
+            
+            testData.actualResult.append(response + "\n");
+
+            if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+                return false;
+            }
+        }
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_withdraw_2(testDataType& testData){
+    try{
+        std::string loggerLevel = LOGGER.getLevel();
+        LOGGER.setLevel("info");
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+        uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().withdraw";
+        std::string findValue1 = R"(METHOD: GET, URL: https://api.upbit.com/v1/withdraws/chance?currency=ADA)";
+        std::string findValue2 = R"(METHOD: POST, URL: https://api.upbit.com/v1/withdraws/coin?currency=ADA&amount=134.623436&address=wrongAddress&transaction_type=default, BODYDATA:)";
+        testData.expectedResult = findValue1 + "\nand\n" + findValue2;            
+        testData.actualResult.clear();
+        std::string input = R"({"currency":"aDA","address":"wrongAddress","amount":135.1234358})";
+        OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
+
+        client.withdraw(input);
+        std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+        std::string response = getLog(testStartTime);
+        testData.actualResult = response;
+
+        if(response.find(findValue1) != std::string::npos && response.find(findValue2) != std::string::npos){
+            return true;
+        }
+
+        LOGGER.setLevel(loggerLevel);
+        
+        return false;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_withdraw_3(testDataType& testData){
+    try{
+        std::string loggerLevel = LOGGER.getLevel();
+        LOGGER.setLevel("info");
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+        uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().withdraw";
+        std::string findValue1 = R"(METHOD: GET, URL: https://api.upbit.com/v1/withdraws/chance?currency=ADA)";
+        std::string findValue2 = R"(METHOD: POST, URL: https://api.upbit.com/v1/withdraws/coin?currency=ADA&amount=135.123436&address=wrongAddress&secondary_address=wrongTag&transaction_type=internal, BODYDATA:)";
+        testData.expectedResult = findValue1 + "\nand\n" + findValue2;            
+        testData.actualResult.clear();
+        std::string input = R"({"currency":"aDA","address":"wrongAddress","tag":"wrongTag","amount":135.1234358,"feeInAmount":false,"internal":true})";
+        OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
+
+        client.withdraw(input);
+        std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+        std::string response = getLog(testStartTime);
+        testData.actualResult = response;
+
+        if(response.find(findValue1) != std::string::npos && response.find(findValue2) != std::string::npos){
+            return true;
+        }
+
+        LOGGER.setLevel(loggerLevel);
+        
+        return false;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_fetchAllCurrencies_1(testDataType& testData){
+    try{
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().fetchAllCurrencies";
+        testData.expectedResult = R"(response["success"]:true, response["data"]["requestedApiCount"]:1, response["data"]["currencies"][currency]["chains"]:empty array)";
+
+        OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
+
+        std::string response = client.fetchAllCurrencies();
+        testData.actualResult = response;
+        rapidjson::Document respDoc;
+        OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+        if(!respDoc["success"].GetBool()){
+            return false;
+        }
+        else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+            return false;
+        }
+        else if(respDoc["data"]["currencies"].MemberCount() == 0){
+            return false;
+        }
+
+        for(auto currencyPtr = respDoc["data"]["currencies"].MemberBegin(); currencyPtr != respDoc["data"]["currencies"].MemberEnd(); currencyPtr++){
+            if(!currencyPtr->name.IsString()){
+                return false;
+            }
+            if(currencyPtr->value["chains"].Size() != 0){
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_fetchAllCurrencies_2(testDataType& testData){
+    try{
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().fetchAllCurrencies";
+        testData.expectedResult = R"(response["success"]:true, response["data"]["requestedApiCount"]:1, response["data"]["currencies"][currency]["chains"]:empty array)";
+
+        OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
+
+        std::string response = client.fetchAllCurrencies();
+        testData.actualResult = response;
+        rapidjson::Document respDoc;
+        OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+        if(!respDoc["success"].GetBool()){
+            return false;
+        }
+        else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+            return false;
+        }
+        else if(respDoc["data"]["currencies"].MemberCount() == 0){
+            return false;
+        }
+
+        for(auto currencyPtr = respDoc["data"]["currencies"].MemberBegin(); currencyPtr != respDoc["data"]["currencies"].MemberEnd(); currencyPtr++){
+            if(!currencyPtr->name.IsString()){
+                return false;
+            }
+            if(currencyPtr->value["chains"].Size() != 0){
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_fetchBalance_1(testDataType& testData){
+    try{
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().fetchBalance";
+        testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["fetchType"]:"rest"
+            response["data"]["balance"][currency]["free"]:string response["data"]["balance"][currency]["locked"]:string)";
+        testData.actualResult.clear();
+
+        OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
+
+        std::string response = client.fetchBalance(R"({"currencies":[]})");
+        testData.actualResult = response;
+        rapidjson::Document respDoc;
+        OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+        if(!respDoc["success"].GetBool()){
+            return false;
+        }
+        else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+            return false;
+        }
+        for(auto balancePtr = respDoc["data"]["balance"].MemberBegin(); balancePtr != respDoc["data"]["balance"].MemberEnd(); balancePtr++){
+            if(!balancePtr->name.IsString()){
+                return false;
+            }
+            else if(!balancePtr->value["free"].IsString()){
+                return false;
+            }
+            else if(!balancePtr->value["locked"].IsString()){
+                return false;
+            }
+        }
+
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_fetchBalance_2(testDataType& testData){
+    try{
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().fetchBalance";
+        testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:2 response["data"]["fetchType"]:"rest" 
+            response["data"]["balance"][currency]["free"]:string response["data"]["balance"][currency]["locked"]:string 
+            and member count of response["data"]["balance"] is 3)";
+        testData.actualResult.clear();
+
+        OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
+
+        std::string response = client.fetchBalance(R"({"currencies":["bTc","xRP","eTh"],"zeroBalance":true})");
+        testData.actualResult = response;
+        rapidjson::Document respDoc;
+        OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+        if(!respDoc["success"].GetBool()){
+            return false;
+        }
+        else if(respDoc["data"]["requestedApiCount"].GetUint64() != 2){
+            return false;
+        }
+        else if(respDoc["data"]["balance"].MemberCount() != 3){
+            return false;
+        }
+
+        for(auto balancePtr = respDoc["data"]["balance"].MemberBegin(); balancePtr != respDoc["data"]["balance"].MemberEnd(); balancePtr++){
+            if(!balancePtr->name.IsString()){
+                return false;
+            }
+            else if(!balancePtr->value["free"].IsString()){
+                return false;
+            }
+            else if(!balancePtr->value["locked"].IsString()){
+                return false;
+            }
+        }
+
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_fetchWalletStatus_1(testDataType& testData){
+    try{
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().fetchWalletStatus";
+        testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["currencies"][currency]["chains"]
+            response["data"]["currencies"][currency]["chains"]["chain"] = "" response["data"]["currencies"][currency]["chains"]["withdrawEnable"] is bool
+            response["data"]["currencies"][currency]["chains"]["depositEnable"] is bool
+            and size of response["data"]["currencies"][currency]["chains"] must be 1)";
+        testData.actualResult.clear();
+
+        OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
+
+        std::string response = client.fetchWalletStatus(R"({})");
+        testData.actualResult = response;
+        rapidjson::Document respDoc;
+        OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+        if(!respDoc["success"].GetBool()){
+            return false;
+        }
+        else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+            return false;
+        }
+        else if(respDoc["data"]["currencies"].MemberCount() == 0){
+            return false;
+        }
+        for(auto currencyPtr = respDoc["data"]["currencies"].MemberBegin(); currencyPtr != respDoc["data"]["currencies"].MemberEnd(); currencyPtr++){
+            if(!currencyPtr->name.IsString()){
+                return false;
+            }
+            else if(!currencyPtr->value["chains"].IsArray()){
+                return false;
+            }
+            else if(currencyPtr->value["chains"].Size() != 1){
+                return false;
+            }
+            else if(std::string("").compare(currencyPtr->value["chains"][0]["chain"].GetString()) != 0){
+                return false;
+            }
+            else if(!currencyPtr->value["chains"][0]["withdrawEnable"].IsBool()){
+                return false;
+            }
+            else if(!currencyPtr->value["chains"][0]["depositEnable"].IsBool()){
+                return false;
+            }
+        }
+
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_fetchWalletStatus_2(testDataType& testData){
+    try{
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().fetchWalletStatus";
+        testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["currencies"][currency]["chains"]
+            response["data"]["currencies"][currency]["chains"]["chain"] = "" response["data"]["currencies"][currency]["chains"]["withdrawEnable"] is bool
+            response["data"]["currencies"][currency]["chains"]["depositEnable"] is bool
+            size of response["data"]["currencies"] is 1
+            and size of response["data"]["currencies"][currency]["chains"] must be 1)";
+        testData.actualResult.clear();
+
+        OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
+
+        std::string response = client.fetchWalletStatus(R"({"currency":"bTC"})");
+        testData.actualResult = response;
+        rapidjson::Document respDoc;
+        OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+        if(!respDoc["success"].GetBool()){
+            return false;
+        }
+        else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+            return false;
+        }
+        else if(respDoc["data"]["currencies"].MemberCount() != 1){
+            return false;
+        }
+        for(auto currencyPtr = respDoc["data"]["currencies"].MemberBegin(); currencyPtr != respDoc["data"]["currencies"].MemberEnd(); currencyPtr++){
+            if(!currencyPtr->name.IsString()){
+                return false;
+            }
+            else if(!currencyPtr->value["chains"].IsArray()){
+                return false;
+            }
+            else if(currencyPtr->value["chains"].Size() != 1){
+                return false;
+            }
+            else if(std::string("").compare(currencyPtr->value["chains"][0]["chain"].GetString()) != 0){
+                return false;
+            }
+            else if(!currencyPtr->value["chains"][0]["withdrawEnable"].IsBool()){
+                return false;
+            }
+            else if(!currencyPtr->value["chains"][0]["depositEnable"].IsBool()){
+                return false;
+            }
+        }
+
+        return true;
     }
     catch(std::exception& e){
         testData.actualResult = EXCEPTION_MSG;

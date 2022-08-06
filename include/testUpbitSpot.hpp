@@ -2,6 +2,7 @@
 
 #include "OneXAPI.hpp"
 #include "testDataTypes.hpp"
+#include "testKeys.hpp"
 
 extern bool TC_UpbitSpot_Object_1(testDataType& testData);
 extern bool TC_UpbitSpot_Object_2(testDataType& testData);
@@ -33,6 +34,25 @@ extern bool TC_UpbitSpot_has_3(testDataType& testData);
 extern bool TC_UpbitSpot_has_4(testDataType& testData);
 extern bool TC_UpbitSpot_has_5(testDataType& testData);
 extern bool TC_UpbitSpot_has_6(testDataType& testData);
+
+extern bool TC_UpbitSpot_getWithdrawRoundingRule_1(testDataType& testData);
+extern bool TC_UpbitSpot_getWithdrawRoundingRule_2(testDataType& testData);
+
+extern bool TC_UpbitSpot_setWithdrawRoundingRule_1(testDataType& testData);
+extern bool TC_UpbitSpot_setWithdrawRoundingRule_2(testDataType& testData);
+
+extern bool TC_UpbitSpot_withdraw_1(testDataType& testData);
+extern bool TC_UpbitSpot_withdraw_2(testDataType& testData);
+extern bool TC_UpbitSpot_withdraw_3(testDataType& testData);
+
+extern bool TC_UpbitSpot_fetchAllCurrencies_1(testDataType& testData);
+extern bool TC_UpbitSpot_fetchAllCurrencies_2(testDataType& testData);
+
+extern bool TC_UpbitSpot_fetchBalance_1(testDataType& testData);
+extern bool TC_UpbitSpot_fetchBalance_2(testDataType& testData);
+
+extern bool TC_UpbitSpot_fetchWalletStatus_1(testDataType& testData);
+extern bool TC_UpbitSpot_fetchWalletStatus_2(testDataType& testData);
 
 extern bool TC_UpbitSpot_subscribeBalance_1(testDataType& testData);
 extern bool TC_UpbitSpot_subscribeBalance_2(testDataType& testData);
