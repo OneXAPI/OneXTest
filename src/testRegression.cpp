@@ -246,6 +246,18 @@ void regression(){
     result = TC_UpbitSpot_isSubscribingBalance_4(td);
     result?(pass++):(fail++);
     printResult(td, result);
+    result = TC_UpbitSpot_getOrderRoundingRule_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_getOrderRoundingRule_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_setOrderRoundingRule_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_setOrderRoundingRule_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
     result = TC_UpbitSpot_getSubscribingTickers_1(td);
     result?(pass++):(fail++);
     printResult(td, result);

@@ -2138,6 +2138,133 @@ bool TC_UpbitSpot_isSubscribingBalance_4(testDataType& testData){
     return false;
 }
 
+static const std::string getOrderRoundingRuleExpectedResult = R"({"success":true,"data":{"requestedApiCount":0,"limitBuyPrice":"round","limitBuyBaseAmount":"round","limitSellPrice":"round","limitSellBaseAmount":"round","marketBuyQuoteAmount":"round","marketSellBaseAmount":"round"}})";
+
+bool TC_UpbitSpot_getOrderRoundingRule_1(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().getOrderRoundingRule";
+        testData.expectedResult = getOrderRoundingRuleExpectedResult;
+
+        OneXAPI::Upbit::Spot client;
+        std::string response = client.getOrderRoundingRule();
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_getOrderRoundingRule_2(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().getOrderRoundingRule";
+        testData.expectedResult = getOrderRoundingRuleExpectedResult;
+
+        OneXAPI::Upbit::Spot client;
+        std::string input = "";
+        std::string response = client.getOrderRoundingRule(input);
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_setOrderRoundingRule_1(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().setOrderRoundingRule";
+        testData.expectedResult = R"({"success":false,"data":{"errorType":"WRONG_VALUE","errorMsg":"~~~"}})";
+
+        OneXAPI::Upbit::Spot client;
+        std::string input = R"({"limitBuyBaseAmount":"wrongData"})";
+        std::string response = client.setOrderRoundingRule(input);
+
+        testData.actualResult = response;
+
+        if(!errorResponseChecker(response, "WRONG_VALUE")){
+            return false;
+        }
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_setOrderRoundingRule_2(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().setOrderRoundingRule";
+        testData.expectedResult.clear();
+        testData.actualResult.clear();
+        std::string getCheckStr = "";
+        std::string getExpectedResult = "";
+        getExpectedResult.append(R"({"success":true,"data":{"requestedApiCount":0,"limitBuyPrice":"ceil","limitBuyBaseAmount":"ceil","limitSellPrice":"ceil","limitSellBaseAmount":"ceil","marketBuyQuoteAmount":"ceil","marketSellBaseAmount":"ceil"}})").append("\n");
+        getExpectedResult.append(R"({"success":true,"data":{"requestedApiCount":0,"limitBuyPrice":"floor","limitBuyBaseAmount":"floor","limitSellPrice":"floor","limitSellBaseAmount":"floor","marketBuyQuoteAmount":"floor","marketSellBaseAmount":"floor"}})").append("\n");
+        getExpectedResult.append(R"({"success":true,"data":{"requestedApiCount":0,"limitBuyPrice":"round","limitBuyBaseAmount":"round","limitSellPrice":"round","limitSellBaseAmount":"round","marketBuyQuoteAmount":"round","marketSellBaseAmount":"round"}})").append("\n");
+        OneXAPI::Upbit::Spot client;
+        std::vector<std::string> testValueList = {
+            "ceil",
+            "floor",
+            "round"
+        };
+        std::vector<std::string> testKeyList = {
+            "limitBuyPrice",
+            "limitBuyBaseAmount",
+            "limitSellPrice",
+            "limitSellBaseAmount",
+            "marketBuyQuoteAmount",
+            "marketSellBaseAmount"
+        };
+
+        for(const auto& testValue : testValueList){
+            for(const auto& testKey : testKeyList){
+                testData.expectedResult.append(R"({"success":true,"data":{"requestedApiCount":0,")" + testKey + R"(":")" + testValue + R"("}})" + "\n");
+                std::string input = R"({")" + testKey + R"(":")" + testValue + R"("})";
+                std::string response = client.setOrderRoundingRule(input);
+            
+                testData.actualResult.append(response + "\n");
+            }
+            getCheckStr.append(client.getOrderRoundingRule() + "\n");
+        }
+
+        if(testData.actualResult.compare(testData.expectedResult) == 0 && getCheckStr.compare(getExpectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
 static const std::string getSubscribingTickersExpectedResult = R"({"success":true,"data":{"tickers":[]}})";
 
 bool TC_UpbitSpot_getSubscribingTickers_1(testDataType& testData){

@@ -82,6 +82,12 @@ extern bool TC_UpbitSpot_isSubscribingBalance_2(testDataType& testData);
 extern bool TC_UpbitSpot_isSubscribingBalance_3(testDataType& testData);
 extern bool TC_UpbitSpot_isSubscribingBalance_4(testDataType& testData);
 
+extern bool TC_UpbitSpot_getOrderRoundingRule_1(testDataType& testData);
+extern bool TC_UpbitSpot_getOrderRoundingRule_2(testDataType& testData);
+
+extern bool TC_UpbitSpot_setOrderRoundingRule_1(testDataType& testData);
+extern bool TC_UpbitSpot_setOrderRoundingRule_2(testDataType& testData);
+
 extern bool TC_UpbitSpot_getSubscribingTickers_1(testDataType& testData);
 extern bool TC_UpbitSpot_getSubscribingTickers_2(testDataType& testData);
 extern bool TC_UpbitSpot_getSubscribingTickers_3(testDataType& testData);
