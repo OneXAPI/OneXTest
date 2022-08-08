@@ -115,6 +115,9 @@ extern bool TC_UpbitSpot_fetchOrderInfo_1(testDataType& testData);
 extern bool TC_UpbitSpot_fetchOrderInfo_2(testDataType& testData);
 extern bool TC_UpbitSpot_fetchOrderInfo_3(testDataType& testData);
 
+extern bool TC_UpbitSpot_fetchOpenOrders_1(testDataType& testData);
+extern bool TC_UpbitSpot_fetchOpenOrders_2(testDataType& testData);
+
 extern bool TC_UpbitSpot_getSubscribingTickers_1(testDataType& testData);
 extern bool TC_UpbitSpot_getSubscribingTickers_2(testDataType& testData);
 extern bool TC_UpbitSpot_getSubscribingTickers_3(testDataType& testData);

@@ -2916,6 +2916,96 @@ bool TC_UpbitSpot_fetchOrderInfo_3(testDataType& testData){
     return false;
 }
 
+bool TC_UpbitSpot_fetchOpenOrders_1(testDataType& testData){
+    try{
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().fetchOpenOrders";
+        testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["openOrders"][]["baseCurrency"] is string
+            response["data"]["openOrders"][]["quoteCurrency"] is string response["data"]["openOrders"][]["symbol"] is string response["data"]["openOrders"][]["orderId"] is string
+            response["data"]["openOrders"][]["side"] is string response["data"]["openOrders"][]["originalAmount"] is string response["data"]["openOrders"][]["filledAmount"] is string
+            response["data"]["openOrders"][]["remainingAmount"] is string response["data"]["openOrders"][]["originalPrice"] is string response["data"]["openOrders"][]["lockedCurrency"] is string
+            response["data"]["openOrders"][]["lockedAmount"] is string response["data"]["openOrders"][]["status"] is string)";
+        testData.actualResult.clear();
+
+        OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
+
+        std::string response = client.fetchOpenOrders(R"({})");
+        testData.actualResult = response;
+        rapidjson::Document respDoc;
+        OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+        if(!respDoc["success"].GetBool()){
+            return false;
+        }
+        else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+            return false;
+        }
+        for(const auto& openorder : respDoc["data"]["openOrders"].GetArray()){
+            if( !openorder["baseCurrency"].IsString() || !openorder["quoteCurrency"].IsString() || !openorder["symbol"].IsString() ||
+                !openorder["orderId"].IsString() || !openorder["side"].IsString() || !openorder["originalAmount"].IsString() ||
+                !openorder["filledAmount"].IsString() || !openorder["remainingAmount"].IsString() || !openorder["originalPrice"].IsString() ||
+                !openorder["lockedCurrency"].IsString() || !openorder["lockedAmount"].IsString() || !openorder["status"].IsString()){
+                return false;
+            }
+        }
+
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_fetchOpenOrders_2(testDataType& testData){
+    try{
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().fetchOpenOrders";
+        testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["openOrders"][]["baseCurrency"] is string
+            response["data"]["openOrders"][]["quoteCurrency"] is string response["data"]["openOrders"][]["symbol"] is string response["data"]["openOrders"][]["orderId"] is string
+            response["data"]["openOrders"][]["side"] is string response["data"]["openOrders"][]["originalAmount"] is string response["data"]["openOrders"][]["filledAmount"] is string
+            response["data"]["openOrders"][]["remainingAmount"] is string response["data"]["openOrders"][]["originalPrice"] is string response["data"]["openOrders"][]["lockedCurrency"] is string
+            response["data"]["openOrders"][]["lockedAmount"] is string response["data"]["openOrders"][]["status"] is string)";
+        testData.actualResult.clear();
+
+        OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
+
+        std::string response = client.fetchOpenOrders(R"({"baseCurrency":"bTC","quoteCurrency":"KRw","side":"buy"})");
+        testData.actualResult = response;
+        rapidjson::Document respDoc;
+        OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+        if(!respDoc["success"].GetBool()){
+            return false;
+        }
+        else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+            return false;
+        }
+        for(const auto& openorder : respDoc["data"]["openOrders"].GetArray()){
+            if( !openorder["baseCurrency"].IsString() || !openorder["quoteCurrency"].IsString() || !openorder["symbol"].IsString() ||
+                !openorder["orderId"].IsString() || !openorder["side"].IsString() || !openorder["originalAmount"].IsString() ||
+                !openorder["filledAmount"].IsString() || !openorder["remainingAmount"].IsString() || !openorder["originalPrice"].IsString() ||
+                !openorder["lockedCurrency"].IsString() || !openorder["lockedAmount"].IsString() || !openorder["status"].IsString()){
+                return false;
+            }
+        }
+
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
 static const std::string getSubscribingTickersExpectedResult = R"({"success":true,"data":{"tickers":[]}})";
 
 bool TC_UpbitSpot_getSubscribingTickers_1(testDataType& testData){

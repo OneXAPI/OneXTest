@@ -318,6 +318,12 @@ void regression(){
     result = TC_UpbitSpot_fetchOrderInfo_3(td);
     result?(pass++):(fail++);
     printResult(td, result);
+    result = TC_UpbitSpot_fetchOpenOrders_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_fetchOpenOrders_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
     result = TC_UpbitSpot_getSubscribingTickers_1(td);
     result?(pass++):(fail++);
     printResult(td, result);
