@@ -2265,6 +2265,406 @@ bool TC_UpbitSpot_setOrderRoundingRule_2(testDataType& testData){
     return false;
 }
 
+bool TC_UpbitSpot_orderLimitBuy_1(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().orderLimitBuy";
+        testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+        testData.actualResult.clear();
+        OneXAPI::Upbit::Spot client;
+
+        std::string response = client.orderLimitBuy("{}");
+            
+        testData.actualResult = response;
+
+        if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+            return false;
+        }
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_orderLimitBuy_2(testDataType& testData){
+    try{
+        std::string loggerLevel = LOGGER.getLevel();
+        LOGGER.setLevel("info");
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+        uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().orderLimitBuy";
+        std::string findValue = R"(METHOD: POST, URL: https://api.upbit.com/v1/orders?market=KRW-BTC&side=bid&volume=35.13568934&price=13502000&ord_type=limit)";
+        testData.expectedResult = findValue;
+        testData.actualResult.clear();
+        std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"KRw","price":13501545.1234358,"baseAmount":35.135689342158})";
+        OneXAPI::Upbit::Spot client;
+
+        client.orderLimitBuy(input);
+        std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+        std::string response = getLog(testStartTime);
+        testData.actualResult = response;
+
+        if(response.find(findValue) != std::string::npos){
+            return true;
+        }
+
+        LOGGER.setLevel(loggerLevel);
+        
+        return false;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_orderLimitBuy_3(testDataType& testData){
+    try{
+        std::string loggerLevel = LOGGER.getLevel();
+        LOGGER.setLevel("info");
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+        uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().orderLimitBuy";
+        std::string findValue = R"(METHOD: POST, URL: https://api.upbit.com/v1/orders?market=KRW-BTC&side=bid&volume=35.13568934&price=13969000&ord_type=limit&identifier=testId)";
+        testData.expectedResult = findValue;
+        testData.actualResult.clear();
+        std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"KRw","price":13501545.1234358,"baseAmount":35.135689342158,"clientOrderId":"testId","amplifier":1.0346})";
+        OneXAPI::Upbit::Spot client;
+
+        client.orderLimitBuy(input);
+        std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+        std::string response = getLog(testStartTime);
+        testData.actualResult = response;
+
+        if(response.find(findValue) != std::string::npos){
+            return true;
+        }
+
+        LOGGER.setLevel(loggerLevel);
+        
+        return false;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_orderLimitSell_1(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().orderLimitSell";
+        testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+        testData.actualResult.clear();
+        OneXAPI::Upbit::Spot client;
+
+        std::string response = client.orderLimitSell("{}");
+            
+        testData.actualResult = response;
+
+        if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+            return false;
+        }
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_orderLimitSell_2(testDataType& testData){
+    try{
+        std::string loggerLevel = LOGGER.getLevel();
+        LOGGER.setLevel("info");
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+        uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().orderLimitSell";
+        std::string findValue = R"(METHOD: POST, URL: https://api.upbit.com/v1/orders?market=KRW-BTC&side=ask&volume=35.13568934&price=13502000&ord_type=limit)";
+        testData.expectedResult = findValue;
+        testData.actualResult.clear();
+        std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"KRw","price":13501545.1234358,"baseAmount":35.135689342158})";
+        OneXAPI::Upbit::Spot client;
+
+        client.orderLimitSell(input);
+        std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+        std::string response = getLog(testStartTime);
+        testData.actualResult = response;
+
+        if(response.find(findValue) != std::string::npos){
+            return true;
+        }
+
+        LOGGER.setLevel(loggerLevel);
+        
+        return false;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_orderLimitSell_3(testDataType& testData){
+    try{
+        std::string loggerLevel = LOGGER.getLevel();
+        LOGGER.setLevel("info");
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+        uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().orderLimitSell";
+        std::string findValue = R"(METHOD: POST, URL: https://api.upbit.com/v1/orders?market=KRW-BTC&side=ask&volume=35.13568934&price=13008000&ord_type=limit&identifier=testId)";
+        testData.expectedResult = findValue;
+        testData.actualResult.clear();
+        std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"KRw","price":13501545.1234358,"baseAmount":35.135689342158,"clientOrderId":"testId","amplifier":0.96348})";
+        OneXAPI::Upbit::Spot client;
+
+        client.orderLimitSell(input);
+        std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+        std::string response = getLog(testStartTime);
+        testData.actualResult = response;
+
+        if(response.find(findValue) != std::string::npos){
+            return true;
+        }
+
+        LOGGER.setLevel(loggerLevel);
+        
+        return false;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_orderMarketBuy_1(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().orderMarketBuy";
+        testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+        testData.actualResult.clear();
+        OneXAPI::Upbit::Spot client;
+
+        std::string response = client.orderMarketBuy("{}");
+            
+        testData.actualResult = response;
+
+        if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+            return false;
+        }
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_orderMarketBuy_2(testDataType& testData){
+    try{
+        std::string loggerLevel = LOGGER.getLevel();
+        LOGGER.setLevel("info");
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+        uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().orderMarketBuy";
+        std::string findValue = R"(METHOD: POST, URL: https://api.upbit.com/v1/orders?market=KRW-BTC&side=bid&price=38951381&ord_type=price)";
+        testData.expectedResult = findValue;
+        testData.actualResult.clear();
+        std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"KRw","quoteAmount":38951381.391351334})";
+        OneXAPI::Upbit::Spot client;
+
+        client.orderMarketBuy(input);
+        std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+        std::string response = getLog(testStartTime);
+        testData.actualResult = response;
+
+        if(response.find(findValue) != std::string::npos){
+            return true;
+        }
+
+        LOGGER.setLevel(loggerLevel);
+        
+        return false;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_orderMarketBuy_3(testDataType& testData){
+    try{
+        std::string loggerLevel = LOGGER.getLevel();
+        LOGGER.setLevel("info");
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+        uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().orderMarketBuy";
+        std::string findValue = R"(METHOD: POST, URL: https://api.upbit.com/v1/orders?market=KRW-BTC&side=bid&price=38951381&ord_type=price&identifier=testId)";
+        testData.expectedResult = findValue;
+        testData.actualResult.clear();
+        std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"KRw","quoteAmount":38951381.391351334,"clientOrderId":"testId"})";
+        OneXAPI::Upbit::Spot client;
+
+        client.orderMarketBuy(input);
+        std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+        std::string response = getLog(testStartTime);
+        testData.actualResult = response;
+
+        if(response.find(findValue) != std::string::npos){
+            return true;
+        }
+
+        LOGGER.setLevel(loggerLevel);
+        
+        return false;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_orderMarketSell_1(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().orderMarketSell";
+        testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+        testData.actualResult.clear();
+        OneXAPI::Upbit::Spot client;
+
+        std::string response = client.orderMarketSell("{}");
+            
+        testData.actualResult = response;
+
+        if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+            return false;
+        }
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_orderMarketSell_2(testDataType& testData){
+    try{
+        std::string loggerLevel = LOGGER.getLevel();
+        LOGGER.setLevel("info");
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+        uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().orderMarketSell";
+        std::string findValue = R"(METHOD: POST, URL: https://api.upbit.com/v1/orders?market=KRW-BTC&side=ask&volume=83.13384948&ord_type=market)";
+        testData.expectedResult = findValue;
+        testData.actualResult.clear();
+        std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"KRw","baseAmount":83.1338494835})";
+        OneXAPI::Upbit::Spot client;
+
+        client.orderMarketSell(input);
+        std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+        std::string response = getLog(testStartTime);
+        testData.actualResult = response;
+
+        if(response.find(findValue) != std::string::npos){
+            return true;
+        }
+
+        LOGGER.setLevel(loggerLevel);
+        
+        return false;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_orderMarketSell_3(testDataType& testData){
+    try{
+        std::string loggerLevel = LOGGER.getLevel();
+        LOGGER.setLevel("info");
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+        uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().orderMarketSell";
+        std::string findValue = R"(METHOD: POST, URL: https://api.upbit.com/v1/orders?market=KRW-BTC&side=ask&volume=83.13384948&ord_type=market&identifier=testId)";
+        testData.expectedResult = findValue;
+        testData.actualResult.clear();
+        std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"KRw","baseAmount":83.1338494835,"clientOrderId":"testId"})";
+        OneXAPI::Upbit::Spot client;
+
+        client.orderMarketSell(input);
+        std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+        std::string response = getLog(testStartTime);
+        testData.actualResult = response;
+
+        if(response.find(findValue) != std::string::npos){
+            return true;
+        }
+
+        LOGGER.setLevel(loggerLevel);
+        
+        return false;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
 static const std::string getSubscribingTickersExpectedResult = R"({"success":true,"data":{"tickers":[]}})";
 
 bool TC_UpbitSpot_getSubscribingTickers_1(testDataType& testData){
