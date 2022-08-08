@@ -364,6 +364,11 @@ bool TC_OneXAPI_setLoggerConfig_6(testDataType& testData){
 
         testData.actualResult = response;
 
+        LOGGER.setMethod("terminal");
+        LOGGER.setLevel("off");
+        WS_LOGGER.setMethod("terminal");
+        WS_LOGGER.setLevel("off");
+
         if(response.compare(testData.expectedResult) == 0){
             return true;
         }

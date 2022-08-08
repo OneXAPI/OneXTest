@@ -76,8 +76,21 @@ extern bool TC_UpbitSpot_getSubscribingTickers_1(testDataType& testData);
 extern bool TC_UpbitSpot_getSubscribingTickers_2(testDataType& testData);
 extern bool TC_UpbitSpot_getSubscribingTickers_3(testDataType& testData);
 extern bool TC_UpbitSpot_getSubscribingTickers_4(testDataType& testData);
+extern bool TC_UpbitSpot_getSubscribingTickers_5(testDataType& testData);
 
 extern bool TC_UpbitSpot_getSubscribingOrderbooks_1(testDataType& testData);
 extern bool TC_UpbitSpot_getSubscribingOrderbooks_2(testDataType& testData);
 extern bool TC_UpbitSpot_getSubscribingOrderbooks_3(testDataType& testData);
 extern bool TC_UpbitSpot_getSubscribingOrderbooks_4(testDataType& testData);
+extern bool TC_UpbitSpot_getSubscribingOrderbooks_5(testDataType& testData);
+
+extern bool TC_UpbitSpot_subscribeTicker_1(testDataType& testData);
+extern bool TC_UpbitSpot_subscribeTicker_2(testDataType& testData);
+extern bool TC_UpbitSpot_subscribeTicker_3(testDataType& testData);
+extern bool TC_UpbitSpot_subscribeTicker_4(testDataType& testData);
+
+extern bool TC_UpbitSpot_unsubscribeTicker_1(testDataType& testData);
+extern bool TC_UpbitSpot_unsubscribeTicker_2(testDataType& testData);
+extern bool TC_UpbitSpot_unsubscribeTicker_3(testDataType& testData);
+extern bool TC_UpbitSpot_unsubscribeTicker_4(testDataType& testData);
+extern bool TC_UpbitSpot_unsubscribeTicker_5(testDataType& testData);
