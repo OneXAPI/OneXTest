@@ -57,6 +57,16 @@ extern bool TC_UpbitSpot_fetchWalletStatus_2(testDataType& testData);
 extern bool TC_UpbitSpot_fetchWithdrawHistory_1(testDataType& testData);
 extern bool TC_UpbitSpot_fetchWithdrawHistory_2(testDataType& testData);
 
+extern bool TC_UpbitSpot_fetchDepositHistory_1(testDataType& testData);
+extern bool TC_UpbitSpot_fetchDepositHistory_2(testDataType& testData);
+
+extern bool TC_UpbitSpot_fetchDepositAddress_1(testDataType& testData);
+extern bool TC_UpbitSpot_fetchDepositAddress_2(testDataType& testData);
+
+extern bool TC_UpbitSpot_isDepositCompleted_1(testDataType& testData);
+extern bool TC_UpbitSpot_isDepositCompleted_2(testDataType& testData);
+extern bool TC_UpbitSpot_isDepositCompleted_3(testDataType& testData);
+
 extern bool TC_UpbitSpot_subscribeBalance_1(testDataType& testData);
 extern bool TC_UpbitSpot_subscribeBalance_2(testDataType& testData);
 extern bool TC_UpbitSpot_subscribeBalance_3(testDataType& testData);

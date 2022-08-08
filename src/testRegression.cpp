@@ -62,6 +62,7 @@ void regression(){
     result?(pass++):(fail++);
     printResult(td, result);
 
+    LOGGER.setMethod("file");
     WS_LOGGER.setLevel("info");
 	WS_LOGGER.setMethod("file");
     /* UpbitSpot */
@@ -186,6 +187,27 @@ void regression(){
     result?(pass++):(fail++);
     printResult(td, result);
     result = TC_UpbitSpot_fetchWithdrawHistory_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_fetchDepositHistory_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_fetchDepositHistory_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_fetchDepositAddress_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_fetchDepositAddress_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_isDepositCompleted_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_isDepositCompleted_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_isDepositCompleted_3(td);
     result?(pass++):(fail++);
     printResult(td, result);
     result = TC_UpbitSpot_subscribeBalance_1(td);

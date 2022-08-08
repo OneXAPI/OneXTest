@@ -1515,6 +1515,326 @@ bool TC_UpbitSpot_fetchWithdrawHistory_2(testDataType& testData){
     return false;
 }
 
+bool TC_UpbitSpot_fetchDepositHistory_1(testDataType& testData){
+    try{
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().fetchDepositHistory";
+        testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["deposits"]["currency"] is string
+            response["data"]["deposits"]["amount"] is string response["data"]["deposits"]["fee"] is string response["data"]["deposits"]["orderId"] is string
+            response["data"]["deposits"]["txid"] is string response["data"]["deposits"]["status"] is string response["data"]["deposits"]["createdAt"] is uint64
+            response["data"]["deposits"]["doneAt"] is uint64)";
+        testData.actualResult.clear();
+
+        OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
+
+        std::string response = client.fetchDepositHistory(R"({})");
+        testData.actualResult = response;
+        rapidjson::Document respDoc;
+        OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+        if(!respDoc["success"].GetBool()){
+            return false;
+        }
+        else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+            return false;
+        }
+        else if(respDoc["data"]["deposits"].Size() == 0){
+            return false;
+        }
+        for(const auto& withdrawal : respDoc["data"]["deposits"].GetArray()){
+            if(!withdrawal["currency"].IsString()){
+                return false;
+            }
+            if(!withdrawal["amount"].IsString()){
+                return false;
+            }
+            if(!withdrawal["fee"].IsString()){
+                return false;
+            }
+            if(!withdrawal["orderId"].IsString()){
+                return false;
+            }
+            if(!withdrawal["txid"].IsString()){
+                return false;
+            }
+            if(!withdrawal["status"].IsString()){
+                return false;
+            }
+            if(!withdrawal["createdAt"].IsUint64()){
+                return false;
+            }
+            if(!withdrawal["doneAt"].IsUint64()){
+                return false;
+            }
+        }
+
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_fetchDepositHistory_2(testDataType& testData){
+    try{
+        std::string loggerLevel = LOGGER.getLevel();
+        LOGGER.setLevel("info");
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+        uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().fetchDepositHistory";
+        std::string findValue = R"(METHOD: GET, URL: https://api.upbit.com/v1/deposits?currency=MATIC&uuids=testOrderId&txids=testTxId)";
+        testData.expectedResult = findValue;            
+        testData.actualResult.clear();
+        std::string input = R"({"currency":"mATic","orderId":"testOrderId","txid":"testTxId","startTime":132123534,"endTime":1125615123})";
+        OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
+
+        client.fetchDepositHistory(input);
+        std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+        std::string response = getLog(testStartTime);
+        testData.actualResult = response;
+
+        if(response.find(findValue) != std::string::npos){
+            return true;
+        }
+
+        LOGGER.setLevel(loggerLevel);
+        
+        return false;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_fetchDepositAddress_1(testDataType& testData){
+    try{
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().fetchDepositAddress";
+        testData.expectedResult = R"(response["success"]:true response["data"]["addresses"]:1 response["data"]["addresses"][currency]["address"] is string
+            response["data"]["addresses"][currency]["tag"] is string)";
+        testData.actualResult.clear();
+
+        OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
+
+        std::string response = client.fetchDepositAddress(R"({})");
+        testData.actualResult = response;
+        rapidjson::Document respDoc;
+        OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+        if(!respDoc["success"].GetBool()){
+            return false;
+        }
+        else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+            return false;
+        }
+        else if(respDoc["data"]["addresses"].MemberCount() == 0){
+            return false;
+        }
+        for(auto addressPtr = respDoc["data"]["addresses"].MemberBegin(); addressPtr != respDoc["data"]["addresses"].MemberEnd(); addressPtr++){
+            if(!addressPtr->name.IsString()){
+                return false;
+            }
+            if(!addressPtr->value["address"].IsString()){
+                return false;
+            }
+            if(!addressPtr->value["tag"].IsString()){
+                return false;
+            }
+        }
+
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_fetchDepositAddress_2(testDataType& testData){
+    try{
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().fetchDepositAddress";
+        testData.expectedResult = R"(response["success"]:true response["data"]["addresses"]:1 response["data"]["addresses"][currency]["address"] is string
+            response["data"]["addresses"][currency]["tag"] is string and member count of response["data"]["addresses"] must be bigger than 0 and smaller than 4)";
+        testData.actualResult.clear();
+
+        OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
+
+        std::string response = client.fetchDepositAddress(R"({"currencies":["Btc","eTH","xRp"]})");
+        testData.actualResult = response;
+        rapidjson::Document respDoc;
+        OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+        if(!respDoc["success"].GetBool()){
+            return false;
+        }
+        else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+            return false;
+        }
+        else if(respDoc["data"]["addresses"].MemberCount() < 1 || respDoc["data"]["addresses"].MemberCount() > 3){
+            return false;
+        }
+        for(auto addressPtr = respDoc["data"]["addresses"].MemberBegin(); addressPtr != respDoc["data"]["addresses"].MemberEnd(); addressPtr++){
+            if(!addressPtr->name.IsString()){
+                return false;
+            }
+            if(!addressPtr->value["address"].IsString()){
+                return false;
+            }
+            if(!addressPtr->value["tag"].IsString()){
+                return false;
+            }
+        }
+
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_isDepositCompleted_1(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().isDepositCompleted";
+        testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+
+        OneXAPI::Upbit::Spot client;
+        std::string response = client.isDepositCompleted("{}");
+
+        testData.actualResult = response;
+
+        if(errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_isDepositCompleted_2(testDataType& testData){
+    try{
+        std::string loggerLevel = LOGGER.getLevel();
+        LOGGER.setLevel("info");
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+        uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().isDepositCompleted";
+        std::string findValue = R"(METHOD: GET, URL: https://api.upbit.com/v1/deposits?txids=testTxid)";
+        testData.expectedResult = findValue + R"(  and {"success":true,"data":{"requestedApiCount":1,"isDepositCompleted":false})";            
+        testData.actualResult.clear();
+        std::string input = R"({"txid":"testTxid"})";
+        OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
+
+        std::string restResp = client.isDepositCompleted(input);
+        std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+        std::string response = getLog(testStartTime);
+        testData.actualResult = response + "  " + restResp;
+        rapidjson::Document respDoc;
+        OneXAPI::Internal::Util::parseJson(respDoc, restResp);
+
+        if(!respDoc["success"].GetBool()){
+            return false;
+        }
+        else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+            return false;
+        }
+        else if(respDoc["data"]["isDepositCompleted"].GetBool()){
+            return false;
+        }
+
+        if(response.find(findValue) != std::string::npos){
+            return true;
+        }
+
+        LOGGER.setLevel(loggerLevel);
+        
+        return false;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_isDepositCompleted_3(testDataType& testData){
+    try{
+        std::string loggerLevel = LOGGER.getLevel();
+        LOGGER.setLevel("info");
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+        uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().isDepositCompleted";
+        std::string findValue = R"(METHOD: GET, URL: https://api.upbit.com/v1/deposits?currency=SOL)";
+        testData.expectedResult = findValue + R"(  and {"success":true,"data":{"requestedApiCount":1,"isDepositCompleted":false})";            
+        testData.actualResult.clear();
+        std::string input = R"({"currency":"sOl","amount":35.213843,"since":1656044045154})";
+        OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
+
+        std::string restResp = client.isDepositCompleted(input);
+        std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+        std::string response = getLog(testStartTime);
+        testData.actualResult = response + "  " + restResp;
+        rapidjson::Document respDoc;
+        OneXAPI::Internal::Util::parseJson(respDoc, restResp);
+
+        if(!respDoc["success"].GetBool()){
+            return false;
+        }
+        else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+            return false;
+        }
+        else if(respDoc["data"]["isDepositCompleted"].GetBool()){
+            return false;
+        }
+
+        if(response.find(findValue) != std::string::npos){
+            return true;
+        }
+
+        LOGGER.setLevel(loggerLevel);
+        
+        return false;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
 static const std::string subscribeBalanceExpectedResult = R"({"success":false,"data":{"errorType":"NOT_SUPPORTED_API","errorMsg":"~~~"}})";
 
 bool TC_UpbitSpot_subscribeBalance_1(testDataType& testData){
