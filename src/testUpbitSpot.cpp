@@ -2665,6 +2665,106 @@ bool TC_UpbitSpot_orderMarketSell_3(testDataType& testData){
     return false;
 }
 
+bool TC_UpbitSpot_orderCancel_1(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().orderCancel";
+        testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+        testData.actualResult.clear();
+        OneXAPI::Upbit::Spot client;
+
+        std::string response = client.orderCancel("{}");
+            
+        testData.actualResult = response;
+
+        if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+            return false;
+        }
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_orderCancel_2(testDataType& testData){
+    try{
+        std::string loggerLevel = LOGGER.getLevel();
+        LOGGER.setLevel("info");
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+        uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().orderCancel";
+        std::string findValue = R"(METHOD: DEL, URL: https://api.upbit.com/v1/order?uuid=testOrderId)";
+        testData.expectedResult = findValue;
+        testData.actualResult.clear();
+        std::string input = R"({"orderId":"testOrderId"})";
+        OneXAPI::Upbit::Spot client;
+
+        client.orderCancel(input);
+        std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+        std::string response = getLog(testStartTime);
+        testData.actualResult = response;
+
+        if(response.find(findValue) != std::string::npos){
+            return true;
+        }
+
+        LOGGER.setLevel(loggerLevel);
+        
+        return false;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_orderCancel_3(testDataType& testData){
+    try{
+        std::string loggerLevel = LOGGER.getLevel();
+        LOGGER.setLevel("info");
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+        uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().orderCancel";
+        std::string findValue = R"(METHOD: DEL, URL: https://api.upbit.com/v1/order?identifier=testClientOrderId)";
+        testData.expectedResult = findValue;
+        testData.actualResult.clear();
+        std::string input = R"({"clientOrderId":"testClientOrderId"})";
+        OneXAPI::Upbit::Spot client;
+
+        client.orderCancel(input);
+        std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+        std::string response = getLog(testStartTime);
+        testData.actualResult = response;
+
+        if(response.find(findValue) != std::string::npos){
+            return true;
+        }
+
+        LOGGER.setLevel(loggerLevel);
+        
+        return false;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
 static const std::string getSubscribingTickersExpectedResult = R"({"success":true,"data":{"tickers":[]}})";
 
 bool TC_UpbitSpot_getSubscribingTickers_1(testDataType& testData){

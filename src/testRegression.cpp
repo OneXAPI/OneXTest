@@ -294,6 +294,15 @@ void regression(){
     result = TC_UpbitSpot_orderMarketSell_3(td);
     result?(pass++):(fail++);
     printResult(td, result);
+    result = TC_UpbitSpot_orderCancel_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_orderCancel_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_orderCancel_3(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
     result = TC_UpbitSpot_getSubscribingTickers_1(td);
     result?(pass++):(fail++);
     printResult(td, result);
