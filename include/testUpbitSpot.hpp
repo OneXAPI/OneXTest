@@ -54,6 +54,19 @@ extern bool TC_UpbitSpot_fetchBalance_2(testDataType& testData);
 extern bool TC_UpbitSpot_fetchWalletStatus_1(testDataType& testData);
 extern bool TC_UpbitSpot_fetchWalletStatus_2(testDataType& testData);
 
+extern bool TC_UpbitSpot_fetchWithdrawHistory_1(testDataType& testData);
+extern bool TC_UpbitSpot_fetchWithdrawHistory_2(testDataType& testData);
+
+extern bool TC_UpbitSpot_fetchDepositHistory_1(testDataType& testData);
+extern bool TC_UpbitSpot_fetchDepositHistory_2(testDataType& testData);
+
+extern bool TC_UpbitSpot_fetchDepositAddress_1(testDataType& testData);
+extern bool TC_UpbitSpot_fetchDepositAddress_2(testDataType& testData);
+
+extern bool TC_UpbitSpot_isDepositCompleted_1(testDataType& testData);
+extern bool TC_UpbitSpot_isDepositCompleted_2(testDataType& testData);
+extern bool TC_UpbitSpot_isDepositCompleted_3(testDataType& testData);
+
 extern bool TC_UpbitSpot_subscribeBalance_1(testDataType& testData);
 extern bool TC_UpbitSpot_subscribeBalance_2(testDataType& testData);
 extern bool TC_UpbitSpot_subscribeBalance_3(testDataType& testData);
@@ -68,6 +81,32 @@ extern bool TC_UpbitSpot_isSubscribingBalance_1(testDataType& testData);
 extern bool TC_UpbitSpot_isSubscribingBalance_2(testDataType& testData);
 extern bool TC_UpbitSpot_isSubscribingBalance_3(testDataType& testData);
 extern bool TC_UpbitSpot_isSubscribingBalance_4(testDataType& testData);
+
+extern bool TC_UpbitSpot_getOrderRoundingRule_1(testDataType& testData);
+extern bool TC_UpbitSpot_getOrderRoundingRule_2(testDataType& testData);
+
+extern bool TC_UpbitSpot_setOrderRoundingRule_1(testDataType& testData);
+extern bool TC_UpbitSpot_setOrderRoundingRule_2(testDataType& testData);
+
+extern bool TC_UpbitSpot_orderLimitBuy_1(testDataType& testData);
+extern bool TC_UpbitSpot_orderLimitBuy_2(testDataType& testData);
+extern bool TC_UpbitSpot_orderLimitBuy_3(testDataType& testData);
+
+extern bool TC_UpbitSpot_orderLimitSell_1(testDataType& testData);
+extern bool TC_UpbitSpot_orderLimitSell_2(testDataType& testData);
+extern bool TC_UpbitSpot_orderLimitSell_3(testDataType& testData);
+
+extern bool TC_UpbitSpot_orderMarketBuy_1(testDataType& testData);
+extern bool TC_UpbitSpot_orderMarketBuy_2(testDataType& testData);
+extern bool TC_UpbitSpot_orderMarketBuy_3(testDataType& testData);
+
+extern bool TC_UpbitSpot_orderMarketSell_1(testDataType& testData);
+extern bool TC_UpbitSpot_orderMarketSell_2(testDataType& testData);
+extern bool TC_UpbitSpot_orderMarketSell_3(testDataType& testData);
+
+extern bool TC_UpbitSpot_orderCancel_1(testDataType& testData);
+extern bool TC_UpbitSpot_orderCancel_2(testDataType& testData);
+extern bool TC_UpbitSpot_orderCancel_3(testDataType& testData);
 
 extern bool TC_UpbitSpot_getSubscribingTickers_1(testDataType& testData);
 extern bool TC_UpbitSpot_getSubscribingTickers_2(testDataType& testData);
