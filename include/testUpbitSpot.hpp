@@ -108,6 +108,36 @@ extern bool TC_UpbitSpot_orderCancel_1(testDataType& testData);
 extern bool TC_UpbitSpot_orderCancel_2(testDataType& testData);
 extern bool TC_UpbitSpot_orderCancel_3(testDataType& testData);
 
+extern bool TC_UpbitSpot_fetchTradingFee_1(testDataType& testData);
+extern bool TC_UpbitSpot_fetchTradingFee_2(testDataType& testData);
+
+extern bool TC_UpbitSpot_fetchOrderInfo_1(testDataType& testData);
+extern bool TC_UpbitSpot_fetchOrderInfo_2(testDataType& testData);
+extern bool TC_UpbitSpot_fetchOrderInfo_3(testDataType& testData);
+
+extern bool TC_UpbitSpot_fetchOpenOrders_1(testDataType& testData);
+extern bool TC_UpbitSpot_fetchOpenOrders_2(testDataType& testData);
+
+extern bool TC_UpbitSpot_getCandleIntervalCandidates_1(testDataType& testData);
+extern bool TC_UpbitSpot_getCandleIntervalCandidates_2(testDataType& testData);
+
+extern bool TC_UpbitSpot_fetchMarkets_1(testDataType& testData);
+extern bool TC_UpbitSpot_fetchMarkets_2(testDataType& testData);
+
+extern bool TC_UpbitSpot_fetchTicker_1(testDataType& testData);
+extern bool TC_UpbitSpot_fetchTicker_2(testDataType& testData);
+extern bool TC_UpbitSpot_fetchTicker_3(testDataType& testData);
+extern bool TC_UpbitSpot_fetchTicker_4(testDataType& testData);
+
+extern bool TC_UpbitSpot_fetchOrderbook_1(testDataType& testData);
+extern bool TC_UpbitSpot_fetchOrderbook_2(testDataType& testData);
+extern bool TC_UpbitSpot_fetchOrderbook_3(testDataType& testData);
+extern bool TC_UpbitSpot_fetchOrderbook_4(testDataType& testData);
+
+extern bool TC_UpbitSpot_fetchCandleHistory_1(testDataType& testData);
+extern bool TC_UpbitSpot_fetchCandleHistory_2(testDataType& testData);
+extern bool TC_UpbitSpot_fetchCandleHistory_3(testDataType& testData);
+
 extern bool TC_UpbitSpot_getSubscribingTickers_1(testDataType& testData);
 extern bool TC_UpbitSpot_getSubscribingTickers_2(testDataType& testData);
 extern bool TC_UpbitSpot_getSubscribingTickers_3(testDataType& testData);
