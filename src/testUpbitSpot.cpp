@@ -3142,6 +3142,122 @@ bool TC_UpbitSpot_fetchMarkets_2(testDataType& testData){
     return false;
 }
 
+bool TC_UpbitSpot_fetchCandleHistory_1(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().fetchCandleHistory";
+        testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+        testData.actualResult.clear();
+        OneXAPI::Upbit::Spot client;
+
+        std::string response = client.fetchCandleHistory(R"({"baseCurrency":"bTc","quoteCurrency":"kRw"})");
+            
+        testData.actualResult = response;
+
+        if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+            return false;
+        }
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_fetchCandleHistory_2(testDataType& testData){
+    try{
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().fetchCandleHistory";
+        testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:uint64 response["data"]["baseCurrency"]:string response["data"]["quoteCurrency"]:string
+            response["data"]["symbol"]:string response["data"]["candles"][]["timestamp"]:uint64 response["data"]["candles"][]["openPrice"]:string response["data"]["candles"][]["closePrice"]:string
+            response["data"]["candles"][]["highPrice"]:string response["data"]["candles"][]["lowPrice"]:string response["data"]["candles"][]["baseVolume"]:string response["data"]["candles"][]["quoteVolume"]:string)";
+
+        OneXAPI::Upbit::Spot client;
+
+        std::string twoHrBeforeFromNow = std::to_string(OneXAPI::Internal::Util::getCurrentMsEpoch()/1000 - 7200);
+        std::string response = client.fetchCandleHistory(R"({"baseCurrency":"bTc","quoteCurrency":"kRw","interval":"1min","startTime":)" + twoHrBeforeFromNow + R"(})");
+        testData.actualResult = response;
+        rapidjson::Document respDoc;
+        OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+        if(!respDoc["success"].GetBool()){
+            return false;
+        }
+        else if(!respDoc["data"]["requestedApiCount"].IsUint64() || !respDoc["data"]["baseCurrency"].IsString() || 
+            !respDoc["data"]["quoteCurrency"].IsString() || !respDoc["data"]["symbol"].IsString()){
+            return false;
+        }
+        else if(respDoc["data"]["candles"].Size() == 0){
+            return false;
+        }
+        for(const auto& candle : respDoc["data"]["candles"].GetArray()){
+            if( !candle["timestamp"].IsUint64() || !candle["openPrice"].IsString() || !candle["closePrice"].IsString() || !candle["highPrice"].IsString() ||
+                !candle["lowPrice"].IsString() || !candle["baseVolume"].IsString() || !candle["quoteVolume"].IsString()){
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_fetchCandleHistory_3(testDataType& testData){
+    try{
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().fetchCandleHistory";
+        testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:uint64 response["data"]["baseCurrency"]:string response["data"]["quoteCurrency"]:string
+            response["data"]["symbol"]:string response["data"]["candles"][]["timestamp"]:uint64 response["data"]["candles"][]["openPrice"]:string response["data"]["candles"][]["closePrice"]:string
+            response["data"]["candles"][]["highPrice"]:string response["data"]["candles"][]["lowPrice"]:string response["data"]["candles"][]["baseVolume"]:string response["data"]["candles"][]["quoteVolume"]:string)";
+
+        OneXAPI::Upbit::Spot client;
+
+        std::string twoHrBeforeFromNow = std::to_string(OneXAPI::Internal::Util::getCurrentMsEpoch()/1000 - 7200);
+        std::string response = client.fetchCandleHistory(R"({"baseCurrency":"bTc","quoteCurrency":"kRw","interval":"1min","startTime":1656042045,"endTime":1656063182,"fetchInterval":900})");
+        testData.actualResult = response;
+        rapidjson::Document respDoc;
+        OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+        if(!respDoc["success"].GetBool()){
+            return false;
+        }
+        else if(!respDoc["data"]["requestedApiCount"].IsUint64() || !respDoc["data"]["baseCurrency"].IsString() || 
+            !respDoc["data"]["quoteCurrency"].IsString() || !respDoc["data"]["symbol"].IsString()){
+            return false;
+        }
+        else if(respDoc["data"]["candles"].Size() == 0){
+            return false;
+        }
+        for(const auto& candle : respDoc["data"]["candles"].GetArray()){
+            if( !candle["timestamp"].IsUint64() || !candle["openPrice"].IsString() || !candle["closePrice"].IsString() || !candle["highPrice"].IsString() ||
+                !candle["lowPrice"].IsString() || !candle["baseVolume"].IsString() || !candle["quoteVolume"].IsString()){
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
 static const std::string getSubscribingTickersExpectedResult = R"({"success":true,"data":{"tickers":[]}})";
 
 bool TC_UpbitSpot_getSubscribingTickers_1(testDataType& testData){

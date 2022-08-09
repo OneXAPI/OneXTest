@@ -336,6 +336,15 @@ void regression(){
     result = TC_UpbitSpot_fetchMarkets_2(td);
     result?(pass++):(fail++);
     printResult(td, result);
+    result = TC_UpbitSpot_fetchCandleHistory_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_fetchCandleHistory_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_UpbitSpot_fetchCandleHistory_3(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
     result = TC_UpbitSpot_getSubscribingTickers_1(td);
     result?(pass++):(fail++);
     printResult(td, result);
