@@ -124,6 +124,16 @@ extern bool TC_UpbitSpot_getCandleIntervalCandidates_2(testDataType& testData);
 extern bool TC_UpbitSpot_fetchMarkets_1(testDataType& testData);
 extern bool TC_UpbitSpot_fetchMarkets_2(testDataType& testData);
 
+extern bool TC_UpbitSpot_fetchTicker_1(testDataType& testData);
+extern bool TC_UpbitSpot_fetchTicker_2(testDataType& testData);
+extern bool TC_UpbitSpot_fetchTicker_3(testDataType& testData);
+extern bool TC_UpbitSpot_fetchTicker_4(testDataType& testData);
+
+extern bool TC_UpbitSpot_fetchOrderbook_1(testDataType& testData);
+extern bool TC_UpbitSpot_fetchOrderbook_2(testDataType& testData);
+extern bool TC_UpbitSpot_fetchOrderbook_3(testDataType& testData);
+extern bool TC_UpbitSpot_fetchOrderbook_4(testDataType& testData);
+
 extern bool TC_UpbitSpot_fetchCandleHistory_1(testDataType& testData);
 extern bool TC_UpbitSpot_fetchCandleHistory_2(testDataType& testData);
 extern bool TC_UpbitSpot_fetchCandleHistory_3(testDataType& testData);
