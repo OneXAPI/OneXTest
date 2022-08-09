@@ -3434,3 +3434,134 @@ bool TC_UpbitSpot_subscribeOrderbook_4(testDataType& testData){
     }
     return false;
 }
+
+bool TC_UpbitSpot_unsubscribeOrderbook_1(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeOrderbook";
+        testData.expectedResult = R"({"success":false,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
+
+        OneXAPI::Upbit::Spot client;
+        std::string input = "";
+        std::string response = client.unsubscribeOrderbook(input);
+
+        testData.actualResult = response;
+
+        if(errorResponseChecker(response, "JSON_PARSING_ERROR")){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_unsubscribeOrderbook_2(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeOrderbook";
+        testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+
+        OneXAPI::Upbit::Spot client;
+        std::string input = "{}";
+        std::string response = client.unsubscribeOrderbook(input);
+
+        testData.actualResult = response;
+
+        if(errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_unsubscribeOrderbook_3(testDataType& testData){
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeOrderbook";
+        testData.expectedResult = R"({"success":false,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
+
+        OneXAPI::Upbit::Spot client;
+        std::string input = "Bqbqb@";
+        std::string response = client.unsubscribeOrderbook(input);
+
+        testData.actualResult = response;
+
+        if(errorResponseChecker(response, "JSON_PARSING_ERROR")){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_unsubscribeOrderbook_4(testDataType& testData){
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeOrderbook";
+        testData.expectedResult = R"({"success":true,"data":{"unsubscribed":[],"unsubscribeFailed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"BTC","symbol":"BTC-ETH"}]}})";
+
+        OneXAPI::Upbit::Spot client;
+        client.subscribeOrderbook(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"BTC"}]})");
+
+        std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"BTC"}]})";
+        std::string response = client.unsubscribeOrderbook(input);
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_unsubscribeOrderbook_5(testDataType& testData){
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeOrderbook";
+        testData.expectedResult = R"({"success":true,"data":{"unsubscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"BTC","symbol":"BTC-ETH"}],"unsubscribeFailed":[]}})";
+
+        OneXAPI::Upbit::Spot client;
+        client.subscribeOrderbook(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"BTC"}]})");
+
+        std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"BTC"}],"reconnect":true})";
+        std::string response = client.unsubscribeOrderbook(input);
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) == 0){
+            return true;
+        }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}

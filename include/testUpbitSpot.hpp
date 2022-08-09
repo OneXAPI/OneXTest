@@ -135,3 +135,9 @@ extern bool TC_UpbitSpot_subscribeOrderbook_1(testDataType& testData);
 extern bool TC_UpbitSpot_subscribeOrderbook_2(testDataType& testData);
 extern bool TC_UpbitSpot_subscribeOrderbook_3(testDataType& testData);
 extern bool TC_UpbitSpot_subscribeOrderbook_4(testDataType& testData);
+
+extern bool TC_UpbitSpot_unsubscribeOrderbook_1(testDataType& testData);
+extern bool TC_UpbitSpot_unsubscribeOrderbook_2(testDataType& testData);
+extern bool TC_UpbitSpot_unsubscribeOrderbook_3(testDataType& testData);
+extern bool TC_UpbitSpot_unsubscribeOrderbook_4(testDataType& testData);
+extern bool TC_UpbitSpot_unsubscribeOrderbook_5(testDataType& testData);

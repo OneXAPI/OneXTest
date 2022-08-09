@@ -34,3 +34,6 @@
 # Project
 *.log
 main
+wsTest.cpp
+wsLongTermTest/wsTest
+
