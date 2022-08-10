@@ -456,6 +456,11 @@ void regression(){
     result = TC_UpbitSpot_unsubscribeOrderbook_5(td);
     result?(pass++):(fail++);
     printResult(td, result);
+    result = TC_UpbitSpot_websocketFullTest(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+
+    
     
     std::cout << "Executed : " << pass+fail << "   Pass : " << pass << "   Fail : " << fail << std::endl;
     WS_LOGGER.info("regression end");

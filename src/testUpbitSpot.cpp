@@ -4271,12 +4271,12 @@ bool TC_UpbitSpot_unsubscribeTicker_4(testDataType& testData){
     try{
         testData.testCaseId = __func__;
         testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeTicker";
-        testData.expectedResult = R"({"success":true,"data":{"unsubscribed":[],"unsubscribeFailed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"BTC","symbol":"BTC-ETH"}]}})";
+        testData.expectedResult = R"({"success":true,"data":{"unsubscribed":[],"unsubscribeFailed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})";
 
         OneXAPI::Upbit::Spot client;
-        client.subscribeTicker(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"BTC"}]})");
+        client.subscribeTicker(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}]})");
 
-        std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"BTC"}]})";
+        std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}]})";
         std::string response = client.unsubscribeTicker(input);
 
         testData.actualResult = response;
@@ -4540,12 +4540,12 @@ bool TC_UpbitSpot_unsubscribeOrderbook_4(testDataType& testData){
     try{
         testData.testCaseId = __func__;
         testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeOrderbook";
-        testData.expectedResult = R"({"success":true,"data":{"unsubscribed":[],"unsubscribeFailed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"BTC","symbol":"BTC-ETH"}]}})";
+        testData.expectedResult = R"({"success":true,"data":{"unsubscribed":[],"unsubscribeFailed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})";
 
         OneXAPI::Upbit::Spot client;
-        client.subscribeOrderbook(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"BTC"}]})");
+        client.subscribeOrderbook(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}]})");
 
-        std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"BTC"}]})";
+        std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}]})";
         std::string response = client.unsubscribeOrderbook(input);
 
         testData.actualResult = response;
@@ -4581,6 +4581,181 @@ bool TC_UpbitSpot_unsubscribeOrderbook_5(testDataType& testData){
         if(response.compare(testData.expectedResult) == 0){
             return true;
         }
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
+bool TC_UpbitSpot_websocketFullTest(testDataType& testData){
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    try{
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().subscribeTicker_1";
+        testData.expectedResult = R"({"success":true,"data":{"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}],"subscribeFailed":[]}})";
+
+        OneXAPI::Upbit::Spot client;
+        std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}]})";
+        std::string response = client.subscribeTicker(input);
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) != 0){
+            return false;
+        }
+
+        testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingTickers_2";
+        testData.expectedResult = R"({"success":true,"data":{"tickers":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})";
+
+        response = client.getSubscribingTickers();
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) != 0){
+            return false;
+        }
+
+        testData.testSubject = "OneXAPI::Upbit::Spot().subscribeOrderbook_3";
+        testData.expectedResult = R"({"success":true,"data":{"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}],"subscribeFailed":[]}})";
+
+        input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}],"reconnect":true})";
+        response = client.subscribeOrderbook(input);
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) != 0){
+            return false;
+        }
+
+        testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingTickers_4";
+        testData.expectedResult = R"({"success":true,"data":{"tickers":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})";
+
+        response = client.getSubscribingTickers();
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) != 0){
+            return false;
+        }
+
+        testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingOrderbooks_5";
+        testData.expectedResult = R"({"success":true,"data":{"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})";
+
+        response = client.getSubscribingOrderbooks();
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) != 0){
+            return false;
+        }
+
+        testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeTicker_6";
+        testData.expectedResult = R"({"success":true,"data":{"unsubscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"}],"unsubscribeFailed":[]}})";
+
+        input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"}],"reconnect":true})";
+        response = client.unsubscribeTicker(input);
+
+        testData.actualResult = response;
+        
+        if(response.compare(testData.expectedResult) != 0){
+            return false;
+        }
+
+        testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingTickers_7";
+        testData.expectedResult = R"({"success":true,"data":{"tickers":[{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})";
+
+        response = client.getSubscribingTickers();
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) != 0){
+            return false;
+        }
+
+        testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingOrderbooks_8";
+        testData.expectedResult = R"({"success":true,"data":{"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})";
+
+        response = client.getSubscribingOrderbooks();
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) != 0){
+            return false;
+        }
+
+        testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeOrderbook_9";
+        testData.expectedResult = R"({"success":true,"data":{"unsubscribed":[{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}],"unsubscribeFailed":[]}})";
+
+        input = R"({"market":[{"baseCurrency":"ETH","quoteCurrency":"KRW"}],"reconnect":true})";
+        response = client.unsubscribeOrderbook(input);
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) != 0){
+            return false;
+        }
+
+        testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingTickers_10";
+        testData.expectedResult = R"({"success":true,"data":{"tickers":[{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})";
+
+        response = client.getSubscribingTickers();
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) != 0){
+            return false;
+        }
+
+        testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingOrderbooks_11";
+        testData.expectedResult = R"({"success":true,"data":{"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"}]}})";
+
+        response = client.getSubscribingOrderbooks();
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) != 0){
+            return false;
+        }
+
+        testData.testSubject = "OneXAPI::Upbit::Spot().subscribeOrderbook_12";
+        testData.expectedResult = R"({"success":true,"data":{"subscribed":[{"baseCurrency":"XRP","quoteCurrency":"KRW","symbol":"KRW-XRP"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}],"subscribeFailed":[]}})";
+
+        input = R"({"market":[{"baseCurrency":"XRP","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}],"reconnect":true})";
+        response = client.subscribeOrderbook(input);
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) != 0){
+            return false;
+        }
+
+        testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingTickers_13";
+        testData.expectedResult = R"({"success":true,"data":{"tickers":[{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})";
+
+        response = client.getSubscribingTickers();
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) != 0){
+            return false;
+        }
+
+        testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingOrderbooks_14";
+        testData.expectedResult = R"({"success":true,"data":{"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"XRP","quoteCurrency":"KRW","symbol":"KRW-XRP"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})";
+
+        response = client.getSubscribingOrderbooks();
+
+        testData.actualResult = response;
+
+        if(response.compare(testData.expectedResult) != 0){
+            return false;
+        }
+
+        return true;
     }
     catch(std::exception& e){
         testData.actualResult = EXCEPTION_MSG;
