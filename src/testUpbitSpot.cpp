@@ -2916,6 +2916,84 @@ bool TC_UpbitSpot_fetchOrderInfo_3(testDataType& testData){
     return false;
 }
 
+bool TC_UpbitSpot_fetchOrderInfo_4(testDataType& testData){
+    try{
+        std::string loggerLevel = LOGGER.getLevel();
+        LOGGER.setLevel("info");
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+        testData.testCaseId = __func__;
+        testData.testSubject = "OneXAPI::Upbit::Spot().fetchOrderInfo";
+        testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["baseCurrency"] is string response["data"]["quoteCurrency"] is string
+            response["data"]["symbol"] is string response["data"]["orderId"] = orderId response["data"]["side"] = "buy" or "sell" response["data"]["originalAmount"] is string
+            response["data"]["remainingAmount"] is string response["data"]["originalPrice"] is string response["data"]["avgFillPrice"] is string response["data"]["feeCurrency"] is string
+            response["data"]["feeAmount"] is string response["data"]["status"] is string response["data"]["fills"] is an empty array)";
+        testData.actualResult.clear();
+
+        OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
+
+        std::string orderbook = client.fetchOrderbook(R"({"baseCurrency":"XRP","quoteCurrency":"kRw"})");
+        rapidjson::Document orderbookDoc;
+        OneXAPI::Internal::Util::parseJson(orderbookDoc, orderbook);
+        if(!orderbookDoc["success"].GetBool()){
+            return false;
+        }
+        std::string bid = orderbookDoc["data"]["bids"][0]["price"].GetString();
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        std::string orderLimitBuy = client.orderLimitBuy(R"({"baseCurrency":"XRP","quoteCurrency":"kRw","price":)" + bid + R"(,"baseAmount":30.00,"amplifier":0.96})");
+        rapidjson::Document orderLimitBuyDoc;
+        OneXAPI::Internal::Util::parseJson(orderLimitBuyDoc, orderLimitBuy);
+        if(!orderLimitBuyDoc["success"].GetBool()){
+            return false;
+        }
+        std::string orderId = orderLimitBuyDoc["data"]["orderId"].GetString();
+        
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        std::string input = R"({"orderId":")" + orderId + R"("})";
+        std::string response = client.fetchOrderInfo(input);
+        testData.actualResult = response;
+        rapidjson::Document respDoc;
+        OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+        bool result = true;
+        if(!respDoc["success"].GetBool()){
+            result = false;
+        }
+        else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+            result = false;
+        }
+        else if(orderId.compare(respDoc["data"]["orderId"].GetString()) != 0 || std::string("buy").compare(respDoc["data"]["side"].GetString()) != 0){
+            result = false;
+        }
+        else if( !respDoc["data"]["baseCurrency"].IsString() || !respDoc["data"]["quoteCurrency"].IsString() || !respDoc["data"]["symbol"].IsString() ||
+            !respDoc["data"]["originalAmount"].IsString() || !respDoc["data"]["remainingAmount"].IsString() || !respDoc["data"]["originalPrice"].IsString() || 
+            !respDoc["data"]["avgFillPrice"].IsString() || !respDoc["data"]["feeCurrency"].IsString() || !respDoc["data"]["feeAmount"].IsString() || 
+            !respDoc["data"]["status"].IsString() || !respDoc["data"]["fills"].IsArray()){
+            result = false;
+        }
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        std::string orderCancel = client.orderCancel(input);
+        rapidjson::Document orderCancelDoc;
+        OneXAPI::Internal::Util::parseJson(orderCancelDoc, orderCancel);
+        if(!orderCancelDoc["success"].GetBool() || !result){
+            return false;
+        }
+
+        LOGGER.setLevel(loggerLevel);
+        
+        return true;
+    }
+    catch(std::exception& e){
+        testData.actualResult = EXCEPTION_MSG;
+    }
+    catch(...){
+        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
+    }
+    return false;
+}
+
 bool TC_UpbitSpot_fetchOpenOrders_1(testDataType& testData){
     try{
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
@@ -2924,30 +3002,61 @@ bool TC_UpbitSpot_fetchOpenOrders_1(testDataType& testData){
         testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["openOrders"][]["baseCurrency"] is string
             response["data"]["openOrders"][]["quoteCurrency"] is string response["data"]["openOrders"][]["symbol"] is string response["data"]["openOrders"][]["orderId"] is string
             response["data"]["openOrders"][]["side"] is string response["data"]["openOrders"][]["originalAmount"] is string response["data"]["openOrders"][]["filledAmount"] is string
-            response["data"]["openOrders"][]["remainingAmount"] is string response["data"]["openOrders"][]["originalPrice"] is string response["data"]["openOrders"][]["lockedCurrency"] is string
-            response["data"]["openOrders"][]["lockedAmount"] is string response["data"]["openOrders"][]["status"] is string)";
+            response["data"]["openOrders"][]["remainingAmount"] is string response["data"]["openOrders"][]["originalPrice"] is string response["data"]["openOrders"][]["status"] is uint64
+            response["data"]["openOrders"][]["lockedCurrency"] is string response["data"]["openOrders"][]["lockedAmount"] is string)";
         testData.actualResult.clear();
 
         OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
 
+        std::string orderbook = client.fetchOrderbook(R"({"baseCurrency":"XRP","quoteCurrency":"kRw"})");
+        rapidjson::Document orderbookDoc;
+        OneXAPI::Internal::Util::parseJson(orderbookDoc, orderbook);
+        if(!orderbookDoc["success"].GetBool()){
+            return false;
+        }
+        std::string bid = orderbookDoc["data"]["bids"][0]["price"].GetString();
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        std::string orderLimitBuy = client.orderLimitBuy(R"({"baseCurrency":"XRP","quoteCurrency":"kRw","price":)" + bid + R"(,"baseAmount":30.00,"amplifier":0.96})");
+        rapidjson::Document orderLimitBuyDoc;
+        OneXAPI::Internal::Util::parseJson(orderLimitBuyDoc, orderLimitBuy);
+        if(!orderLimitBuyDoc["success"].GetBool()){
+            return false;
+        }
+        std::string orderId = orderLimitBuyDoc["data"]["orderId"].GetString();
+        
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         std::string response = client.fetchOpenOrders(R"({})");
         testData.actualResult = response;
         rapidjson::Document respDoc;
         OneXAPI::Internal::Util::parseJson(respDoc, response);
 
+        bool result = true;
         if(!respDoc["success"].GetBool()){
-            return false;
+            result = false;
         }
         else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
-            return false;
+            result = false;
+        }
+        else if(respDoc["data"]["openOrders"].Size() == 0){
+            result = false;
         }
         for(const auto& openorder : respDoc["data"]["openOrders"].GetArray()){
             if( !openorder["baseCurrency"].IsString() || !openorder["quoteCurrency"].IsString() || !openorder["symbol"].IsString() ||
                 !openorder["orderId"].IsString() || !openorder["side"].IsString() || !openorder["originalAmount"].IsString() ||
                 !openorder["filledAmount"].IsString() || !openorder["remainingAmount"].IsString() || !openorder["originalPrice"].IsString() ||
-                !openorder["lockedCurrency"].IsString() || !openorder["lockedAmount"].IsString() || !openorder["status"].IsString()){
-                return false;
+                !openorder["created"].IsUint64() || !openorder["lockedCurrency"].IsString() || !openorder["lockedAmount"].IsString()){
+                result = false;
             }
+        }
+
+        std::string input = R"({"orderId":")" + orderId + R"("})";
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        std::string orderCancel = client.orderCancel(input);
+        rapidjson::Document orderCancelDoc;
+        OneXAPI::Internal::Util::parseJson(orderCancelDoc, orderCancel);
+        if(!orderCancelDoc["success"].GetBool() || !result){
+            return false;
         }
 
         return true;
@@ -2975,24 +3084,55 @@ bool TC_UpbitSpot_fetchOpenOrders_2(testDataType& testData){
 
         OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
 
-        std::string response = client.fetchOpenOrders(R"({"baseCurrency":"bTC","quoteCurrency":"KRw","side":"buy"})");
+        std::string orderbook = client.fetchOrderbook(R"({"baseCurrency":"XRP","quoteCurrency":"kRw"})");
+        rapidjson::Document orderbookDoc;
+        OneXAPI::Internal::Util::parseJson(orderbookDoc, orderbook);
+        if(!orderbookDoc["success"].GetBool()){
+            return false;
+        }
+        std::string bid = orderbookDoc["data"]["bids"][0]["price"].GetString();
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        std::string orderLimitBuy = client.orderLimitBuy(R"({"baseCurrency":"XRP","quoteCurrency":"kRw","price":)" + bid + R"(,"baseAmount":30.00,"amplifier":0.96})");
+        rapidjson::Document orderLimitBuyDoc;
+        OneXAPI::Internal::Util::parseJson(orderLimitBuyDoc, orderLimitBuy);
+        if(!orderLimitBuyDoc["success"].GetBool()){
+            return false;
+        }
+        std::string orderId = orderLimitBuyDoc["data"]["orderId"].GetString();
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        std::string response = client.fetchOpenOrders(R"({"baseCurrency":"xRP","quoteCurrency":"KRw","side":"buy"})");
         testData.actualResult = response;
         rapidjson::Document respDoc;
         OneXAPI::Internal::Util::parseJson(respDoc, response);
 
+        bool result = true;
         if(!respDoc["success"].GetBool()){
-            return false;
+            result = false;
         }
         else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
-            return false;
+            result = false;
+        }
+        else if(respDoc["data"]["openOrders"].Size() == 0){
+            result = false;
         }
         for(const auto& openorder : respDoc["data"]["openOrders"].GetArray()){
             if( !openorder["baseCurrency"].IsString() || !openorder["quoteCurrency"].IsString() || !openorder["symbol"].IsString() ||
                 !openorder["orderId"].IsString() || !openorder["side"].IsString() || !openorder["originalAmount"].IsString() ||
                 !openorder["filledAmount"].IsString() || !openorder["remainingAmount"].IsString() || !openorder["originalPrice"].IsString() ||
-                !openorder["lockedCurrency"].IsString() || !openorder["lockedAmount"].IsString() || !openorder["status"].IsString()){
-                return false;
+                !openorder["created"].IsUint64() || !openorder["lockedCurrency"].IsString() || !openorder["lockedAmount"].IsString()){
+                result = false;
             }
+        }
+
+        std::string input = R"({"orderId":")" + orderId + R"("})";
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        std::string orderCancel = client.orderCancel(input);
+        rapidjson::Document orderCancelDoc;
+        OneXAPI::Internal::Util::parseJson(orderCancelDoc, orderCancel);
+        if(!orderCancelDoc["success"].GetBool() || !result){
+            return false;
         }
 
         return true;

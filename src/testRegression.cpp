@@ -318,6 +318,9 @@ void regression(){
     result = TC_UpbitSpot_fetchOrderInfo_3(td);
     result?(pass++):(fail++);
     printResult(td, result);
+    result = TC_UpbitSpot_fetchOrderInfo_4(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
     result = TC_UpbitSpot_fetchOpenOrders_1(td);
     result?(pass++):(fail++);
     printResult(td, result);
