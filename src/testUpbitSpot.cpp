@@ -2925,8 +2925,9 @@ bool TC_UpbitSpot_fetchOrderInfo_4(testDataType& testData){
         testData.testCaseId = __func__;
         testData.testSubject = "OneXAPI::Upbit::Spot().fetchOrderInfo";
         testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["baseCurrency"] is string response["data"]["quoteCurrency"] is string
-            response["data"]["symbol"] is string response["data"]["orderId"] = orderId response["data"]["side"] = "buy" or "sell" response["data"]["originalAmount"] is string
-            response["data"]["remainingAmount"] is string response["data"]["originalPrice"] is string response["data"]["avgFillPrice"] is string response["data"]["feeCurrency"] is string
+            response["data"]["symbol"] is string response["data"]["orderId"] = orderId response["data"]["clientOrderId"] is string response["data"]["side"] = "buy" or "sell" 
+            response["data"]["originalAmount"] is string response["data"]["filledAmount"] is string response["data"]["remainingAmount"] is string response["data"]["originalPrice"] is string 
+            response["data"]["avgFillPrice"] is string response["data"]["created"] is uint64 response["data"]["feeCurrency"] is string
             response["data"]["feeAmount"] is string response["data"]["status"] is string response["data"]["fills"] is an empty array)";
         testData.actualResult.clear();
 
@@ -2967,8 +2968,9 @@ bool TC_UpbitSpot_fetchOrderInfo_4(testDataType& testData){
             result = false;
         }
         else if( !respDoc["data"]["baseCurrency"].IsString() || !respDoc["data"]["quoteCurrency"].IsString() || !respDoc["data"]["symbol"].IsString() ||
-            !respDoc["data"]["originalAmount"].IsString() || !respDoc["data"]["remainingAmount"].IsString() || !respDoc["data"]["originalPrice"].IsString() || 
-            !respDoc["data"]["avgFillPrice"].IsString() || !respDoc["data"]["feeCurrency"].IsString() || !respDoc["data"]["feeAmount"].IsString() || 
+            !respDoc["data"]["clientOrderId"].IsString() || !respDoc["data"]["originalAmount"].IsString() || !respDoc["data"]["remainingAmount"].IsString() || 
+            !respDoc["data"]["originalPrice"].IsString() || !respDoc["data"]["filledAmount"].IsString() || !respDoc["data"]["avgFillPrice"].IsString() || 
+            !respDoc["data"]["created"].IsUint64() || !respDoc["data"]["feeCurrency"].IsString() || !respDoc["data"]["feeAmount"].IsString() || 
             !respDoc["data"]["status"].IsString() || !respDoc["data"]["fills"].IsArray()){
             result = false;
         }
