@@ -12,13 +12,7 @@ static void printResult(testDataType& td, bool testResult){
     std::cout << "Actual Result : " << td.actualResult << std::endl << std::endl;
 }
 
-void regression(){
-    uint64_t pass = 0;
-    uint64_t fail = 0;
-    bool result;
-    testDataType td;
-
-    /* OneXAPI */
+static void TC_OneXAPI(testDataType& td, uint64_t& pass, uint64_t& fail, bool& result){
     result = TC_OneXAPI_getInfo_1(td);
     result?(pass++):(fail++);
     printResult(td, result);
@@ -61,11 +55,9 @@ void regression(){
     result = TC_OneXAPI_setLoggerConfig_6(td);
     result?(pass++):(fail++);
     printResult(td, result);
+}
 
-    LOGGER.setMethod("file");
-    WS_LOGGER.setLevel("info");
-	WS_LOGGER.setMethod("file");
-    /* UpbitSpot */
+static void TC_UpbitSpot(testDataType& td, uint64_t& pass, uint64_t& fail, bool& result){
     result = TC_UpbitSpot_Object_1(td);
     result?(pass++):(fail++);
     printResult(td, result);
@@ -459,9 +451,31 @@ void regression(){
     result = TC_UpbitSpot_websocketFullTest(td);
     result?(pass++):(fail++);
     printResult(td, result);
+}
 
-    
-    
+static void TC_BinanceSpot(testDataType& td, uint64_t& pass, uint64_t& fail, bool& result){
+
+}
+
+void regression(){
+    uint64_t pass = 0;
+    uint64_t fail = 0;
+    bool result;
+    testDataType td;
+
+    /* OneXAPI */
+    TC_OneXAPI(td, pass, fail, result);
+
+    LOGGER.setMethod("file");
+    WS_LOGGER.setLevel("info");
+	WS_LOGGER.setMethod("file");
+
+    /* UpbitSpot */
+    TC_UpbitSpot(td, pass, fail, result);
+
+    /* BinanceSpot */
+    TC_BinanceSpot(td, pass, fail, result);
+
     std::cout << "Executed : " << pass+fail << "   Pass : " << pass << "   Fail : " << fail << std::endl;
     WS_LOGGER.info("regression end");
 }

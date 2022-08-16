@@ -8,6 +8,7 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "${fileDirname}/src/**.cpp",
+                "${fileDirname}/src/**/**.cpp",
                 "${file}",
                 "-L$(pwd)",
                 "-Wl,-rpath=$(pwd)",

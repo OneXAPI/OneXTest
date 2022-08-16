@@ -2,6 +2,6 @@
 
 #include <iostream>
 #include "testOneXAPI.hpp"
-#include "testUpbitSpot.hpp"
+#include "exchanges/testUpbitSpot.hpp"
 
 extern void regression();

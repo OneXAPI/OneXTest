@@ -1,5 +1,5 @@
-#include "../include/testUpbitSpot.hpp"
-#include "../include/testTool.hpp"
+#include "../../include/exchanges/testUpbitSpot.hpp"
+#include "../../include/testTool.hpp"
 #include <iostream>
 
 
