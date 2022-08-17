@@ -1,30 +1,12 @@
 {
     "tasks": [
         {
-            "type": "cppbuild",
+            "type": "shell",
             "label": "C/C++: g++ 활성 파일 빌드",
-            "command": "/usr/bin/g++",
-            "args": [
-                "-fdiagnostics-color=always",
-                "-g",
-                "${fileDirname}/src/**.cpp",
-                "${fileDirname}/src/**/**.cpp",
-                "${file}",
-                "-L$(pwd)",
-                "-Wl,-rpath=$(pwd)",
-                "-I${fileDirname}/../OneXDev/include",
-                "-ldl",
-                "-lOneXAPI",
-                "-lcrypto",
-                "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
-            ],
+            "command": "/usr/bin/make",
             "options": {
                 "cwd": "${fileDirname}"
             },
-            "problemMatcher": [
-                "$gcc"
-            ],
             "group": {
                 "kind": "build",
                 "isDefault": true
