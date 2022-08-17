@@ -3,6 +3,167 @@
 #include "../../include/testTool.hpp"
 #include <iostream>
 
+bool TC_BinanceSpot_Object_1(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot";
+    testData.expectedResult = "No Error";
+
+    OneXAPI::Binance::Spot stackClient;
+    OneXAPI::Binance::Spot* heapClient = new OneXAPI::Binance::Spot();
+
+    testData.actualResult = "No Error";
+
+    delete heapClient;
+    return true;
+
+    TC_END
+}
+
+bool TC_BinanceSpot_Object_2(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot";
+    testData.expectedResult = "No Error";
+
+    OneXAPI::Binance::Spot stackClient("");
+    OneXAPI::Binance::Spot* heapClient = new OneXAPI::Binance::Spot("");
+
+    testData.actualResult = "No Error";
+
+    delete heapClient;
+    return true;
+    
+    TC_END
+}
+
+bool TC_BinanceSpot_Object_3(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot";
+    testData.expectedResult = "No Error";
+
+    OneXAPI::Binance::Spot stackClient("{}");
+    OneXAPI::Binance::Spot* heapClient = new OneXAPI::Binance::Spot("{}");
+
+    testData.actualResult = "No Error";
+
+    delete heapClient;
+    return true;
+
+    TC_END
+}
+
+bool TC_BinanceSpot_Object_4(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot";
+    testData.expectedResult = "No Error";
+
+    OneXAPI::Binance::Spot stackClient("fnq543wb");
+    OneXAPI::Binance::Spot* heapClient = new OneXAPI::Binance::Spot("fnq543wb");
+
+    testData.actualResult = "No Error";
+
+    delete heapClient;
+    return true;
+
+    TC_END
+}
+
+bool TC_BinanceSpot_Object_5(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot";
+    testData.expectedResult = R"(accessKey : "Test Access Key", secretKey : "")";
+
+    OneXAPI::Binance::Spot stackClient(R"({"accessKey":"Test Access Key"})");
+    OneXAPI::Binance::Spot* heapClient = new OneXAPI::Binance::Spot(R"({"accessKey":"Test Access Key"})");
+
+    rapidjson::Document respDoc;
+    std::string response = stackClient.getConfig();
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+    testData.actualResult = "stack : " + response + "\n";
+    std::string stackAccessKey = respDoc["data"]["accessKey"].GetString();
+    std::string stackSecretKey = respDoc["data"]["secretKey"].GetString();
+    
+    response = heapClient->getConfig();
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+    testData.actualResult += "heap : " + response + "\n";
+    std::string heapAccessKey = respDoc["data"]["accessKey"].GetString();
+    std::string heapSecretKey = respDoc["data"]["secretKey"].GetString();
+
+    delete heapClient;
+    if( stackAccessKey.compare("Test Access Key") == 0 && stackSecretKey.empty() &&
+        heapAccessKey.compare("Test Access Key") == 0 && heapSecretKey.empty()){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_Object_6(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot";
+    testData.expectedResult = R"(accessKey : "", secretKey : "Test Secret Key")";
+
+    OneXAPI::Binance::Spot stackClient(R"({"secretKey":"Test Secret Key"})");
+    OneXAPI::Binance::Spot* heapClient = new OneXAPI::Binance::Spot(R"({"secretKey":"Test Secret Key"})");
+
+    rapidjson::Document respDoc;
+    std::string response = stackClient.getConfig();
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+    testData.actualResult = "stack : " + response + "\n";
+    std::string stackAccessKey = respDoc["data"]["accessKey"].GetString();
+    std::string stackSecretKey = respDoc["data"]["secretKey"].GetString();
+    
+    response = heapClient->getConfig();
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+    testData.actualResult += "heap : " + response + "\n";
+    std::string heapAccessKey = respDoc["data"]["accessKey"].GetString();
+    std::string heapSecretKey = respDoc["data"]["secretKey"].GetString();
+
+    delete heapClient;
+    if( stackAccessKey.empty() && stackSecretKey.compare("Test Secret Key") == 0 &&
+        heapAccessKey.empty() && heapSecretKey.compare("Test Secret Key") == 0){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_Object_7(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot";
+    testData.expectedResult = R"(accessKey : "Test Access Key", secretKey : "Test Secret Key")";
+
+    OneXAPI::Binance::Spot stackClient(R"({"accessKey":"Test Access Key", "secretKey":"Test Secret Key"})");
+    OneXAPI::Binance::Spot* heapClient = new OneXAPI::Binance::Spot(R"({"accessKey":"Test Access Key", "secretKey":"Test Secret Key"})");
+
+    rapidjson::Document respDoc;
+    std::string response = stackClient.getConfig();
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+    testData.actualResult = "stack : " + response + "\n";
+    std::string stackAccessKey = respDoc["data"]["accessKey"].GetString();
+    std::string stackSecretKey = respDoc["data"]["secretKey"].GetString();
+    
+    response = heapClient->getConfig();
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+    testData.actualResult += "heap : " + response + "\n";
+    std::string heapAccessKey = respDoc["data"]["accessKey"].GetString();
+    std::string heapSecretKey = respDoc["data"]["secretKey"].GetString();
+
+    delete heapClient;
+    if( stackAccessKey.compare("Test Access Key") == 0 && stackSecretKey.compare("Test Secret Key") == 0 &&
+        heapAccessKey.compare("Test Access Key") == 0 && heapSecretKey.compare("Test Secret Key") == 0){
+        return true;
+    }
+
+    TC_END
+}
+
 bool TC_BinanceSpot_subscribeTicker_1(testDataType& testData){
     TC_BEGIN
 

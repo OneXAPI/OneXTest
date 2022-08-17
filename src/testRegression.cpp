@@ -451,7 +451,27 @@ static void TC_UpbitSpot(testDataType& td, uint64_t& pass, uint64_t& fail, bool&
 }
 
 static void TC_BinanceSpot(testDataType& td, uint64_t& pass, uint64_t& fail, bool& result){
-
+    result = TC_BinanceSpot_Object_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_Object_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_Object_3(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_Object_4(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_Object_5(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_Object_6(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_Object_7(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
 }
 
 void regression(){
@@ -461,14 +481,14 @@ void regression(){
     testDataType td;
 
     /* OneXAPI */
-    TC_OneXAPI(td, pass, fail, result);
+    // TC_OneXAPI(td, pass, fail, result);
 
     LOGGER.setMethod("file");
     WS_LOGGER.setLevel("info");
 	WS_LOGGER.setMethod("file");
 
     /* UpbitSpot */
-    TC_UpbitSpot(td, pass, fail, result);
+    // TC_UpbitSpot(td, pass, fail, result);
 
     /* BinanceSpot */
     TC_BinanceSpot(td, pass, fail, result);
