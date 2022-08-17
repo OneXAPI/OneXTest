@@ -33,7 +33,6 @@ extern bool TC_UpbitSpot_has_2(testDataType& testData);
 extern bool TC_UpbitSpot_has_3(testDataType& testData);
 extern bool TC_UpbitSpot_has_4(testDataType& testData);
 extern bool TC_UpbitSpot_has_5(testDataType& testData);
-extern bool TC_UpbitSpot_has_6(testDataType& testData);
 
 extern bool TC_UpbitSpot_getWithdrawRoundingRule_1(testDataType& testData);
 extern bool TC_UpbitSpot_getWithdrawRoundingRule_2(testDataType& testData);

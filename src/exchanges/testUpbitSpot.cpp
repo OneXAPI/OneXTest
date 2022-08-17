@@ -711,26 +711,18 @@ bool TC_UpbitSpot_has_1(testDataType& testData){
     try{
         testData.testCaseId = __func__;
         testData.testSubject = "OneXAPI::Upbit::Spot().has";
-        rapidjson::Document expectedResult;
-        expectedResult.SetObject();
-        expectedResult.AddMember("success", true, expectedResult.GetAllocator());
-        expectedResult.AddMember("data", rapidjson::Value(rapidjson::kObjectType), expectedResult.GetAllocator());
-        expectedResult["data"].AddMember("requestedApiCount", 0, expectedResult.GetAllocator());
-        for(auto api : hasExpectedResult){
-            rapidjson::Value apiName(api.first, expectedResult.GetAllocator());
-            expectedResult["data"].AddMember(apiName, api.second, expectedResult.GetAllocator());
-        }
-        testData.expectedResult = OneXAPI::Internal::Util::jsonToString(expectedResult);
+        testData.expectedResult = R"({"success":false,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":""}})";
 
         OneXAPI::Upbit::Spot client;
-
-        std::string response = client.has();
+        std::string input = "";
+        std::string response = client.has(input);
 
         testData.actualResult = response;
-        
-        if(response.compare(testData.expectedResult) == 0){
-            return true;
+
+        if(!errorResponseChecker(response, "JSON_PARSING_ERROR")){
+            return false;
         }
+        return true;
     }
     catch(std::exception& e){
         testData.actualResult = EXCEPTION_MSG;
@@ -742,40 +734,6 @@ bool TC_UpbitSpot_has_1(testDataType& testData){
 }
 
 bool TC_UpbitSpot_has_2(testDataType& testData){
-    try{
-        testData.testCaseId = __func__;
-        testData.testSubject = "OneXAPI::Upbit::Spot().has";
-        rapidjson::Document expectedResult;
-        expectedResult.SetObject();
-        expectedResult.AddMember("success", true, expectedResult.GetAllocator());
-        expectedResult.AddMember("data", rapidjson::Value(rapidjson::kObjectType), expectedResult.GetAllocator());
-        expectedResult["data"].AddMember("requestedApiCount", 0, expectedResult.GetAllocator());
-        for(auto api : hasExpectedResult){
-            rapidjson::Value apiName(api.first, expectedResult.GetAllocator());
-            expectedResult["data"].AddMember(apiName, api.second, expectedResult.GetAllocator());
-        }
-        testData.expectedResult = OneXAPI::Internal::Util::jsonToString(expectedResult);
-
-        OneXAPI::Upbit::Spot client;
-        std::string input = "";
-        std::string response = client.has(input);
-
-        testData.actualResult = response;
-        
-        if(response.compare(testData.expectedResult) == 0){
-            return true;
-        }
-    }
-    catch(std::exception& e){
-        testData.actualResult = EXCEPTION_MSG;
-    }
-    catch(...){
-        testData.actualResult = UNEXPECTED_EXCEPTION_MSG;
-    }
-    return false;
-}
-
-bool TC_UpbitSpot_has_3(testDataType& testData){
     try{
         testData.testCaseId = __func__;
         testData.testSubject = "OneXAPI::Upbit::Spot().has";
@@ -809,7 +767,7 @@ bool TC_UpbitSpot_has_3(testDataType& testData){
     return false;
 }
 
-bool TC_UpbitSpot_has_4(testDataType& testData){
+bool TC_UpbitSpot_has_3(testDataType& testData){
     try{
         testData.testCaseId = __func__;
         testData.testSubject = "OneXAPI::Upbit::Spot().has";
@@ -835,7 +793,7 @@ bool TC_UpbitSpot_has_4(testDataType& testData){
     return false;
 }
 
-bool TC_UpbitSpot_has_5(testDataType& testData){
+bool TC_UpbitSpot_has_4(testDataType& testData){
     try{
         testData.testCaseId = __func__;
         testData.testSubject = "OneXAPI::Upbit::Spot().has";
@@ -865,7 +823,7 @@ bool TC_UpbitSpot_has_5(testDataType& testData){
     return false;
 }
 
-bool TC_UpbitSpot_has_6(testDataType& testData){
+bool TC_UpbitSpot_has_5(testDataType& testData){
     try{
         testData.testCaseId = __func__;
         testData.testSubject = "OneXAPI::Upbit::Spot().has";
@@ -1420,8 +1378,7 @@ bool TC_UpbitSpot_fetchWithdrawHistory_1(testDataType& testData){
         testData.testSubject = "OneXAPI::Upbit::Spot().fetchWithdrawHistory";
         testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["withdrawals"]["currency"] is string
             response["data"]["withdrawals"]["amount"] is string response["data"]["withdrawals"]["fee"] is string response["data"]["withdrawals"]["orderId"] is string
-            response["data"]["withdrawals"]["txid"] is string response["data"]["withdrawals"]["status"] is string response["data"]["withdrawals"]["createdAt"] is uint64
-            response["data"]["withdrawals"]["doneAt"] is uint64)";
+            response["data"]["withdrawals"]["txid"] is string response["data"]["withdrawals"]["status"] is string response["data"]["withdrawals"]["created"] is uint64)";
         testData.actualResult.clear();
 
         OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
@@ -1459,10 +1416,7 @@ bool TC_UpbitSpot_fetchWithdrawHistory_1(testDataType& testData){
             if(!withdrawal["status"].IsString()){
                 return false;
             }
-            if(!withdrawal["createdAt"].IsUint64()){
-                return false;
-            }
-            if(!withdrawal["doneAt"].IsUint64()){
+            if(!withdrawal["created"].IsUint64()){
                 return false;
             }
         }
@@ -1522,8 +1476,7 @@ bool TC_UpbitSpot_fetchDepositHistory_1(testDataType& testData){
         testData.testSubject = "OneXAPI::Upbit::Spot().fetchDepositHistory";
         testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["deposits"]["currency"] is string
             response["data"]["deposits"]["amount"] is string response["data"]["deposits"]["fee"] is string response["data"]["deposits"]["orderId"] is string
-            response["data"]["deposits"]["txid"] is string response["data"]["deposits"]["status"] is string response["data"]["deposits"]["createdAt"] is uint64
-            response["data"]["deposits"]["doneAt"] is uint64)";
+            response["data"]["deposits"]["txid"] is string response["data"]["deposits"]["status"] is string response["data"]["deposits"]["created"] is uint64)";
         testData.actualResult.clear();
 
         OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
@@ -1561,10 +1514,7 @@ bool TC_UpbitSpot_fetchDepositHistory_1(testDataType& testData){
             if(!withdrawal["status"].IsString()){
                 return false;
             }
-            if(!withdrawal["createdAt"].IsUint64()){
-                return false;
-            }
-            if(!withdrawal["doneAt"].IsUint64()){
+            if(!withdrawal["created"].IsUint64()){
                 return false;
             }
         }
@@ -1670,13 +1620,13 @@ bool TC_UpbitSpot_fetchDepositAddress_2(testDataType& testData){
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         testData.testCaseId = __func__;
         testData.testSubject = "OneXAPI::Upbit::Spot().fetchDepositAddress";
-        testData.expectedResult = R"(response["success"]:true response["data"]["addresses"]:1 response["data"]["addresses"][currency]["address"] is string
-            response["data"]["addresses"][currency]["tag"] is string and member count of response["data"]["addresses"] must be bigger than 0 and smaller than 4)";
+        testData.expectedResult = R"(response["success"]:true response["data"]["addresses"]:1 response["data"]["addresses"]["BTC"]["address"] is string
+            response["data"]["addresses"]["BTC"]["tag"] is string       member count of response["data"]["addresses"] must be 1)";
         testData.actualResult.clear();
 
         OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
 
-        std::string response = client.fetchDepositAddress(R"({"currencies":["Btc","eTH","xRp"]})");
+        std::string response = client.fetchDepositAddress(R"({"currency":"Btc"})");
         testData.actualResult = response;
         rapidjson::Document respDoc;
         OneXAPI::Internal::Util::parseJson(respDoc, response);
@@ -1687,19 +1637,14 @@ bool TC_UpbitSpot_fetchDepositAddress_2(testDataType& testData){
         else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
             return false;
         }
-        else if(respDoc["data"]["addresses"].MemberCount() < 1 || respDoc["data"]["addresses"].MemberCount() > 3){
+        else if(respDoc["data"]["addresses"].MemberCount() != 1){
             return false;
         }
-        for(auto addressPtr = respDoc["data"]["addresses"].MemberBegin(); addressPtr != respDoc["data"]["addresses"].MemberEnd(); addressPtr++){
-            if(!addressPtr->name.IsString()){
-                return false;
-            }
-            if(!addressPtr->value["address"].IsString()){
-                return false;
-            }
-            if(!addressPtr->value["tag"].IsString()){
-                return false;
-            }
+        if(!respDoc["data"]["addresses"]["BTC"]["address"].IsString()){
+            return false;
+        }
+        if(!respDoc["data"]["addresses"]["BTC"]["tag"].IsString()){
+            return false;
         }
 
         return true;
@@ -2795,7 +2740,7 @@ bool TC_UpbitSpot_fetchTradingFee_2(testDataType& testData){
     try{
         testData.testCaseId = __func__;
         testData.testSubject = "OneXAPI::Upbit::Spot().fetchTradingFee";
-        testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":1,"makerFee":"0.0005","takerFee":"0.0005"}})";
+        testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":1,"fees":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC","makerFee":"0.0005","takerFee":"0.0005"}]}})";
 
         OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
         std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"KRw"})";

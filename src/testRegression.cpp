@@ -133,9 +133,6 @@ static void TC_UpbitSpot(testDataType& td, uint64_t& pass, uint64_t& fail, bool&
     result = TC_UpbitSpot_has_5(td);
     result?(pass++):(fail++);
     printResult(td, result);
-    result = TC_UpbitSpot_has_6(td);
-    result?(pass++):(fail++);
-    printResult(td, result);
     result = TC_UpbitSpot_getWithdrawRoundingRule_1(td);
     result?(pass++):(fail++);
     printResult(td, result);
