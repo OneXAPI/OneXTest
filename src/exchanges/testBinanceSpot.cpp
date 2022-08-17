@@ -164,6 +164,301 @@ bool TC_BinanceSpot_Object_7(testDataType& testData){
     TC_END
 }
 
+static const std::string getConfigExpectedResult = R"({"success":true,"data":{"requestedApiCount":0,"exchange":"Binance","instrument":"Spot","accessKey":"","secretKey":"","restEndpoint":"https://api.binance.com","publicWebsocketEndpoint":"wss://stream.binance.com:9443/stream","privateWebsocketEndpoint":"wss://stream.binance.com:9443/ws","restRequestTimeout":5000,"websocketConnectTimeout":5000,"websocketIdleTimeout":5000}})";
+
+bool TC_BinanceSpot_getConfig_1(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().getConfig";
+    testData.expectedResult = getConfigExpectedResult;
+
+    OneXAPI::Binance::Spot client;
+
+    std::string response = client.getConfig();
+
+    testData.actualResult = response;
+    
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_getConfig_2(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().getConfig";
+    testData.expectedResult = getConfigExpectedResult;
+
+    OneXAPI::Binance::Spot client;
+    std::string input = "";
+    std::string response = client.getConfig(input);
+
+    testData.actualResult = response;
+    
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_getConfig_3(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().getConfig";
+    testData.expectedResult = getConfigExpectedResult;
+
+    OneXAPI::Binance::Spot client;
+    std::string input = "{}";
+    std::string response = client.getConfig(input);
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_getConfig_4(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().getConfig";
+    testData.expectedResult = getConfigExpectedResult;
+
+    OneXAPI::Binance::Spot client;
+    std::string input = "trashData123@@!%";
+    std::string response = client.getConfig(input);
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_setConfig_1(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().setConfig";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":""}})";
+
+    OneXAPI::Binance::Spot client;
+
+    std::string response = client.setConfig("");
+
+    testData.actualResult = response;
+    
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_setConfig_2(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().setConfig";
+    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0}})";
+
+    OneXAPI::Binance::Spot client;
+
+    std::string response = client.setConfig("{}");
+
+    testData.actualResult = response;
+    
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_setConfig_3(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().setConfig";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"WRONG_VALUE_TYPE","errorMsg":"~~~"}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Spot client;
+    std::string input, response;
+
+    input = R"({"accessKey":1.1354})";
+    response = client.setConfig(input);
+    testData.actualResult.append(response + "\n");
+    if(!errorResponseChecker(response, "WRONG_VALUE_TYPE")){
+        return false;
+    }
+    input = R"({"secretKey":11354})";
+    response = client.setConfig(input);
+    testData.actualResult.append(response + "\n");
+    if(!errorResponseChecker(response, "WRONG_VALUE_TYPE")){
+        return false;
+    }
+    input = R"({"restEndpoint":null})";
+    response = client.setConfig(input);
+    testData.actualResult.append(response + "\n");
+    if(!errorResponseChecker(response, "WRONG_VALUE_TYPE")){
+        return false;
+    }
+    input = R"({"publicWebsocketEndpoint":true})";
+    response = client.setConfig(input);
+    testData.actualResult.append(response + "\n");
+    if(!errorResponseChecker(response, "WRONG_VALUE_TYPE")){
+        return false;
+    }
+    input = R"({"privateWebsocketEndpoint":{}})";
+    response = client.setConfig(input);
+    testData.actualResult.append(response + "\n");
+    if(!errorResponseChecker(response, "WRONG_VALUE_TYPE")){
+        return false;
+    }
+    input = R"({"restRequestTimeout":1.1354})";
+    response = client.setConfig(input);
+    testData.actualResult.append(response + "\n");
+    if(!errorResponseChecker(response, "WRONG_VALUE_TYPE")){
+        return false;
+    }
+    input = R"({"websocketConnectTimeout":"ffaew"})";
+    response = client.setConfig(input);
+    testData.actualResult.append(response + "\n");
+    if(!errorResponseChecker(response, "WRONG_VALUE_TYPE")){
+        return false;
+    }
+    input = R"({"websocketIdleTimeout":false})";
+    response = client.setConfig(input);
+    testData.actualResult.append(response + "\n");
+    if(!errorResponseChecker(response, "WRONG_VALUE_TYPE")){
+        return false;
+    }
+
+    return true;
+
+    TC_END
+}
+
+bool TC_BinanceSpot_setConfig_4(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().setConfig";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"WRONG_VALUE","errorMsg":"~~~"}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Spot client;
+    std::string input, response;
+
+    input = R"({"restEndpoint":"wrongEndpoint"})";
+    response = client.setConfig(input);
+    testData.actualResult.append(response + "\n");
+    if(!errorResponseChecker(response, "WRONG_VALUE")){
+        return false;
+    }
+    input = R"({"publicWebsocketEndpoint":"wrongEndpoint"})";
+    response = client.setConfig(input);
+    testData.actualResult.append(response + "\n");
+    if(!errorResponseChecker(response, "WRONG_VALUE")){
+        return false;
+    }
+    input = R"({"privateWebsocketEndpoint":"wrongEndpoint"})";
+    response = client.setConfig(input);
+    testData.actualResult.append(response + "\n");
+    if(!errorResponseChecker(response, "WRONG_VALUE")){
+        return false;
+    }
+
+    return true;
+
+    TC_END
+}
+
+bool TC_BinanceSpot_setConfig_5(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().setConfig";
+    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"requestedKey":"requestedValue"}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Spot client;
+    std::string input, response;
+
+    std::vector<std::pair<std::string,std::string>> testList = {
+        {"accessKey",R"("test access key")"},
+        {"secretKey",R"("test secret key")"},
+        {"restEndpoint",R"("https://api3.binance.com")"},
+        {"publicWebsocketEndpoint",R"("wss://testnet.binance.vision/stream")"},
+        {"privateWebsocketEndpoint",R"("wss://testnet.binance.vision/ws")"},
+        {"restRequestTimeout","1378331"},
+        {"websocketConnectTimeout","3787123"},
+        {"websocketIdleTimeout","8941313531215"}
+    };
+    for(const auto& testItem : testList){
+        input = R"({")" + testItem.first + R"(":)" + testItem.second + R"(})";
+        response = client.setConfig(input);
+        testData.actualResult.append(response + "\n");
+
+        rapidjson::Document respDoc;
+        OneXAPI::Internal::Util::parseJson(respDoc, response);
+        if(!respDoc["success"].GetBool()){
+            return false;
+        }
+        else if(!respDoc["data"].HasMember(testItem.first)){
+            return false;
+        }
+        else if(respDoc["data"][testItem.first].IsString()){
+            std::string answer = boost::replace_all_copy(testItem.second, "\"", "");
+            if(answer.compare(respDoc["data"][testItem.first].GetString()) != 0){
+                return false;
+            }
+        }
+        else if(respDoc["data"][testItem.first].IsUint64()){
+            if(testItem.second.compare(std::to_string(respDoc["data"][testItem.first].GetUint64())) != 0){
+                return false;
+            }                
+        }
+        else{
+            return false;
+        }
+    }
+
+    response = client.getConfig();
+    testData.actualResult.append("getConfig result : \n" + response);
+    rapidjson::Document respDoc;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+    for(const auto& testItem : testList){
+        if(!respDoc["success"].GetBool()){
+            return false;
+        }
+        else if(!respDoc["data"].HasMember(testItem.first)){
+            return false;
+        }
+        else if(respDoc["data"][testItem.first].IsString()){
+            std::string answer = boost::replace_all_copy(testItem.second, "\"", "");
+            if(answer.compare(respDoc["data"][testItem.first].GetString()) != 0){
+                return false;
+            }
+        }
+        else if(respDoc["data"][testItem.first].IsUint64()){
+            if(testItem.second.compare(std::to_string(respDoc["data"][testItem.first].GetUint64())) != 0){
+                return false;
+            }                
+        }
+        else{
+            return false;
+        }
+    }
+
+    return true;
+
+    TC_END
+}
+
 bool TC_BinanceSpot_subscribeTicker_1(testDataType& testData){
     TC_BEGIN
 

@@ -472,6 +472,33 @@ static void TC_BinanceSpot(testDataType& td, uint64_t& pass, uint64_t& fail, boo
     result = TC_BinanceSpot_Object_7(td);
     result?(pass++):(fail++);
     printResult(td, result);
+    result = TC_BinanceSpot_getConfig_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_getConfig_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_getConfig_3(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_getConfig_4(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_setConfig_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_setConfig_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_setConfig_3(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_setConfig_4(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_setConfig_5(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
 }
 
 void regression(){
