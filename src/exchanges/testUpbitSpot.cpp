@@ -974,6 +974,9 @@ bool TC_UpbitSpot_fetchBalance_1(testDataType& testData){
     else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
         return false;
     }
+    else if(std::string("rest").compare(respDoc["data"]["fetchType"].GetString()) != 0){
+        return false;
+    }
     for(auto balancePtr = respDoc["data"]["balance"].MemberBegin(); balancePtr != respDoc["data"]["balance"].MemberEnd(); balancePtr++){
         if(!balancePtr->name.IsString()){
             return false;
@@ -1012,6 +1015,9 @@ bool TC_UpbitSpot_fetchBalance_2(testDataType& testData){
         return false;
     }
     else if(respDoc["data"]["requestedApiCount"].GetUint64() != 2){
+        return false;
+    }
+    else if(std::string("rest").compare(respDoc["data"]["fetchType"].GetString()) != 0){
         return false;
     }
     else if(respDoc["data"]["balance"].MemberCount() != 3){
