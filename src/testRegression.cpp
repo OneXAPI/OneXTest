@@ -592,6 +592,36 @@ static void TC_BinanceSpot(testDataType& td, uint64_t& pass, uint64_t& fail, boo
     result = TC_BinanceSpot_isDepositCompleted_3(td);
     result?(pass++):(fail++);
     printResult(td, result);
+    result = TC_BinanceSpot_getOrderRoundingRule_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_getOrderRoundingRule_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_setOrderRoundingRule_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_setOrderRoundingRule_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_orderLimitBuy_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_orderLimitBuy_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_orderLimitBuy_3(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_orderLimitSell_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_orderLimitSell_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_orderLimitSell_3(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
 }
 
 void regression(){

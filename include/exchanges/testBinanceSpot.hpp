@@ -66,6 +66,20 @@ extern bool TC_BinanceSpot_isDepositCompleted_1(testDataType& testData);
 extern bool TC_BinanceSpot_isDepositCompleted_2(testDataType& testData);
 extern bool TC_BinanceSpot_isDepositCompleted_3(testDataType& testData);
 
+extern bool TC_BinanceSpot_getOrderRoundingRule_1(testDataType& testData);
+extern bool TC_BinanceSpot_getOrderRoundingRule_2(testDataType& testData);
+
+extern bool TC_BinanceSpot_setOrderRoundingRule_1(testDataType& testData);
+extern bool TC_BinanceSpot_setOrderRoundingRule_2(testDataType& testData);
+
+extern bool TC_BinanceSpot_orderLimitBuy_1(testDataType& testData);
+extern bool TC_BinanceSpot_orderLimitBuy_2(testDataType& testData);
+extern bool TC_BinanceSpot_orderLimitBuy_3(testDataType& testData);
+
+extern bool TC_BinanceSpot_orderLimitSell_1(testDataType& testData);
+extern bool TC_BinanceSpot_orderLimitSell_2(testDataType& testData);
+extern bool TC_BinanceSpot_orderLimitSell_3(testDataType& testData);
+
 extern bool TC_BinanceSpot_subscribeTicker_1(testDataType& testData);
 extern bool TC_BinanceSpot_subscribeTicker_2(testDataType& testData);
 extern bool TC_BinanceSpot_subscribeTicker_3(testDataType& testData);
