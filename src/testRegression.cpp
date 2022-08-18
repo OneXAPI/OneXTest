@@ -499,6 +499,99 @@ static void TC_BinanceSpot(testDataType& td, uint64_t& pass, uint64_t& fail, boo
     result = TC_BinanceSpot_setConfig_5(td);
     result?(pass++):(fail++);
     printResult(td, result);
+    result = TC_BinanceSpot_getEndpointCandidates_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_getEndpointCandidates_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_getEndpointCandidates_3(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_getEndpointCandidates_4(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_has_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_has_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_has_3(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_has_4(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_has_5(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_getWithdrawRoundingRule_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_getWithdrawRoundingRule_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_setWithdrawRoundingRule_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_setWithdrawRoundingRule_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_withdraw_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_withdraw_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_withdraw_3(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_fetchAllCurrencies_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_fetchAllCurrencies_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_fetchBalance_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_fetchBalance_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_fetchWalletStatus_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_fetchWalletStatus_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_fetchWithdrawHistory_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_fetchWithdrawHistory_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_fetchDepositHistory_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_fetchDepositHistory_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_fetchDepositAddress_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_fetchDepositAddress_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_isDepositCompleted_1(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_isDepositCompleted_2(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
+    result = TC_BinanceSpot_isDepositCompleted_3(td);
+    result?(pass++):(fail++);
+    printResult(td, result);
 }
 
 void regression(){
@@ -508,14 +601,14 @@ void regression(){
     testDataType td;
 
     /* OneXAPI */
-    // TC_OneXAPI(td, pass, fail, result);
+    TC_OneXAPI(td, pass, fail, result);
 
     LOGGER.setMethod("file");
     WS_LOGGER.setLevel("info");
 	WS_LOGGER.setMethod("file");
 
     /* UpbitSpot */
-    // TC_UpbitSpot(td, pass, fail, result);
+    TC_UpbitSpot(td, pass, fail, result);
 
     /* BinanceSpot */
     TC_BinanceSpot(td, pass, fail, result);

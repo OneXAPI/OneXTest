@@ -23,6 +23,49 @@ extern bool TC_BinanceSpot_setConfig_3(testDataType& testData);
 extern bool TC_BinanceSpot_setConfig_4(testDataType& testData);
 extern bool TC_BinanceSpot_setConfig_5(testDataType& testData);
 
+extern bool TC_BinanceSpot_getEndpointCandidates_1(testDataType& testData);
+extern bool TC_BinanceSpot_getEndpointCandidates_2(testDataType& testData);
+extern bool TC_BinanceSpot_getEndpointCandidates_3(testDataType& testData);
+extern bool TC_BinanceSpot_getEndpointCandidates_4(testDataType& testData);
+
+extern bool TC_BinanceSpot_has_1(testDataType& testData);
+extern bool TC_BinanceSpot_has_2(testDataType& testData);
+extern bool TC_BinanceSpot_has_3(testDataType& testData);
+extern bool TC_BinanceSpot_has_4(testDataType& testData);
+extern bool TC_BinanceSpot_has_5(testDataType& testData);
+
+extern bool TC_BinanceSpot_getWithdrawRoundingRule_1(testDataType& testData);
+extern bool TC_BinanceSpot_getWithdrawRoundingRule_2(testDataType& testData);
+
+extern bool TC_BinanceSpot_setWithdrawRoundingRule_1(testDataType& testData);
+extern bool TC_BinanceSpot_setWithdrawRoundingRule_2(testDataType& testData);
+
+extern bool TC_BinanceSpot_withdraw_1(testDataType& testData);
+extern bool TC_BinanceSpot_withdraw_2(testDataType& testData);
+extern bool TC_BinanceSpot_withdraw_3(testDataType& testData);
+
+extern bool TC_BinanceSpot_fetchAllCurrencies_1(testDataType& testData);
+extern bool TC_BinanceSpot_fetchAllCurrencies_2(testDataType& testData);
+
+extern bool TC_BinanceSpot_fetchBalance_1(testDataType& testData);
+extern bool TC_BinanceSpot_fetchBalance_2(testDataType& testData);
+
+extern bool TC_BinanceSpot_fetchWalletStatus_1(testDataType& testData);
+extern bool TC_BinanceSpot_fetchWalletStatus_2(testDataType& testData);
+
+extern bool TC_BinanceSpot_fetchWithdrawHistory_1(testDataType& testData);
+extern bool TC_BinanceSpot_fetchWithdrawHistory_2(testDataType& testData);
+
+extern bool TC_BinanceSpot_fetchDepositHistory_1(testDataType& testData);
+extern bool TC_BinanceSpot_fetchDepositHistory_2(testDataType& testData);
+
+extern bool TC_BinanceSpot_fetchDepositAddress_1(testDataType& testData);
+extern bool TC_BinanceSpot_fetchDepositAddress_2(testDataType& testData);
+
+extern bool TC_BinanceSpot_isDepositCompleted_1(testDataType& testData);
+extern bool TC_BinanceSpot_isDepositCompleted_2(testDataType& testData);
+extern bool TC_BinanceSpot_isDepositCompleted_3(testDataType& testData);
+
 extern bool TC_BinanceSpot_subscribeTicker_1(testDataType& testData);
 extern bool TC_BinanceSpot_subscribeTicker_2(testDataType& testData);
 extern bool TC_BinanceSpot_subscribeTicker_3(testDataType& testData);
