@@ -536,7 +536,7 @@ bool TC_UpbitSpot_getEndpointCandidates_4(testDataType& testData){
     TC_END
 }
 
-std::map<std::string, bool> hasExpectedResult = {
+static std::map<std::string, bool> hasExpectedResult = {
     /* General */
     {"getConfig", true},
     {"setConfig", true},
@@ -811,8 +811,9 @@ bool TC_UpbitSpot_withdraw_1(testDataType& testData){
 bool TC_UpbitSpot_withdraw_2(testDataType& testData){
     TC_BEGIN
 
-    std::string loggerLevel = LOGGER.getLevel();
+    SAVE_LOGGER_SETTINGS
     LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
@@ -829,7 +830,7 @@ bool TC_UpbitSpot_withdraw_2(testDataType& testData){
     std::string response = getLog(testStartTime);
     testData.actualResult = response;
 
-    LOGGER.setLevel(loggerLevel);
+    LOAD_LOGGER_SETTINGS
 
     if(response.find(findValue1) != std::string::npos && response.find(findValue2) != std::string::npos){
         return true;
@@ -841,8 +842,9 @@ bool TC_UpbitSpot_withdraw_2(testDataType& testData){
 bool TC_UpbitSpot_withdraw_3(testDataType& testData){
     TC_BEGIN
     
-    std::string loggerLevel = LOGGER.getLevel();
+    SAVE_LOGGER_SETTINGS
     LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
@@ -859,7 +861,7 @@ bool TC_UpbitSpot_withdraw_3(testDataType& testData){
     std::string response = getLog(testStartTime);
     testData.actualResult = response;
 
-    LOGGER.setLevel(loggerLevel);
+    LOAD_LOGGER_SETTINGS
 
     if(response.find(findValue1) != std::string::npos && response.find(findValue2) != std::string::npos){
         return true;
@@ -1192,8 +1194,9 @@ bool TC_UpbitSpot_fetchWithdrawHistory_1(testDataType& testData){
 bool TC_UpbitSpot_fetchWithdrawHistory_2(testDataType& testData){
     TC_BEGIN
 
-    std::string loggerLevel = LOGGER.getLevel();
+    SAVE_LOGGER_SETTINGS
     LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
@@ -1209,7 +1212,7 @@ bool TC_UpbitSpot_fetchWithdrawHistory_2(testDataType& testData){
     std::string response = getLog(testStartTime);
     testData.actualResult = response;
 
-    LOGGER.setLevel(loggerLevel);
+    LOAD_LOGGER_SETTINGS
 
     if(response.find(findValue) != std::string::npos){
         return true;
@@ -1276,8 +1279,9 @@ bool TC_UpbitSpot_fetchDepositHistory_1(testDataType& testData){
 bool TC_UpbitSpot_fetchDepositHistory_2(testDataType& testData){
     TC_BEGIN
 
-    std::string loggerLevel = LOGGER.getLevel();
+    SAVE_LOGGER_SETTINGS
     LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
@@ -1293,7 +1297,7 @@ bool TC_UpbitSpot_fetchDepositHistory_2(testDataType& testData){
     std::string response = getLog(testStartTime);
     testData.actualResult = response;
 
-    LOGGER.setLevel(loggerLevel);
+    LOAD_LOGGER_SETTINGS
 
     if(response.find(findValue) != std::string::npos){
         return true;
@@ -1402,8 +1406,9 @@ bool TC_UpbitSpot_isDepositCompleted_1(testDataType& testData){
 bool TC_UpbitSpot_isDepositCompleted_2(testDataType& testData){
     TC_BEGIN
 
-    std::string loggerLevel = LOGGER.getLevel();
+    SAVE_LOGGER_SETTINGS
     LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
@@ -1417,6 +1422,7 @@ bool TC_UpbitSpot_isDepositCompleted_2(testDataType& testData){
     std::string restResp = client.isDepositCompleted(input);
     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
     std::string response = getLog(testStartTime);
+    LOAD_LOGGER_SETTINGS
     testData.actualResult = response + "  " + restResp;
     rapidjson::Document respDoc;
     OneXAPI::Internal::Util::parseJson(respDoc, restResp);
@@ -1431,8 +1437,6 @@ bool TC_UpbitSpot_isDepositCompleted_2(testDataType& testData){
         return false;
     }
 
-    LOGGER.setLevel(loggerLevel);
-
     if(response.find(findValue) != std::string::npos){
         return true;
     }
@@ -1443,8 +1447,9 @@ bool TC_UpbitSpot_isDepositCompleted_2(testDataType& testData){
 bool TC_UpbitSpot_isDepositCompleted_3(testDataType& testData){
     TC_BEGIN
 
-    std::string loggerLevel = LOGGER.getLevel();
+    SAVE_LOGGER_SETTINGS
     LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
@@ -1458,6 +1463,7 @@ bool TC_UpbitSpot_isDepositCompleted_3(testDataType& testData){
     std::string restResp = client.isDepositCompleted(input);
     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
     std::string response = getLog(testStartTime);
+    LOAD_LOGGER_SETTINGS
     testData.actualResult = response + "  " + restResp;
     rapidjson::Document respDoc;
     OneXAPI::Internal::Util::parseJson(respDoc, restResp);
@@ -1471,8 +1477,6 @@ bool TC_UpbitSpot_isDepositCompleted_3(testDataType& testData){
     else if(respDoc["data"]["isDepositCompleted"].GetBool()){
         return false;
     }
-
-    LOGGER.setLevel(loggerLevel);
 
     if(response.find(findValue) != std::string::npos){
         return true;
@@ -1838,8 +1842,9 @@ bool TC_UpbitSpot_orderLimitBuy_1(testDataType& testData){
 bool TC_UpbitSpot_orderLimitBuy_2(testDataType& testData){
     TC_BEGIN
 
-    std::string loggerLevel = LOGGER.getLevel();
+    SAVE_LOGGER_SETTINGS
     LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
@@ -1855,7 +1860,7 @@ bool TC_UpbitSpot_orderLimitBuy_2(testDataType& testData){
     std::string response = getLog(testStartTime);
     testData.actualResult = response;
 
-    LOGGER.setLevel(loggerLevel);
+    LOAD_LOGGER_SETTINGS
 
     if(response.find(findValue) != std::string::npos){
         return true;
@@ -1867,8 +1872,9 @@ bool TC_UpbitSpot_orderLimitBuy_2(testDataType& testData){
 bool TC_UpbitSpot_orderLimitBuy_3(testDataType& testData){
     TC_BEGIN
 
-    std::string loggerLevel = LOGGER.getLevel();
+    SAVE_LOGGER_SETTINGS
     LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
@@ -1884,7 +1890,7 @@ bool TC_UpbitSpot_orderLimitBuy_3(testDataType& testData){
     std::string response = getLog(testStartTime);
     testData.actualResult = response;
 
-    LOGGER.setLevel(loggerLevel);
+    LOAD_LOGGER_SETTINGS
 
     if(response.find(findValue) != std::string::npos){
         return true;
@@ -1916,8 +1922,9 @@ bool TC_UpbitSpot_orderLimitSell_1(testDataType& testData){
 bool TC_UpbitSpot_orderLimitSell_2(testDataType& testData){
     TC_BEGIN
 
-    std::string loggerLevel = LOGGER.getLevel();
+    SAVE_LOGGER_SETTINGS
     LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
@@ -1933,7 +1940,7 @@ bool TC_UpbitSpot_orderLimitSell_2(testDataType& testData){
     std::string response = getLog(testStartTime);
     testData.actualResult = response;
 
-    LOGGER.setLevel(loggerLevel);
+    LOAD_LOGGER_SETTINGS
 
     if(response.find(findValue) != std::string::npos){
         return true;
@@ -1945,8 +1952,9 @@ bool TC_UpbitSpot_orderLimitSell_2(testDataType& testData){
 bool TC_UpbitSpot_orderLimitSell_3(testDataType& testData){
     TC_BEGIN
 
-    std::string loggerLevel = LOGGER.getLevel();
+    SAVE_LOGGER_SETTINGS
     LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
@@ -1962,7 +1970,7 @@ bool TC_UpbitSpot_orderLimitSell_3(testDataType& testData){
     std::string response = getLog(testStartTime);
     testData.actualResult = response;
 
-    LOGGER.setLevel(loggerLevel);
+    LOAD_LOGGER_SETTINGS
 
     if(response.find(findValue) != std::string::npos){
         return true;
@@ -1994,8 +2002,9 @@ bool TC_UpbitSpot_orderMarketBuy_1(testDataType& testData){
 bool TC_UpbitSpot_orderMarketBuy_2(testDataType& testData){
     TC_BEGIN
 
-    std::string loggerLevel = LOGGER.getLevel();
+    SAVE_LOGGER_SETTINGS
     LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
@@ -2011,7 +2020,7 @@ bool TC_UpbitSpot_orderMarketBuy_2(testDataType& testData){
     std::string response = getLog(testStartTime);
     testData.actualResult = response;
     
-    LOGGER.setLevel(loggerLevel);
+    LOAD_LOGGER_SETTINGS
 
     if(response.find(findValue) != std::string::npos){
         return true;
@@ -2023,8 +2032,9 @@ bool TC_UpbitSpot_orderMarketBuy_2(testDataType& testData){
 bool TC_UpbitSpot_orderMarketBuy_3(testDataType& testData){
     TC_BEGIN
 
-    std::string loggerLevel = LOGGER.getLevel();
+    SAVE_LOGGER_SETTINGS
     LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
@@ -2040,7 +2050,7 @@ bool TC_UpbitSpot_orderMarketBuy_3(testDataType& testData){
     std::string response = getLog(testStartTime);
     testData.actualResult = response;
     
-    LOGGER.setLevel(loggerLevel);
+    LOAD_LOGGER_SETTINGS
 
     if(response.find(findValue) != std::string::npos){
         return true;
@@ -2071,8 +2081,9 @@ bool TC_UpbitSpot_orderMarketSell_1(testDataType& testData){
 
 bool TC_UpbitSpot_orderMarketSell_2(testDataType& testData){TC_BEGIN
 
-    std::string loggerLevel = LOGGER.getLevel();
+    SAVE_LOGGER_SETTINGS
     LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
@@ -2088,7 +2099,7 @@ bool TC_UpbitSpot_orderMarketSell_2(testDataType& testData){TC_BEGIN
     std::string response = getLog(testStartTime);
     testData.actualResult = response;
 
-    LOGGER.setLevel(loggerLevel);
+    LOAD_LOGGER_SETTINGS
 
     if(response.find(findValue) != std::string::npos){
         return true;
@@ -2100,8 +2111,9 @@ bool TC_UpbitSpot_orderMarketSell_2(testDataType& testData){TC_BEGIN
 bool TC_UpbitSpot_orderMarketSell_3(testDataType& testData){
     TC_BEGIN
 
-    std::string loggerLevel = LOGGER.getLevel();
+    SAVE_LOGGER_SETTINGS
     LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
@@ -2117,7 +2129,7 @@ bool TC_UpbitSpot_orderMarketSell_3(testDataType& testData){
     std::string response = getLog(testStartTime);
     testData.actualResult = response;
 
-    LOGGER.setLevel(loggerLevel);
+    LOAD_LOGGER_SETTINGS
 
     if(response.find(findValue) != std::string::npos){
         return true;
@@ -2149,8 +2161,9 @@ bool TC_UpbitSpot_orderCancel_1(testDataType& testData){
 bool TC_UpbitSpot_orderCancel_2(testDataType& testData){
     TC_BEGIN
 
-    std::string loggerLevel = LOGGER.getLevel();
+    SAVE_LOGGER_SETTINGS
     LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
@@ -2166,7 +2179,7 @@ bool TC_UpbitSpot_orderCancel_2(testDataType& testData){
     std::string response = getLog(testStartTime);
     testData.actualResult = response;
 
-    LOGGER.setLevel(loggerLevel);
+    LOAD_LOGGER_SETTINGS
 
     if(response.find(findValue) != std::string::npos){
         return true;
@@ -2178,8 +2191,9 @@ bool TC_UpbitSpot_orderCancel_2(testDataType& testData){
 bool TC_UpbitSpot_orderCancel_3(testDataType& testData){
     TC_BEGIN
 
-    std::string loggerLevel = LOGGER.getLevel();
+    SAVE_LOGGER_SETTINGS
     LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
@@ -2195,7 +2209,7 @@ bool TC_UpbitSpot_orderCancel_3(testDataType& testData){
     std::string response = getLog(testStartTime);
     testData.actualResult = response;
 
-    LOGGER.setLevel(loggerLevel);
+    LOAD_LOGGER_SETTINGS
 
     if(response.find(findValue) != std::string::npos){
         return true;
@@ -2266,8 +2280,9 @@ bool TC_UpbitSpot_fetchOrderInfo_1(testDataType& testData){
 bool TC_UpbitSpot_fetchOrderInfo_2(testDataType& testData){
     TC_BEGIN
 
-    std::string loggerLevel = LOGGER.getLevel();
+    SAVE_LOGGER_SETTINGS
     LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
@@ -2283,7 +2298,7 @@ bool TC_UpbitSpot_fetchOrderInfo_2(testDataType& testData){
     std::string response = getLog(testStartTime);
     testData.actualResult = response;
 
-    LOGGER.setLevel(loggerLevel);
+    LOAD_LOGGER_SETTINGS
 
     if(response.find(findValue) != std::string::npos){
         return true;
@@ -2295,8 +2310,9 @@ bool TC_UpbitSpot_fetchOrderInfo_2(testDataType& testData){
 bool TC_UpbitSpot_fetchOrderInfo_3(testDataType& testData){
     TC_BEGIN
 
-    std::string loggerLevel = LOGGER.getLevel();
+    SAVE_LOGGER_SETTINGS
     LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
@@ -2312,7 +2328,7 @@ bool TC_UpbitSpot_fetchOrderInfo_3(testDataType& testData){
     std::string response = getLog(testStartTime);
     testData.actualResult = response;
 
-    LOGGER.setLevel(loggerLevel);
+    LOAD_LOGGER_SETTINGS
 
     if(response.find(findValue) != std::string::npos){
         return true;
