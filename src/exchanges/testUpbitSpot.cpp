@@ -920,7 +920,7 @@ bool TC_UpbitSpot_fetchAllCurrencies_2(testDataType& testData){
 
     OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
 
-    std::string response = client.fetchAllCurrencies();
+    std::string response = client.fetchAllCurrencies("");
     testData.actualResult = response;
     rapidjson::Document respDoc;
     OneXAPI::Internal::Util::parseJson(respDoc, response);
