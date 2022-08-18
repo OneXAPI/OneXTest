@@ -898,6 +898,9 @@ bool TC_UpbitSpot_fetchAllCurrencies_1(testDataType& testData){
         if(!currencyPtr->name.IsString()){
             return false;
         }
+        if(!currencyPtr->value["chains"].IsArray()){
+            return false;
+        }
         if(currencyPtr->value["chains"].Size() != 0){
             return false;
         }
@@ -934,6 +937,9 @@ bool TC_UpbitSpot_fetchAllCurrencies_2(testDataType& testData){
 
     for(auto currencyPtr = respDoc["data"]["currencies"].MemberBegin(); currencyPtr != respDoc["data"]["currencies"].MemberEnd(); currencyPtr++){
         if(!currencyPtr->name.IsString()){
+            return false;
+        }
+        if(!currencyPtr->value["chains"].IsArray()){
             return false;
         }
         if(currencyPtr->value["chains"].Size() != 0){
