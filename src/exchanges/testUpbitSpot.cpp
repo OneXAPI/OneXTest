@@ -2238,7 +2238,7 @@ bool TC_UpbitSpot_fetchTradingFee_1(testDataType& testData){
     testData.actualResult.clear();
     OneXAPI::Upbit::Spot client;
 
-    std::string response = client.fetchTradingFee("{}");
+    std::string response = client.fetchTradingFee(R"({"baseCurrency":"bTC"})");
         
     testData.actualResult = response;
 
