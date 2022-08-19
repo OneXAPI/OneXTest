@@ -2442,6 +2442,355 @@ bool TC_BinanceSpot_fetchOpenOrders_2(testDataType& testData){
     TC_END
 }
 
+static const std::string getCandleIntervalCandidatesExpectedResult = R"({"success":true,"data":{"requestedApiCount":0,"intervals":["12hour","15min","1day","1hour","1min","1month","1week","2hour","30min","3day","3min","4hour","5min","6hour","8hour"]}})";
+
+bool TC_BinanceSpot_getCandleIntervalCandidates_1(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().getCandleIntervalCandidates";
+    testData.expectedResult = getCandleIntervalCandidatesExpectedResult;
+
+    OneXAPI::Binance::Spot client;
+
+    std::string response = client.getCandleIntervalCandidates();
+
+    testData.actualResult = response;
+    
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_getCandleIntervalCandidates_2(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().getCandleIntervalCandidates";
+    testData.expectedResult = getCandleIntervalCandidatesExpectedResult;
+
+    OneXAPI::Binance::Spot client;
+    std::string input = "";
+    std::string response = client.getCandleIntervalCandidates(input);
+
+    testData.actualResult = response;
+    
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_fetchMarkets_1(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().fetchMarkets";
+    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["markets"][]["baseCurrency"]:string
+        response["data"]["markets"][]["quoteCurrency"]:string response["data"]["markets"][]["symbol"]:string)";
+
+    OneXAPI::Binance::Spot client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+
+    std::string response = client.fetchMarkets("{}");
+    testData.actualResult = response;
+    rapidjson::Document respDoc;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+    if(!respDoc["success"].GetBool()){
+        return false;
+    }
+    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+        return false;
+    }
+    else if(respDoc["data"]["markets"].Size() == 0){
+        return false;
+    }
+
+    for(const auto& market : respDoc["data"]["markets"].GetArray()){
+        if(!market["baseCurrency"].IsString() || !market["quoteCurrency"].IsString() || !market["symbol"].IsString()){
+            return false;
+        }
+    }
+    
+    return true;
+
+    TC_END
+}
+
+bool TC_BinanceSpot_fetchMarkets_2(testDataType& testData){
+    TC_BEGIN
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    testData.testSubject = "OneXAPI::Binance::Spot().fetchMarkets";
+    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["markets"][]["baseCurrency"]:string
+        response["data"]["markets"][]["quoteCurrency"]:string response["data"]["markets"][]["symbol"]:string)";
+
+    OneXAPI::Binance::Spot client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+
+    std::string response = client.fetchMarkets(R"({"baseCurrency":"bTC","quoteCurrency":"usDT"})");
+    testData.actualResult = response;
+    rapidjson::Document respDoc;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+    if(!respDoc["success"].GetBool()){
+        return false;
+    }
+    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+        return false;
+    }
+    else if(respDoc["data"]["markets"].Size() != 1){
+        return false;
+    }
+
+    for(const auto& market : respDoc["data"]["markets"].GetArray()){
+        if(!market["baseCurrency"].IsString() || !market["quoteCurrency"].IsString() || !market["symbol"].IsString()){
+            return false;
+        }
+    }
+    
+    return true;
+
+    TC_END
+}
+
+bool TC_BinanceSpot_fetchTicker_1(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().fetchTicker";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    testData.actualResult.clear();
+    OneXAPI::Binance::Spot client;
+
+    std::string response = client.fetchTicker(R"({})");
+        
+    testData.actualResult = response;
+
+    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+        return false;
+    }
+    return true;
+
+    TC_END
+}
+
+bool TC_BinanceSpot_fetchTicker_2(testDataType& testData){
+    TC_BEGIN
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    testData.testSubject = "OneXAPI::Binance::Spot().fetchTicker";
+    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"] = 1 response["data"]["baseCurrency"] = "BTC" response["data"]["quoteCurrency"] = "USDT"
+        response["data"]["symbol"] = "BTCUSDT" response["data"]["fetchType"] = "rest" response["data"]["openTime"]:uint64 response["data"]["openPrice"]:string
+        response["data"]["closePrice"]:string response["data"]["lowPrice"]:string response["data"]["highPrice"]:string response["data"]["baseVolume"]:string
+        response["data"]["quoteVolume"]:string)";
+
+    OneXAPI::Binance::Spot client;
+
+    std::string response = client.fetchTicker(R"({"baseCurrency":"bTc","quoteCurrency":"USdt"})");
+    testData.actualResult = response;
+    rapidjson::Document respDoc;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+    if(!respDoc["success"].GetBool()){
+        return false;
+    }
+    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+        return false;
+    }
+    else if(std::string("BTC").compare(respDoc["data"]["baseCurrency"].GetString()) != 0){
+        return false;
+    }
+    else if(std::string("USDT").compare(respDoc["data"]["quoteCurrency"].GetString()) != 0){
+        return false;
+    }
+    else if(std::string("BTCUSDT").compare(respDoc["data"]["symbol"].GetString()) != 0){
+        return false;
+    }
+    else if(std::string("rest").compare(respDoc["data"]["fetchType"].GetString()) != 0){
+        return false;
+    }
+    else if(!respDoc["data"]["openTime"].IsUint64() || !respDoc["data"]["openPrice"].IsString() || !respDoc["data"]["closePrice"].IsString() || !respDoc["data"]["lowPrice"].IsString() ||
+        !respDoc["data"]["highPrice"].IsString() || !respDoc["data"]["baseVolume"].IsString() || !respDoc["data"]["quoteVolume"].IsString()){
+        return false;
+    }
+    
+    return true;
+
+    TC_END
+}
+
+bool TC_BinanceSpot_fetchOrderbook_1(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().fetchOrderbook";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    testData.actualResult.clear();
+    OneXAPI::Binance::Spot client;
+
+    std::string response = client.fetchOrderbook(R"({})");
+        
+    testData.actualResult = response;
+
+    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+        return false;
+    }
+    return true;
+
+    TC_END
+}
+
+bool TC_BinanceSpot_fetchOrderbook_2(testDataType& testData){
+    TC_BEGIN
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    testData.testSubject = "OneXAPI::Binance::Spot().fetchOrderbook";
+    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"] = 1 response["data"]["baseCurrency"] = "BTC" response["data"]["quoteCurrency"] = "USDT"
+        response["data"]["symbol"] = "BTCUSDT" response["data"]["fetchType"] = "rest" response["data"]["timestamp"]:uint64 response["data"]["bids"][]["price"]:string
+        response["data"]["bids"][]["size"]:string response["data"]["asks"][]["price"]:string response["data"]["asks"][]["size"]:string)";
+
+    OneXAPI::Binance::Spot client;
+
+    std::string response = client.fetchOrderbook(R"({"baseCurrency":"bTc","quoteCurrency":"USdt"})");
+    testData.actualResult = response;
+    rapidjson::Document respDoc;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+    if(!respDoc["success"].GetBool()){
+        return false;
+    }
+    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+        return false;
+    }
+    else if(std::string("BTC").compare(respDoc["data"]["baseCurrency"].GetString()) != 0){
+        return false;
+    }
+    else if(std::string("USDT").compare(respDoc["data"]["quoteCurrency"].GetString()) != 0){
+        return false;
+    }
+    else if(std::string("BTCUSDT").compare(respDoc["data"]["symbol"].GetString()) != 0){
+        return false;
+    }
+    else if(std::string("rest").compare(respDoc["data"]["fetchType"].GetString()) != 0){
+        return false;
+    }
+    else if(!respDoc["data"]["timestamp"].IsUint64()){
+        return false;
+    }
+    else if(respDoc["data"]["bids"].Size() == 0 || respDoc["data"]["asks"].Size() == 0){
+        return false;
+    }
+    for(const auto& bid : respDoc["data"]["bids"].GetArray()){
+        if(!bid["price"].IsString() || !bid["size"].IsString()){
+            return false;
+        }
+    }
+    for(const auto& ask : respDoc["data"]["asks"].GetArray()){
+        if(!ask["price"].IsString() || !ask["size"].IsString()){
+            return false;
+        }
+    }
+    
+    return true;
+
+    TC_END
+}
+
+bool TC_BinanceSpot_fetchCandleHistory_1(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().fetchCandleHistory";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    testData.actualResult.clear();
+    OneXAPI::Binance::Spot client;
+
+    std::string response = client.fetchCandleHistory(R"({"baseCurrency":"bTc","quoteCurrency":"uSdT"})");
+        
+    testData.actualResult = response;
+
+    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+        return false;
+    }
+    return true;
+
+    TC_END
+}
+
+bool TC_BinanceSpot_fetchCandleHistory_2(testDataType& testData){
+    TC_BEGIN
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    testData.testSubject = "OneXAPI::Binance::Spot().fetchCandleHistory";
+    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:uint64 response["data"]["baseCurrency"]:string response["data"]["quoteCurrency"]:string
+        response["data"]["symbol"]:string response["data"]["candles"][]["timestamp"]:uint64 response["data"]["candles"][]["openPrice"]:string response["data"]["candles"][]["closePrice"]:string
+        response["data"]["candles"][]["highPrice"]:string response["data"]["candles"][]["lowPrice"]:string response["data"]["candles"][]["baseVolume"]:string response["data"]["candles"][]["quoteVolume"]:string)";
+
+    OneXAPI::Binance::Spot client;
+
+    std::string twoHrBeforeFromNow = std::to_string(OneXAPI::Internal::Util::getCurrentMsEpoch()/1000 - 7200);
+    std::string response = client.fetchCandleHistory(R"({"baseCurrency":"bTc","quoteCurrency":"uSdT","interval":"1min","startTime":)" + twoHrBeforeFromNow + R"(})");
+    testData.actualResult = response;
+    rapidjson::Document respDoc;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+    if(!respDoc["success"].GetBool()){
+        return false;
+    }
+    else if(!respDoc["data"]["requestedApiCount"].IsUint64() || !respDoc["data"]["baseCurrency"].IsString() || 
+        !respDoc["data"]["quoteCurrency"].IsString() || !respDoc["data"]["symbol"].IsString()){
+        return false;
+    }
+    else if(respDoc["data"]["candles"].Size() == 0){
+        return false;
+    }
+    for(const auto& candle : respDoc["data"]["candles"].GetArray()){
+        if( !candle["timestamp"].IsUint64() || !candle["openPrice"].IsString() || !candle["closePrice"].IsString() || !candle["highPrice"].IsString() ||
+            !candle["lowPrice"].IsString() || !candle["baseVolume"].IsString() || !candle["quoteVolume"].IsString()){
+            return false;
+        }
+    }
+    
+    return true;
+
+    TC_END
+}
+
+bool TC_BinanceSpot_fetchCandleHistory_3(testDataType& testData){
+    TC_BEGIN
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    testData.testSubject = "OneXAPI::Binance::Spot().fetchCandleHistory";
+    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:uint64 response["data"]["baseCurrency"]:string response["data"]["quoteCurrency"]:string
+        response["data"]["symbol"]:string response["data"]["candles"][]["timestamp"]:uint64 response["data"]["candles"][]["openPrice"]:string response["data"]["candles"][]["closePrice"]:string
+        response["data"]["candles"][]["highPrice"]:string response["data"]["candles"][]["lowPrice"]:string response["data"]["candles"][]["baseVolume"]:string response["data"]["candles"][]["quoteVolume"]:string)";
+
+    OneXAPI::Binance::Spot client;
+
+    std::string response = client.fetchCandleHistory(R"({"baseCurrency":"bTc","quoteCurrency":"uSdT","interval":"1min","startTime":1656042045,"endTime":1656063182,"fetchInterval":900})");
+    testData.actualResult = response;
+    rapidjson::Document respDoc;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+    if(!respDoc["success"].GetBool()){
+        return false;
+    }
+    else if(!respDoc["data"]["requestedApiCount"].IsUint64() || !respDoc["data"]["baseCurrency"].IsString() || 
+        !respDoc["data"]["quoteCurrency"].IsString() || !respDoc["data"]["symbol"].IsString()){
+        return false;
+    }
+    else if(respDoc["data"]["candles"].Size() == 0){
+        return false;
+    }
+    for(const auto& candle : respDoc["data"]["candles"].GetArray()){
+        if( !candle["timestamp"].IsUint64() || !candle["openPrice"].IsString() || !candle["closePrice"].IsString() || !candle["highPrice"].IsString() ||
+            !candle["lowPrice"].IsString() || !candle["baseVolume"].IsString() || !candle["quoteVolume"].IsString()){
+            return false;
+        }
+    }
+    
+    return true;
+
+    TC_END
+}
+
 bool TC_BinanceSpot_subscribeTicker_1(testDataType& testData){
     TC_BEGIN
 

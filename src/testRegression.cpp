@@ -242,6 +242,17 @@ static void TC_BinanceSpot(testDataType& td, uint64_t& pass, uint64_t& fail, boo
     EXECUTE_UNITTEST(TC_BinanceSpot_fetchOrderInfo_5)
     EXECUTE_UNITTEST(TC_BinanceSpot_fetchOpenOrders_1)
     EXECUTE_UNITTEST(TC_BinanceSpot_fetchOpenOrders_2)
+    EXECUTE_UNITTEST(TC_BinanceSpot_getCandleIntervalCandidates_1)
+    EXECUTE_UNITTEST(TC_BinanceSpot_getCandleIntervalCandidates_2)
+    EXECUTE_UNITTEST(TC_BinanceSpot_fetchMarkets_1)
+    EXECUTE_UNITTEST(TC_BinanceSpot_fetchMarkets_2)
+    EXECUTE_UNITTEST(TC_BinanceSpot_fetchTicker_1)
+    EXECUTE_UNITTEST(TC_BinanceSpot_fetchTicker_2)
+    EXECUTE_UNITTEST(TC_BinanceSpot_fetchOrderbook_1)
+    EXECUTE_UNITTEST(TC_BinanceSpot_fetchOrderbook_2)
+    EXECUTE_UNITTEST(TC_BinanceSpot_fetchCandleHistory_1)
+    EXECUTE_UNITTEST(TC_BinanceSpot_fetchCandleHistory_2)
+    EXECUTE_UNITTEST(TC_BinanceSpot_fetchCandleHistory_3)
 }
 
 void regression(){

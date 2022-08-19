@@ -105,6 +105,22 @@ extern bool TC_BinanceSpot_fetchOrderInfo_5(testDataType& testData);
 extern bool TC_BinanceSpot_fetchOpenOrders_1(testDataType& testData);
 extern bool TC_BinanceSpot_fetchOpenOrders_2(testDataType& testData);
 
+extern bool TC_BinanceSpot_getCandleIntervalCandidates_1(testDataType& testData);
+extern bool TC_BinanceSpot_getCandleIntervalCandidates_2(testDataType& testData);
+
+extern bool TC_BinanceSpot_fetchMarkets_1(testDataType& testData);
+extern bool TC_BinanceSpot_fetchMarkets_2(testDataType& testData);
+
+extern bool TC_BinanceSpot_fetchTicker_1(testDataType& testData);
+extern bool TC_BinanceSpot_fetchTicker_2(testDataType& testData);
+
+extern bool TC_BinanceSpot_fetchOrderbook_1(testDataType& testData);
+extern bool TC_BinanceSpot_fetchOrderbook_2(testDataType& testData);
+
+extern bool TC_BinanceSpot_fetchCandleHistory_1(testDataType& testData);
+extern bool TC_BinanceSpot_fetchCandleHistory_2(testDataType& testData);
+extern bool TC_BinanceSpot_fetchCandleHistory_3(testDataType& testData);
+
 extern bool TC_BinanceSpot_subscribeTicker_1(testDataType& testData);
 extern bool TC_BinanceSpot_subscribeTicker_2(testDataType& testData);
 extern bool TC_BinanceSpot_subscribeTicker_3(testDataType& testData);
