@@ -19,9 +19,13 @@
 
 #define SAVE_LOGGER_SETTINGS                                        \
     std::string loggerLevel = LOGGER.getLevel();                    \
-    std::string loggeMethod = LOGGER.getMethod();
+    std::string loggeMethod = LOGGER.getMethod();                   \
+    std::string wsLoggerLevel = WS_LOGGER.getLevel();               \
+    std::string wsloggeMethod = WS_LOGGER.getMethod();
 
 #define LOAD_LOGGER_SETTINGS                                        \
     LOGGER.setLevel(loggerLevel);                                   \
-    LOGGER.setMethod(loggeMethod);
+    LOGGER.setMethod(loggeMethod);                                  \
+    WS_LOGGER.setLevel(wsLoggerLevel);                              \
+    WS_LOGGER.setMethod(wsloggeMethod);
     
