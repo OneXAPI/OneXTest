@@ -80,6 +80,31 @@ extern bool TC_BinanceSpot_orderLimitSell_1(testDataType& testData);
 extern bool TC_BinanceSpot_orderLimitSell_2(testDataType& testData);
 extern bool TC_BinanceSpot_orderLimitSell_3(testDataType& testData);
 
+extern bool TC_BinanceSpot_orderMarketBuy_1(testDataType& testData);
+extern bool TC_BinanceSpot_orderMarketBuy_2(testDataType& testData);
+extern bool TC_BinanceSpot_orderMarketBuy_3(testDataType& testData);
+
+extern bool TC_BinanceSpot_orderMarketSell_1(testDataType& testData);
+extern bool TC_BinanceSpot_orderMarketSell_2(testDataType& testData);
+extern bool TC_BinanceSpot_orderMarketSell_3(testDataType& testData);
+
+extern bool TC_BinanceSpot_orderCancel_1(testDataType& testData);
+extern bool TC_BinanceSpot_orderCancel_2(testDataType& testData);
+extern bool TC_BinanceSpot_orderCancel_3(testDataType& testData);
+extern bool TC_BinanceSpot_orderCancel_4(testDataType& testData);
+
+extern bool TC_BinanceSpot_fetchTradingFee_1(testDataType& testData);
+extern bool TC_BinanceSpot_fetchTradingFee_2(testDataType& testData);
+
+extern bool TC_BinanceSpot_fetchOrderInfo_1(testDataType& testData);
+extern bool TC_BinanceSpot_fetchOrderInfo_2(testDataType& testData);
+extern bool TC_BinanceSpot_fetchOrderInfo_3(testDataType& testData);
+extern bool TC_BinanceSpot_fetchOrderInfo_4(testDataType& testData);
+extern bool TC_BinanceSpot_fetchOrderInfo_5(testDataType& testData);
+
+extern bool TC_BinanceSpot_fetchOpenOrders_1(testDataType& testData);
+extern bool TC_BinanceSpot_fetchOpenOrders_2(testDataType& testData);
+
 extern bool TC_BinanceSpot_subscribeTicker_1(testDataType& testData);
 extern bool TC_BinanceSpot_subscribeTicker_2(testDataType& testData);
 extern bool TC_BinanceSpot_subscribeTicker_3(testDataType& testData);
