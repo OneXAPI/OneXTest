@@ -1369,36 +1369,47 @@ bool TC_BinanceSpot_fetchDepositAddress_1(testDataType& testData){
 bool TC_BinanceSpot_fetchDepositAddress_2(testDataType& testData){
     TC_BEGIN
 
-    // std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    // testData.testSubject = "OneXAPI::Binance::Spot().fetchDepositAddress";
-    // testData.expectedResult = R"(response["success"]:true response["data"]["addresses"]:1 response["data"]["addresses"]["BTC"]["address"] is string
-    //     response["data"]["addresses"]["BTC"]["tag"] is string       member count of response["data"]["addresses"] must be 1)";
-    // testData.actualResult.clear();
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    testData.testSubject = "OneXAPI::Binance::Spot().fetchDepositAddress";
+    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["addresses"]["BTC"] is array
+        response["data"]["addresses"]["BTC"][0]["chain"] : "BSC" response["data"]["addresses"]["BTC"][0]["address"] is string response["data"]["addresses"]["BTC"][0]["tag"] is string
+        member count of response["data"]["addresses"] must be 1
+        size of response["data"]["addresses"][currency] is 1)";
+    testData.actualResult.clear();
 
-    // OneXAPI::Binance::Spot client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Spot client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
 
-    // std::string response = client.fetchDepositAddress(R"({"currency":"Btc"})");
-    // testData.actualResult = response;
-    // rapidjson::Document respDoc;
-    // OneXAPI::Internal::Util::parseJson(respDoc, response);
+    std::string response = client.fetchDepositAddress(R"({"currency":"Btc","chain":"BsC"})");
+    testData.actualResult = response;
+    rapidjson::Document respDoc;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-    // if(!respDoc["success"].GetBool()){
-    //     return false;
-    // }
-    // else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
-    //     return false;
-    // }
-    // else if(respDoc["data"]["addresses"].MemberCount() != 1){
-    //     return false;
-    // }
-    // if(!respDoc["data"]["addresses"]["BTC"]["address"].IsString()){
-    //     return false;
-    // }
-    // if(!respDoc["data"]["addresses"]["BTC"]["tag"].IsString()){
-    //     return false;
-    // }
+    if(!respDoc["success"].GetBool()){
+        return false;
+    }
+    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+        return false;
+    }
+    else if(respDoc["data"]["addresses"].MemberCount() != 1){
+        return false;
+    }
+    else if(!respDoc["data"]["addresses"]["BTC"].IsArray()){
+        return false;
+    }
+    else if(respDoc["data"]["addresses"]["BTC"].Size() != 1){
+        return false;
+    }
+    else if(std::string("BSC").compare(respDoc["data"]["addresses"]["BTC"][0]["chain"].GetString()) != 0){
+        return false;
+    }
+    else if(!respDoc["data"]["addresses"]["BTC"][0]["address"].IsString()){
+        return false;
+    }
+    else if(!respDoc["data"]["addresses"]["BTC"][0]["tag"].IsString()){
+        return false;
+    }
 
-    // return true;
+    return true;
 
     TC_END
 }
@@ -2256,7 +2267,7 @@ bool TC_BinanceSpot_fetchOrderInfo_5(testDataType& testData){
     std::string bid = orderbookDoc["data"]["bids"][0]["price"].GetString();
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    std::string orderLimitBuy = client.orderLimitBuy(R"({"baseCurrency":"XRP","quoteCurrency":"USDT","price":)" + bid + R"(,"baseAmount":30.00,"amplifier":0.96})");
+    std::string orderLimitBuy = client.orderLimitBuy(R"({"baseCurrency":"XRP","quoteCurrency":"USDT","price":)" + bid + R"(,"baseAmount":50.00,"amplifier":0.96})");
     rapidjson::Document orderLimitBuyDoc;
     OneXAPI::Internal::Util::parseJson(orderLimitBuyDoc, orderLimitBuy);
     if(!orderLimitBuyDoc["success"].GetBool()){
@@ -2325,7 +2336,7 @@ bool TC_BinanceSpot_fetchOpenOrders_1(testDataType& testData){
     std::string bid = orderbookDoc["data"]["bids"][0]["price"].GetString();
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    std::string orderLimitBuy = client.orderLimitBuy(R"({"baseCurrency":"XRP","quoteCurrency":"USDT","price":)" + bid + R"(,"baseAmount":30.00,"amplifier":0.96})");
+    std::string orderLimitBuy = client.orderLimitBuy(R"({"baseCurrency":"XRP","quoteCurrency":"USDT","price":)" + bid + R"(,"baseAmount":50.00,"amplifier":0.96})");
     rapidjson::Document orderLimitBuyDoc;
     OneXAPI::Internal::Util::parseJson(orderLimitBuyDoc, orderLimitBuy);
     if(!orderLimitBuyDoc["success"].GetBool()){
@@ -2395,7 +2406,7 @@ bool TC_BinanceSpot_fetchOpenOrders_2(testDataType& testData){
     std::string bid = orderbookDoc["data"]["bids"][0]["price"].GetString();
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    std::string orderLimitBuy = client.orderLimitBuy(R"({"baseCurrency":"XRP","quoteCurrency":"USDT","price":)" + bid + R"(,"baseAmount":30.00,"amplifier":0.96})");
+    std::string orderLimitBuy = client.orderLimitBuy(R"({"baseCurrency":"XRP","quoteCurrency":"USDT","price":)" + bid + R"(,"baseAmount":50.00,"amplifier":0.96})");
     rapidjson::Document orderLimitBuyDoc;
     OneXAPI::Internal::Util::parseJson(orderLimitBuyDoc, orderLimitBuy);
     if(!orderLimitBuyDoc["success"].GetBool()){

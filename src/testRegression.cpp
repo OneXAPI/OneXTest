@@ -275,9 +275,11 @@ void regression(){
     TC_BinanceSpot(td, pass, fail, result);
 
     std::cout << "Executed : " << pass+fail << "   Pass : " << pass << "   Fail : " << fail << std::endl;
-    std::cout << std::endl << "Failed Test Cases : " << std::endl;
-    for(const auto& tc : failedTestCases){
-        std::cout << tc << std::endl;
+    if(fail != 0){
+        std::cout << std::endl << "Failed Test Cases : " << std::endl;
+        for(const auto& tc : failedTestCases){
+            std::cout << tc << std::endl;
+        }
     }
 
     WS_LOGGER.info("regression end");

@@ -1323,8 +1323,10 @@ bool TC_UpbitSpot_fetchDepositAddress_1(testDataType& testData){
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchDepositAddress";
-    testData.expectedResult = R"(response["success"]:true response["data"]["addresses"]:1 response["data"]["addresses"][currency]["address"] is string
-        response["data"]["addresses"][currency]["tag"] is string)";
+    testData.expectedResult = R"(rresponse["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["addresses"][currency] is array
+        response["data"]["addresses"][currency][0]["chain"] : "" response["data"]["addresses"][currency][0]["address"] is string
+        response["data"]["addresses"][currency][0]["tag"] is string
+        size of response["data"]["addresses"][currency] is 1)";
     testData.actualResult.clear();
 
     OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
@@ -1347,10 +1349,19 @@ bool TC_UpbitSpot_fetchDepositAddress_1(testDataType& testData){
         if(!addressPtr->name.IsString()){
             return false;
         }
-        if(!addressPtr->value["address"].IsString()){
+        else if(!addressPtr->value.IsArray()){
             return false;
         }
-        if(!addressPtr->value["tag"].IsString()){
+        else if(addressPtr->value.Size() != 1){
+            return false;
+        }
+        else if(std::string("").compare(addressPtr->value[0]["chain"].GetString()) != 0){
+            return false;
+        }
+        else if(!addressPtr->value[0]["address"].IsString()){
+            return false;
+        }
+        else if(!addressPtr->value[0]["tag"].IsString()){
             return false;
         }
     }
@@ -1365,8 +1376,10 @@ bool TC_UpbitSpot_fetchDepositAddress_2(testDataType& testData){
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchDepositAddress";
-    testData.expectedResult = R"(response["success"]:true response["data"]["addresses"]:1 response["data"]["addresses"]["BTC"]["address"] is string
-        response["data"]["addresses"]["BTC"]["tag"] is string       member count of response["data"]["addresses"] must be 1)";
+    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["addresses"]["BTC"] is array
+        response["data"]["addresses"]["BTC"][0]["chain"] : "" response["data"]["addresses"]["BTC"][0]["address"] is string response["data"]["addresses"]["BTC"][0]["tag"] is string
+        member count of response["data"]["addresses"] must be 1
+        size of response["data"]["addresses"][currency] is 1)";
     testData.actualResult.clear();
 
     OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
@@ -1385,10 +1398,19 @@ bool TC_UpbitSpot_fetchDepositAddress_2(testDataType& testData){
     else if(respDoc["data"]["addresses"].MemberCount() != 1){
         return false;
     }
-    if(!respDoc["data"]["addresses"]["BTC"]["address"].IsString()){
+    else if(!respDoc["data"]["addresses"]["BTC"].IsArray()){
         return false;
     }
-    if(!respDoc["data"]["addresses"]["BTC"]["tag"].IsString()){
+    else if(respDoc["data"]["addresses"]["BTC"].Size() != 1){
+        return false;
+    }
+    else if(std::string("").compare(respDoc["data"]["addresses"]["BTC"][0]["chain"].GetString()) != 0){
+        return false;
+    }
+    else if(!respDoc["data"]["addresses"]["BTC"][0]["address"].IsString()){
+        return false;
+    }
+    else if(!respDoc["data"]["addresses"]["BTC"][0]["tag"].IsString()){
         return false;
     }
 
