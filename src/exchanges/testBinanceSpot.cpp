@@ -2802,6 +2802,208 @@ bool TC_BinanceSpot_fetchCandleHistory_3(testDataType& testData){
     TC_END
 }
 
+static const std::string getSubscribingTickersExpectedResult = R"({"success":true,"data":{"tickers":[]}})";
+
+bool TC_BinanceSpot_getSubscribingTickers_1(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().getSubscribingTickers";
+    testData.expectedResult = getSubscribingTickersExpectedResult;
+
+    OneXAPI::Binance::Spot client;
+    std::string response = client.getSubscribingTickers();
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_getSubscribingTickers_2(testDataType& testData){
+    TC_BEGIN
+    
+    testData.testSubject = "OneXAPI::Binance::Spot().getSubscribingTickers";
+    testData.expectedResult = getSubscribingTickersExpectedResult;
+
+    OneXAPI::Binance::Spot client;
+    std::string input = "";
+    std::string response = client.getSubscribingTickers(input);
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_getSubscribingTickers_3(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().getSubscribingTickers";
+    testData.expectedResult = getSubscribingTickersExpectedResult;
+
+    OneXAPI::Binance::Spot client;
+    std::string input = "{}";
+    std::string response = client.getSubscribingTickers(input);
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_getSubscribingTickers_4(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().getSubscribingTickers";
+    testData.expectedResult = getSubscribingTickersExpectedResult;
+
+    OneXAPI::Binance::Spot client;
+    std::string input = "Bqbqb@";
+    std::string response = client.getSubscribingTickers(input);
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_getSubscribingTickers_5(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().getSubscribingTickers";
+    testData.expectedResult = R"({"success":true,"data":{"tickers":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}]}})";
+
+    OneXAPI::Binance::Spot client;
+    client.subscribeTicker(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}]})");
+    std::string response = client.getSubscribingTickers();
+
+    testData.actualResult = response;
+
+    client.unsubscribeTicker(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}],requestTimeout:0})");
+
+    testDataType tempData;
+
+    if(!TC_BinanceSpot_getSubscribingTickers_1(tempData)){
+        LOGGER.critical(__func__ + std::string(": Websocket is alive"));
+    }
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+
+    TC_END
+}
+
+static const std::string getSubscribingOrderbooksExpectedResult = R"({"success":true,"data":{"orderbooks":[]}})";
+
+bool TC_BinanceSpot_getSubscribingOrderbooks_1(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().getSubscribingOrderbooks";
+    testData.expectedResult = getSubscribingOrderbooksExpectedResult;
+
+    OneXAPI::Binance::Spot client;
+    std::string response = client.getSubscribingOrderbooks();
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_getSubscribingOrderbooks_2(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().getSubscribingOrderbooks";
+    testData.expectedResult = getSubscribingOrderbooksExpectedResult;
+
+    OneXAPI::Binance::Spot client;
+    std::string input = "";
+    std::string response = client.getSubscribingOrderbooks(input);
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_getSubscribingOrderbooks_3(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().getSubscribingOrderbooks";
+    testData.expectedResult = getSubscribingOrderbooksExpectedResult;
+
+    OneXAPI::Binance::Spot client;
+    std::string input = "{}";
+    std::string response = client.getSubscribingOrderbooks(input);
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_getSubscribingOrderbooks_4(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().getSubscribingOrderbooks";
+    testData.expectedResult = getSubscribingOrderbooksExpectedResult;
+
+    OneXAPI::Binance::Spot client;
+    std::string input = "Bqbqb@";
+    std::string response = client.getSubscribingOrderbooks(input);
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_getSubscribingOrderbooks_5(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().getSubscribingOrderbooks";
+    testData.expectedResult = R"({"success":true,"data":{"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}]}})";
+
+    OneXAPI::Binance::Spot client;
+    client.subscribeOrderbook(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}]})");
+    std::string response = client.getSubscribingOrderbooks();
+
+    testData.actualResult = response;
+
+    client.unsubscribeOrderbook(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}],requestTimeout:0})");
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+
+    TC_END
+}
+
 bool TC_BinanceSpot_subscribeTicker_1(testDataType& testData){
     TC_BEGIN
 
@@ -2817,7 +3019,7 @@ bool TC_BinanceSpot_subscribeTicker_1(testDataType& testData){
     if(errorResponseChecker(response, "JSON_PARSING_ERROR")){
         return true;
     }
-    
+
     TC_END
 }
 
@@ -2903,6 +3105,487 @@ bool TC_BinanceSpot_subscribeTicker_4(testDataType& testData){
 
     testData.actualResult = response;
     
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
+
+    return true;
+
+    TC_END
+}
+
+bool TC_BinanceSpot_unsubscribeTicker_1(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().unsubscribeTicker";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
+
+    OneXAPI::Binance::Spot client;
+    std::string input = "";
+    std::string response = client.unsubscribeTicker(input);
+
+    testData.actualResult = response;
+
+    if(errorResponseChecker(response, "JSON_PARSING_ERROR")){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_unsubscribeTicker_2(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().unsubscribeTicker";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+
+    OneXAPI::Binance::Spot client;
+    std::string input = "{}";
+    std::string response = client.unsubscribeTicker(input);
+
+    testData.actualResult = response;
+
+    if(errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_unsubscribeTicker_3(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().unsubscribeTicker";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
+
+    OneXAPI::Binance::Spot client;
+    std::string input = "Bqbqb@";
+    std::string response = client.unsubscribeTicker(input);
+
+    testData.actualResult = response;
+
+    if(errorResponseChecker(response, "JSON_PARSING_ERROR")){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_unsubscribeTicker_4(testDataType& testData){
+    TC_BEGIN
+
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    testData.testSubject = "OneXAPI::Binance::Spot().unsubscribeTicker";
+    testData.expectedResult = R"({"success":true,"data":{"unsubscribed":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}],"unsubscribeFailed":[]}})";
+
+    OneXAPI::Binance::Spot client;
+    client.subscribeTicker(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}]})");
+
+    std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}]})";
+    std::string response = client.unsubscribeTicker(input);
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_unsubscribeTicker_5(testDataType& testData){
+    TC_BEGIN
+
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    testData.testSubject = "OneXAPI::Binance::Spot().unsubscribeTicker";
+    testData.expectedResult = R"({"success":true,"data":{"unsubscribed":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}],"unsubscribeFailed":[]}})";
+
+    OneXAPI::Binance::Spot client;
+    client.subscribeTicker(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}]})");
+
+    std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}],"reconnect":true})";
+    std::string response = client.unsubscribeTicker(input);
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_subscribeOrderbook_1(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().subscribeOrderbook";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
+
+    OneXAPI::Binance::Spot client;
+    std::string input = "";
+    std::string response = client.subscribeOrderbook(input);
+
+    testData.actualResult = response;
+
+    if(errorResponseChecker(response, "JSON_PARSING_ERROR")){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_subscribeOrderbook_2(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().subscribeOrderbook";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+
+    OneXAPI::Binance::Spot client;
+    std::string input = "{}";
+    std::string response = client.subscribeOrderbook(input);
+
+    testData.actualResult = response;
+
+    if(errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_subscribeOrderbook_3(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().subscribeOrderbook";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
+
+    OneXAPI::Binance::Spot client;
+    std::string input = "Bqbqb";
+    std::string response = client.subscribeOrderbook(input);
+
+    testData.actualResult = response;
+
+    if(errorResponseChecker(response, "JSON_PARSING_ERROR")){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_subscribeOrderbook_4(testDataType& testData){
+    TC_BEGIN
+
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    testData.testSubject = "OneXAPI::Binance::Spot().subscribeOrderbook";
+    testData.expectedResult = R"({"success":true,"data":{"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}],"subscribeFailed":[]}})";
+
+    OneXAPI::Binance::Spot client;
+    std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}]})";
+    std::string response = client.subscribeOrderbook(input);
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
+
+    testData.testSubject = "OneXAPI::Binance::Spot().getSubscribingOrderbooks";
+    testData.expectedResult = R"({"success":true,"data":{"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}]}})";
+    response = client.getSubscribingOrderbooks();
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
+
+    testData.testSubject = "OneXAPI::Binance::Spot().subscribeOrderbook";
+    testData.expectedResult = R"({"success":true,"data":{"subscribed":[{"baseCurrency":"XRP","quoteCurrency":"USDT","symbol":"XRPUSDT"}],"subscribeFailed":[]}})";
+    input = R"({"market":[{"baseCurrency":"XRP","quoteCurrency":"USDT"}], "reconnect": true})";
+    response = client.subscribeOrderbook(input);
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
+
+    testData.testSubject = "OneXAPI::Binance::Spot().getSubscribingOrderbooks";
+    testData.expectedResult = R"({"success":true,"data":{"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"},{"baseCurrency":"XRP","quoteCurrency":"USDT","symbol":"XRPUSDT"}]}})";
+    response = client.getSubscribingOrderbooks();
+
+    testData.actualResult = response;
+    
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
+
+    return true;
+
+    TC_END
+}
+
+bool TC_BinanceSpot_unsubscribeOrderbook_1(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().unsubscribeOrderbook";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
+
+    OneXAPI::Binance::Spot client;
+    std::string input = "";
+    std::string response = client.unsubscribeOrderbook(input);
+
+    testData.actualResult = response;
+
+    if(errorResponseChecker(response, "JSON_PARSING_ERROR")){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_unsubscribeOrderbook_2(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().unsubscribeOrderbook";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+
+    OneXAPI::Binance::Spot client;
+    std::string input = "{}";
+    std::string response = client.unsubscribeOrderbook(input);
+
+    testData.actualResult = response;
+
+    if(errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_unsubscribeOrderbook_3(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().unsubscribeOrderbook";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
+
+    OneXAPI::Binance::Spot client;
+    std::string input = "Bqbqb@";
+    std::string response = client.unsubscribeOrderbook(input);
+
+    testData.actualResult = response;
+
+    if(errorResponseChecker(response, "JSON_PARSING_ERROR")){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_unsubscribeOrderbook_4(testDataType& testData){
+    TC_BEGIN
+
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    testData.testSubject = "OneXAPI::Binance::Spot().unsubscribeOrderbook";
+    testData.expectedResult = R"({"success":true,"data":{"unsubscribed":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}],"unsubscribeFailed":[]}})";
+
+    OneXAPI::Binance::Spot client;
+    client.subscribeOrderbook(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}]})");
+
+    std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}]})";
+    std::string response = client.unsubscribeOrderbook(input);
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_unsubscribeOrderbook_5(testDataType& testData){
+    TC_BEGIN
+
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    testData.testSubject = "OneXAPI::Binance::Spot().unsubscribeOrderbook";
+    testData.expectedResult = R"({"success":true,"data":{"unsubscribed":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}],"unsubscribeFailed":[]}})";
+
+    OneXAPI::Binance::Spot client;
+    client.subscribeOrderbook(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}]})");
+
+    std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}],"reconnect":true})";
+    std::string response = client.unsubscribeOrderbook(input);
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceSpot_websocketFullTest(testDataType& testData){
+    TC_BEGIN
+
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    testData.testSubject = "OneXAPI::Binance::Spot().subscribeTicker_1";
+    testData.expectedResult = R"({"success":true,"data":{"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}],"subscribeFailed":[]}})";
+
+    OneXAPI::Binance::Spot client;
+    std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}]})";
+    std::string response = client.subscribeTicker(input);
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
+
+    testData.testSubject = "OneXAPI::Binance::Spot().getSubscribingTickers_2";
+    testData.expectedResult = R"({"success":true,"data":{"tickers":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}]}})";
+
+    response = client.getSubscribingTickers();
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
+
+    testData.testSubject = "OneXAPI::Binance::Spot().subscribeOrderbook_3";
+    testData.expectedResult = R"({"success":true,"data":{"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}],"subscribeFailed":[]}})";
+
+    input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}],"reconnect":true})";
+    response = client.subscribeOrderbook(input);
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
+
+    testData.testSubject = "OneXAPI::Binance::Spot().getSubscribingTickers_4";
+    testData.expectedResult = R"({"success":true,"data":{"tickers":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}]}})";
+
+    response = client.getSubscribingTickers();
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
+
+    testData.testSubject = "OneXAPI::Binance::Spot().getSubscribingOrderbooks_5";
+    testData.expectedResult = R"({"success":true,"data":{"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}]}})";
+
+    response = client.getSubscribingOrderbooks();
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
+
+    testData.testSubject = "OneXAPI::Binance::Spot().unsubscribeTicker_6";
+    testData.expectedResult = R"({"success":true,"data":{"unsubscribed":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"}],"unsubscribeFailed":[]}})";
+
+    input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"}],"reconnect":true})";
+    response = client.unsubscribeTicker(input);
+
+    testData.actualResult = response;
+    
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
+
+    testData.testSubject = "OneXAPI::Binance::Spot().getSubscribingTickers_7";
+    testData.expectedResult = R"({"success":true,"data":{"tickers":[{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}]}})";
+
+    response = client.getSubscribingTickers();
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
+
+    testData.testSubject = "OneXAPI::Binance::Spot().getSubscribingOrderbooks_8";
+    testData.expectedResult = R"({"success":true,"data":{"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}]}})";
+
+    response = client.getSubscribingOrderbooks();
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
+
+    testData.testSubject = "OneXAPI::Binance::Spot().unsubscribeOrderbook_9";
+    testData.expectedResult = R"({"success":true,"data":{"unsubscribed":[{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}],"unsubscribeFailed":[]}})";
+
+    input = R"({"market":[{"baseCurrency":"ETH","quoteCurrency":"USDT"}],"reconnect":true})";
+    response = client.unsubscribeOrderbook(input);
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
+
+    testData.testSubject = "OneXAPI::Binance::Spot().getSubscribingTickers_10";
+    testData.expectedResult = R"({"success":true,"data":{"tickers":[{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}]}})";
+
+    response = client.getSubscribingTickers();
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
+
+    testData.testSubject = "OneXAPI::Binance::Spot().getSubscribingOrderbooks_11";
+    testData.expectedResult = R"({"success":true,"data":{"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"}]}})";
+
+    response = client.getSubscribingOrderbooks();
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
+
+    testData.testSubject = "OneXAPI::Binance::Spot().subscribeOrderbook_12";
+    testData.expectedResult = R"({"success":true,"data":{"subscribed":[{"baseCurrency":"XRP","quoteCurrency":"USDT","symbol":"XRPUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}],"subscribeFailed":[]}})";
+
+    input = R"({"market":[{"baseCurrency":"XRP","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}],"reconnect":true})";
+    response = client.subscribeOrderbook(input);
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
+
+    testData.testSubject = "OneXAPI::Binance::Spot().getSubscribingTickers_13";
+    testData.expectedResult = R"({"success":true,"data":{"tickers":[{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}]}})";
+
+    response = client.getSubscribingTickers();
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
+
+    testData.testSubject = "OneXAPI::Binance::Spot().getSubscribingOrderbooks_14";
+    testData.expectedResult = R"({"success":true,"data":{"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"},{"baseCurrency":"XRP","quoteCurrency":"USDT","symbol":"XRPUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}]}})";
+
+    response = client.getSubscribingOrderbooks();
+
+    testData.actualResult = response;
+
     if(response.compare(testData.expectedResult) != 0){
         return false;
     }

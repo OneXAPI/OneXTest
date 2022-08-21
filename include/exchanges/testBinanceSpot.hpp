@@ -121,7 +121,38 @@ extern bool TC_BinanceSpot_fetchCandleHistory_1(testDataType& testData);
 extern bool TC_BinanceSpot_fetchCandleHistory_2(testDataType& testData);
 extern bool TC_BinanceSpot_fetchCandleHistory_3(testDataType& testData);
 
+extern bool TC_BinanceSpot_getSubscribingTickers_1(testDataType& testData);
+extern bool TC_BinanceSpot_getSubscribingTickers_2(testDataType& testData);
+extern bool TC_BinanceSpot_getSubscribingTickers_3(testDataType& testData);
+extern bool TC_BinanceSpot_getSubscribingTickers_4(testDataType& testData);
+extern bool TC_BinanceSpot_getSubscribingTickers_5(testDataType& testData);
+
+extern bool TC_BinanceSpot_getSubscribingOrderbooks_1(testDataType& testData);
+extern bool TC_BinanceSpot_getSubscribingOrderbooks_2(testDataType& testData);
+extern bool TC_BinanceSpot_getSubscribingOrderbooks_3(testDataType& testData);
+extern bool TC_BinanceSpot_getSubscribingOrderbooks_4(testDataType& testData);
+extern bool TC_BinanceSpot_getSubscribingOrderbooks_5(testDataType& testData);
+
 extern bool TC_BinanceSpot_subscribeTicker_1(testDataType& testData);
 extern bool TC_BinanceSpot_subscribeTicker_2(testDataType& testData);
 extern bool TC_BinanceSpot_subscribeTicker_3(testDataType& testData);
 extern bool TC_BinanceSpot_subscribeTicker_4(testDataType& testData);
+
+extern bool TC_BinanceSpot_unsubscribeTicker_1(testDataType& testData);
+extern bool TC_BinanceSpot_unsubscribeTicker_2(testDataType& testData);
+extern bool TC_BinanceSpot_unsubscribeTicker_3(testDataType& testData);
+extern bool TC_BinanceSpot_unsubscribeTicker_4(testDataType& testData);
+extern bool TC_BinanceSpot_unsubscribeTicker_5(testDataType& testData);
+
+extern bool TC_BinanceSpot_subscribeOrderbook_1(testDataType& testData);
+extern bool TC_BinanceSpot_subscribeOrderbook_2(testDataType& testData);
+extern bool TC_BinanceSpot_subscribeOrderbook_3(testDataType& testData);
+extern bool TC_BinanceSpot_subscribeOrderbook_4(testDataType& testData);
+
+extern bool TC_BinanceSpot_unsubscribeOrderbook_1(testDataType& testData);
+extern bool TC_BinanceSpot_unsubscribeOrderbook_2(testDataType& testData);
+extern bool TC_BinanceSpot_unsubscribeOrderbook_3(testDataType& testData);
+extern bool TC_BinanceSpot_unsubscribeOrderbook_4(testDataType& testData);
+extern bool TC_BinanceSpot_unsubscribeOrderbook_5(testDataType& testData);
+
+extern bool TC_BinanceSpot_websocketFullTest(testDataType& testData);
