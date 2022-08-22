@@ -3623,7 +3623,6 @@ bool TC_UpbitSpot_subscribeOrderbook_4(testDataType& testData){
     testData.actualResult = response;
 
     if(response.compare(testData.expectedResult) != 0){
-        client.unsubscribeOrderbook(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"BTC"}],"requestTimeout":0})");
         return false;
     }
 
@@ -3634,7 +3633,6 @@ bool TC_UpbitSpot_subscribeOrderbook_4(testDataType& testData){
     testData.actualResult = response;
 
     if(response.compare(testData.expectedResult) != 0){
-        client.unsubscribeOrderbook(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"BTC"}],"requestTimeout":0})");
         return false;
     }
 
@@ -3646,7 +3644,6 @@ bool TC_UpbitSpot_subscribeOrderbook_4(testDataType& testData){
     testData.actualResult = response;
 
     if(response.compare(testData.expectedResult) != 0){
-        client.unsubscribeOrderbook(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}],"requestTimeout":0})");
         return false;
     }
 
@@ -3656,7 +3653,6 @@ bool TC_UpbitSpot_subscribeOrderbook_4(testDataType& testData){
 
     testData.actualResult = response;
     
-    client.unsubscribeOrderbook(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}],"requestTimeout":0})");
     if(response.compare(testData.expectedResult) != 0){
         return false;
     }
