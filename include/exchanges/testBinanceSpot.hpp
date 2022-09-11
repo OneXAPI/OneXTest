@@ -120,6 +120,8 @@ extern bool TC_BinanceSpot_fetchTicker_4(testDataType& testData);
 
 extern bool TC_BinanceSpot_fetchOrderbook_1(testDataType& testData);
 extern bool TC_BinanceSpot_fetchOrderbook_2(testDataType& testData);
+extern bool TC_BinanceSpot_fetchOrderbook_3(testDataType& testData);
+extern bool TC_BinanceSpot_fetchOrderbook_4(testDataType& testData);
 
 extern bool TC_BinanceSpot_fetchCandleHistory_1(testDataType& testData);
 extern bool TC_BinanceSpot_fetchCandleHistory_2(testDataType& testData);

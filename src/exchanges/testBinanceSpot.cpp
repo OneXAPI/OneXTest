@@ -2919,6 +2919,137 @@ bool TC_BinanceSpot_fetchOrderbook_2(testDataType& testData){
     TC_END
 }
 
+bool TC_BinanceSpot_fetchOrderbook_3(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().fetchOrderbook";
+    testData.expectedResult = R"(response["success"]:true
+        response["data"]["requestedApiCount"] = 0
+        response["data"]["baseCurrency"] = "BTC"
+        response["data"]["quoteCurrency"] = "USDT"
+        response["data"]["symbol"] = "BTCUSDT"
+        response["data"]["fetchType"] = "websocket"
+        response["data"]["timestamp"]:uint64
+        response["data"]["bids"][]["price"]:string
+        response["data"]["bids"][]["size"]:string
+        response["data"]["asks"][]["price"]:string
+        response["data"]["asks"][]["size"]:string
+    )";
+
+    OneXAPI::Binance::Spot client;
+
+    client.subscribeOrderbook(R"({"market":[{"baseCurrency":"bTc","quoteCurrency":"USdt"}]})");
+    std::string response = client.fetchOrderbook(R"({"baseCurrency":"bTc","quoteCurrency":"USdt"})");
+    testData.actualResult = response;
+    rapidjson::Document respDoc;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+    if(!respDoc["success"].GetBool()){
+        return false;
+    }
+    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 0){
+        return false;
+    }
+    else if(std::string("BTC").compare(respDoc["data"]["baseCurrency"].GetString()) != 0){
+        return false;
+    }
+    else if(std::string("USDT").compare(respDoc["data"]["quoteCurrency"].GetString()) != 0){
+        return false;
+    }
+    else if(std::string("BTCUSDT").compare(respDoc["data"]["symbol"].GetString()) != 0){
+        return false;
+    }
+    else if(std::string("websocket").compare(respDoc["data"]["fetchType"].GetString()) != 0){
+        return false;
+    }
+    else if(!respDoc["data"]["timestamp"].IsUint64()){
+        return false;
+    }
+    else if(respDoc["data"]["bids"].Size() == 0 || respDoc["data"]["asks"].Size() == 0){
+        return false;
+    }
+    for(const auto& bid : respDoc["data"]["bids"].GetArray()){
+        if(!bid["price"].IsString() || !bid["size"].IsString()){
+            return false;
+        }
+    }
+    for(const auto& ask : respDoc["data"]["asks"].GetArray()){
+        if(!ask["price"].IsString() || !ask["size"].IsString()){
+            return false;
+        }
+    }
+    
+    return true;
+
+    TC_END
+}
+
+bool TC_BinanceSpot_fetchOrderbook_4(testDataType& testData){
+    TC_BEGIN
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    testData.testSubject = "OneXAPI::Binance::Spot().fetchOrderbook";
+    testData.expectedResult = R"(response["success"]:true
+        response["data"]["requestedApiCount"] = 1
+        response["data"]["baseCurrency"] = "BTC"
+        response["data"]["quoteCurrency"] = "USDT"
+        response["data"]["symbol"] = "BTCUSDT"
+        response["data"]["fetchType"] = "rest"
+        response["data"]["timestamp"]:uint64
+        response["data"]["bids"][]["price"]:string
+        response["data"]["bids"][]["size"]:string
+        response["data"]["asks"][]["price"]:string
+        response["data"]["asks"][]["size"]:string
+    )";
+
+    OneXAPI::Binance::Spot client;
+
+    client.subscribeOrderbook(R"({"baseCurrency":"bTc","quoteCurrency":"USdt","forceRestApi":true})");
+    std::string response = client.fetchOrderbook(R"({"baseCurrency":"bTc","quoteCurrency":"USdt"})");
+    testData.actualResult = response;
+    rapidjson::Document respDoc;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+    if(!respDoc["success"].GetBool()){
+        return false;
+    }
+    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+        return false;
+    }
+    else if(std::string("BTC").compare(respDoc["data"]["baseCurrency"].GetString()) != 0){
+        return false;
+    }
+    else if(std::string("USDT").compare(respDoc["data"]["quoteCurrency"].GetString()) != 0){
+        return false;
+    }
+    else if(std::string("BTCUSDT").compare(respDoc["data"]["symbol"].GetString()) != 0){
+        return false;
+    }
+    else if(std::string("rest").compare(respDoc["data"]["fetchType"].GetString()) != 0){
+        return false;
+    }
+    else if(!respDoc["data"]["timestamp"].IsUint64()){
+        return false;
+    }
+    else if(respDoc["data"]["bids"].Size() == 0 || respDoc["data"]["asks"].Size() == 0){
+        return false;
+    }
+    for(const auto& bid : respDoc["data"]["bids"].GetArray()){
+        if(!bid["price"].IsString() || !bid["size"].IsString()){
+            return false;
+        }
+    }
+    for(const auto& ask : respDoc["data"]["asks"].GetArray()){
+        if(!ask["price"].IsString() || !ask["size"].IsString()){
+            return false;
+        }
+    }
+    
+    return true;
+
+    TC_END
+}
+
 bool TC_BinanceSpot_fetchCandleHistory_1(testDataType& testData){
     TC_BEGIN
 
