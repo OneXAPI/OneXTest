@@ -115,6 +115,8 @@ extern bool TC_BinanceSpot_fetchMarkets_2(testDataType& testData);
 
 extern bool TC_BinanceSpot_fetchTicker_1(testDataType& testData);
 extern bool TC_BinanceSpot_fetchTicker_2(testDataType& testData);
+extern bool TC_BinanceSpot_fetchTicker_3(testDataType& testData);
+extern bool TC_BinanceSpot_fetchTicker_4(testDataType& testData);
 
 extern bool TC_BinanceSpot_fetchOrderbook_1(testDataType& testData);
 extern bool TC_BinanceSpot_fetchOrderbook_2(testDataType& testData);

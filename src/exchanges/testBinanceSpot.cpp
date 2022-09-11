@@ -2731,6 +2731,118 @@ bool TC_BinanceSpot_fetchTicker_2(testDataType& testData){
     TC_END
 }
 
+bool TC_BinanceSpot_fetchTicker_3(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().fetchTicker";
+    testData.expectedResult = R"(response["success"]:true
+        response["data"]["requestedApiCount"] = 0
+        response["data"]["baseCurrency"] = "BTC"
+        response["data"]["quoteCurrency"] = "USDT"
+        response["data"]["symbol"] = "BTCUSDT"
+        response["data"]["fetchType"] = "websocket"
+        response["data"]["openTime"]:uint64
+        response["data"]["openPrice"]:string
+        response["data"]["closePrice"]:string
+        response["data"]["lowPrice"]:string
+        response["data"]["highPrice"]:string
+        response["data"]["baseVolume"]:string
+        response["data"]["quoteVolume"]:string
+    )";
+
+    OneXAPI::Binance::Spot client;
+
+    client.subscribeTicker(R"({"market":[{"baseCurrency":"bTc","quoteCurrency":"USdt"}]})");
+    std::string response = client.fetchTicker(R"({"baseCurrency":"bTc","quoteCurrency":"USdt"})");
+    testData.actualResult = response;
+    rapidjson::Document respDoc;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+    if(!respDoc["success"].GetBool()){
+        return false;
+    }
+    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 0){
+        return false;
+    }
+    else if(std::string("BTC").compare(respDoc["data"]["baseCurrency"].GetString()) != 0){
+        return false;
+    }
+    else if(std::string("USDT").compare(respDoc["data"]["quoteCurrency"].GetString()) != 0){
+        return false;
+    }
+    else if(std::string("BTCUSDT").compare(respDoc["data"]["symbol"].GetString()) != 0){
+        return false;
+    }
+    else if(std::string("websocket").compare(respDoc["data"]["fetchType"].GetString()) != 0){
+        return false;
+    }
+    else if(!respDoc["data"]["openTime"].IsUint64() || !respDoc["data"]["openPrice"].IsString() || !respDoc["data"]["closePrice"].IsString() || !respDoc["data"]["lowPrice"].IsString() ||
+        !respDoc["data"]["highPrice"].IsString() || !respDoc["data"]["baseVolume"].IsString() || !respDoc["data"]["quoteVolume"].IsString()){
+        return false;
+    }
+    
+    return true;
+
+    TC_END
+}
+
+bool TC_BinanceSpot_fetchTicker_4(testDataType& testData){
+    TC_BEGIN
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    testData.testSubject = "OneXAPI::Binance::Spot().fetchTicker";
+    testData.expectedResult = R"(
+        response["success"]:true
+        response["data"]["requestedApiCount"] = 1
+        response["data"]["baseCurrency"] = "BTC"
+        response["data"]["quoteCurrency"] = "USDT"
+        response["data"]["symbol"] = "BTCUSDT"
+        response["data"]["fetchType"] = "rest"
+        response["data"]["openTime"]:uint64
+        response["data"]["openPrice"]:string
+        response["data"]["closePrice"]:string
+        response["data"]["lowPrice"]:string
+        response["data"]["highPrice"]:string
+        response["data"]["baseVolume"]:string
+        response["data"]["quoteVolume"]:string
+    )";
+
+    OneXAPI::Binance::Spot client;
+
+    client.subscribeTicker(R"({"market":[{"baseCurrency":"bTc","quoteCurrency":"USdt"}]})");
+    std::string response = client.fetchTicker(R"({"baseCurrency":"bTc","quoteCurrency":"USdt","forceRestApi":true})");
+    testData.actualResult = response;
+    rapidjson::Document respDoc;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+    if(!respDoc["success"].GetBool()){
+        return false;
+    }
+    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+        return false;
+    }
+    else if(std::string("BTC").compare(respDoc["data"]["baseCurrency"].GetString()) != 0){
+        return false;
+    }
+    else if(std::string("USDT").compare(respDoc["data"]["quoteCurrency"].GetString()) != 0){
+        return false;
+    }
+    else if(std::string("BTCUSDT").compare(respDoc["data"]["symbol"].GetString()) != 0){
+        return false;
+    }
+    else if(std::string("rest").compare(respDoc["data"]["fetchType"].GetString()) != 0){
+        return false;
+    }
+    else if(!respDoc["data"]["openTime"].IsUint64() || !respDoc["data"]["openPrice"].IsString() || !respDoc["data"]["closePrice"].IsString() || !respDoc["data"]["lowPrice"].IsString() ||
+        !respDoc["data"]["highPrice"].IsString() || !respDoc["data"]["baseVolume"].IsString() || !respDoc["data"]["quoteVolume"].IsString()){
+        return false;
+    }
+    
+    return true;
+
+    TC_END
+}
+
 bool TC_BinanceSpot_fetchOrderbook_1(testDataType& testData){
     TC_BEGIN
 
