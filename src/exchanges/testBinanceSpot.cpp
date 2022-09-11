@@ -1060,6 +1060,108 @@ bool TC_BinanceSpot_fetchBalance_2(testDataType& testData){
     TC_END
 }
 
+bool TC_BinanceSpot_fetchBalance_3(testDataType& testData){
+    TC_BEGIN
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    testData.testSubject = "OneXAPI::Binance::Spot().fetchBalance";
+    testData.expectedResult = R"(response["success"]:true
+        response["data"]["requestedApiCount"]:0
+        response["data"]["fetchType"]:"websocket"
+        response["data"]["balance"][currency]["free"]:string
+        response["data"]["balance"][currency]["locked"]:string
+
+        and member count of response["data"]["balance"] is 3)";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Spot client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    client.subscribeBalance();
+    std::string response = client.fetchBalance(R"({"currencies":["bTc","xRP","eTh"],"zeroBalance":true})");
+    testData.actualResult = response;
+    rapidjson::Document respDoc;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+    if(respDoc["success"].GetBool() != true){
+        return false;
+    }
+    else if(respDoc["data"]["requestedApiCount"].GetInt64() != 0){
+        return false;
+    }
+    else if(std::string("websocket").compare(respDoc["data"]["fetchType"].GetString()) != 0){
+        return false;
+    }
+    else if(respDoc["data"]["balance"].MemberCount() != 3){
+        return false;
+    }
+
+    for(auto balancePtr = respDoc["data"]["balance"].MemberBegin(); balancePtr != respDoc["data"]["balance"].MemberEnd(); balancePtr++){
+        if(!balancePtr->name.IsString()){
+            return false;
+        }
+        else if(!balancePtr->value["free"].IsString()){
+            return false;
+        }
+        else if(!balancePtr->value["locked"].IsString()){
+            return false;
+        }
+    }
+
+    return true;
+
+    TC_END
+}
+
+bool TC_BinanceSpot_fetchBalance_4(testDataType& testData){
+    TC_BEGIN
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    testData.testSubject = "OneXAPI::Binance::Spot().fetchBalance";
+    testData.expectedResult = R"(response["success"]:true
+        response["data"]["requestedApiCount"]:0
+        response["data"]["fetchType"]:"websocket"
+        response["data"]["balance"][currency]["free"]:string
+        response["data"]["balance"][currency]["locked"]:string
+
+        and member count of response["data"]["balance"] is not 3)";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Spot client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    client.subscribeBalance();
+    std::string response = client.fetchBalance(R"({"currencies":["bTc","xRP","eTh"],"zeroBalance":false, "forceRestApi":true})");
+    testData.actualResult = response;
+    rapidjson::Document respDoc;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+    if(respDoc["success"].GetBool() != true){
+        return false;
+    }
+    else if(respDoc["data"]["requestedApiCount"].GetInt64() != 1){
+        return false;
+    }
+    else if(std::string("rest").compare(respDoc["data"]["fetchType"].GetString()) != 0){
+        return false;
+    }
+    else if(respDoc["data"]["balance"].MemberCount() == 3){
+        return false;
+    }
+
+    for(auto balancePtr = respDoc["data"]["balance"].MemberBegin(); balancePtr != respDoc["data"]["balance"].MemberEnd(); balancePtr++){
+        if(!balancePtr->name.IsString()){
+            return false;
+        }
+        else if(!balancePtr->value["free"].IsString()){
+            return false;
+        }
+        else if(!balancePtr->value["locked"].IsString()){
+            return false;
+        }
+    }
+
+    return true;
+
+    TC_END
+}
+
 bool TC_BinanceSpot_fetchWalletStatus_1(testDataType& testData){
     TC_BEGIN
 

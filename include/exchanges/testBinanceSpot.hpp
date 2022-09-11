@@ -49,6 +49,8 @@ extern bool TC_BinanceSpot_fetchAllCurrencies_2(testDataType& testData);
 
 extern bool TC_BinanceSpot_fetchBalance_1(testDataType& testData);
 extern bool TC_BinanceSpot_fetchBalance_2(testDataType& testData);
+extern bool TC_BinanceSpot_fetchBalance_3(testDataType& testData);
+extern bool TC_BinanceSpot_fetchBalance_4(testDataType& testData);
 
 extern bool TC_BinanceSpot_fetchWalletStatus_1(testDataType& testData);
 extern bool TC_BinanceSpot_fetchWalletStatus_2(testDataType& testData);
