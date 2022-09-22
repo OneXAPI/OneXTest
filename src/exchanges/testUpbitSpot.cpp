@@ -1326,7 +1326,7 @@ bool TC_UpbitSpot_fetchDepositAddress_1(testDataType& testData){
     testData.expectedResult = R"(rresponse["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["addresses"][currency] is array
         response["data"]["addresses"][currency][0]["chain"] : "" response["data"]["addresses"][currency][0]["address"] is string
         response["data"]["addresses"][currency][0]["tag"] is string
-        size of response["data"]["addresses"][currency] is 1)";
+        size of response["data"]["addresses"][currency] is greater than 0)";
     testData.actualResult.clear();
 
     OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");

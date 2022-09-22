@@ -851,7 +851,7 @@ bool TC_BinanceSpot_withdraw_3(testDataType& testData){
     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
     testData.testSubject = "OneXAPI::Binance::Spot().withdraw";
     std::string findValue1 = R"(METHOD: GET, URL: https://api.binance.com/sapi/v1/capital/config/getall)";
-    std::string findValue2 = R"(METHOD: POST, URL: https://api.binance.com/sapi/v1/capital/withdraw/apply?coin=ADA&network=ADA&address=wrongAddress&addressTag=wrongTag&amount=136.123436)";
+    std::string findValue2 = R"(METHOD: POST, URL: https://api.binance.com/sapi/v1/capital/withdraw/apply?coin=ADA&network=ADA&address=wrongAddress&addressTag=wrongTag&amount=135.923436)";
     testData.expectedResult = findValue1 + "\nand\n" + findValue2;            
     testData.actualResult.clear();
     std::string input = R"({"currency":"aDA","chain":"AdA","address":"wrongAddress","tag":"wrongTag","amount":135.1234358,"feeInAmount":false})";
@@ -1859,10 +1859,10 @@ bool TC_BinanceSpot_orderLimitSell_3(testDataType& testData){
 
     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
     testData.testSubject = "OneXAPI::Binance::Spot().orderLimitSell";
-    std::string findValue = R"(METHOD: POST, URL: https://api.binance.com/api/v3/order?symbol=BTCUSDT&side=SELL&type=LIMIT&timeInForce=IOC&quantity=35.13569&price=24387.72&newClientOrderId=testId)";
+    std::string findValue = R"(METHOD: POST, URL: https://api.binance.com/api/v3/order?symbol=BTCUSDT&side=SELL&type=LIMIT&timeInForce=FOK&quantity=35.13569&price=24387.72&newClientOrderId=testId)";
     testData.expectedResult = findValue;
     testData.actualResult.clear();
-    std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"uSDt","price":25312.1234358,"baseAmount":35.135689342158,"clientOrderId":"testId","amplifier":0.96348,"type":"ioc"})";
+    std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"uSDt","price":25312.1234358,"baseAmount":35.135689342158,"clientOrderId":"testId","amplifier":0.96348,"type":"fok"})";
     OneXAPI::Binance::Spot client;
 
     client.orderLimitSell(input);
