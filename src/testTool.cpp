@@ -57,3 +57,11 @@ std::string getLog(uint64_t since){
 
     return result;
 }
+
+bool memberCountChecker(const rapidjson::Value& json, uint64_t count){
+    if(json.MemberCount() == count){
+        return true;
+    }
+
+    return false;
+}

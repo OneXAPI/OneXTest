@@ -565,9 +565,9 @@ static std::map<std::string, bool> hasExpectedResult = {
     {"orderMarketBuy", true},
     {"orderMarketSell", true},
     {"orderCancel", true},
-    {"fetchTradingFee", true},
     {"fetchOrderInfo", true},
     {"fetchOpenOrders", true},
+    {"fetchTradingFee", true},
     /* Markets */
     {"getCandleIntervalCandidates", true},
     {"fetchMarkets", true},
