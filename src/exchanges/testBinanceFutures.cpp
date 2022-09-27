@@ -459,7 +459,7 @@ bool TC_BinanceFutures_setConfig_5(testDataType& testData){
     TC_END
 }
 
-static const std::string getEndpointCandidatesExpectedResult = R"({"success":true,"data":{"requestedApiCount":0,"restEndpoints":["https://fapi.binance.com","https://testnet.binancefuture.com"],"publicWebsocketEndpoints":["wss://fstream.binance.com/ws","wss://fstream-auth.binance.com/ws"],"privateWebsocketEndpoints":["wss://fstream.binance.com/ws","wss://fstream-auth.binance.com/ws"]}})";
+static const std::string getEndpointCandidatesExpectedResult = R"({"success":true,"data":{"requestedApiCount":0,"restEndpoints":["https://fapi.binance.com","https://testnet.binancefuture.com"],"publicWebsocketEndpoints":["wss://fstream.binance.com/ws","wss://fstream-auth.binance.com/ws","wss://stream.binancefuture.com/ws"],"privateWebsocketEndpoints":["wss://fstream.binance.com/ws","wss://fstream-auth.binance.com/ws","wss://stream.binancefuture.com/ws"]}})";
 
 bool TC_BinanceFutures_getEndpointCandidates_1(testDataType& testData){
     TC_BEGIN
@@ -1060,777 +1060,698 @@ bool TC_BinanceFutures_fetchPositions_5(testDataType& testData){
     TC_END
 }
 
-// bool TC_BinanceFutures_fetchDepositHistory_1(testDataType& testData){
-//     TC_BEGIN
+bool TC_BinanceFutures_fetchFundingFeeIncomeHistory_1(testDataType& testData){
+    TC_BEGIN
 
-//     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-//     testData.testSubject = "OneXAPI::Binance::Futures().fetchDepositHistory";
-//     testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["deposits"]["currency"] is string
-//         response["data"]["deposits"]["amount"] is string response["data"]["deposits"]["fee"] is string response["data"]["deposits"]["orderId"] is string
-//         response["data"]["deposits"]["txid"] is string response["data"]["deposits"]["status"] is string response["data"]["deposits"]["created"] is uint64)";
-//     testData.actualResult.clear();
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    testData.testSubject = "OneXAPI::Binance::Futures().fetchFundingFeeIncomeHistory";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    testData.actualResult.clear();
 
-//     OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
 
-//     std::string response = client.fetchDepositHistory(R"({})");
-//     testData.actualResult = response;
-//     rapidjson::Document respDoc;
-//     OneXAPI::Internal::Util::parseJson(respDoc, response);
+    std::string response = client.fetchFundingFeeIncomeHistory(R"({})");    
+    testData.actualResult = response;
 
-//     if(!respDoc["success"].GetBool()){
-//         return false;
-//     }
-//     else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
-//         return false;
-//     }
-//     for(const auto& withdrawal : respDoc["data"]["deposits"].GetArray()){
-//         if(!withdrawal["currency"].IsString()){
-//             return false;
-//         }
-//         if(!withdrawal["amount"].IsString()){
-//             return false;
-//         }
-//         if(!withdrawal["fee"].IsString()){
-//             return false;
-//         }
-//         if(!withdrawal["orderId"].IsString()){
-//             return false;
-//         }
-//         if(!withdrawal["txid"].IsString()){
-//             return false;
-//         }
-//         if(!withdrawal["status"].IsString()){
-//             return false;
-//         }
-//         if(!withdrawal["created"].IsUint64()){
-//             return false;
-//         }
-//     }
+    if(errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+        return true;
+    }
 
-//     return true;
+    TC_END
+}
 
-//     TC_END
-// }
+bool TC_BinanceFutures_fetchFundingFeeIncomeHistory_2(testDataType& testData){
+    TC_BEGIN
 
-// bool TC_BinanceFutures_fetchDepositHistory_2(testDataType& testData){
-//     TC_BEGIN
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    testData.testSubject = "OneXAPI::Binance::Futures().fetchFundingFeeIncomeHistory";
+    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["incomes"] is array
+        response["data"]["incomes"]["baseCurrency"] is string response["data"]["incomes"]["quoteCurrency"] is string response["data"]["incomes"]["expiration"] is string
+        response["data"]["incomes"]["symbol"] is string response["data"]["incomes"]["income"] is string response["data"]["incomes"]["incomeCurrency"] is string
+        response["data"]["incomes"]["timestamp"] is uint and greater than 10000000000
+        member count of response["data"] = 2 member count of response["data"]["incomes"] is 7)";
+    testData.actualResult.clear();
 
-//     SAVE_LOGGER_SETTINGS
-//     LOGGER.setLevel("info");
-//     LOGGER.setMethod("file");
-//     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
 
-//     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
-//     testData.testSubject = "OneXAPI::Binance::Futures().fetchDepositHistory";
-//     std::string findValue = R"(METHOD: GET, URL: https://api.binance.com/sapi/v1/capital/deposit/hisrec?coin=MATIC&startTime=132123534&endTime=1125615123)";
-//     testData.expectedResult = findValue;            
-//     testData.actualResult.clear();
-//     std::string input = R"({"currency":"mATic","orderId":"testOrderId","txid":"testTxId","startTime":132123534,"endTime":1125615123})";
-//     OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    std::string oneYearBeforeFromNow = std::to_string(OneXAPI::Internal::Util::getCurrentMsEpoch() - ((uint64_t)365*(uint64_t)24*(uint64_t)60*(uint64_t)60*(uint64_t)1000));
+    std::string response = client.fetchFundingFeeIncomeHistory(R"({"startTime":)" + oneYearBeforeFromNow + R"(})");
+    testData.actualResult = response;
+    rapidjson::Document respDoc;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-//     client.fetchDepositHistory(input);
-//     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-//     std::string response = getLog(testStartTime);
-//     testData.actualResult = response;
+    if(!respDoc["success"].GetBool()){
+        return false;
+    }
+    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+        return false;
+    }
+    else if(!respDoc["data"]["incomes"].IsArray()){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"], 2)){
+        return false;
+    }
+    for(const auto& income : respDoc["data"]["incomes"].GetArray()){
+        if(!memberCountChecker(income, 7)){
+            return false;
+        }
+        else if(!income["baseCurrency"].IsString()){
+            return false;
+        }
+        else if(!income["quoteCurrency"].IsString()){
+            return false;
+        }
+        else if(!income["expiration"].IsString()){
+            return false;
+        }
+        else if(!income["symbol"].IsString()){
+            return false;
+        }
+        else if(!income["income"].IsString()){
+            return false;
+        }
+        else if(!income["incomeCurrency"].IsString()){
+            return false;
+        }
+        else if(!income["timestamp"].IsUint64() || income["timestamp"].GetUint64() < 10000000000){
+            return false;
+        }
+    }
 
-//     LOAD_LOGGER_SETTINGS
+    return true;
 
-//     if(response.find(findValue) != std::string::npos){
-//         return true;
-//     }
+    TC_END
+}
 
-//     TC_END
-// }
+bool TC_BinanceFutures_fetchFundingFeeIncomeHistory_3(testDataType& testData){
+    TC_BEGIN
 
-// bool TC_BinanceFutures_fetchDepositAddress_1(testDataType& testData){
-//     TC_BEGIN
+    SAVE_LOGGER_SETTINGS
+    LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
-//     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-//     testData.testSubject = "OneXAPI::Binance::Futures().fetchDepositAddress";
-//     testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
+    testData.testSubject = "OneXAPI::Binance::Futures().fetchFundingFeeIncomeHistory";
+    std::string oneYearBeforeFromNow = std::to_string(OneXAPI::Internal::Util::getCurrentMsEpoch() - ((uint64_t)365*(uint64_t)24*(uint64_t)60*(uint64_t)60*(uint64_t)1000));
+    std::string now = std::to_string(OneXAPI::Internal::Util::getCurrentMsEpoch());
+    std::string findValue = R"(METHOD: GET, URL: https://fapi.binance.com/fapi/v1/income?incomeType=FUNDING_FEE&startTime=)" + oneYearBeforeFromNow + R"(&endTime=)"+now;
+    testData.expectedResult = findValue + "\n" + R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["incomes"] is array
+        response["data"]["incomes"]["baseCurrency"] is "DOGE" response["data"]["incomes"]["quoteCurrency"] is "USDT" response["data"]["incomes"]["expiration"] is "PERP"
+        response["data"]["incomes"]["symbol"] is "DOGEUSDT" response["data"]["incomes"]["income"] is string response["data"]["incomes"]["incomeCurrency"] is string
+        response["data"]["incomes"]["timestamp"] is uint and greater than 10000000000
+        member count of response["data"] = 2 member count of response["data"]["incomes"] is 7)";            
+    testData.actualResult.clear();
+    std::string input = R"({"baseCurrency":"dOGe","quoteCurrency":"uSdT","expiration":"PerP","startTime":)" + oneYearBeforeFromNow + R"(,"endTime":)" + now + R"(})";
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
 
-//     OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
-//     std::string response = client.fetchDepositAddress("{}");
+    std::string response = client.fetchFundingFeeIncomeHistory(input);
+    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+    std::string log = getLog(testStartTime);
+    testData.actualResult = log + "\n" + response;
 
-//     testData.actualResult = response;
+    LOAD_LOGGER_SETTINGS
 
-//     if(errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
-//         return true;
-//     }
+    if(log.find(findValue) == std::string::npos){
+        std::cout << findValue << std::endl;
+    }
 
-//     TC_END
-// }
+    rapidjson::Document respDoc;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-// bool TC_BinanceFutures_fetchDepositAddress_2(testDataType& testData){
-//     TC_BEGIN
+    if(!respDoc["success"].GetBool()){
+        return false;
+    }
+    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+        return false;
+    }
+    else if(!respDoc["data"]["incomes"].IsArray()){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"], 2)){
+        return false;
+    }
+    for(const auto& income : respDoc["data"]["incomes"].GetArray()){
+        if(!memberCountChecker(income, 7)){
+            return false;
+        }
+        else if(std::string("DOGE").compare(income["baseCurrency"].GetString()) != 0){
+            return false;
+        }
+        else if(std::string("USDT").compare(income["quoteCurrency"].GetString()) != 0){
+            return false;
+        }
+        else if(std::string("PERP").compare(income["expiration"].GetString()) != 0){
+            return false;
+        }
+        else if(std::string("DOGEUSDT").compare(income["symbol"].GetString()) != 0){
+            return false;
+        }
+        else if(!income["income"].IsString()){
+            return false;
+        }
+        else if(!income["incomeCurrency"].IsString()){
+            return false;
+        }
+        else if(!income["timestamp"].IsUint64() || income["timestamp"].GetUint64() < 10000000000){
+            return false;
+        }
+    }
 
-//     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-//     testData.testSubject = "OneXAPI::Binance::Futures().fetchDepositAddress";
-//     testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["addresses"]["BTC"] is array
-//         response["data"]["addresses"]["BTC"][0]["chain"] : "BSC" response["data"]["addresses"]["BTC"][0]["address"] is string response["data"]["addresses"]["BTC"][0]["tag"] is string
-//         member count of response["data"]["addresses"] must be 1
-//         size of response["data"]["addresses"][currency] is 1)";
-//     testData.actualResult.clear();
+    return true;
 
-//     OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    TC_END
+}
 
-//     std::string response = client.fetchDepositAddress(R"({"currency":"Btc","chain":"BsC"})");
-//     testData.actualResult = response;
-//     rapidjson::Document respDoc;
-//     OneXAPI::Internal::Util::parseJson(respDoc, response);
+static const std::string getOrderRoundingRuleExpectedResult = R"({"success":true,"data":{"requestedApiCount":0,"limitBuyPrice":"round","limitBuyBaseAmount":"round","limitSellPrice":"round","limitSellBaseAmount":"round","marketBuyBaseAmount":"round","marketSellBaseAmount":"round"}})";
 
-//     if(!respDoc["success"].GetBool()){
-//         return false;
-//     }
-//     else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
-//         return false;
-//     }
-//     else if(respDoc["data"]["addresses"].MemberCount() != 1){
-//         return false;
-//     }
-//     else if(!respDoc["data"]["addresses"]["BTC"].IsArray()){
-//         return false;
-//     }
-//     else if(respDoc["data"]["addresses"]["BTC"].Size() != 1){
-//         return false;
-//     }
-//     else if(std::string("BSC").compare(respDoc["data"]["addresses"]["BTC"][0]["chain"].GetString()) != 0){
-//         return false;
-//     }
-//     else if(!respDoc["data"]["addresses"]["BTC"][0]["address"].IsString()){
-//         return false;
-//     }
-//     else if(!respDoc["data"]["addresses"]["BTC"][0]["tag"].IsString()){
-//         return false;
-//     }
+bool TC_BinanceFutures_getOrderRoundingRule_1(testDataType& testData){
+    TC_BEGIN
 
-//     return true;
+    testData.testSubject = "OneXAPI::Binance::Futures().getOrderRoundingRule";
+    testData.expectedResult = getOrderRoundingRuleExpectedResult;
 
-//     TC_END
-// }
+    OneXAPI::Binance::Futures client;
+    std::string response = client.getOrderRoundingRule();
 
-// bool TC_BinanceFutures_isDepositCompleted_1(testDataType& testData){
-//     TC_BEGIN
+    testData.actualResult = response;
 
-//     testData.testSubject = "OneXAPI::Binance::Futures().isDepositCompleted";
-//     testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
 
-//     OneXAPI::Binance::Futures client;
-//     std::string response = client.isDepositCompleted("{}");
+    TC_END
+}
 
-//     testData.actualResult = response;
+bool TC_BinanceFutures_getOrderRoundingRule_2(testDataType& testData){
+    TC_BEGIN
 
-//     if(errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
-//         return true;
-//     }
+    testData.testSubject = "OneXAPI::Binance::Futures().getOrderRoundingRule";
+    testData.expectedResult = getOrderRoundingRuleExpectedResult;
 
-//     TC_END
-// }
+    OneXAPI::Binance::Futures client;
+    std::string input = "";
+    std::string response = client.getOrderRoundingRule(input);
 
-// bool TC_BinanceFutures_isDepositCompleted_2(testDataType& testData){
-//     TC_BEGIN
+    testData.actualResult = response;
 
-//     SAVE_LOGGER_SETTINGS
-//     LOGGER.setLevel("info");
-//     LOGGER.setMethod("file");
-//     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceFutures_setOrderRoundingRule_1(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Futures().setOrderRoundingRule";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"WRONG_VALUE","errorMsg":"~~~"}})";
+
+    OneXAPI::Binance::Futures client;
+    std::string input = R"({"limitBuyBaseAmount":"wrongData"})";
+    std::string response = client.setOrderRoundingRule(input);
+
+    testData.actualResult = response;
+
+    if(!errorResponseChecker(response, "WRONG_VALUE")){
+        return false;
+    }
+    return true;
+
+    TC_END
+}
+
+bool TC_BinanceFutures_setOrderRoundingRule_2(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Futures().setOrderRoundingRule";
+    testData.expectedResult.clear();
+    testData.actualResult.clear();
+    std::string getCheckStr = "";
+    std::string getExpectedResult = "";
+    getExpectedResult.append(R"({"success":true,"data":{"requestedApiCount":0,"limitBuyPrice":"ceil","limitBuyBaseAmount":"ceil","limitSellPrice":"ceil","limitSellBaseAmount":"ceil","marketBuyBaseAmount":"ceil","marketSellBaseAmount":"ceil"}})").append("\n");
+    getExpectedResult.append(R"({"success":true,"data":{"requestedApiCount":0,"limitBuyPrice":"floor","limitBuyBaseAmount":"floor","limitSellPrice":"floor","limitSellBaseAmount":"floor","marketBuyBaseAmount":"floor","marketSellBaseAmount":"floor"}})").append("\n");
+    getExpectedResult.append(R"({"success":true,"data":{"requestedApiCount":0,"limitBuyPrice":"round","limitBuyBaseAmount":"round","limitSellPrice":"round","limitSellBaseAmount":"round","marketBuyBaseAmount":"round","marketSellBaseAmount":"round"}})").append("\n");
+    OneXAPI::Binance::Futures client;
+    std::vector<std::string> testValueList = {
+        "ceil",
+        "floor",
+        "round"
+    };
+    std::vector<std::string> testKeyList = {
+        "limitBuyPrice",
+        "limitBuyBaseAmount",
+        "limitSellPrice",
+        "limitSellBaseAmount",
+        "marketBuyBaseAmount",
+        "marketSellBaseAmount"
+    };
+
+    for(const auto& testValue : testValueList){
+        for(const auto& testKey : testKeyList){
+            testData.expectedResult.append(R"({"success":true,"data":{"requestedApiCount":0,")" + testKey + R"(":")" + testValue + R"("}})" + "\n");
+            std::string input = R"({")" + testKey + R"(":")" + testValue + R"("})";
+            std::string response = client.setOrderRoundingRule(input);
+        
+            testData.actualResult.append(response + "\n");
+
+            rapidjson::Document respDoc;
+            OneXAPI::Internal::Util::parseJson(respDoc, response);
+            if(respDoc["data"].MemberCount() != 2){
+                return false;
+            }
+        }
+        getCheckStr.append(client.getOrderRoundingRule() + "\n");
+    }
+
+    if(testData.actualResult.compare(testData.expectedResult) == 0 && getCheckStr.compare(getExpectedResult) == 0){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceFutures_orderLimitBuy_1(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Futures().orderLimitBuy";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    testData.actualResult.clear();
+    OneXAPI::Binance::Futures client;
+
+    std::string response = client.orderLimitBuy("{}");
+        
+    testData.actualResult = response;
+
+    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+        return false;
+    }
+    return true;
+
+    TC_END
+}
+
+bool TC_BinanceFutures_orderLimitBuy_2(testDataType& testData){
+    TC_BEGIN
+
+    SAVE_LOGGER_SETTINGS
+    LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+    uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
+    testData.testSubject = "OneXAPI::Binance::Futures().orderLimitBuy";
+    std::string findValue = R"(METHOD: POST, URL: https://fapi.binance.com/fapi/v1/order?symbol=BTCUSDT&side=BUY&type=LIMIT&timeInForce=GTC&quantity=35.136&reduceOnly=false&price=25312.1)";
+    testData.expectedResult = findValue;
+    testData.actualResult.clear();
+    std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"uSDt","price":25312.1234358,"baseAmount":35.135689342158})";
+    OneXAPI::Binance::Futures client;
+
+    client.orderLimitBuy(input);
+    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+    std::string response = getLog(testStartTime);
+    testData.actualResult = response;
+
+    LOAD_LOGGER_SETTINGS
+
+    if(response.find(findValue) != std::string::npos){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceFutures_orderLimitBuy_3(testDataType& testData){
+    TC_BEGIN
+
+    SAVE_LOGGER_SETTINGS
+    LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+    uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
+    testData.testSubject = "OneXAPI::Binance::Futures().orderLimitBuy";
+    std::string findValue = R"(METHOD: POST, URL: https://fapi.binance.com/fapi/v1/order?symbol=BTCUSDT&side=BUY&type=LIMIT&timeInForce=FOK&quantity=35.136&reduceOnly=true&price=26187.9&newClientOrderId=testId)";
+    testData.expectedResult = findValue;
+    testData.actualResult.clear();
+    std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"uSDt","expiration":"peRP","price":25312.1234358,"baseAmount":35.135689342158,"reduceOnly":true,"clientOrderId":"testId","amplifier":1.0346,"type":"fok"})";
+    OneXAPI::Binance::Futures client;
+
+    client.orderLimitBuy(input);
+    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+    std::string response = getLog(testStartTime);
+    testData.actualResult = response;
+
+    LOAD_LOGGER_SETTINGS
+
+    if(response.find(findValue) != std::string::npos){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_BinanceFutures_orderLimitSell_1(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Futures().orderLimitSell";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    testData.actualResult.clear();
+    OneXAPI::Binance::Futures client;
+
+    std::string response = client.orderLimitSell("{}");
+        
+    testData.actualResult = response;
+
+    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+        return false;
+    }
+    return true;
+
+    TC_END
+}
+
+bool TC_BinanceFutures_orderLimitSell_2(testDataType& testData){
+    TC_BEGIN
+
+    SAVE_LOGGER_SETTINGS
+    LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+    uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
+    testData.testSubject = "OneXAPI::Binance::Futures().orderLimitSell";
+    std::string findValue = R"(METHOD: POST, URL: https://fapi.binance.com/fapi/v1/order?symbol=BTCUSDT&side=SELL&type=LIMIT&timeInForce=GTC&quantity=35.136&reduceOnly=false&price=25312.1)";
+    testData.expectedResult = findValue;
+    testData.actualResult.clear();
+    std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"uSDt","price":25312.1234358,"baseAmount":35.135689342158})";
+    OneXAPI::Binance::Futures client;
+
+    client.orderLimitSell(input);
+    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+    std::string response = getLog(testStartTime);
+    testData.actualResult = response;
+
+    LOAD_LOGGER_SETTINGS
+
+    if(response.find(findValue) != std::string::npos){
+        return true;
+    }
     
-//     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
-//     testData.testSubject = "OneXAPI::Binance::Futures().isDepositCompleted";
-//     std::string findValue = R"(METHOD: GET, URL: https://api.binance.com/sapi/v1/capital/deposit/hisrec)";
-//     testData.expectedResult = findValue + R"(  and {"success":true,"data":{"requestedApiCount":1,"isDepositCompleted":false})";            
-//     testData.actualResult.clear();
-//     std::string input = R"({"txid":"testTxid"})";
-//     OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    TC_END
+}
 
-//     std::string restResp = client.isDepositCompleted(input);
-//     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-//     std::string response = getLog(testStartTime);
-//     LOAD_LOGGER_SETTINGS
-//     testData.actualResult = response + "  " + restResp;
-//     rapidjson::Document respDoc;
-//     OneXAPI::Internal::Util::parseJson(respDoc, restResp);
+bool TC_BinanceFutures_orderLimitSell_3(testDataType& testData){
+    TC_BEGIN
 
-//     if(!respDoc["success"].GetBool()){
-//         return false;
-//     }
-//     else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
-//         return false;
-//     }
-//     else if(respDoc["data"]["isDepositCompleted"].GetBool()){
-//         return false;
-//     }
+    SAVE_LOGGER_SETTINGS
+    LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
-//     if(response.find(findValue) != std::string::npos){
-//         return true;
-//     }
+    uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
+    testData.testSubject = "OneXAPI::Binance::Futures().orderLimitSell";
+    std::string findValue = R"(METHOD: POST, URL: https://fapi.binance.com/fapi/v1/order?symbol=BTCUSDT&side=SELL&type=LIMIT&timeInForce=IOC&quantity=35.136&reduceOnly=true&price=24387.7&newClientOrderId=testId)";
+    testData.expectedResult = findValue;
+    testData.actualResult.clear();
+    std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"uSDt","expiration":"peRP","price":25312.1234358,"baseAmount":35.135689342158,"reduceOnly":true,"clientOrderId":"testId","amplifier":0.96348,"type":"ioc"})";
+    OneXAPI::Binance::Futures client;
 
-//     TC_END
-// }
+    client.orderLimitSell(input);
+    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+    std::string response = getLog(testStartTime);
+    testData.actualResult = response;
 
-// bool TC_BinanceFutures_isDepositCompleted_3(testDataType& testData){
-//     TC_BEGIN
+    LOAD_LOGGER_SETTINGS
 
-//     SAVE_LOGGER_SETTINGS
-//     LOGGER.setLevel("info");
-//     LOGGER.setMethod("file");
-//     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    if(response.find(findValue) != std::string::npos){
+        return true;
+    }
 
-//     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
-//     testData.testSubject = "OneXAPI::Binance::Futures().isDepositCompleted";
-//     std::string findValue = R"(METHOD: GET, URL: https://api.binance.com/sapi/v1/capital/deposit/hisrec?coin=SOL&startTime=1656044045154)";
-//     testData.expectedResult = findValue + R"(  and {"success":true,"data":{"requestedApiCount":1,"isDepositCompleted":false})";            
-//     testData.actualResult.clear();
-//     std::string input = R"({"currency":"sOl","amount":35.213843,"since":1656044045154})";
-//     OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    TC_END
+}
 
-//     std::string restResp = client.isDepositCompleted(input);
-//     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-//     std::string response = getLog(testStartTime);
-//     LOAD_LOGGER_SETTINGS
-//     testData.actualResult = response + "  " + restResp;
-//     rapidjson::Document respDoc;
-//     OneXAPI::Internal::Util::parseJson(respDoc, restResp);
+bool TC_BinanceFutures_orderMarketBuy_1(testDataType& testData){
+    TC_BEGIN
 
-//     if(!respDoc["success"].GetBool()){
-//         return false;
-//     }
-//     else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
-//         return false;
-//     }
-//     else if(respDoc["data"]["isDepositCompleted"].GetBool()){
-//         return false;
-//     }
+    testData.testSubject = "OneXAPI::Binance::Futures().orderMarketBuy";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    testData.actualResult.clear();
+    OneXAPI::Binance::Futures client;
 
-//     if(response.find(findValue) != std::string::npos){
-//         return true;
-//     }
-
-//     TC_END
-// }
-
-// static const std::string getOrderRoundingRuleExpectedResult = R"({"success":true,"data":{"requestedApiCount":0,"limitBuyPrice":"round","limitBuyBaseAmount":"round","limitSellPrice":"round","limitSellBaseAmount":"round","marketBuyQuoteAmount":"round","marketSellBaseAmount":"round"}})";
-
-// bool TC_BinanceFutures_getOrderRoundingRule_1(testDataType& testData){
-//     TC_BEGIN
-
-//     testData.testSubject = "OneXAPI::Binance::Futures().getOrderRoundingRule";
-//     testData.expectedResult = getOrderRoundingRuleExpectedResult;
-
-//     OneXAPI::Binance::Futures client;
-//     std::string response = client.getOrderRoundingRule();
-
-//     testData.actualResult = response;
-
-//     if(response.compare(testData.expectedResult) == 0){
-//         return true;
-//     }
-
-//     TC_END
-// }
-
-// bool TC_BinanceFutures_getOrderRoundingRule_2(testDataType& testData){
-//     TC_BEGIN
-
-//     testData.testSubject = "OneXAPI::Binance::Futures().getOrderRoundingRule";
-//     testData.expectedResult = getOrderRoundingRuleExpectedResult;
-
-//     OneXAPI::Binance::Futures client;
-//     std::string input = "";
-//     std::string response = client.getOrderRoundingRule(input);
-
-//     testData.actualResult = response;
-
-//     if(response.compare(testData.expectedResult) == 0){
-//         return true;
-//     }
-
-//     TC_END
-// }
-
-// bool TC_BinanceFutures_setOrderRoundingRule_1(testDataType& testData){
-//     TC_BEGIN
-
-//     testData.testSubject = "OneXAPI::Binance::Futures().setOrderRoundingRule";
-//     testData.expectedResult = R"({"success":false,"data":{"errorType":"WRONG_VALUE","errorMsg":"~~~"}})";
-
-//     OneXAPI::Binance::Futures client;
-//     std::string input = R"({"limitBuyBaseAmount":"wrongData"})";
-//     std::string response = client.setOrderRoundingRule(input);
-
-//     testData.actualResult = response;
-
-//     if(!errorResponseChecker(response, "WRONG_VALUE")){
-//         return false;
-//     }
-//     return true;
-
-//     TC_END
-// }
-
-// bool TC_BinanceFutures_setOrderRoundingRule_2(testDataType& testData){
-//     TC_BEGIN
-
-//     testData.testSubject = "OneXAPI::Binance::Futures().setOrderRoundingRule";
-//     testData.expectedResult.clear();
-//     testData.actualResult.clear();
-//     std::string getCheckStr = "";
-//     std::string getExpectedResult = "";
-//     getExpectedResult.append(R"({"success":true,"data":{"requestedApiCount":0,"limitBuyPrice":"ceil","limitBuyBaseAmount":"ceil","limitSellPrice":"ceil","limitSellBaseAmount":"ceil","marketBuyQuoteAmount":"ceil","marketSellBaseAmount":"ceil"}})").append("\n");
-//     getExpectedResult.append(R"({"success":true,"data":{"requestedApiCount":0,"limitBuyPrice":"floor","limitBuyBaseAmount":"floor","limitSellPrice":"floor","limitSellBaseAmount":"floor","marketBuyQuoteAmount":"floor","marketSellBaseAmount":"floor"}})").append("\n");
-//     getExpectedResult.append(R"({"success":true,"data":{"requestedApiCount":0,"limitBuyPrice":"round","limitBuyBaseAmount":"round","limitSellPrice":"round","limitSellBaseAmount":"round","marketBuyQuoteAmount":"round","marketSellBaseAmount":"round"}})").append("\n");
-//     OneXAPI::Binance::Futures client;
-//     std::vector<std::string> testValueList = {
-//         "ceil",
-//         "floor",
-//         "round"
-//     };
-//     std::vector<std::string> testKeyList = {
-//         "limitBuyPrice",
-//         "limitBuyBaseAmount",
-//         "limitSellPrice",
-//         "limitSellBaseAmount",
-//         "marketBuyQuoteAmount",
-//         "marketSellBaseAmount"
-//     };
-
-//     for(const auto& testValue : testValueList){
-//         for(const auto& testKey : testKeyList){
-//             testData.expectedResult.append(R"({"success":true,"data":{"requestedApiCount":0,")" + testKey + R"(":")" + testValue + R"("}})" + "\n");
-//             std::string input = R"({")" + testKey + R"(":")" + testValue + R"("})";
-//             std::string response = client.setOrderRoundingRule(input);
+    std::string response = client.orderMarketBuy("{}");
         
-//             testData.actualResult.append(response + "\n");
-//         }
-//         getCheckStr.append(client.getOrderRoundingRule() + "\n");
-//     }
+    testData.actualResult = response;
 
-//     if(testData.actualResult.compare(testData.expectedResult) == 0 && getCheckStr.compare(getExpectedResult) == 0){
-//         return true;
-//     }
+    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+        return false;
+    }
+    return true;
 
-//     TC_END
-// }
+    TC_END
+}
 
-// bool TC_BinanceFutures_orderLimitBuy_1(testDataType& testData){
-//     TC_BEGIN
+bool TC_BinanceFutures_orderMarketBuy_2(testDataType& testData){
+    TC_BEGIN
 
-//     testData.testSubject = "OneXAPI::Binance::Futures().orderLimitBuy";
-//     testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
-//     testData.actualResult.clear();
-//     OneXAPI::Binance::Futures client;
+    SAVE_LOGGER_SETTINGS
+    LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
-//     std::string response = client.orderLimitBuy("{}");
-        
-//     testData.actualResult = response;
+    uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
+    testData.testSubject = "OneXAPI::Binance::Futures().orderMarketBuy";
+    std::string findValue = R"(METHOD: POST, URL: https://fapi.binance.com/fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=35.136&reduceOnly=false)";
+    testData.expectedResult = findValue;
+    testData.actualResult.clear();
+    std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"usdT","baseAmount":35.135689342158})";
+    OneXAPI::Binance::Futures client;
 
-//     if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
-//         return false;
-//     }
-//     return true;
-
-//     TC_END
-// }
-
-// bool TC_BinanceFutures_orderLimitBuy_2(testDataType& testData){
-//     TC_BEGIN
-
-//     SAVE_LOGGER_SETTINGS
-//     LOGGER.setLevel("info");
-//     LOGGER.setMethod("file");
-//     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-
-//     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
-//     testData.testSubject = "OneXAPI::Binance::Futures().orderLimitBuy";
-//     std::string findValue = R"(METHOD: POST, URL: https://api.binance.com/api/v3/order?symbol=BTCUSDT&side=BUY&type=LIMIT&timeInForce=GTC&quantity=35.13569&price=25312.12)";
-//     testData.expectedResult = findValue;
-//     testData.actualResult.clear();
-//     std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"uSDt","price":25312.1234358,"baseAmount":35.135689342158})";
-//     OneXAPI::Binance::Futures client;
-
-//     client.orderLimitBuy(input);
-//     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-//     std::string response = getLog(testStartTime);
-//     testData.actualResult = response;
-
-//     LOAD_LOGGER_SETTINGS
-
-//     if(response.find(findValue) != std::string::npos){
-//         return true;
-//     }
-
-//     TC_END
-// }
-
-// bool TC_BinanceFutures_orderLimitBuy_3(testDataType& testData){
-//     TC_BEGIN
-
-//     SAVE_LOGGER_SETTINGS
-//     LOGGER.setLevel("info");
-//     LOGGER.setMethod("file");
-//     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-
-//     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
-//     testData.testSubject = "OneXAPI::Binance::Futures().orderLimitBuy";
-//     std::string findValue = R"(METHOD: POST, URL: https://api.binance.com/api/v3/order?symbol=BTCUSDT&side=BUY&type=LIMIT&timeInForce=FOK&quantity=35.13569&price=26187.92&newClientOrderId=testId)";
-//     testData.expectedResult = findValue;
-//     testData.actualResult.clear();
-//     std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"uSDt","price":25312.1234358,"baseAmount":35.135689342158,"clientOrderId":"testId","amplifier":1.0346,"type":"fok"})";
-//     OneXAPI::Binance::Futures client;
-
-//     client.orderLimitBuy(input);
-//     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-//     std::string response = getLog(testStartTime);
-//     testData.actualResult = response;
-
-//     LOAD_LOGGER_SETTINGS
-
-//     if(response.find(findValue) != std::string::npos){
-//         return true;
-//     }
-
-//     TC_END
-// }
-
-// bool TC_BinanceFutures_orderLimitSell_1(testDataType& testData){
-//     TC_BEGIN
-
-//     testData.testSubject = "OneXAPI::Binance::Futures().orderLimitSell";
-//     testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
-//     testData.actualResult.clear();
-//     OneXAPI::Binance::Futures client;
-
-//     std::string response = client.orderLimitSell("{}");
-        
-//     testData.actualResult = response;
-
-//     if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
-//         return false;
-//     }
-//     return true;
-
-//     TC_END
-// }
-
-// bool TC_BinanceFutures_orderLimitSell_2(testDataType& testData){
-//     TC_BEGIN
-
-//     SAVE_LOGGER_SETTINGS
-//     LOGGER.setLevel("info");
-//     LOGGER.setMethod("file");
-//     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-
-//     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
-//     testData.testSubject = "OneXAPI::Binance::Futures().orderLimitSell";
-//     std::string findValue = R"(METHOD: POST, URL: https://api.binance.com/api/v3/order?symbol=BTCUSDT&side=SELL&type=LIMIT&timeInForce=GTC&quantity=35.13569&price=25312.12)";
-//     testData.expectedResult = findValue;
-//     testData.actualResult.clear();
-//     std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"uSDt","price":25312.1234358,"baseAmount":35.135689342158})";
-//     OneXAPI::Binance::Futures client;
-
-//     client.orderLimitSell(input);
-//     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-//     std::string response = getLog(testStartTime);
-//     testData.actualResult = response;
-
-//     LOAD_LOGGER_SETTINGS
-
-//     if(response.find(findValue) != std::string::npos){
-//         return true;
-//     }
+    client.orderMarketBuy(input);
+    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+    std::string response = getLog(testStartTime);
+    testData.actualResult = response;
     
-//     TC_END
-// }
+    LOAD_LOGGER_SETTINGS
 
-// bool TC_BinanceFutures_orderLimitSell_3(testDataType& testData){
-//     TC_BEGIN
+    if(response.find(findValue) != std::string::npos){
+        return true;
+    }
 
-//     SAVE_LOGGER_SETTINGS
-//     LOGGER.setLevel("info");
-//     LOGGER.setMethod("file");
-//     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    TC_END
+}
 
-//     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
-//     testData.testSubject = "OneXAPI::Binance::Futures().orderLimitSell";
-//     std::string findValue = R"(METHOD: POST, URL: https://api.binance.com/api/v3/order?symbol=BTCUSDT&side=SELL&type=LIMIT&timeInForce=IOC&quantity=35.13569&price=24387.72&newClientOrderId=testId)";
-//     testData.expectedResult = findValue;
-//     testData.actualResult.clear();
-//     std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"uSDt","price":25312.1234358,"baseAmount":35.135689342158,"clientOrderId":"testId","amplifier":0.96348,"type":"ioc"})";
-//     OneXAPI::Binance::Futures client;
+bool TC_BinanceFutures_orderMarketBuy_3(testDataType& testData){
+    TC_BEGIN
 
-//     client.orderLimitSell(input);
-//     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-//     std::string response = getLog(testStartTime);
-//     testData.actualResult = response;
+    SAVE_LOGGER_SETTINGS
+    LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
-//     LOAD_LOGGER_SETTINGS
+    uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
+    testData.testSubject = "OneXAPI::Binance::Futures().orderMarketBuy";
+    std::string findValue = R"(METHOD: POST, URL: https://fapi.binance.com/fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=35.136&reduceOnly=true&newClientOrderId=testId)";
+    testData.expectedResult = findValue;
+    testData.actualResult.clear();
+    std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"usdT","expiration":"peRP","baseAmount":35.135689342158,"reduceOnly":true,"clientOrderId":"testId"})";
+    OneXAPI::Binance::Futures client;
 
-//     if(response.find(findValue) != std::string::npos){
-//         return true;
-//     }
-
-//     TC_END
-// }
-
-// bool TC_BinanceFutures_orderMarketBuy_1(testDataType& testData){
-//     TC_BEGIN
-
-//     testData.testSubject = "OneXAPI::Binance::Futures().orderMarketBuy";
-//     testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
-//     testData.actualResult.clear();
-//     OneXAPI::Binance::Futures client;
-
-//     std::string response = client.orderMarketBuy("{}");
-        
-//     testData.actualResult = response;
-
-//     if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
-//         return false;
-//     }
-//     return true;
-
-//     TC_END
-// }
-
-// bool TC_BinanceFutures_orderMarketBuy_2(testDataType& testData){
-//     TC_BEGIN
-
-//     SAVE_LOGGER_SETTINGS
-//     LOGGER.setLevel("info");
-//     LOGGER.setMethod("file");
-//     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-
-//     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
-//     testData.testSubject = "OneXAPI::Binance::Futures().orderMarketBuy";
-//     std::string findValue = R"(METHOD: POST, URL: https://api.binance.com/api/v3/order?symbol=BTCUSDT&side=BUY&type=MARKET&quoteOrderQty=41381.39)";
-//     testData.expectedResult = findValue;
-//     testData.actualResult.clear();
-//     std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"usdT","quoteAmount":41381.391351334})";
-//     OneXAPI::Binance::Futures client;
-
-//     client.orderMarketBuy(input);
-//     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-//     std::string response = getLog(testStartTime);
-//     testData.actualResult = response;
+    client.orderMarketBuy(input);
+    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+    std::string response = getLog(testStartTime);
+    testData.actualResult = response;
     
-//     LOAD_LOGGER_SETTINGS
+    LOAD_LOGGER_SETTINGS
 
-//     if(response.find(findValue) != std::string::npos){
-//         return true;
-//     }
+    if(response.find(findValue) != std::string::npos){
+        return true;
+    }
 
-//     TC_END
-// }
+    TC_END
+}
 
-// bool TC_BinanceFutures_orderMarketBuy_3(testDataType& testData){
-//     TC_BEGIN
+bool TC_BinanceFutures_orderMarketSell_1(testDataType& testData){
+    TC_BEGIN
 
-//     SAVE_LOGGER_SETTINGS
-//     LOGGER.setLevel("info");
-//     LOGGER.setMethod("file");
-//     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    testData.testSubject = "OneXAPI::Binance::Futures().orderMarketSell";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    testData.actualResult.clear();
+    OneXAPI::Binance::Futures client;
 
-//     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
-//     testData.testSubject = "OneXAPI::Binance::Futures().orderMarketBuy";
-//     std::string findValue = R"(METHOD: POST, URL: https://api.binance.com/api/v3/order?symbol=BTCUSDT&side=BUY&type=MARKET&quoteOrderQty=41381.39&newClientOrderId=testId)";
-//     testData.expectedResult = findValue;
-//     testData.actualResult.clear();
-//     std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"usdT","quoteAmount":41381.391351334,"clientOrderId":"testId"})";
-//     OneXAPI::Binance::Futures client;
-
-//     client.orderMarketBuy(input);
-//     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-//     std::string response = getLog(testStartTime);
-//     testData.actualResult = response;
-    
-//     LOAD_LOGGER_SETTINGS
-
-//     if(response.find(findValue) != std::string::npos){
-//         return true;
-//     }
-
-//     TC_END
-// }
-
-// bool TC_BinanceFutures_orderMarketSell_1(testDataType& testData){
-//     TC_BEGIN
-
-//     testData.testSubject = "OneXAPI::Binance::Futures().orderMarketSell";
-//     testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
-//     testData.actualResult.clear();
-//     OneXAPI::Binance::Futures client;
-
-//     std::string response = client.orderMarketSell("{}");
+    std::string response = client.orderMarketSell("{}");
         
-//     testData.actualResult = response;
+    testData.actualResult = response;
 
-//     if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
-//         return false;
-//     }
-//     return true;
+    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+        return false;
+    }
+    return true;
 
-//     TC_END
-// }
+    TC_END
+}
 
-// bool TC_BinanceFutures_orderMarketSell_2(testDataType& testData){TC_BEGIN
+bool TC_BinanceFutures_orderMarketSell_2(testDataType& testData){TC_BEGIN
 
-//     SAVE_LOGGER_SETTINGS
-//     LOGGER.setLevel("info");
-//     LOGGER.setMethod("file");
-//     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    SAVE_LOGGER_SETTINGS
+    LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
-//     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
-//     testData.testSubject = "OneXAPI::Binance::Futures().orderMarketSell";
-//     std::string findValue = R"(METHOD: POST, URL: https://api.binance.com/api/v3/order?symbol=BTCUSDT&side=SELL&type=MARKET&quantity=83.13385)";
-//     testData.expectedResult = findValue;
-//     testData.actualResult.clear();
-//     std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"usdT","baseAmount":83.1338494835})";
-//     OneXAPI::Binance::Futures client;
+    uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
+    testData.testSubject = "OneXAPI::Binance::Futures().orderMarketSell";
+    std::string findValue = R"(METHOD: POST, URL: https://fapi.binance.com/fapi/v1/order?symbol=BTCUSDT&side=SELL&type=MARKET&quantity=83.134&reduceOnly=false)";
+    testData.expectedResult = findValue;
+    testData.actualResult.clear();
+    std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"usdT","baseAmount":83.1338494835})";
+    OneXAPI::Binance::Futures client;
 
-//     client.orderMarketSell(input);
-//     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-//     std::string response = getLog(testStartTime);
-//     testData.actualResult = response;
+    client.orderMarketSell(input);
+    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+    std::string response = getLog(testStartTime);
+    testData.actualResult = response;
 
-//     LOAD_LOGGER_SETTINGS
+    LOAD_LOGGER_SETTINGS
 
-//     if(response.find(findValue) != std::string::npos){
-//         return true;
-//     }
+    if(response.find(findValue) != std::string::npos){
+        return true;
+    }
 
-//     TC_END
-// }
+    TC_END
+}
 
-// bool TC_BinanceFutures_orderMarketSell_3(testDataType& testData){
-//     TC_BEGIN
+bool TC_BinanceFutures_orderMarketSell_3(testDataType& testData){
+    TC_BEGIN
 
-//     SAVE_LOGGER_SETTINGS
-//     LOGGER.setLevel("info");
-//     LOGGER.setMethod("file");
-//     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    SAVE_LOGGER_SETTINGS
+    LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
-//     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
-//     testData.testSubject = "OneXAPI::Binance::Futures().orderMarketSell";
-//     std::string findValue = R"(METHOD: POST, URL: https://api.binance.com/api/v3/order?symbol=BTCUSDT&side=SELL&type=MARKET&quantity=83.13385&newClientOrderId=testId)";
-//     testData.expectedResult = findValue;
-//     testData.actualResult.clear();
-//     std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"usdT","baseAmount":83.1338494835,"clientOrderId":"testId"})";
-//     OneXAPI::Binance::Futures client;
+    uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
+    testData.testSubject = "OneXAPI::Binance::Futures().orderMarketSell";
+    std::string findValue = R"(METHOD: POST, URL: https://fapi.binance.com/fapi/v1/order?symbol=BTCUSDT&side=SELL&type=MARKET&quantity=83.134&reduceOnly=true&newClientOrderId=testId)";
+    testData.expectedResult = findValue;
+    testData.actualResult.clear();
+    std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"usdT","expiration":"peRP","baseAmount":83.1338494835,"reduceOnly":true,"clientOrderId":"testId"})";
+    OneXAPI::Binance::Futures client;
 
-//     client.orderMarketSell(input);
-//     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-//     std::string response = getLog(testStartTime);
-//     testData.actualResult = response;
+    client.orderMarketSell(input);
+    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+    std::string response = getLog(testStartTime);
+    testData.actualResult = response;
 
-//     LOAD_LOGGER_SETTINGS
+    LOAD_LOGGER_SETTINGS
 
-//     if(response.find(findValue) != std::string::npos){
-//         return true;
-//     }
+    if(response.find(findValue) != std::string::npos){
+        return true;
+    }
 
-//     TC_END
-// }
+    TC_END
+}
 
-// bool TC_BinanceFutures_orderCancel_1(testDataType& testData){
-//     TC_BEGIN
+bool TC_BinanceFutures_orderCancel_1(testDataType& testData){
+    TC_BEGIN
 
-//     testData.testSubject = "OneXAPI::Binance::Futures().orderCancel";
-//     testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
-//     testData.actualResult.clear();
-//     OneXAPI::Binance::Futures client;
+    testData.testSubject = "OneXAPI::Binance::Futures().orderCancel";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    testData.actualResult.clear();
+    OneXAPI::Binance::Futures client;
 
-//     std::string response = client.orderCancel("{}");
+    std::string response = client.orderCancel("{}");
         
-//     testData.actualResult = response;
+    testData.actualResult = response;
 
-//     if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
-//         return false;
-//     }
-//     return true;
+    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+        return false;
+    }
+    return true;
 
-//     TC_END
-// }
+    TC_END
+}
 
-// bool TC_BinanceFutures_orderCancel_2(testDataType& testData){
-//     TC_BEGIN    
+bool TC_BinanceFutures_orderCancel_2(testDataType& testData){
+    TC_BEGIN    
 
-//     testData.testSubject = "OneXAPI::Binance::Futures().orderCancel";
-//     testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
-//     testData.actualResult.clear();
-//     OneXAPI::Binance::Futures client;
+    testData.testSubject = "OneXAPI::Binance::Futures().orderCancel";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    testData.actualResult.clear();
+    OneXAPI::Binance::Futures client;
 
-//     std::string input = R"({"orderId":"testOrderId"})";
-//     std::string response = client.orderCancel(input);
+    std::string input = R"({"orderId":"testOrderId"})";
+    std::string response = client.orderCancel(input);
         
-//     testData.actualResult = response;
+    testData.actualResult = response;
 
-//     if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
-//         return false;
-//     }
-//     return true;
+    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+        return false;
+    }
+    return true;
 
-//     TC_END
-// }
+    TC_END
+}
 
-// bool TC_BinanceFutures_orderCancel_3(testDataType& testData){
-//     TC_BEGIN
+bool TC_BinanceFutures_orderCancel_3(testDataType& testData){
+    TC_BEGIN
 
-//     SAVE_LOGGER_SETTINGS
-//     LOGGER.setLevel("info");
-//     LOGGER.setMethod("file");
-//     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    SAVE_LOGGER_SETTINGS
+    LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
-//     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
-//     testData.testSubject = "OneXAPI::Binance::Futures().orderCancel";
-//     std::string findValue = R"(METHOD: DEL, URL: https://api.binance.com/api/v3/order?symbol=BTCUSDT&orderId=testOrderId)";
-//     testData.expectedResult = findValue;
-//     testData.actualResult.clear();
-//     std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"usdT","orderId":"testOrderId"})";
-//     OneXAPI::Binance::Futures client;
+    uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
+    testData.testSubject = "OneXAPI::Binance::Futures().orderCancel";
+    std::string findValue = R"(METHOD: DEL, URL: https://fapi.binance.com/fapi/v1/order?symbol=BTCUSDT_123456&orderId=testOrderId)";
+    testData.expectedResult = findValue;
+    testData.actualResult.clear();
+    std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"usdT","expiration":"123456","orderId":"testOrderId"})";
+    OneXAPI::Binance::Futures client;
 
-//     client.orderCancel(input);
-//     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-//     std::string response = getLog(testStartTime);
-//     testData.actualResult = response;
+    client.orderCancel(input);
+    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+    std::string response = getLog(testStartTime);
+    testData.actualResult = response;
 
-//     LOAD_LOGGER_SETTINGS
+    LOAD_LOGGER_SETTINGS
 
-//     if(response.find(findValue) != std::string::npos){
-//         return true;
-//     }
+    if(response.find(findValue) != std::string::npos){
+        return true;
+    }
 
-//     TC_END
-// }
+    TC_END
+}
 
-// bool TC_BinanceFutures_orderCancel_4(testDataType& testData){
-//     TC_BEGIN
+bool TC_BinanceFutures_orderCancel_4(testDataType& testData){
+    TC_BEGIN
 
-//     SAVE_LOGGER_SETTINGS
-//     LOGGER.setLevel("info");
-//     LOGGER.setMethod("file");
-//     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    SAVE_LOGGER_SETTINGS
+    LOGGER.setLevel("info");
+    LOGGER.setMethod("file");
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
-//     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
-//     testData.testSubject = "OneXAPI::Binance::Futures().orderCancel";
-//     std::string findValue = R"(METHOD: DEL, URL: https://api.binance.com/api/v3/order?symbol=BTCUSDT&origClientOrderId=testClientOrderId)";
-//     testData.expectedResult = findValue;
-//     testData.actualResult.clear();
-//     std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"usdT","clientOrderId":"testClientOrderId"})";
-//     OneXAPI::Binance::Futures client;
+    uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
+    testData.testSubject = "OneXAPI::Binance::Futures().orderCancel";
+    std::string findValue = R"(METHOD: DEL, URL: https://fapi.binance.com/fapi/v1/order?symbol=BTCUSDT&origClientOrderId=testClientOrderId)";
+    testData.expectedResult = findValue;
+    testData.actualResult.clear();
+    std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"usdT","clientOrderId":"testClientOrderId"})";
+    OneXAPI::Binance::Futures client;
 
-//     client.orderCancel(input);
-//     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-//     std::string response = getLog(testStartTime);
-//     testData.actualResult = response;
+    client.orderCancel(input);
+    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+    std::string response = getLog(testStartTime);
+    testData.actualResult = response;
 
-//     LOAD_LOGGER_SETTINGS
+    LOAD_LOGGER_SETTINGS
 
-//     if(response.find(findValue) != std::string::npos){
-//         return true;
-//     }
+    if(response.find(findValue) != std::string::npos){
+        return true;
+    }
 
-//     TC_END
-// }
+    TC_END
+}
 
 // bool TC_BinanceFutures_fetchTradingFee_1(testDataType& testData){
 //     TC_BEGIN
