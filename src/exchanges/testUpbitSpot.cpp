@@ -2252,45 +2252,6 @@ bool TC_UpbitSpot_orderCancel_3(testDataType& testData){
     TC_END
 }
 
-bool TC_UpbitSpot_fetchTradingFee_1(testDataType& testData){
-    TC_BEGIN
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().fetchTradingFee";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
-    testData.actualResult.clear();
-    OneXAPI::Upbit::Spot client;
-
-    std::string response = client.fetchTradingFee(R"({"baseCurrency":"bTC"})");
-        
-    testData.actualResult = response;
-
-    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
-        return false;
-    }
-    return true;
-
-    TC_END
-}
-
-bool TC_UpbitSpot_fetchTradingFee_2(testDataType& testData){
-    TC_BEGIN
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().fetchTradingFee";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":1,"fees":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC","makerFee":"0.0005","takerFee":"0.0005"}]}})";
-
-    OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
-    std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"KRw"})";
-    std::string response = client.fetchTradingFee(input);
-
-    testData.actualResult = response;
-    
-    if(response.compare(testData.expectedResult) == 0){
-        return true;
-    }
-
-    TC_END
-}
-
 bool TC_UpbitSpot_fetchOrderInfo_1(testDataType& testData){
     TC_BEGIN
 
@@ -2577,6 +2538,45 @@ bool TC_UpbitSpot_fetchOpenOrders_2(testDataType& testData){
     }
 
     return true;
+
+    TC_END
+}
+
+bool TC_UpbitSpot_fetchTradingFee_1(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Upbit::Spot().fetchTradingFee";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    testData.actualResult.clear();
+    OneXAPI::Upbit::Spot client;
+
+    std::string response = client.fetchTradingFee(R"({"baseCurrency":"bTC"})");
+        
+    testData.actualResult = response;
+
+    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+        return false;
+    }
+    return true;
+
+    TC_END
+}
+
+bool TC_UpbitSpot_fetchTradingFee_2(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Upbit::Spot().fetchTradingFee";
+    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":1,"fees":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC","makerFee":"0.0005","takerFee":"0.0005"}]}})";
+
+    OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
+    std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"KRw"})";
+    std::string response = client.fetchTradingFee(input);
+
+    testData.actualResult = response;
+    
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
 
     TC_END
 }

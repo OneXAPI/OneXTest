@@ -2139,111 +2139,6 @@ bool TC_BinanceSpot_orderCancel_4(testDataType& testData){
     TC_END
 }
 
-bool TC_BinanceSpot_fetchTradingFee_1(testDataType& testData){
-    TC_BEGIN
-
-    testData.testSubject = "OneXAPI::Binance::Spot().fetchTradingFee";
-    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["fees"] is array
-        response["data"]["fees"][]["baseCurrency"] is string response["data"]["fees"][]["quoteCurrency"] is string response["data"]["fees"][]["symbol"] is string
-        response["data"]["fees"][]["makerFee"] is string response["data"]["fees"][]["takerFee"] is string
-        size of response["data"]["fees"] is not 0)";
-    testData.actualResult.clear();
-    OneXAPI::Binance::Spot client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
-
-    std::string response = client.fetchTradingFee("{}");
-        
-    testData.actualResult = response;
-    rapidjson::Document respDoc;
-    OneXAPI::Internal::Util::parseJson(respDoc, response);
-
-    bool result = true;
-    if(!respDoc["success"].GetBool()){
-        result = false;
-    }
-    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
-        result = false;
-    }
-    else if(!respDoc["data"]["fees"].IsArray()){
-        result = false;
-    }
-    else if(respDoc["data"]["fees"].Size() == 0){
-        result = false;
-    }
-    for(const auto& fee : respDoc["data"]["fees"].GetArray()){
-        if(!fee["baseCurrency"].IsString()){
-            result = false;
-        }
-        else if(!fee["quoteCurrency"].IsString()){
-            result = false;
-        }
-        else if(!fee["symbol"].IsString()){
-            result = false;
-        }
-        else if(!fee["makerFee"].IsString()){
-            result = false;
-        }
-        else if(!fee["takerFee"].IsString()){
-            result = false;
-        }
-    }
-    return true;
-
-    TC_END
-}
-
-bool TC_BinanceSpot_fetchTradingFee_2(testDataType& testData){
-    TC_BEGIN
-
-    testData.testSubject = "OneXAPI::Binance::Spot().fetchTradingFee";
-    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["fees"] is array
-        response["data"]["fees"][]["baseCurrency"] = "BTC" response["data"]["fees"][]["quoteCurrency"] = "USDT" response["data"]["fees"][]["symbol"] = "BTCUSDT"
-        response["data"]["fees"][]["makerFee"] is string response["data"]["fees"][]["takerFee"] is string
-        size of response["data"]["fees"] is 1)";
-    testData.actualResult.clear();
-    OneXAPI::Binance::Spot client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
-
-    std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"UsdT"})";
-    std::string response = client.fetchTradingFee(input);
-        
-    testData.actualResult = response;
-    rapidjson::Document respDoc;
-    OneXAPI::Internal::Util::parseJson(respDoc, response);
-
-    bool result = true;
-    if(!respDoc["success"].GetBool()){
-        result = false;
-    }
-    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
-        result = false;
-    }
-    else if(!respDoc["data"]["fees"].IsArray()){
-        result = false;
-    }
-    else if(respDoc["data"]["fees"].Size() != 1){
-        result = false;
-    }
-    for(const auto& fee : respDoc["data"]["fees"].GetArray()){
-        if(std::string("BTC").compare(fee["baseCurrency"].GetString()) != 0){
-            result = false;
-        }
-        else if(std::string("USDT").compare(fee["quoteCurrency"].GetString()) != 0){
-            result = false;
-        }
-        else if(std::string("BTCUSDT").compare(fee["symbol"].GetString()) != 0){
-            result = false;
-        }
-        else if(!fee["makerFee"].IsString()){
-            result = false;
-        }
-        else if(!fee["takerFee"].IsString()){
-            result = false;
-        }
-    }
-    return true;
-
-    TC_END
-}
-
 bool TC_BinanceSpot_fetchOrderInfo_1(testDataType& testData){
     TC_BEGIN
 
@@ -2550,6 +2445,111 @@ bool TC_BinanceSpot_fetchOpenOrders_2(testDataType& testData){
         return false;
     }
 
+    return true;
+
+    TC_END
+}
+
+bool TC_BinanceSpot_fetchTradingFee_1(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().fetchTradingFee";
+    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["fees"] is array
+        response["data"]["fees"][]["baseCurrency"] is string response["data"]["fees"][]["quoteCurrency"] is string response["data"]["fees"][]["symbol"] is string
+        response["data"]["fees"][]["makerFee"] is string response["data"]["fees"][]["takerFee"] is string
+        size of response["data"]["fees"] is not 0)";
+    testData.actualResult.clear();
+    OneXAPI::Binance::Spot client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+
+    std::string response = client.fetchTradingFee("{}");
+        
+    testData.actualResult = response;
+    rapidjson::Document respDoc;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+    bool result = true;
+    if(!respDoc["success"].GetBool()){
+        result = false;
+    }
+    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+        result = false;
+    }
+    else if(!respDoc["data"]["fees"].IsArray()){
+        result = false;
+    }
+    else if(respDoc["data"]["fees"].Size() == 0){
+        result = false;
+    }
+    for(const auto& fee : respDoc["data"]["fees"].GetArray()){
+        if(!fee["baseCurrency"].IsString()){
+            result = false;
+        }
+        else if(!fee["quoteCurrency"].IsString()){
+            result = false;
+        }
+        else if(!fee["symbol"].IsString()){
+            result = false;
+        }
+        else if(!fee["makerFee"].IsString()){
+            result = false;
+        }
+        else if(!fee["takerFee"].IsString()){
+            result = false;
+        }
+    }
+    return true;
+
+    TC_END
+}
+
+bool TC_BinanceSpot_fetchTradingFee_2(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Binance::Spot().fetchTradingFee";
+    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["fees"] is array
+        response["data"]["fees"][]["baseCurrency"] = "BTC" response["data"]["fees"][]["quoteCurrency"] = "USDT" response["data"]["fees"][]["symbol"] = "BTCUSDT"
+        response["data"]["fees"][]["makerFee"] is string response["data"]["fees"][]["takerFee"] is string
+        size of response["data"]["fees"] is 1)";
+    testData.actualResult.clear();
+    OneXAPI::Binance::Spot client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+
+    std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"UsdT"})";
+    std::string response = client.fetchTradingFee(input);
+        
+    testData.actualResult = response;
+    rapidjson::Document respDoc;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+    bool result = true;
+    if(!respDoc["success"].GetBool()){
+        result = false;
+    }
+    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+        result = false;
+    }
+    else if(!respDoc["data"]["fees"].IsArray()){
+        result = false;
+    }
+    else if(respDoc["data"]["fees"].Size() != 1){
+        result = false;
+    }
+    for(const auto& fee : respDoc["data"]["fees"].GetArray()){
+        if(std::string("BTC").compare(fee["baseCurrency"].GetString()) != 0){
+            result = false;
+        }
+        else if(std::string("USDT").compare(fee["quoteCurrency"].GetString()) != 0){
+            result = false;
+        }
+        else if(std::string("BTCUSDT").compare(fee["symbol"].GetString()) != 0){
+            result = false;
+        }
+        else if(!fee["makerFee"].IsString()){
+            result = false;
+        }
+        else if(!fee["takerFee"].IsString()){
+            result = false;
+        }
+    }
     return true;
 
     TC_END

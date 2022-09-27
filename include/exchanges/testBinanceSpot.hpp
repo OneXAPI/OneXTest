@@ -95,9 +95,6 @@ extern bool TC_BinanceSpot_orderCancel_2(testDataType& testData);
 extern bool TC_BinanceSpot_orderCancel_3(testDataType& testData);
 extern bool TC_BinanceSpot_orderCancel_4(testDataType& testData);
 
-extern bool TC_BinanceSpot_fetchTradingFee_1(testDataType& testData);
-extern bool TC_BinanceSpot_fetchTradingFee_2(testDataType& testData);
-
 extern bool TC_BinanceSpot_fetchOrderInfo_1(testDataType& testData);
 extern bool TC_BinanceSpot_fetchOrderInfo_2(testDataType& testData);
 extern bool TC_BinanceSpot_fetchOrderInfo_3(testDataType& testData);
@@ -106,6 +103,9 @@ extern bool TC_BinanceSpot_fetchOrderInfo_5(testDataType& testData);
 
 extern bool TC_BinanceSpot_fetchOpenOrders_1(testDataType& testData);
 extern bool TC_BinanceSpot_fetchOpenOrders_2(testDataType& testData);
+
+extern bool TC_BinanceSpot_fetchTradingFee_1(testDataType& testData);
+extern bool TC_BinanceSpot_fetchTradingFee_2(testDataType& testData);
 
 extern bool TC_BinanceSpot_getCandleIntervalCandidates_1(testDataType& testData);
 extern bool TC_BinanceSpot_getCandleIntervalCandidates_2(testDataType& testData);
