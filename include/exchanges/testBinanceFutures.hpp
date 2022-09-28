@@ -145,17 +145,23 @@ extern bool TC_BinanceFutures_fetchCandleHistory_1(testDataType& testData);
 extern bool TC_BinanceFutures_fetchCandleHistory_2(testDataType& testData);
 extern bool TC_BinanceFutures_fetchCandleHistory_3(testDataType& testData);
 
-// extern bool TC_BinanceFutures_getSubscribingTickers_1(testDataType& testData);
-// extern bool TC_BinanceFutures_getSubscribingTickers_2(testDataType& testData);
-// extern bool TC_BinanceFutures_getSubscribingTickers_3(testDataType& testData);
-// extern bool TC_BinanceFutures_getSubscribingTickers_4(testDataType& testData);
-// extern bool TC_BinanceFutures_getSubscribingTickers_5(testDataType& testData);
+extern bool TC_BinanceFutures_getSubscribingMarketInfo_1(testDataType& testData);
+extern bool TC_BinanceFutures_getSubscribingMarketInfo_2(testDataType& testData);
+extern bool TC_BinanceFutures_getSubscribingMarketInfo_3(testDataType& testData);
+extern bool TC_BinanceFutures_getSubscribingMarketInfo_4(testDataType& testData);
+extern bool TC_BinanceFutures_getSubscribingMarketInfo_5(testDataType& testData);
 
-// extern bool TC_BinanceFutures_getSubscribingOrderbooks_1(testDataType& testData);
-// extern bool TC_BinanceFutures_getSubscribingOrderbooks_2(testDataType& testData);
-// extern bool TC_BinanceFutures_getSubscribingOrderbooks_3(testDataType& testData);
-// extern bool TC_BinanceFutures_getSubscribingOrderbooks_4(testDataType& testData);
-// extern bool TC_BinanceFutures_getSubscribingOrderbooks_5(testDataType& testData);
+extern bool TC_BinanceFutures_getSubscribingTickers_1(testDataType& testData);
+extern bool TC_BinanceFutures_getSubscribingTickers_2(testDataType& testData);
+extern bool TC_BinanceFutures_getSubscribingTickers_3(testDataType& testData);
+extern bool TC_BinanceFutures_getSubscribingTickers_4(testDataType& testData);
+extern bool TC_BinanceFutures_getSubscribingTickers_5(testDataType& testData);
+
+extern bool TC_BinanceFutures_getSubscribingOrderbooks_1(testDataType& testData);
+extern bool TC_BinanceFutures_getSubscribingOrderbooks_2(testDataType& testData);
+extern bool TC_BinanceFutures_getSubscribingOrderbooks_3(testDataType& testData);
+extern bool TC_BinanceFutures_getSubscribingOrderbooks_4(testDataType& testData);
+extern bool TC_BinanceFutures_getSubscribingOrderbooks_5(testDataType& testData);
 
 // extern bool TC_BinanceFutures_subscribeTicker_1(testDataType& testData);
 // extern bool TC_BinanceFutures_subscribeTicker_2(testDataType& testData);
