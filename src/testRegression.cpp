@@ -378,14 +378,14 @@ static void TC_BinanceFutures(testDataType& td, uint64_t& pass, uint64_t& fail, 
     EXECUTE_UNITTEST(TC_BinanceFutures_fetchTradingFee_2)
     EXECUTE_UNITTEST(TC_BinanceFutures_fetchLeverage_1)
     EXECUTE_UNITTEST(TC_BinanceFutures_fetchLeverage_2)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_fetchLeverage_3)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_fetchLeverage_4)
+    EXECUTE_UNITTEST(TC_BinanceFutures_fetchLeverage_3)
+    EXECUTE_UNITTEST(TC_BinanceFutures_fetchLeverage_4)
     EXECUTE_UNITTEST(TC_BinanceFutures_changeLeverage_1)
     EXECUTE_UNITTEST(TC_BinanceFutures_changeLeverage_2)
     EXECUTE_UNITTEST(TC_BinanceFutures_fetchMarginType_1)
     EXECUTE_UNITTEST(TC_BinanceFutures_fetchMarginType_2)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_fetchMarginType_3)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_fetchMarginType_4)
+    EXECUTE_UNITTEST(TC_BinanceFutures_fetchMarginType_3)
+    EXECUTE_UNITTEST(TC_BinanceFutures_fetchMarginType_4)
     EXECUTE_UNITTEST(TC_BinanceFutures_changeMarginType_1)
     EXECUTE_UNITTEST(TC_BinanceFutures_changeMarginType_2)
     EXECUTE_UNITTEST(TC_BinanceFutures_getCandleIntervalCandidates_1)
@@ -394,16 +394,16 @@ static void TC_BinanceFutures(testDataType& td, uint64_t& pass, uint64_t& fail, 
     EXECUTE_UNITTEST(TC_BinanceFutures_fetchMarkets_2)
     EXECUTE_UNITTEST(TC_BinanceFutures_fetchMarketInfo_1)
     EXECUTE_UNITTEST(TC_BinanceFutures_fetchMarketInfo_2)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_fetchMarketInfo_3)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_fetchMarketInfo_4)
+    EXECUTE_UNITTEST(TC_BinanceFutures_fetchMarketInfo_3)
+    EXECUTE_UNITTEST(TC_BinanceFutures_fetchMarketInfo_4)
     EXECUTE_UNITTEST(TC_BinanceFutures_fetchTicker_1)
     EXECUTE_UNITTEST(TC_BinanceFutures_fetchTicker_2)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_fetchTicker_3)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_fetchTicker_4)
+    EXECUTE_UNITTEST(TC_BinanceFutures_fetchTicker_3)
+    EXECUTE_UNITTEST(TC_BinanceFutures_fetchTicker_4)
     EXECUTE_UNITTEST(TC_BinanceFutures_fetchOrderbook_1)
     EXECUTE_UNITTEST(TC_BinanceFutures_fetchOrderbook_2)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_fetchOrderbook_3)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_fetchOrderbook_4)
+    EXECUTE_UNITTEST(TC_BinanceFutures_fetchOrderbook_3)
+    EXECUTE_UNITTEST(TC_BinanceFutures_fetchOrderbook_4)
     EXECUTE_UNITTEST(TC_BinanceFutures_fetchCandleHistory_1)
     EXECUTE_UNITTEST(TC_BinanceFutures_fetchCandleHistory_2)
     EXECUTE_UNITTEST(TC_BinanceFutures_fetchCandleHistory_3)
@@ -445,20 +445,23 @@ void regression(){
     testDataType td;
 
     /* OneXAPI */
-    TC_OneXAPI(td, pass, fail, result);
+    // TC_OneXAPI(td, pass, fail, result);
 
     LOGGER.setMethod("file");
     WS_LOGGER.setLevel("info");
 	WS_LOGGER.setMethod("file");
 
     /* UpbitSpot */
-    TC_UpbitSpot(td, pass, fail, result);
+    // TC_UpbitSpot(td, pass, fail, result);
 
     /* BinanceSpot */
-    TC_BinanceSpot(td, pass, fail, result);
+    // TC_BinanceSpot(td, pass, fail, result);
 
     /* BinanceFutures */
-    TC_BinanceFutures(td, pass, fail, result);
+    // TC_BinanceFutures(td, pass, fail, result);
+
+    EXECUTE_UNITTEST(TC_BinanceFutures_fetchOrderbook_3)
+    EXECUTE_UNITTEST(TC_BinanceFutures_fetchOrderbook_4)
 
     std::cout << "Executed : " << pass+fail << "   Pass : " << pass << "   Fail : " << fail << std::endl;
     if(fail != 0){

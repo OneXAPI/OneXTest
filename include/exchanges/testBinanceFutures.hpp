@@ -106,16 +106,16 @@ extern bool TC_BinanceFutures_fetchTradingFee_2(testDataType& testData);
 
 extern bool TC_BinanceFutures_fetchLeverage_1(testDataType& testData);
 extern bool TC_BinanceFutures_fetchLeverage_2(testDataType& testData);
-// extern bool TC_BinanceFutures_fetchLeverage_3(testDataType& testData);
-// extern bool TC_BinanceFutures_fetchLeverage_4(testDataType& testData);
+extern bool TC_BinanceFutures_fetchLeverage_3(testDataType& testData);
+extern bool TC_BinanceFutures_fetchLeverage_4(testDataType& testData);
 
 extern bool TC_BinanceFutures_changeLeverage_1(testDataType& testData);
 extern bool TC_BinanceFutures_changeLeverage_2(testDataType& testData);
 
 extern bool TC_BinanceFutures_fetchMarginType_1(testDataType& testData);
 extern bool TC_BinanceFutures_fetchMarginType_2(testDataType& testData);
-// extern bool TC_BinanceFutures_fetchMarginType_3(testDataType& testData);
-// extern bool TC_BinanceFutures_fetchMarginType_4(testDataType& testData);
+extern bool TC_BinanceFutures_fetchMarginType_3(testDataType& testData);
+extern bool TC_BinanceFutures_fetchMarginType_4(testDataType& testData);
 
 extern bool TC_BinanceFutures_changeMarginType_1(testDataType& testData);
 extern bool TC_BinanceFutures_changeMarginType_2(testDataType& testData);
@@ -128,18 +128,18 @@ extern bool TC_BinanceFutures_fetchMarkets_2(testDataType& testData);
 
 extern bool TC_BinanceFutures_fetchMarketInfo_1(testDataType& testData);
 extern bool TC_BinanceFutures_fetchMarketInfo_2(testDataType& testData);
-// extern bool TC_BinanceFutures_fetchMarketInfo_3(testDataType& testData);
-// extern bool TC_BinanceFutures_fetchMarketInfo_4(testDataType& testData);
+extern bool TC_BinanceFutures_fetchMarketInfo_3(testDataType& testData);
+extern bool TC_BinanceFutures_fetchMarketInfo_4(testDataType& testData);
 
 extern bool TC_BinanceFutures_fetchTicker_1(testDataType& testData);
 extern bool TC_BinanceFutures_fetchTicker_2(testDataType& testData);
-// extern bool TC_BinanceFutures_fetchTicker_3(testDataType& testData);
-// extern bool TC_BinanceFutures_fetchTicker_4(testDataType& testData);
+extern bool TC_BinanceFutures_fetchTicker_3(testDataType& testData);
+extern bool TC_BinanceFutures_fetchTicker_4(testDataType& testData);
 
 extern bool TC_BinanceFutures_fetchOrderbook_1(testDataType& testData);
 extern bool TC_BinanceFutures_fetchOrderbook_2(testDataType& testData);
-// extern bool TC_BinanceFutures_fetchOrderbook_3(testDataType& testData);
-// extern bool TC_BinanceFutures_fetchOrderbook_4(testDataType& testData);
+extern bool TC_BinanceFutures_fetchOrderbook_3(testDataType& testData);
+extern bool TC_BinanceFutures_fetchOrderbook_4(testDataType& testData);
 
 extern bool TC_BinanceFutures_fetchCandleHistory_1(testDataType& testData);
 extern bool TC_BinanceFutures_fetchCandleHistory_2(testDataType& testData);
