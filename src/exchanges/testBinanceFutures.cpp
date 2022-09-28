@@ -814,11 +814,119 @@ bool TC_BinanceFutures_fetchBalance_2(testDataType& testData){
 bool TC_BinanceFutures_fetchBalance_3(testDataType& testData){
     TC_BEGIN
 
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    testData.testSubject = "OneXAPI::Binance::Futures().fetchBalance";
+    testData.expectedResult = R"(response["success"]:true
+                                response["data"]["requestedApiCount"]:1
+                                response["data"]["fetchType"]:"rest"
+                                response["data"]["balance"][currency]["balance"]:string
+                                response["data"]["balance"][currency]["crossWalletBalance"]:string
+                                response["data"]["balance"][currency]["availableBalance"]:string
+
+                                member count of response["data"] = 3
+                                member count of response["data"]["balance"] is 3
+                                member count of response["data"]["balance"][currency] = 3)";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    client.subscribeBalance();
+    std::string response = client.fetchBalance(R"({"currencies":["bTc","xRP","eTh"],"zeroBalance":true})");
+    testData.actualResult = response;
+    rapidjson::Document respDoc;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+    if(respDoc["success"].GetBool() != true){
+        return false;
+    }
+    else if(respDoc["data"]["requestedApiCount"].GetInt64() != 1){
+        return false;
+    }
+    else if(std::string("rest").compare(respDoc["data"]["fetchType"].GetString()) != 0){
+        return false;
+    }
+    else if(respDoc["data"]["balance"].MemberCount() != 3){
+        return false;
+    }
+
+    for(auto balancePtr = respDoc["data"]["balance"].MemberBegin(); balancePtr != respDoc["data"]["balance"].MemberEnd(); balancePtr++){
+        if(!balancePtr->name.IsString()){
+            return false;
+        }
+        else if(!memberCountChecker(balancePtr->value, 3)){
+            return false;
+        }
+        else if(!balancePtr->value["balance"].IsString()){
+            return false;
+        }
+        else if(!balancePtr->value["crossWalletBalance"].IsString()){
+            return false;
+        }
+        else if(!balancePtr->value["availableBalance"].IsString()){
+            return false;
+        }
+    }
+
+    return true;
+
     TC_END
 }
 
 bool TC_BinanceFutures_fetchBalance_4(testDataType& testData){
     TC_BEGIN
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    testData.testSubject = "OneXAPI::Binance::Futures().fetchBalance";
+    testData.expectedResult = R"(response["success"]:true
+                                response["data"]["requestedApiCount"]:1
+                                response["data"]["fetchType"]:"rest"
+                                response["data"]["balance"][currency]["balance"]:string
+                                response["data"]["balance"][currency]["crossWalletBalance"]:string
+                                response["data"]["balance"][currency]["availableBalance"]:string
+
+                                member count of response["data"] = 3
+                                member count of response["data"]["balance"] is 3
+                                member count of response["data"]["balance"][currency] = 3)";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    client.subscribeBalance();
+    std::string response = client.fetchBalance(R"({"currencies":["bTc","xRP","eTh"],"zeroBalance":true, "forceRestApi": true})");
+    testData.actualResult = response;
+    rapidjson::Document respDoc;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+    if(respDoc["success"].GetBool() != true){
+        return false;
+    }
+    else if(respDoc["data"]["requestedApiCount"].GetInt64() != 1){
+        return false;
+    }
+    else if(std::string("rest").compare(respDoc["data"]["fetchType"].GetString()) != 0){
+        return false;
+    }
+    else if(respDoc["data"]["balance"].MemberCount() != 3){
+        return false;
+    }
+
+    for(auto balancePtr = respDoc["data"]["balance"].MemberBegin(); balancePtr != respDoc["data"]["balance"].MemberEnd(); balancePtr++){
+        if(!balancePtr->name.IsString()){
+            return false;
+        }
+        else if(!memberCountChecker(balancePtr->value, 3)){
+            return false;
+        }
+        else if(!balancePtr->value["balance"].IsString()){
+            return false;
+        }
+        else if(!balancePtr->value["crossWalletBalance"].IsString()){
+            return false;
+        }
+        else if(!balancePtr->value["availableBalance"].IsString()){
+            return false;
+        }
+    }
+
+    return true;
 
     TC_END
 }
@@ -1051,12 +1159,281 @@ bool TC_BinanceFutures_fetchPositions_3(testDataType& testData){
 bool TC_BinanceFutures_fetchPositions_4(testDataType& testData){
     TC_BEGIN
 
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    testData.testSubject = "OneXAPI::Binance::Futures().fetchPositions";
+    testData.expectedResult = R"(response["success"]:true
+                                    response["data"]["requestedApiCount"]:0
+                                    response["data"]["fetchType"]:"websocket"
+                                    response["data"]["positions"] is array
+                                    response["data"]["positions"]["baseCurrency"] is string
+                                    response["data"]["positions"]["quoteCurrency"] is string
+                                    response["data"]["positions"]["expiration"] is string
+                                    response["data"]["positions"]["symbol"] is string
+                                    response["data"]["positions"]["unrealizedProfit"] is string
+                                    response["data"]["positions"]["entryPrice"] is string
+                                    response["data"]["positions"]["positionAmt"] is string and not 0
+                                    response["data"]["positions"]["leverage"] is uint
+                                    response["data"]["positions"]["marginType"] is "cross" or "isolated"
+
+                                    member count of response["data"] = 3
+                                    member count of response["data"]["positions"] is 9)";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+
+    client.subscribeBalance();
+    std::string response = client.fetchPositions(R"({"baseCurrency":"etH"})");
+    testData.actualResult = response;
+    rapidjson::Document respDoc;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+    if(respDoc["success"].GetBool() != true){
+        return false;
+    }
+
+    if(respDoc["data"]["requestedApiCount"].GetUint64() != 0){
+        return false;
+    }
+    if(std::string("websocket").compare(respDoc["data"]["fetchType"].GetString()) != 0){
+        return false;
+    }
+    if(respDoc["data"]["positions"].IsArray() == false){
+        return false;
+    }
+
+    for(const auto& position : respDoc["data"]["positions"].GetArray()){
+        if(position["baseCurrency"].IsString() == false){
+            return false;
+        }
+        if(position["quoteCurrency"].IsString() == false){
+            return false;
+        }
+        if(position["expiration"].IsString() == false){
+            return false;
+        }
+        if(position["symbol"].IsString() == false){
+            return false;
+        }
+        if(position["unrealizedProfit"].IsString() == false){
+            return false;
+        }
+        if(position["entryPrice"].IsString() == false){
+            return false;
+        }
+
+        if(position["positionAmt"].IsString() == true){
+            std::string positionAmt = position["positionAmt"].GetString();
+            if(std::stod(positionAmt) == 0){
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+
+        if(position["leverage"].IsUint64() == false){
+            return false;
+        }
+        if(position["marginType"].IsString() == true){
+            std::string marginType = position["marginType"].GetString();
+            if(!(marginType.compare("isolated") == 0 || marginType.compare("cross") == 0)){
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+        if(!memberCountChecker(position, 9)){
+            return false;
+        }
+    }
+
+    if(!memberCountChecker(respDoc["data"], 3)){
+        return false;
+    }
+    return true;
     TC_END
 }
 
 bool TC_BinanceFutures_fetchPositions_5(testDataType& testData){
     TC_BEGIN
 
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    testData.testSubject = "OneXAPI::Binance::Futures().fetchPositions";
+    testData.expectedResult = R"(response["success"]:true
+                                    response["data"]["requestedApiCount"]:0
+                                    response["data"]["fetchType"]:"websocket"
+                                    response["data"]["positions"] is array
+                                    response["data"]["positions"]["baseCurrency"] is string
+                                    response["data"]["positions"]["quoteCurrency"] is string
+                                    response["data"]["positions"]["expiration"] is string
+                                    response["data"]["positions"]["symbol"] is string
+                                    response["data"]["positions"]["unrealizedProfit"] is string
+                                    response["data"]["positions"]["entryPrice"] is string
+                                    response["data"]["positions"]["positionAmt"] is string
+                                    response["data"]["positions"]["leverage"] is uint
+                                    response["data"]["positions"]["marginType"] is "cross" or "isolated"
+
+                                    member count of response["data"] = 3
+                                    member count of response["data"]["positions"] is 9)";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+
+    client.subscribeBalance();
+    std::string response = client.fetchPositions(R"({"baseCurrency":"etH","zeroAmount":true})");
+    testData.actualResult = response;
+    rapidjson::Document respDoc;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+    if(respDoc["success"].GetBool() != true){
+        return false;
+    }
+
+    if(respDoc["data"]["requestedApiCount"].GetUint64() != 0){
+        return false;
+    }
+    if(std::string("websocket").compare(respDoc["data"]["fetchType"].GetString()) != 0){
+        return false;
+    }
+    if(respDoc["data"]["positions"].IsArray() == false){
+        return false;
+    }
+
+    for(const auto& position : respDoc["data"]["positions"].GetArray()){
+        if(position["baseCurrency"].IsString() == false){
+            return false;
+        }
+        if(position["quoteCurrency"].IsString() == false){
+            return false;
+        }
+        if(position["expiration"].IsString() == false){
+            return false;
+        }
+        if(position["symbol"].IsString() == false){
+            return false;
+        }
+        if(position["unrealizedProfit"].IsString() == false){
+            return false;
+        }
+        if(position["entryPrice"].IsString() == false){
+            return false;
+        }
+        if(position["positionAmt"].IsString() == false){
+            return false;
+        }
+        if(position["leverage"].IsUint64() == false){
+            return false;
+        }
+        if(position["marginType"].IsString() == true){
+            std::string marginType = position["marginType"].GetString();
+            if(!(marginType.compare("isolated") == 0 || marginType.compare("cross") == 0)){
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+        if(!memberCountChecker(position, 9)){
+            return false;
+        }
+    }
+
+    if(!memberCountChecker(respDoc["data"], 3)){
+        return false;
+    }
+    return true;
+    TC_END
+}
+
+bool TC_BinanceFutures_fetchPositions_6(testDataType& testData){
+    TC_BEGIN
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    testData.testSubject = "OneXAPI::Binance::Futures().fetchPositions";
+    testData.expectedResult = R"(response["success"]:true
+                                    response["data"]["requestedApiCount"]:0
+                                    response["data"]["fetchType"]:"websocket"
+                                    response["data"]["positions"] is array
+                                    response["data"]["positions"]["baseCurrency"] is string
+                                    response["data"]["positions"]["quoteCurrency"] is string
+                                    response["data"]["positions"]["expiration"] is string
+                                    response["data"]["positions"]["symbol"] is string
+                                    response["data"]["positions"]["unrealizedProfit"] is string
+                                    response["data"]["positions"]["entryPrice"] is string
+                                    response["data"]["positions"]["positionAmt"] is string
+                                    response["data"]["positions"]["leverage"] is uint
+                                    response["data"]["positions"]["marginType"] is "cross" or "isolated"
+
+                                    member count of response["data"] = 3
+                                    member count of response["data"]["positions"] is 9)";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+
+    client.subscribeBalance();
+    std::string response = client.fetchPositions(R"({"baseCurrency":"etH","zeroAmount":true, "forceRestApi":true})");
+    testData.actualResult = response;
+    rapidjson::Document respDoc;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+    if(respDoc["success"].GetBool() != true){
+        return false;
+    }
+
+    if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+        return false;
+    }
+    if(std::string("rest").compare(respDoc["data"]["fetchType"].GetString()) != 0){
+        return false;
+    }
+    if(respDoc["data"]["positions"].IsArray() == false){
+        return false;
+    }
+
+    for(const auto& position : respDoc["data"]["positions"].GetArray()){
+        if(position["baseCurrency"].IsString() == false){
+            return false;
+        }
+        if(position["quoteCurrency"].IsString() == false){
+            return false;
+        }
+        if(position["expiration"].IsString() == false){
+            return false;
+        }
+        if(position["symbol"].IsString() == false){
+            return false;
+        }
+        if(position["unrealizedProfit"].IsString() == false){
+            return false;
+        }
+        if(position["entryPrice"].IsString() == false){
+            return false;
+        }
+        if(position["positionAmt"].IsString() == false){
+            return false;
+        }
+        if(position["leverage"].IsUint64() == false){
+            return false;
+        }
+        if(position["marginType"].IsString() == true){
+            std::string marginType = position["marginType"].GetString();
+            if(!(marginType.compare("isolated") == 0 || marginType.compare("cross") == 0)){
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+        if(!memberCountChecker(position, 9)){
+            return false;
+        }
+    }
+
+    if(!memberCountChecker(respDoc["data"], 3)){
+        return false;
+    }
+    return true;
     TC_END
 }
 
@@ -1221,6 +1598,214 @@ bool TC_BinanceFutures_fetchFundingFeeIncomeHistory_3(testDataType& testData){
 
     return true;
 
+    TC_END
+}
+
+bool TC_BinanceFutures_subscribeBalance_1(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Futures().subscribeBalance1";
+    testData.expectedResult = R"({"success":true,"data":{}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    std::string response = client.subscribeBalance();
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceFutures_subscribeBalance_2(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Futures().subscribeBalance2";
+    testData.expectedResult = R"({"success":true,"data":{}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    std::string response = client.subscribeBalance("");
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceFutures_subscribeBalance_3(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Futures().subscribeBalance3";
+    testData.expectedResult = R"({"success":true,"data":{}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    std::string response = client.subscribeBalance("{}");
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceFutures_subscribeBalance_4(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Futures().subscribeBalance4";
+    testData.expectedResult = R"({"success":true,"data":{}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    std::string response = client.subscribeBalance("Bqbqb@");
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceFutures_unsubscribeBalance_1(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Futures().unsubscribeBalance1";
+    testData.expectedResult = R"({"success":true,"data":{}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    std::string response = client.unsubscribeBalance();
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceFutures_unsubscribeBalance_2(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Futures().unsubscribeBalance2";
+    testData.expectedResult = R"({"success":true,"data":{}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    std::string response = client.unsubscribeBalance("");
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceFutures_unsubscribeBalance_3(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Futures().unsubscribeBalance3";
+    testData.expectedResult = R"({"success":true,"data":{}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    client.subscribeBalance();
+    std::string response = client.unsubscribeBalance("{}");
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceFutures_unsubscribeBalance_4(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Futures().unsubscribeBalance4";
+    testData.expectedResult = R"({"success":true,"data":{}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    client.subscribeBalance();
+    std::string response = client.unsubscribeBalance("Bqbqb@");
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceFutures_isSubscribingBalance_1(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Futures().isSubscribingBalance1";
+    testData.expectedResult = R"({"success":true,"data":{"isSubscribing":false}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    std::string response = client.isSubscribingBalance();
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceFutures_isSubscribingBalance_2(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Futures().isSubscribingBalance2";
+    testData.expectedResult = R"({"success":true,"data":{"isSubscribing":false}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    std::string response = client.isSubscribingBalance("");
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceFutures_isSubscribingBalance_3(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Futures().isSubscribingBalance3";
+    testData.expectedResult = R"({"success":true,"data":{"isSubscribing":true}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    client.subscribeBalance();
+    std::string response = client.isSubscribingBalance("{}");
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceFutures_isSubscribingBalance_4(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Futures().isSubscribingBalance4";
+    testData.expectedResult = R"({"success":true,"data":{"isSubscribing":true}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    client.subscribeBalance();
+    std::string response = client.isSubscribingBalance("Bqbqb@");
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
     TC_END
 }
 

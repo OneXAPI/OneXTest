@@ -36,18 +36,34 @@ extern bool TC_BinanceFutures_has_5(testDataType& testData);
 
 extern bool TC_BinanceFutures_fetchBalance_1(testDataType& testData);
 extern bool TC_BinanceFutures_fetchBalance_2(testDataType& testData);
-// extern bool TC_BinanceFutures_fetchBalance_3(testDataType& testData);
-// extern bool TC_BinanceFutures_fetchBalance_4(testDataType& testData);
+extern bool TC_BinanceFutures_fetchBalance_3(testDataType& testData);
+extern bool TC_BinanceFutures_fetchBalance_4(testDataType& testData);
 
 extern bool TC_BinanceFutures_fetchPositions_1(testDataType& testData);
 extern bool TC_BinanceFutures_fetchPositions_2(testDataType& testData);
 extern bool TC_BinanceFutures_fetchPositions_3(testDataType& testData);
-// extern bool TC_BinanceFutures_fetchPositions_4(testDataType& testData);
-// extern bool TC_BinanceFutures_fetchPositions_5(testDataType& testData);
+extern bool TC_BinanceFutures_fetchPositions_4(testDataType& testData);
+extern bool TC_BinanceFutures_fetchPositions_5(testDataType& testData);
+extern bool TC_BinanceFutures_fetchPositions_6(testDataType& testData);
 
 extern bool TC_BinanceFutures_fetchFundingFeeIncomeHistory_1(testDataType& testData);
 extern bool TC_BinanceFutures_fetchFundingFeeIncomeHistory_2(testDataType& testData);
 extern bool TC_BinanceFutures_fetchFundingFeeIncomeHistory_3(testDataType& testData);
+
+extern bool TC_BinanceFutures_subscribeBalance_1(testDataType& testData);
+extern bool TC_BinanceFutures_subscribeBalance_2(testDataType& testData);
+extern bool TC_BinanceFutures_subscribeBalance_3(testDataType& testData);
+extern bool TC_BinanceFutures_subscribeBalance_4(testDataType& testData);
+
+extern bool TC_BinanceFutures_unsubscribeBalance_1(testDataType& testData);
+extern bool TC_BinanceFutures_unsubscribeBalance_2(testDataType& testData);
+extern bool TC_BinanceFutures_unsubscribeBalance_3(testDataType& testData);
+extern bool TC_BinanceFutures_unsubscribeBalance_4(testDataType& testData);
+
+extern bool TC_BinanceFutures_isSubscribingBalance_1(testDataType& testData);
+extern bool TC_BinanceFutures_isSubscribingBalance_2(testDataType& testData);
+extern bool TC_BinanceFutures_isSubscribingBalance_3(testDataType& testData);
+extern bool TC_BinanceFutures_isSubscribingBalance_4(testDataType& testData);
 
 extern bool TC_BinanceFutures_getOrderRoundingRule_1(testDataType& testData);
 extern bool TC_BinanceFutures_getOrderRoundingRule_2(testDataType& testData);

@@ -1616,6 +1616,214 @@ bool TC_BinanceSpot_isDepositCompleted_3(testDataType& testData){
     TC_END
 }
 
+bool TC_BinanceSpot_subscribeBalance_1(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Spot().subscribeBalance1";
+    testData.expectedResult = R"({"success":true,"data":{}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Spot client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    std::string response = client.subscribeBalance();
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceSpot_subscribeBalance_2(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Spot().subscribeBalance2";
+    testData.expectedResult = R"({"success":true,"data":{}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Spot client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    std::string response = client.subscribeBalance("");
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceSpot_subscribeBalance_3(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Spot().subscribeBalance3";
+    testData.expectedResult = R"({"success":true,"data":{}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Spot client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    std::string response = client.subscribeBalance("{}");
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceSpot_subscribeBalance_4(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Spot().subscribeBalance4";
+    testData.expectedResult = R"({"success":true,"data":{}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Spot client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    std::string response = client.subscribeBalance("Bqbqb@");
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceSpot_unsubscribeBalance_1(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Spot().unsubscribeBalance1";
+    testData.expectedResult = R"({"success":true,"data":{}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Spot client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    std::string response = client.unsubscribeBalance();
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceSpot_unsubscribeBalance_2(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Spot().unsubscribeBalance2";
+    testData.expectedResult = R"({"success":true,"data":{}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Spot client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    std::string response = client.unsubscribeBalance("");
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceSpot_unsubscribeBalance_3(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Spot().unsubscribeBalance3";
+    testData.expectedResult = R"({"success":true,"data":{}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Spot client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    client.subscribeBalance();
+    std::string response = client.unsubscribeBalance("{}");
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceSpot_unsubscribeBalance_4(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Spot().unsubscribeBalance4";
+    testData.expectedResult = R"({"success":true,"data":{}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Spot client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    client.subscribeBalance();
+    std::string response = client.unsubscribeBalance("Bqbqb@");
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceSpot_isSubscribingBalance_1(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Spot().isSubscribingBalance1";
+    testData.expectedResult = R"({"success":true,"data":{"isSubscribing":false}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Spot client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    std::string response = client.isSubscribingBalance();
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceSpot_isSubscribingBalance_2(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Spot().isSubscribingBalance2";
+    testData.expectedResult = R"({"success":true,"data":{"isSubscribing":false}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Spot client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    std::string response = client.isSubscribingBalance("");
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceSpot_isSubscribingBalance_3(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Spot().isSubscribingBalance3";
+    testData.expectedResult = R"({"success":true,"data":{"isSubscribing":true}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Spot client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    client.subscribeBalance();
+    std::string response = client.isSubscribingBalance("{}");
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceSpot_isSubscribingBalance_4(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Spot().isSubscribingBalance4";
+    testData.expectedResult = R"({"success":true,"data":{"isSubscribing":true}})";
+    testData.actualResult.clear();
+
+    OneXAPI::Binance::Spot client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    client.subscribeBalance();
+    std::string response = client.isSubscribingBalance("Bqbqb@");
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+    TC_END
+}
+
 static const std::string getOrderRoundingRuleExpectedResult = R"({"success":true,"data":{"requestedApiCount":0,"limitBuyPrice":"round","limitBuyBaseAmount":"round","limitSellPrice":"round","limitSellBaseAmount":"round","marketBuyQuoteAmount":"round","marketSellBaseAmount":"round"}})";
 
 bool TC_BinanceSpot_getOrderRoundingRule_1(testDataType& testData){
