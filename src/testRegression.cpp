@@ -449,7 +449,7 @@ static void TC_BinanceFutures(testDataType& td, uint64_t& pass, uint64_t& fail, 
     EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeOrderbook_3)
     EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeOrderbook_4)
     EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeOrderbook_5)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_websocketFullTest)
+    EXECUTE_UNITTEST(TC_BinanceFutures_websocketFullTest)
 }
 
 void regression(){

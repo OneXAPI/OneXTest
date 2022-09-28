@@ -196,4 +196,4 @@ extern bool TC_BinanceFutures_unsubscribeOrderbook_3(testDataType& testData);
 extern bool TC_BinanceFutures_unsubscribeOrderbook_4(testDataType& testData);
 extern bool TC_BinanceFutures_unsubscribeOrderbook_5(testDataType& testData);
 
-// extern bool TC_BinanceFutures_websocketFullTest(testDataType& testData);
+extern bool TC_BinanceFutures_websocketFullTest(testDataType& testData);

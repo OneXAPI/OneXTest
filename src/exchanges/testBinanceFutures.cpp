@@ -5230,171 +5230,171 @@ bool TC_BinanceFutures_unsubscribeOrderbook_5(testDataType& testData){
     TC_END
 }
 
-// bool TC_BinanceFutures_websocketFullTest(testDataType& testData){
-//     TC_BEGIN
+bool TC_BinanceFutures_websocketFullTest(testDataType& testData){
+    TC_BEGIN
 
-//     std::this_thread::sleep_for(std::chrono::seconds(1));
-//     testData.testSubject = "OneXAPI::Binance::Futures().subscribeTicker_1";
-//     testData.expectedResult = R"({"success":true,"data":{"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}],"subscribeFailed":[]}})";
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    testData.testSubject = "OneXAPI::Binance::Futures().subscribeTicker_1";
+    testData.expectedResult = R"({"success":true,"data":{"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"USDT","expiration":"PERP","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","expiration":"PERP","symbol":"ETHUSDT"}],"subscribeFailed":[]}})";
 
-//     OneXAPI::Binance::Futures client;
-//     std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}]})";
-//     std::string response = client.subscribeTicker(input);
+    OneXAPI::Binance::Futures client;
+    std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}]})";
+    std::string response = client.subscribeTicker(input);
 
-//     testData.actualResult = response;
+    testData.actualResult = response;
 
-//     if(response.compare(testData.expectedResult) != 0){
-//         return false;
-//     }
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
 
-//     testData.testSubject = "OneXAPI::Binance::Futures().getSubscribingTickers_2";
-//     testData.expectedResult = R"({"success":true,"data":{"tickers":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}]}})";
+    testData.testSubject = "OneXAPI::Binance::Futures().getSubscribingTickers_2";
+    testData.expectedResult = R"({"success":true,"data":{"tickers":[{"baseCurrency":"BTC","quoteCurrency":"USDT","expiration":"PERP","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","expiration":"PERP","symbol":"ETHUSDT"}]}})";
 
-//     response = client.getSubscribingTickers();
+    response = client.getSubscribingTickers();
 
-//     testData.actualResult = response;
+    testData.actualResult = response;
 
-//     if(response.compare(testData.expectedResult) != 0){
-//         return false;
-//     }
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
 
-//     testData.testSubject = "OneXAPI::Binance::Futures().subscribeOrderbook_3";
-//     testData.expectedResult = R"({"success":true,"data":{"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}],"subscribeFailed":[]}})";
+    testData.testSubject = "OneXAPI::Binance::Futures().subscribeOrderbook_3";
+    testData.expectedResult = R"({"success":true,"data":{"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"USDT","expiration":"PERP","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","expiration":"PERP","symbol":"ETHUSDT"}],"subscribeFailed":[]}})";
 
-//     input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}],"reconnect":true})";
-//     response = client.subscribeOrderbook(input);
+    input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}],"reconnect":true})";
+    response = client.subscribeOrderbook(input);
 
-//     testData.actualResult = response;
+    testData.actualResult = response;
 
-//     if(response.compare(testData.expectedResult) != 0){
-//         return false;
-//     }
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
 
-//     testData.testSubject = "OneXAPI::Binance::Futures().getSubscribingTickers_4";
-//     testData.expectedResult = R"({"success":true,"data":{"tickers":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}]}})";
+    testData.testSubject = "OneXAPI::Binance::Futures().getSubscribingTickers_4";
+    testData.expectedResult = R"({"success":true,"data":{"tickers":[{"baseCurrency":"BTC","quoteCurrency":"USDT","expiration":"PERP","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","expiration":"PERP","symbol":"ETHUSDT"}]}})";
 
-//     response = client.getSubscribingTickers();
+    response = client.getSubscribingTickers();
 
-//     testData.actualResult = response;
+    testData.actualResult = response;
 
-//     if(response.compare(testData.expectedResult) != 0){
-//         return false;
-//     }
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
 
-//     testData.testSubject = "OneXAPI::Binance::Futures().getSubscribingOrderbooks_5";
-//     testData.expectedResult = R"({"success":true,"data":{"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}]}})";
+    testData.testSubject = "OneXAPI::Binance::Futures().getSubscribingOrderbooks_5";
+    testData.expectedResult = R"({"success":true,"data":{"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"USDT","expiration":"PERP","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","expiration":"PERP","symbol":"ETHUSDT"}]}})";
 
-//     response = client.getSubscribingOrderbooks();
+    response = client.getSubscribingOrderbooks();
 
-//     testData.actualResult = response;
+    testData.actualResult = response;
 
-//     if(response.compare(testData.expectedResult) != 0){
-//         return false;
-//     }
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
 
-//     testData.testSubject = "OneXAPI::Binance::Futures().unsubscribeTicker_6";
-//     testData.expectedResult = R"({"success":true,"data":{"unsubscribed":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"}],"unsubscribeFailed":[]}})";
+    testData.testSubject = "OneXAPI::Binance::Futures().unsubscribeTicker_6";
+    testData.expectedResult = R"({"success":true,"data":{"unsubscribed":[{"baseCurrency":"BTC","quoteCurrency":"USDT","expiration":"PERP","symbol":"BTCUSDT"}],"unsubscribeFailed":[]}})";
 
-//     input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"}],"reconnect":true})";
-//     response = client.unsubscribeTicker(input);
+    input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"}],"reconnect":true})";
+    response = client.unsubscribeTicker(input);
 
-//     testData.actualResult = response;
+    testData.actualResult = response;
     
-//     if(response.compare(testData.expectedResult) != 0){
-//         return false;
-//     }
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
 
-//     testData.testSubject = "OneXAPI::Binance::Futures().getSubscribingTickers_7";
-//     testData.expectedResult = R"({"success":true,"data":{"tickers":[{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}]}})";
+    testData.testSubject = "OneXAPI::Binance::Futures().getSubscribingTickers_7";
+    testData.expectedResult = R"({"success":true,"data":{"tickers":[{"baseCurrency":"ETH","quoteCurrency":"USDT","expiration":"PERP","symbol":"ETHUSDT"}]}})";
 
-//     response = client.getSubscribingTickers();
+    response = client.getSubscribingTickers();
 
-//     testData.actualResult = response;
+    testData.actualResult = response;
 
-//     if(response.compare(testData.expectedResult) != 0){
-//         return false;
-//     }
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
 
-//     testData.testSubject = "OneXAPI::Binance::Futures().getSubscribingOrderbooks_8";
-//     testData.expectedResult = R"({"success":true,"data":{"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}]}})";
+    testData.testSubject = "OneXAPI::Binance::Futures().getSubscribingOrderbooks_8";
+    testData.expectedResult = R"({"success":true,"data":{"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"USDT","expiration":"PERP","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","expiration":"PERP","symbol":"ETHUSDT"}]}})";
 
-//     response = client.getSubscribingOrderbooks();
+    response = client.getSubscribingOrderbooks();
 
-//     testData.actualResult = response;
+    testData.actualResult = response;
 
-//     if(response.compare(testData.expectedResult) != 0){
-//         return false;
-//     }
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
 
-//     testData.testSubject = "OneXAPI::Binance::Futures().unsubscribeOrderbook_9";
-//     testData.expectedResult = R"({"success":true,"data":{"unsubscribed":[{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}],"unsubscribeFailed":[]}})";
+    testData.testSubject = "OneXAPI::Binance::Futures().unsubscribeOrderbook_9";
+    testData.expectedResult = R"({"success":true,"data":{"unsubscribed":[{"baseCurrency":"ETH","quoteCurrency":"USDT","expiration":"PERP","symbol":"ETHUSDT"}],"unsubscribeFailed":[]}})";
 
-//     input = R"({"market":[{"baseCurrency":"ETH","quoteCurrency":"USDT"}],"reconnect":true})";
-//     response = client.unsubscribeOrderbook(input);
+    input = R"({"market":[{"baseCurrency":"ETH","quoteCurrency":"USDT"}],"reconnect":true})";
+    response = client.unsubscribeOrderbook(input);
 
-//     testData.actualResult = response;
+    testData.actualResult = response;
 
-//     if(response.compare(testData.expectedResult) != 0){
-//         return false;
-//     }
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
 
-//     testData.testSubject = "OneXAPI::Binance::Futures().getSubscribingTickers_10";
-//     testData.expectedResult = R"({"success":true,"data":{"tickers":[{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}]}})";
+    testData.testSubject = "OneXAPI::Binance::Futures().getSubscribingTickers_10";
+    testData.expectedResult = R"({"success":true,"data":{"tickers":[{"baseCurrency":"ETH","quoteCurrency":"USDT","expiration":"PERP","symbol":"ETHUSDT"}]}})";
 
-//     response = client.getSubscribingTickers();
+    response = client.getSubscribingTickers();
 
-//     testData.actualResult = response;
+    testData.actualResult = response;
 
-//     if(response.compare(testData.expectedResult) != 0){
-//         return false;
-//     }
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
 
-//     testData.testSubject = "OneXAPI::Binance::Futures().getSubscribingOrderbooks_11";
-//     testData.expectedResult = R"({"success":true,"data":{"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"}]}})";
+    testData.testSubject = "OneXAPI::Binance::Futures().getSubscribingOrderbooks_11";
+    testData.expectedResult = R"({"success":true,"data":{"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"USDT","expiration":"PERP","symbol":"BTCUSDT"}]}})";
 
-//     response = client.getSubscribingOrderbooks();
+    response = client.getSubscribingOrderbooks();
 
-//     testData.actualResult = response;
+    testData.actualResult = response;
 
-//     if(response.compare(testData.expectedResult) != 0){
-//         return false;
-//     }
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
 
-//     testData.testSubject = "OneXAPI::Binance::Futures().subscribeOrderbook_12";
-//     testData.expectedResult = R"({"success":true,"data":{"subscribed":[{"baseCurrency":"XRP","quoteCurrency":"USDT","symbol":"XRPUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}],"subscribeFailed":[]}})";
+    testData.testSubject = "OneXAPI::Binance::Futures().subscribeOrderbook_12";
+    testData.expectedResult = R"({"success":true,"data":{"subscribed":[{"baseCurrency":"XRP","quoteCurrency":"USDT","expiration":"PERP","symbol":"XRPUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","expiration":"PERP","symbol":"ETHUSDT"}],"subscribeFailed":[]}})";
 
-//     input = R"({"market":[{"baseCurrency":"XRP","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}],"reconnect":true})";
-//     response = client.subscribeOrderbook(input);
+    input = R"({"market":[{"baseCurrency":"XRP","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}],"reconnect":true})";
+    response = client.subscribeOrderbook(input);
 
-//     testData.actualResult = response;
+    testData.actualResult = response;
 
-//     if(response.compare(testData.expectedResult) != 0){
-//         return false;
-//     }
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
 
-//     testData.testSubject = "OneXAPI::Binance::Futures().getSubscribingTickers_13";
-//     testData.expectedResult = R"({"success":true,"data":{"tickers":[{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}]}})";
+    testData.testSubject = "OneXAPI::Binance::Futures().getSubscribingTickers_13";
+    testData.expectedResult = R"({"success":true,"data":{"tickers":[{"baseCurrency":"ETH","quoteCurrency":"USDT","expiration":"PERP","symbol":"ETHUSDT"}]}})";
 
-//     response = client.getSubscribingTickers();
+    response = client.getSubscribingTickers();
 
-//     testData.actualResult = response;
+    testData.actualResult = response;
 
-//     if(response.compare(testData.expectedResult) != 0){
-//         return false;
-//     }
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
 
-//     testData.testSubject = "OneXAPI::Binance::Futures().getSubscribingOrderbooks_14";
-//     testData.expectedResult = R"({"success":true,"data":{"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"USDT","symbol":"BTCUSDT"},{"baseCurrency":"XRP","quoteCurrency":"USDT","symbol":"XRPUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","symbol":"ETHUSDT"}]}})";
+    testData.testSubject = "OneXAPI::Binance::Futures().getSubscribingOrderbooks_14";
+    testData.expectedResult = R"({"success":true,"data":{"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"USDT","expiration":"PERP","symbol":"BTCUSDT"},{"baseCurrency":"XRP","quoteCurrency":"USDT","expiration":"PERP","symbol":"XRPUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","expiration":"PERP","symbol":"ETHUSDT"}]}})";
 
-//     response = client.getSubscribingOrderbooks();
+    response = client.getSubscribingOrderbooks();
 
-//     testData.actualResult = response;
+    testData.actualResult = response;
 
-//     if(response.compare(testData.expectedResult) != 0){
-//         return false;
-//     }
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
 
-//     return true;
+    return true;
 
-//     TC_END
-// }
+    TC_END
+}
