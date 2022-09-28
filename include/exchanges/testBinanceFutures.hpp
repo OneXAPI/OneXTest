@@ -163,6 +163,17 @@ extern bool TC_BinanceFutures_getSubscribingOrderbooks_3(testDataType& testData)
 extern bool TC_BinanceFutures_getSubscribingOrderbooks_4(testDataType& testData);
 extern bool TC_BinanceFutures_getSubscribingOrderbooks_5(testDataType& testData);
 
+extern bool TC_BinanceFutures_subscribeMarketInfo_1(testDataType& testData);
+extern bool TC_BinanceFutures_subscribeMarketInfo_2(testDataType& testData);
+extern bool TC_BinanceFutures_subscribeMarketInfo_3(testDataType& testData);
+extern bool TC_BinanceFutures_subscribeMarketInfo_4(testDataType& testData);
+
+extern bool TC_BinanceFutures_unsubscribeMarketInfo_1(testDataType& testData);
+extern bool TC_BinanceFutures_unsubscribeMarketInfo_2(testDataType& testData);
+extern bool TC_BinanceFutures_unsubscribeMarketInfo_3(testDataType& testData);
+extern bool TC_BinanceFutures_unsubscribeMarketInfo_4(testDataType& testData);
+extern bool TC_BinanceFutures_unsubscribeMarketInfo_5(testDataType& testData);
+
 extern bool TC_BinanceFutures_subscribeTicker_1(testDataType& testData);
 extern bool TC_BinanceFutures_subscribeTicker_2(testDataType& testData);
 extern bool TC_BinanceFutures_subscribeTicker_3(testDataType& testData);

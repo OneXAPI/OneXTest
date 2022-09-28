@@ -4615,6 +4615,199 @@ bool TC_BinanceFutures_getSubscribingOrderbooks_5(testDataType& testData){
     TC_END
 }
 
+bool TC_BinanceFutures_subscribeMarketInfo_1(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Futures().subscribeMarketInfo";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
+
+    OneXAPI::Binance::Futures client;
+    std::string input = "";
+    std::string response = client.subscribeMarketInfo(input);
+
+    testData.actualResult = response;
+
+    if(errorResponseChecker(response, "JSON_PARSING_ERROR")){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceFutures_subscribeMarketInfo_2(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Futures().subscribeMarketInfo";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+
+    OneXAPI::Binance::Futures client;
+    std::string input = "{}";
+    std::string response = client.subscribeMarketInfo(input);
+
+    testData.actualResult = response;
+
+    if(errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceFutures_subscribeMarketInfo_3(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Futures().subscribeMarketInfo";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
+
+    OneXAPI::Binance::Futures client;
+    std::string input = "Bqbqb@";
+    std::string response = client.subscribeMarketInfo(input);
+
+    testData.actualResult = response;
+
+    if(errorResponseChecker(response, "JSON_PARSING_ERROR")){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceFutures_subscribeMarketInfo_4(testDataType& testData){
+    TC_BEGIN
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    testData.testSubject = "OneXAPI::Binance::Futures().subscribeMarketInfo";
+    testData.expectedResult = R"({"success":true,"data":{"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"USDT","expiration":"PERP","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","expiration":"PERP","symbol":"ETHUSDT"}],"subscribeFailed":[]}})";
+
+    OneXAPI::Binance::Futures client;
+    std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}]})";
+    std::string response = client.subscribeMarketInfo(input);
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
+
+    testData.testSubject = "OneXAPI::Binance::Futures().getSubscribingMarketInfo";
+    testData.expectedResult = R"({"success":true,"data":{"marketInfo":[{"baseCurrency":"BTC","quoteCurrency":"USDT","expiration":"PERP","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","expiration":"PERP","symbol":"ETHUSDT"}]}})";
+    response = client.getSubscribingMarketInfo();
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
+
+    testData.testSubject = "OneXAPI::Binance::Futures().subscribeMarketInfo";
+    testData.expectedResult = R"({"success":true,"data":{"subscribed":[{"baseCurrency":"XRP","quoteCurrency":"USDT","expiration":"PERP","symbol":"XRPUSDT"}],"subscribeFailed":[]}})";
+    input = R"({"market":[{"baseCurrency":"XRP","quoteCurrency":"USDT"}], "reconnect": true})";
+    response = client.subscribeMarketInfo(input);
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
+
+    testData.testSubject = "OneXAPI::Binance::Futures().getSubscribingMarketInfo";
+    testData.expectedResult = R"({"success":true,"data":{"marketInfo":[{"baseCurrency":"BTC","quoteCurrency":"USDT","expiration":"PERP","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","expiration":"PERP","symbol":"ETHUSDT"},{"baseCurrency":"XRP","quoteCurrency":"USDT","expiration":"PERP","symbol":"XRPUSDT"}]}})";
+    response = client.getSubscribingMarketInfo();
+
+    testData.actualResult = response;
+    
+    if(response.compare(testData.expectedResult) != 0){
+        return false;
+    }
+
+    return true;
+    TC_END
+}
+
+bool TC_BinanceFutures_unsubscribeMarketInfo_1(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Futures().unsubscribeMarketInfo";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
+
+    OneXAPI::Binance::Futures client;
+    std::string input = "";
+    std::string response = client.unsubscribeMarketInfo(input);
+
+    testData.actualResult = response;
+
+    if(errorResponseChecker(response, "JSON_PARSING_ERROR")){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceFutures_unsubscribeMarketInfo_2(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Futures().unsubscribeMarketInfo";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+
+    OneXAPI::Binance::Futures client;
+    std::string input = "{}";
+    std::string response = client.unsubscribeMarketInfo(input);
+
+    testData.actualResult = response;
+
+    if(errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceFutures_unsubscribeMarketInfo_3(testDataType& testData){
+    TC_BEGIN
+    testData.testSubject = "OneXAPI::Binance::Futures().unsubscribeMarketInfo";
+    testData.expectedResult = R"({"success":false,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
+
+    OneXAPI::Binance::Futures client;
+    std::string input = "Bqbqb@";
+    std::string response = client.unsubscribeMarketInfo(input);
+
+    testData.actualResult = response;
+
+    if(errorResponseChecker(response, "JSON_PARSING_ERROR")){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceFutures_unsubscribeMarketInfo_4(testDataType& testData){
+    TC_BEGIN
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    testData.testSubject = "OneXAPI::Binance::Futures().unsubscribeMarketInfo";
+    testData.expectedResult = R"({"success":true,"data":{"unsubscribed":[{"baseCurrency":"BTC","quoteCurrency":"USDT","expiration":"PERP","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","expiration":"PERP","symbol":"ETHUSDT"}],"unsubscribeFailed":[]}})";
+
+    OneXAPI::Binance::Futures client;
+    client.subscribeMarketInfo(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}]})");
+
+    std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}]})";
+    std::string response = client.unsubscribeMarketInfo(input);
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+    TC_END
+}
+
+bool TC_BinanceFutures_unsubscribeMarketInfo_5(testDataType& testData){
+    TC_BEGIN
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    testData.testSubject = "OneXAPI::Binance::Futures().unsubscribeMarketInfo";
+    testData.expectedResult = R"({"success":true,"data":{"unsubscribed":[{"baseCurrency":"BTC","quoteCurrency":"USDT","expiration":"PERP","symbol":"BTCUSDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT","expiration":"PERP","symbol":"ETHUSDT"}],"unsubscribeFailed":[]}})";
+
+    OneXAPI::Binance::Futures client;
+    client.subscribeMarketInfo(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}]})");
+
+    std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"USDT"},{"baseCurrency":"ETH","quoteCurrency":"USDT"}],"reconnect":true})";
+    std::string response = client.unsubscribeMarketInfo(input);
+
+    testData.actualResult = response;
+
+    if(response.compare(testData.expectedResult) == 0){
+        return true;
+    }
+    TC_END
+}
+
 bool TC_BinanceFutures_subscribeTicker_1(testDataType& testData){
     TC_BEGIN
 
