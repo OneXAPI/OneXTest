@@ -2315,37 +2315,60 @@ bool TC_BinanceFutures_changeLeverage_2(testDataType& testData){
 
     OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
 
+    std::string responsePre = client.fetchLeverage(R"({"baseCurrency":"bTc","quoteCurrency":"USdt","expiration":"peRp"})");
+    rapidjson::Document respPreDoc;
+    OneXAPI::Internal::Util::parseJson(respPreDoc, responsePre);
+
+    if(!respPreDoc["success"].GetBool()){
+        return false;
+    }
+    else if(respPreDoc["data"]["leverages"].Size() != 1){
+        return false;
+    }
+    uint64_t leverage = respPreDoc["data"]["leverages"][0]["leverage"].GetUint64();
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
     std::string response = client.changeLeverage(R"({"baseCurrency":"bTC","quoteCurrency":"usDT","expiration":"perP","leverage":5})");
     testData.actualResult = response;
     rapidjson::Document respDoc;
     OneXAPI::Internal::Util::parseJson(respDoc, response);
 
+    bool result = true;
     if(!respDoc["success"].GetBool()){
-        return false;
+        result = false;
     }
     else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
-        return false;
+        result = false;
     }
     else if(std::string("BTC").compare(respDoc["data"]["baseCurrency"].GetString()) != 0){
-        return false;
+        result = false;
     }
     else if(std::string("USDT").compare(respDoc["data"]["quoteCurrency"].GetString()) != 0){
-        return false;
+        result = false;
     }
     else if(std::string("PERP").compare(respDoc["data"]["expiration"].GetString()) != 0){
-        return false;
+        result = false;
     }
     else if(std::string("BTCUSDT").compare(respDoc["data"]["symbol"].GetString()) != 0){
-        return false;
+        result = false;
     }
     else if(respDoc["data"]["leverage"].GetUint64() != 5){
-        return false;
+        result = false;
     }
     else if(!memberCountChecker(respDoc["data"], 6)){
-        return false;
+        result = false;
+    }
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    std::string responsePost = client.changeLeverage(R"({"baseCurrency":"bTC","quoteCurrency":"usDT","expiration":"perP","leverage":)" + std::to_string(leverage) + R"(})");
+    rapidjson::Document respDocPost;
+    OneXAPI::Internal::Util::parseJson(respDocPost, responsePost);
+    if(!respDocPost["success"].GetBool()){
+        result = false;
     }
     
-    return true;
+    return result;
 
     TC_END
 }
