@@ -422,24 +422,24 @@ static void TC_BinanceFutures(testDataType& td, uint64_t& pass, uint64_t& fail, 
     EXECUTE_UNITTEST(TC_BinanceFutures_getSubscribingOrderbooks_3)
     EXECUTE_UNITTEST(TC_BinanceFutures_getSubscribingOrderbooks_4)
     EXECUTE_UNITTEST(TC_BinanceFutures_getSubscribingOrderbooks_5)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_subscribeTicker_1)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_subscribeTicker_2)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_subscribeTicker_3)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_subscribeTicker_4)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeTicker_1)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeTicker_2)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeTicker_3)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeTicker_4)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeTicker_5)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_subscribeOrderbook_1)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_subscribeOrderbook_2)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_subscribeOrderbook_3)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_subscribeOrderbook_4)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeOrderbook_1)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeOrderbook_2)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeOrderbook_3)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeOrderbook_4)
-    // EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeOrderbook_5)
+    EXECUTE_UNITTEST(TC_BinanceFutures_subscribeTicker_1)
+    EXECUTE_UNITTEST(TC_BinanceFutures_subscribeTicker_2)
+    EXECUTE_UNITTEST(TC_BinanceFutures_subscribeTicker_3)
+    EXECUTE_UNITTEST(TC_BinanceFutures_subscribeTicker_4)
+    EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeTicker_1)
+    EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeTicker_2)
+    EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeTicker_3)
+    EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeTicker_4)
+    EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeTicker_5)
+    EXECUTE_UNITTEST(TC_BinanceFutures_subscribeOrderbook_1)
+    EXECUTE_UNITTEST(TC_BinanceFutures_subscribeOrderbook_2)
+    EXECUTE_UNITTEST(TC_BinanceFutures_subscribeOrderbook_3)
+    EXECUTE_UNITTEST(TC_BinanceFutures_subscribeOrderbook_4)
+    EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeOrderbook_1)
+    EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeOrderbook_2)
+    EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeOrderbook_3)
+    EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeOrderbook_4)
+    EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeOrderbook_5)
     // EXECUTE_UNITTEST(TC_BinanceFutures_websocketFullTest)
 }
 
@@ -450,36 +450,20 @@ void regression(){
     testDataType td;
 
     /* OneXAPI */
-    // TC_OneXAPI(td, pass, fail, result);
+    TC_OneXAPI(td, pass, fail, result);
 
     LOGGER.setMethod("file");
     WS_LOGGER.setLevel("info");
 	WS_LOGGER.setMethod("file");
 
     /* UpbitSpot */
-    // TC_UpbitSpot(td, pass, fail, result);
+    TC_UpbitSpot(td, pass, fail, result);
 
     /* BinanceSpot */
-    // TC_BinanceSpot(td, pass, fail, result);
+    TC_BinanceSpot(td, pass, fail, result);
 
     /* BinanceFutures */
-    // TC_BinanceFutures(td, pass, fail, result);
-
-    EXECUTE_UNITTEST(TC_BinanceFutures_getSubscribingMarketInfo_1)
-    EXECUTE_UNITTEST(TC_BinanceFutures_getSubscribingMarketInfo_2)
-    EXECUTE_UNITTEST(TC_BinanceFutures_getSubscribingMarketInfo_3)
-    EXECUTE_UNITTEST(TC_BinanceFutures_getSubscribingMarketInfo_4)
-    EXECUTE_UNITTEST(TC_BinanceFutures_getSubscribingMarketInfo_5)
-    EXECUTE_UNITTEST(TC_BinanceFutures_getSubscribingTickers_1)
-    EXECUTE_UNITTEST(TC_BinanceFutures_getSubscribingTickers_2)
-    EXECUTE_UNITTEST(TC_BinanceFutures_getSubscribingTickers_3)
-    EXECUTE_UNITTEST(TC_BinanceFutures_getSubscribingTickers_4)
-    EXECUTE_UNITTEST(TC_BinanceFutures_getSubscribingTickers_5)
-    EXECUTE_UNITTEST(TC_BinanceFutures_getSubscribingOrderbooks_1)
-    EXECUTE_UNITTEST(TC_BinanceFutures_getSubscribingOrderbooks_2)
-    EXECUTE_UNITTEST(TC_BinanceFutures_getSubscribingOrderbooks_3)
-    EXECUTE_UNITTEST(TC_BinanceFutures_getSubscribingOrderbooks_4)
-    EXECUTE_UNITTEST(TC_BinanceFutures_getSubscribingOrderbooks_5)
+    TC_BinanceFutures(td, pass, fail, result);
 
     std::cout << "Executed : " << pass+fail << "   Pass : " << pass << "   Fail : " << fail << std::endl;
     if(fail != 0){

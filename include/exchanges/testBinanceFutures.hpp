@@ -163,26 +163,26 @@ extern bool TC_BinanceFutures_getSubscribingOrderbooks_3(testDataType& testData)
 extern bool TC_BinanceFutures_getSubscribingOrderbooks_4(testDataType& testData);
 extern bool TC_BinanceFutures_getSubscribingOrderbooks_5(testDataType& testData);
 
-// extern bool TC_BinanceFutures_subscribeTicker_1(testDataType& testData);
-// extern bool TC_BinanceFutures_subscribeTicker_2(testDataType& testData);
-// extern bool TC_BinanceFutures_subscribeTicker_3(testDataType& testData);
-// extern bool TC_BinanceFutures_subscribeTicker_4(testDataType& testData);
+extern bool TC_BinanceFutures_subscribeTicker_1(testDataType& testData);
+extern bool TC_BinanceFutures_subscribeTicker_2(testDataType& testData);
+extern bool TC_BinanceFutures_subscribeTicker_3(testDataType& testData);
+extern bool TC_BinanceFutures_subscribeTicker_4(testDataType& testData);
 
-// extern bool TC_BinanceFutures_unsubscribeTicker_1(testDataType& testData);
-// extern bool TC_BinanceFutures_unsubscribeTicker_2(testDataType& testData);
-// extern bool TC_BinanceFutures_unsubscribeTicker_3(testDataType& testData);
-// extern bool TC_BinanceFutures_unsubscribeTicker_4(testDataType& testData);
-// extern bool TC_BinanceFutures_unsubscribeTicker_5(testDataType& testData);
+extern bool TC_BinanceFutures_unsubscribeTicker_1(testDataType& testData);
+extern bool TC_BinanceFutures_unsubscribeTicker_2(testDataType& testData);
+extern bool TC_BinanceFutures_unsubscribeTicker_3(testDataType& testData);
+extern bool TC_BinanceFutures_unsubscribeTicker_4(testDataType& testData);
+extern bool TC_BinanceFutures_unsubscribeTicker_5(testDataType& testData);
 
-// extern bool TC_BinanceFutures_subscribeOrderbook_1(testDataType& testData);
-// extern bool TC_BinanceFutures_subscribeOrderbook_2(testDataType& testData);
-// extern bool TC_BinanceFutures_subscribeOrderbook_3(testDataType& testData);
-// extern bool TC_BinanceFutures_subscribeOrderbook_4(testDataType& testData);
+extern bool TC_BinanceFutures_subscribeOrderbook_1(testDataType& testData);
+extern bool TC_BinanceFutures_subscribeOrderbook_2(testDataType& testData);
+extern bool TC_BinanceFutures_subscribeOrderbook_3(testDataType& testData);
+extern bool TC_BinanceFutures_subscribeOrderbook_4(testDataType& testData);
 
-// extern bool TC_BinanceFutures_unsubscribeOrderbook_1(testDataType& testData);
-// extern bool TC_BinanceFutures_unsubscribeOrderbook_2(testDataType& testData);
-// extern bool TC_BinanceFutures_unsubscribeOrderbook_3(testDataType& testData);
-// extern bool TC_BinanceFutures_unsubscribeOrderbook_4(testDataType& testData);
-// extern bool TC_BinanceFutures_unsubscribeOrderbook_5(testDataType& testData);
+extern bool TC_BinanceFutures_unsubscribeOrderbook_1(testDataType& testData);
+extern bool TC_BinanceFutures_unsubscribeOrderbook_2(testDataType& testData);
+extern bool TC_BinanceFutures_unsubscribeOrderbook_3(testDataType& testData);
+extern bool TC_BinanceFutures_unsubscribeOrderbook_4(testDataType& testData);
+extern bool TC_BinanceFutures_unsubscribeOrderbook_5(testDataType& testData);
 
 // extern bool TC_BinanceFutures_websocketFullTest(testDataType& testData);
