@@ -3857,7 +3857,7 @@ bool TC_UpbitSpot_unsubscribeTicker_6(testDataType& testData){
     client.unsubscribeTicker(OneXAPI::Internal::Util::jsonToString(unsubscribeRequest));
 
     testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingTicker";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,tickers:[]}})";
+    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"tickers":[]}})";
 
     response = client.getSubscribingTickers();
 
