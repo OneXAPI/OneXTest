@@ -14,6 +14,16 @@ bool errorResponseChecker(std::string response, std::string errorType, uint32_t 
     return false;
 }
 
+bool successResponseChecker(std::string response){
+    rapidjson::Document respDoc;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+    if(respDoc["success"].GetBool()){
+        if(memberCountChecker(respDoc, 3))
+            return true;
+    }
+    return false;
+}
+
 std::string getLog(uint64_t since){
     std::stringstream timeBuffer;
     time_t rawtime = (const time_t)since;
