@@ -1,11 +1,13 @@
 #include "../include/testTool.hpp"
 #include <fstream>
 
-bool errorResponseChecker(std::string response, std::string errorType){
+bool errorResponseChecker(std::string response, std::string errorType, uint32_t apiCnt){
     rapidjson::Document respDoc;
     OneXAPI::Internal::Util::parseJson(respDoc, response);
     if(!respDoc["success"].GetBool()){
-        if( memberCountChecker(respDoc["data"], 2) &&
+        if( memberCountChecker(respDoc, 3) &&
+            respDoc["requestedApiCount"].GetUint() == apiCnt &&
+            memberCountChecker(respDoc["data"], 2) &&
             errorType.compare(respDoc["data"]["errorType"].GetString()) == 0)
             return true;
     }
