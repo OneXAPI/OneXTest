@@ -152,6 +152,7 @@ static void TC_UpbitSpot(testDataType& td, uint64_t& pass, uint64_t& fail, bool&
     EXECUTE_UNITTEST(TC_UpbitSpot_subscribeTicker_6)
     EXECUTE_UNITTEST(TC_UpbitSpot_subscribeTicker_7)
     EXECUTE_UNITTEST(TC_UpbitSpot_subscribeTicker_8)
+    EXECUTE_UNITTEST(TC_UpbitSpot_subscribeTicker_9)
     EXECUTE_UNITTEST(TC_UpbitSpot_unsubscribeTicker_1)
     EXECUTE_UNITTEST(TC_UpbitSpot_unsubscribeTicker_2)
     EXECUTE_UNITTEST(TC_UpbitSpot_unsubscribeTicker_3)
@@ -160,6 +161,7 @@ static void TC_UpbitSpot(testDataType& td, uint64_t& pass, uint64_t& fail, bool&
     EXECUTE_UNITTEST(TC_UpbitSpot_unsubscribeTicker_6)
     EXECUTE_UNITTEST(TC_UpbitSpot_unsubscribeTicker_7)
     EXECUTE_UNITTEST(TC_UpbitSpot_unsubscribeTicker_8)
+    EXECUTE_UNITTEST(TC_UpbitSpot_unsubscribeTicker_9)
     EXECUTE_UNITTEST(TC_UpbitSpot_subscribeOrderbook_1)
     EXECUTE_UNITTEST(TC_UpbitSpot_subscribeOrderbook_2)
     EXECUTE_UNITTEST(TC_UpbitSpot_subscribeOrderbook_3)
@@ -168,6 +170,7 @@ static void TC_UpbitSpot(testDataType& td, uint64_t& pass, uint64_t& fail, bool&
     EXECUTE_UNITTEST(TC_UpbitSpot_subscribeOrderbook_6)
     EXECUTE_UNITTEST(TC_UpbitSpot_subscribeOrderbook_7)
     EXECUTE_UNITTEST(TC_UpbitSpot_subscribeOrderbook_8)
+    EXECUTE_UNITTEST(TC_UpbitSpot_subscribeOrderbook_9)
     EXECUTE_UNITTEST(TC_UpbitSpot_unsubscribeOrderbook_1)
     EXECUTE_UNITTEST(TC_UpbitSpot_unsubscribeOrderbook_2)
     EXECUTE_UNITTEST(TC_UpbitSpot_unsubscribeOrderbook_3)
@@ -176,7 +179,7 @@ static void TC_UpbitSpot(testDataType& td, uint64_t& pass, uint64_t& fail, bool&
     EXECUTE_UNITTEST(TC_UpbitSpot_unsubscribeOrderbook_6)
     EXECUTE_UNITTEST(TC_UpbitSpot_unsubscribeOrderbook_7)
     EXECUTE_UNITTEST(TC_UpbitSpot_unsubscribeOrderbook_8)
-    EXECUTE_UNITTEST(TC_UpbitSpot_websocketFullTest)
+    EXECUTE_UNITTEST(TC_UpbitSpot_unsubscribeOrderbook_9)
 }
 
 static void TC_BinanceSpot(testDataType& td, uint64_t& pass, uint64_t& fail, bool& result){
@@ -458,6 +461,7 @@ static void TC_BinanceFutures(testDataType& td, uint64_t& pass, uint64_t& fail, 
     EXECUTE_UNITTEST(TC_BinanceFutures_subscribeMarketInfo_6)
     EXECUTE_UNITTEST(TC_BinanceFutures_subscribeMarketInfo_7)
     EXECUTE_UNITTEST(TC_BinanceFutures_subscribeMarketInfo_8)
+    EXECUTE_UNITTEST(TC_BinanceFutures_subscribeMarketInfo_9)
     EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeMarketInfo_1)
     EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeMarketInfo_2)
     EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeMarketInfo_3)
@@ -466,6 +470,7 @@ static void TC_BinanceFutures(testDataType& td, uint64_t& pass, uint64_t& fail, 
     EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeMarketInfo_6)
     EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeMarketInfo_7)
     EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeMarketInfo_8)
+    EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeMarketInfo_9)
     EXECUTE_UNITTEST(TC_BinanceFutures_subscribeTicker_1)
     EXECUTE_UNITTEST(TC_BinanceFutures_subscribeTicker_2)
     EXECUTE_UNITTEST(TC_BinanceFutures_subscribeTicker_3)
@@ -474,6 +479,7 @@ static void TC_BinanceFutures(testDataType& td, uint64_t& pass, uint64_t& fail, 
     EXECUTE_UNITTEST(TC_BinanceFutures_subscribeTicker_6)
     EXECUTE_UNITTEST(TC_BinanceFutures_subscribeTicker_7)
     EXECUTE_UNITTEST(TC_BinanceFutures_subscribeTicker_8)
+    EXECUTE_UNITTEST(TC_BinanceFutures_subscribeTicker_9)
     EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeTicker_1)
     EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeTicker_2)
     EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeTicker_3)
@@ -482,6 +488,7 @@ static void TC_BinanceFutures(testDataType& td, uint64_t& pass, uint64_t& fail, 
     EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeTicker_6)
     EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeTicker_7)
     EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeTicker_8)
+    EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeTicker_9)
     EXECUTE_UNITTEST(TC_BinanceFutures_subscribeOrderbook_1)
     EXECUTE_UNITTEST(TC_BinanceFutures_subscribeOrderbook_2)
     EXECUTE_UNITTEST(TC_BinanceFutures_subscribeOrderbook_3)
@@ -490,6 +497,7 @@ static void TC_BinanceFutures(testDataType& td, uint64_t& pass, uint64_t& fail, 
     EXECUTE_UNITTEST(TC_BinanceFutures_subscribeOrderbook_6)
     EXECUTE_UNITTEST(TC_BinanceFutures_subscribeOrderbook_7)
     EXECUTE_UNITTEST(TC_BinanceFutures_subscribeOrderbook_8)
+    EXECUTE_UNITTEST(TC_BinanceFutures_subscribeOrderbook_9)
     EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeOrderbook_1)
     EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeOrderbook_2)
     EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeOrderbook_3)
@@ -498,7 +506,7 @@ static void TC_BinanceFutures(testDataType& td, uint64_t& pass, uint64_t& fail, 
     EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeOrderbook_6)
     EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeOrderbook_7)
     EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeOrderbook_8)
-    EXECUTE_UNITTEST(TC_BinanceFutures_websocketFullTest)
+    EXECUTE_UNITTEST(TC_BinanceFutures_unsubscribeOrderbook_9)
 }
 
 void regression(){

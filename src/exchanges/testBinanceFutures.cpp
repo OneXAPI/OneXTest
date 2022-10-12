@@ -415,7 +415,7 @@ bool TC_BinanceFutures_setConfig_5(testDataType& testData){
         else if(!respDoc["data"].HasMember(testItem.first)){
             return false;
         }
-        else if(respDoc["data"].MemberCount() != 1){
+        else if(!memberCountChecker(respDoc["data"], 1)){
             return false;
         }
         else if(respDoc["data"][testItem.first].IsString()){
@@ -887,10 +887,10 @@ member count of response["data"]["balance"][currency] = 3)";
     else if(std::string("rest").compare(respDoc["data"]["fetchType"].GetString()) != 0){
         return false;
     }
-    else if(respDoc["data"].MemberCount() != 2){
+    else if(!memberCountChecker(respDoc["data"], 2)){
         return false;
     }
-    else if(respDoc["data"]["balance"].MemberCount() != 3){
+    else if(!memberCountChecker(respDoc["data"]["balance"], 3)){
         return false;
     }
 
@@ -949,7 +949,7 @@ member count of response["data"]["balance"][currency] = 3)";
     else if(std::string("rest").compare(respDoc["data"]["fetchType"].GetString()) != 0){
         return false;
     }
-    else if(respDoc["data"].MemberCount() != 2){
+    else if(!memberCountChecker(respDoc["data"], 2)){
         return false;
     }
 

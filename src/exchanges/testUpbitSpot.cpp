@@ -164,7 +164,7 @@ bool TC_UpbitSpot_Object_7(testDataType& testData){
     TC_END
 }
 
-static const std::string getConfigExpectedResult = R"({"success":true,"data":{"requestedApiCount":0,"exchange":"Upbit","instrument":"Spot","accessKey":"","secretKey":"","restEndpoint":"https://api.upbit.com/v1","publicWebsocketEndpoint":"wss://api.upbit.com/websocket/v1","privateWebsocketEndpoint":"","restRequestTimeout":5000,"websocketConnectTimeout":5000,"websocketIdleTimeout":5000}})";
+static const std::string getConfigExpectedResult = R"({"success":true,"requestedApiCount":0,"data":{"exchange":"Upbit","instrument":"Spot","accessKey":"","secretKey":"","restEndpoint":"https://api.upbit.com/v1","publicWebsocketEndpoint":"wss://api.upbit.com/websocket/v1","privateWebsocketEndpoint":"","restRequestTimeout":5000,"websocketConnectTimeout":5000,"websocketIdleTimeout":5000}})";
 
 bool TC_UpbitSpot_getConfig_1(testDataType& testData){
     TC_BEGIN
@@ -227,7 +227,7 @@ bool TC_UpbitSpot_getConfig_4(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().getConfig";
-    testData.expectedResult = getConfigExpectedResult;
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
 
     OneXAPI::Upbit::Spot client;
     std::string input = "trashData123@@!%";
@@ -235,9 +235,10 @@ bool TC_UpbitSpot_getConfig_4(testDataType& testData){
 
     testData.actualResult = response;
 
-    if(response.compare(testData.expectedResult) == 0){
-        return true;
+    if(!errorResponseChecker(response, "JSON_PARSING_ERROR", 0)){
+        return false;
     }
+    return true;
 
     TC_END
 }
@@ -246,7 +247,7 @@ bool TC_UpbitSpot_setConfig_1(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().setConfig";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":""}})";
+    testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{}})";
 
     OneXAPI::Upbit::Spot client;
 
@@ -265,7 +266,7 @@ bool TC_UpbitSpot_setConfig_2(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().setConfig";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0}})";
+    testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{}})";
 
     OneXAPI::Upbit::Spot client;
 
@@ -284,7 +285,7 @@ bool TC_UpbitSpot_setConfig_3(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().setConfig";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"WRONG_VALUE_TYPE","errorMsg":"~~~"}})";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"WRONG_VALUE_TYPE","errorMsg":"~~~"}})";
     testData.actualResult.clear();
 
     OneXAPI::Upbit::Spot client;
@@ -293,49 +294,49 @@ bool TC_UpbitSpot_setConfig_3(testDataType& testData){
     input = R"({"accessKey":1.1354})";
     response = client.setConfig(input);
     testData.actualResult.append(response + "\n");
-    if(!errorResponseChecker(response, "WRONG_VALUE_TYPE")){
+    if(!errorResponseChecker(response, "WRONG_VALUE_TYPE", 0)){
         return false;
     }
     input = R"({"secretKey":11354})";
     response = client.setConfig(input);
     testData.actualResult.append(response + "\n");
-    if(!errorResponseChecker(response, "WRONG_VALUE_TYPE")){
+    if(!errorResponseChecker(response, "WRONG_VALUE_TYPE", 0)){
         return false;
     }
     input = R"({"restEndpoint":null})";
     response = client.setConfig(input);
     testData.actualResult.append(response + "\n");
-    if(!errorResponseChecker(response, "WRONG_VALUE_TYPE")){
+    if(!errorResponseChecker(response, "WRONG_VALUE_TYPE", 0)){
         return false;
     }
     input = R"({"publicWebsocketEndpoint":true})";
     response = client.setConfig(input);
     testData.actualResult.append(response + "\n");
-    if(!errorResponseChecker(response, "WRONG_VALUE_TYPE")){
+    if(!errorResponseChecker(response, "WRONG_VALUE_TYPE", 0)){
         return false;
     }
     input = R"({"privateWebsocketEndpoint":{}})";
     response = client.setConfig(input);
     testData.actualResult.append(response + "\n");
-    if(!errorResponseChecker(response, "WRONG_VALUE_TYPE")){
+    if(!errorResponseChecker(response, "WRONG_VALUE_TYPE", 0)){
         return false;
     }
     input = R"({"restRequestTimeout":1.1354})";
     response = client.setConfig(input);
     testData.actualResult.append(response + "\n");
-    if(!errorResponseChecker(response, "WRONG_VALUE_TYPE")){
+    if(!errorResponseChecker(response, "WRONG_VALUE_TYPE", 0)){
         return false;
     }
     input = R"({"websocketConnectTimeout":"ffaew"})";
     response = client.setConfig(input);
     testData.actualResult.append(response + "\n");
-    if(!errorResponseChecker(response, "WRONG_VALUE_TYPE")){
+    if(!errorResponseChecker(response, "WRONG_VALUE_TYPE", 0)){
         return false;
     }
     input = R"({"websocketIdleTimeout":false})";
     response = client.setConfig(input);
     testData.actualResult.append(response + "\n");
-    if(!errorResponseChecker(response, "WRONG_VALUE_TYPE")){
+    if(!errorResponseChecker(response, "WRONG_VALUE_TYPE", 0)){
         return false;
     }
 
@@ -348,7 +349,7 @@ bool TC_UpbitSpot_setConfig_4(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().setConfig";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"WRONG_VALUE","errorMsg":"~~~"}})";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"WRONG_VALUE","errorMsg":"~~~"}})";
     testData.actualResult.clear();
 
     OneXAPI::Upbit::Spot client;
@@ -357,19 +358,19 @@ bool TC_UpbitSpot_setConfig_4(testDataType& testData){
     input = R"({"restEndpoint":"wrongEndpoint"})";
     response = client.setConfig(input);
     testData.actualResult.append(response + "\n");
-    if(!errorResponseChecker(response, "WRONG_VALUE")){
+    if(!errorResponseChecker(response, "WRONG_VALUE", 0)){
         return false;
     }
     input = R"({"publicWebsocketEndpoint":"wrongEndpoint"})";
     response = client.setConfig(input);
     testData.actualResult.append(response + "\n");
-    if(!errorResponseChecker(response, "WRONG_VALUE")){
+    if(!errorResponseChecker(response, "WRONG_VALUE", 0)){
         return false;
     }
     input = R"({"privateWebsocketEndpoint":"wrongEndpoint"})";
     response = client.setConfig(input);
     testData.actualResult.append(response + "\n");
-    if(!errorResponseChecker(response, "WRONG_VALUE")){
+    if(!errorResponseChecker(response, "WRONG_VALUE", 0)){
         return false;
     }
 
@@ -382,7 +383,8 @@ bool TC_UpbitSpot_setConfig_5(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().setConfig";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"requestedKey":"requestedValue"}})";
+    testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"requestedKey":"requestedValue"}}
+check using getConfig() also)";
     testData.actualResult.clear();
 
     OneXAPI::Upbit::Spot client;
@@ -404,10 +406,16 @@ bool TC_UpbitSpot_setConfig_5(testDataType& testData){
 
         rapidjson::Document respDoc;
         OneXAPI::Internal::Util::parseJson(respDoc, response);
-        if(!respDoc["success"].GetBool()){
+        if(!successResponseChecker(response)){
+            return false;
+        }
+        else if(respDoc["requestedApiCount"].GetUint() != 0){
             return false;
         }
         else if(!respDoc["data"].HasMember(testItem.first)){
+            return false;
+        }
+        else if(!memberCountChecker(respDoc["data"], 1)){
             return false;
         }
         else if(respDoc["data"][testItem.first].IsString()){
@@ -431,7 +439,10 @@ bool TC_UpbitSpot_setConfig_5(testDataType& testData){
     rapidjson::Document respDoc;
     OneXAPI::Internal::Util::parseJson(respDoc, response);
     for(const auto& testItem : testList){
-        if(!respDoc["success"].GetBool()){
+        if(!successResponseChecker(response)){
+            return false;
+        }
+        else if(respDoc["requestedApiCount"].GetUint() != 0){
             return false;
         }
         else if(!respDoc["data"].HasMember(testItem.first)){
@@ -458,7 +469,7 @@ bool TC_UpbitSpot_setConfig_5(testDataType& testData){
     TC_END
 }
 
-static const std::string getEndpointCandidatesExpectedResult = R"({"success":true,"data":{"requestedApiCount":0,"restEndpoints":["https://api.upbit.com/v1"],"publicWebsocketEndpoints":["wss://api.upbit.com/websocket/v1"],"privateWebsocketEndpoints":[]}})";
+static const std::string getEndpointCandidatesExpectedResult = R"({"success":true,"requestedApiCount":0,"data":{"restEndpoints":["https://api.upbit.com/v1"],"publicWebsocketEndpoints":["wss://api.upbit.com/websocket/v1"],"privateWebsocketEndpoints":[]}})";
 
 bool TC_UpbitSpot_getEndpointCandidates_1(testDataType& testData){
     TC_BEGIN
@@ -521,7 +532,7 @@ bool TC_UpbitSpot_getEndpointCandidates_4(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().getEndpointCandidates";
-    testData.expectedResult = getEndpointCandidatesExpectedResult;
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg"~~~"}})";
 
     OneXAPI::Upbit::Spot client;
     std::string input = "uNPaRsib1eM5g";
@@ -529,9 +540,10 @@ bool TC_UpbitSpot_getEndpointCandidates_4(testDataType& testData){
 
     testData.actualResult = response;
 
-    if(response.compare(testData.expectedResult) == 0){
-        return true;
+    if(!errorResponseChecker(response, "JSON_PARSING_ERROR", 0)){
+        return false;
     }
+    return true;
 
     TC_END
 }
@@ -586,17 +598,31 @@ bool TC_UpbitSpot_has_1(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().has";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":""}})";
+    rapidjson::Document expectedResult;
+    expectedResult.SetObject();
+    expectedResult.AddMember("success", true, expectedResult.GetAllocator());
+    expectedResult.AddMember("requestedApiCount", 0, expectedResult.GetAllocator());
+    expectedResult.AddMember("data", rapidjson::Value(rapidjson::kObjectType), expectedResult.GetAllocator());
+    for(auto api : hasExpectedResult){
+        rapidjson::Value apiName(api.first, expectedResult.GetAllocator());
+        expectedResult["data"].AddMember(apiName, api.second, expectedResult.GetAllocator());
+    }
+    testData.expectedResult = OneXAPI::Internal::Util::jsonToString(expectedResult);
 
     OneXAPI::Upbit::Spot client;
     std::string input = "";
     std::string response = client.has(input);
+    rapidjson::Document respDoc;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
 
     testData.actualResult = response;
-
-    if(!errorResponseChecker(response, "JSON_PARSING_ERROR")){
+    if(!successResponseChecker(response)){
         return false;
     }
+    else if(response.compare(testData.expectedResult) != 0 || !memberCountChecker(respDoc["data"], 38)){
+        return false;
+    }
+    testData.expectedResult += R"(\n member count of response["data"] = 38)";
     return true;
 
     TC_END
@@ -609,8 +635,8 @@ bool TC_UpbitSpot_has_2(testDataType& testData){
     rapidjson::Document expectedResult;
     expectedResult.SetObject();
     expectedResult.AddMember("success", true, expectedResult.GetAllocator());
+    expectedResult.AddMember("requestedApiCount", 0, expectedResult.GetAllocator());
     expectedResult.AddMember("data", rapidjson::Value(rapidjson::kObjectType), expectedResult.GetAllocator());
-    expectedResult["data"].AddMember("requestedApiCount", 0, expectedResult.GetAllocator());
     for(auto api : hasExpectedResult){
         rapidjson::Value apiName(api.first, expectedResult.GetAllocator());
         expectedResult["data"].AddMember(apiName, api.second, expectedResult.GetAllocator());
@@ -620,12 +646,18 @@ bool TC_UpbitSpot_has_2(testDataType& testData){
     OneXAPI::Upbit::Spot client;
     std::string input = "{}";
     std::string response = client.has(input);
+    rapidjson::Document respDoc;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
 
     testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) == 0){
-        return true;
+    if(!successResponseChecker(response)){
+        return false;
     }
+    else if(response.compare(testData.expectedResult) != 0 || !memberCountChecker(respDoc["data"], 38)){
+        return false;
+    }
+    testData.expectedResult += R"(\n member count of response["data"] = 38)";
+    return true;
 
     TC_END
 }
@@ -660,14 +692,24 @@ bool TC_UpbitSpot_has_4(testDataType& testData){
     OneXAPI::Upbit::Spot client;
 
     for(auto api : hasExpectedResult){
-        testData.expectedResult += R"({"success":true,"data":{"requestedApiCount":0,")" + api.first + R"(":)" + (api.second?"true":"false") + R"(}})" + "\n";
+        testData.expectedResult += R"({"success":true,"requestedApiCount":0,"data":{")" + api.first + R"(":)" + (api.second?"true":"false") + R"(}})" + "\n";
         std::string input = R"({"api":")" + api.first + R"("})";
         std::string response = client.has(input);
 
         testData.actualResult += response + "\n";
+        rapidjson::Document respDoc;
+        OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+        if(!successResponseChecker(response)){
+            return false;
+        }
+        else if(!memberCountChecker(respDoc["data"], 1)){
+            return false;
+        }
     }
 
     if((testData.actualResult).compare(testData.expectedResult) == 0){
+        testData.expectedResult += R"(\n member count of response["data"] = 1)";
         return true;
     }
 
@@ -678,7 +720,7 @@ bool TC_UpbitSpot_has_5(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().has";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"WRONG_VALUE","errorMsg":"~~~"}})";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"WRONG_VALUE","errorMsg":"~"}})";
 
     OneXAPI::Upbit::Spot client;
     std::string input = R"({"api":"notExistApi"})";
@@ -694,7 +736,7 @@ bool TC_UpbitSpot_has_5(testDataType& testData){
     TC_END
 }
 
-static const std::string getWithdrawRoundingRuleExpectedResult = R"({"success":true,"data":{"requestedApiCount":0,"roundingRule":"round"}})";
+static const std::string getWithdrawRoundingRuleExpectedResult = R"({"success":true,"requestedApiCount":0,"data":{"roundingRule":"round"}})";
 
 bool TC_UpbitSpot_getWithdrawRoundingRule_1(testDataType& testData){
     TC_BEGIN
@@ -767,7 +809,7 @@ bool TC_UpbitSpot_setWithdrawRoundingRule_2(testDataType& testData){
         "round"
     };
     for(const auto& testItem : testList){
-        testData.expectedResult.append(R"({"success":true,"data":{"requestedApiCount":0,"roundingRule":")" + testItem + R"("}})" + "\n");
+        testData.expectedResult.append(R"({"success":true,"requestedApiCount":0,"data":{"roundingRule":")" + testItem + R"("}})" + "\n");
         std::string input = R"({"roundingRule":")" + testItem + R"("})";
         std::string response = client.setWithdrawRoundingRule(input);
         
@@ -785,7 +827,7 @@ bool TC_UpbitSpot_withdraw_1(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().withdraw";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
     testData.actualResult.clear();
     std::vector<std::string> testList = {
         R"({"currency":"bTc","address":"0x1345"})",
@@ -799,7 +841,7 @@ bool TC_UpbitSpot_withdraw_1(testDataType& testData){
         
         testData.actualResult.append(response + "\n");
 
-        if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+        if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM", 0)){
             return false;
         }
     }
@@ -875,7 +917,13 @@ bool TC_UpbitSpot_fetchAllCurrencies_1(testDataType& testData){
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchAllCurrencies";
-    testData.expectedResult = R"(response["success"]:true, response["data"]["requestedApiCount"]:1, response["data"]["currencies"][currency]["chains"]:empty array)";
+    testData.expectedResult = R"(response["success"]:true
+response["requestedApiCount"]:1
+response["data"]["currencies"][currency]["chains"]:empty array
+
+member count of response["data"] = 1
+member count of response["data"]["currencies"] is greater than 10
+member count of response["data"]["currencies"][currency] = 1)";
 
     OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
 
@@ -884,13 +932,13 @@ bool TC_UpbitSpot_fetchAllCurrencies_1(testDataType& testData){
     rapidjson::Document respDoc;
     OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-    if(!respDoc["success"].GetBool()){
+    if(!successResponseChecker(response)){
         return false;
     }
-    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+    else if(respDoc["requestedApiCount"].GetUint() != 1){
         return false;
     }
-    else if(respDoc["data"]["currencies"].MemberCount() == 0){
+    else if(!(respDoc["data"]["currencies"].MemberCount() > 10)){
         return false;
     }
 
@@ -898,10 +946,13 @@ bool TC_UpbitSpot_fetchAllCurrencies_1(testDataType& testData){
         if(!currencyPtr->name.IsString()){
             return false;
         }
-        if(!currencyPtr->value["chains"].IsArray()){
+        else if(!currencyPtr->value["chains"].IsArray()){
             return false;
         }
-        if(currencyPtr->value["chains"].Size() != 0){
+        else if(currencyPtr->value["chains"].Size() != 0){
+            return false;
+        }
+        else if(!memberCountChecker(currencyPtr->value, 1)){
             return false;
         }
     }
@@ -916,7 +967,13 @@ bool TC_UpbitSpot_fetchAllCurrencies_2(testDataType& testData){
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchAllCurrencies";
-    testData.expectedResult = R"(response["success"]:true, response["data"]["requestedApiCount"]:1, response["data"]["currencies"][currency]["chains"]:empty array)";
+    testData.expectedResult = R"(response["success"]:true
+response["requestedApiCount"]:1
+response["data"]["currencies"][currency]["chains"]:empty array
+
+member count of response["data"] = 1
+member count of response["data"]["currencies"] is greater than 10
+member count of response["data"]["currencies"][currency] = 1)";
 
     OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
 
@@ -925,13 +982,13 @@ bool TC_UpbitSpot_fetchAllCurrencies_2(testDataType& testData){
     rapidjson::Document respDoc;
     OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-    if(!respDoc["success"].GetBool()){
+    if(!successResponseChecker(response)){
         return false;
     }
-    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+    else if(respDoc["requestedApiCount"].GetUint() != 1){
         return false;
     }
-    else if(respDoc["data"]["currencies"].MemberCount() == 0){
+    else if(!(respDoc["data"]["currencies"].MemberCount() > 10)){
         return false;
     }
 
@@ -939,10 +996,13 @@ bool TC_UpbitSpot_fetchAllCurrencies_2(testDataType& testData){
         if(!currencyPtr->name.IsString()){
             return false;
         }
-        if(!currencyPtr->value["chains"].IsArray()){
+        else if(!currencyPtr->value["chains"].IsArray()){
             return false;
         }
-        if(currencyPtr->value["chains"].Size() != 0){
+        else if(currencyPtr->value["chains"].Size() != 0){
+            return false;
+        }
+        else if(!memberCountChecker(currencyPtr->value, 1)){
             return false;
         }
     }
@@ -957,8 +1017,14 @@ bool TC_UpbitSpot_fetchBalance_1(testDataType& testData){
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchBalance";
-    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["fetchType"]:"rest"
-        response["data"]["balance"][currency]["free"]:string response["data"]["balance"][currency]["locked"]:string)";
+    testData.expectedResult = R"(response["success"]:true
+response["requestedApiCount"]:1
+response["data"]["fetchType"]:"rest"
+response["data"]["balance"][currency]["free"]:string
+response["data"]["balance"][currency]["locked"]:string
+
+member count of response["data"] = 2
+member count of response["data"]["balance"][currency] = 2)";
     testData.actualResult.clear();
 
     OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
@@ -968,13 +1034,16 @@ bool TC_UpbitSpot_fetchBalance_1(testDataType& testData){
     rapidjson::Document respDoc;
     OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-    if(!respDoc["success"].GetBool()){
+    if(!successResponseChecker(response)){
         return false;
     }
-    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+    else if(respDoc["requestedApiCount"].GetUint() != 1){
         return false;
     }
     else if(std::string("rest").compare(respDoc["data"]["fetchType"].GetString()) != 0){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"], 2)){
         return false;
     }
     for(auto balancePtr = respDoc["data"]["balance"].MemberBegin(); balancePtr != respDoc["data"]["balance"].MemberEnd(); balancePtr++){
@@ -985,6 +1054,9 @@ bool TC_UpbitSpot_fetchBalance_1(testDataType& testData){
             return false;
         }
         else if(!balancePtr->value["locked"].IsString()){
+            return false;
+        }
+        else if(!memberCountChecker(balancePtr->value, 2)){
             return false;
         }
     }
@@ -999,9 +1071,15 @@ bool TC_UpbitSpot_fetchBalance_2(testDataType& testData){
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchBalance";
-    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:2 response["data"]["fetchType"]:"rest" 
-        response["data"]["balance"][currency]["free"]:string response["data"]["balance"][currency]["locked"]:string 
-        and member count of response["data"]["balance"] is 3)";
+    testData.expectedResult = R"(response["success"]:true
+response["requestedApiCount"]:2
+response["data"]["fetchType"]:"rest"
+response["data"]["balance"][currency]["free"]:string
+response["data"]["balance"][currency]["locked"]:string
+
+member count of response["data"] = 2
+member count of response["data"]["balance"] is 3
+member count of response["data"]["balance"][currency] = 2)";
     testData.actualResult.clear();
 
     OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
@@ -1011,16 +1089,19 @@ bool TC_UpbitSpot_fetchBalance_2(testDataType& testData){
     rapidjson::Document respDoc;
     OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-    if(!respDoc["success"].GetBool()){
+    if(!successResponseChecker(response)){
         return false;
     }
-    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 2){
+    else if(respDoc["requestedApiCount"].GetUint() != 2){
         return false;
     }
     else if(std::string("rest").compare(respDoc["data"]["fetchType"].GetString()) != 0){
         return false;
     }
-    else if(respDoc["data"]["balance"].MemberCount() != 3){
+    else if(!memberCountChecker(respDoc["data"], 2)){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"]["balance"], 3)){
         return false;
     }
 
@@ -1032,6 +1113,9 @@ bool TC_UpbitSpot_fetchBalance_2(testDataType& testData){
             return false;
         }
         else if(!balancePtr->value["locked"].IsString()){
+            return false;
+        }
+        else if(!memberCountChecker(balancePtr->value, 2)){
             return false;
         }
     }
@@ -1046,10 +1130,18 @@ bool TC_UpbitSpot_fetchWalletStatus_1(testDataType& testData){
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchWalletStatus";
-    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["currencies"][currency]["chains"]
-        response["data"]["currencies"][currency]["chains"]["chain"] = "" response["data"]["currencies"][currency]["chains"]["withdrawEnable"] is bool
-        response["data"]["currencies"][currency]["chains"]["depositEnable"] is bool
-        and size of response["data"]["currencies"][currency]["chains"] must be 1)";
+    testData.expectedResult = R"(response["success"]:true
+response["requestedApiCount"]:1
+response["data"]["currencies"][currency]["chains"] is array
+response["data"]["currencies"][currency]["chains"][]["chain"] = ""
+response["data"]["currencies"][currency]["chains"][]["withdrawEnable"] is bool
+response["data"]["currencies"][currency]["chains"][]["depositEnable"] is bool
+
+member count of response["data"] = 1
+member count of response["data"]["currencies"] is greater than 0
+member count of response["data"]["currencies"][currency] = 1
+size of response["data"]["currencies"][currency]["chains"] must be 1
+member count of response["data"]["currencies"][currency]["chains"][] = 3)";
     testData.actualResult.clear();
 
     OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
@@ -1059,13 +1151,16 @@ bool TC_UpbitSpot_fetchWalletStatus_1(testDataType& testData){
     rapidjson::Document respDoc;
     OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-    if(!respDoc["success"].GetBool()){
+    if(!successResponseChecker(response)){
         return false;
     }
-    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+    else if(respDoc["requestedApiCount"].GetUint() != 1){
         return false;
     }
-    else if(respDoc["data"]["currencies"].MemberCount() == 0){
+    else if(!memberCountChecker(respDoc["data"], 1)){
+        return false;
+    }
+    else if(!(respDoc["data"]["currencies"].MemberCount() > 0)){
         return false;
     }
     for(auto currencyPtr = respDoc["data"]["currencies"].MemberBegin(); currencyPtr != respDoc["data"]["currencies"].MemberEnd(); currencyPtr++){
@@ -1078,14 +1173,23 @@ bool TC_UpbitSpot_fetchWalletStatus_1(testDataType& testData){
         else if(currencyPtr->value["chains"].Size() != 1){
             return false;
         }
-        else if(std::string("").compare(currencyPtr->value["chains"][0]["chain"].GetString()) != 0){
+        else if(!memberCountChecker(currencyPtr->value, 1)){
             return false;
         }
-        else if(!currencyPtr->value["chains"][0]["withdrawEnable"].IsBool()){
-            return false;
-        }
-        else if(!currencyPtr->value["chains"][0]["depositEnable"].IsBool()){
-            return false;
+        ;
+        for(const auto& chain : currencyPtr->value["chains"].GetArray()){
+            if(std::string("").compare(chain["chain"].GetString()) != 0){
+                return false;
+            }
+            else if(!chain["withdrawEnable"].IsBool()){
+                return false;
+            }
+            else if(!chain["depositEnable"].IsBool()){
+                return false;
+            }
+            else if(!memberCountChecker(chain, 3)){
+                return false;
+            }
         }
     }
 
@@ -1099,11 +1203,18 @@ bool TC_UpbitSpot_fetchWalletStatus_2(testDataType& testData){
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchWalletStatus";
-    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["currencies"][currency]["chains"]
-        response["data"]["currencies"][currency]["chains"]["chain"] = "" response["data"]["currencies"][currency]["chains"]["withdrawEnable"] is bool
-        response["data"]["currencies"][currency]["chains"]["depositEnable"] is bool
-        size of response["data"]["currencies"] is 1
-        and size of response["data"]["currencies"][currency]["chains"] must be 1)";
+    testData.expectedResult = R"(response["success"]:true
+response["requestedApiCount"]:1
+response["data"]["currencies"][currency]["chains"] is array
+response["data"]["currencies"][currency]["chains"][]["chain"] = ""
+response["data"]["currencies"][currency]["chains"][]["withdrawEnable"] is bool
+response["data"]["currencies"][currency]["chains"][]["depositEnable"] is bool
+
+member count of response["data"] = 1
+member count of response["data"]["currencies"] is 1
+member count of response["data"]["currencies"][currency] = 1
+size of response["data"]["currencies"][currency]["chains"] must be 1
+member count of response["data"]["currencies"][currency]["chains"][] = 3)";
     testData.actualResult.clear();
 
     OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
@@ -1113,13 +1224,16 @@ bool TC_UpbitSpot_fetchWalletStatus_2(testDataType& testData){
     rapidjson::Document respDoc;
     OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-    if(!respDoc["success"].GetBool()){
+    if(!successResponseChecker(response)){
         return false;
     }
-    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+    else if(respDoc["requestedApiCount"].GetUint() != 1){
         return false;
     }
-    else if(respDoc["data"]["currencies"].MemberCount() != 1){
+    else if(!memberCountChecker(respDoc["data"], 1)){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"]["currencies"], 1)){
         return false;
     }
     for(auto currencyPtr = respDoc["data"]["currencies"].MemberBegin(); currencyPtr != respDoc["data"]["currencies"].MemberEnd(); currencyPtr++){
@@ -1132,14 +1246,23 @@ bool TC_UpbitSpot_fetchWalletStatus_2(testDataType& testData){
         else if(currencyPtr->value["chains"].Size() != 1){
             return false;
         }
-        else if(std::string("").compare(currencyPtr->value["chains"][0]["chain"].GetString()) != 0){
+        else if(!memberCountChecker(currencyPtr->value, 1)){
             return false;
         }
-        else if(!currencyPtr->value["chains"][0]["withdrawEnable"].IsBool()){
-            return false;
-        }
-        else if(!currencyPtr->value["chains"][0]["depositEnable"].IsBool()){
-            return false;
+        ;
+        for(const auto& chain : currencyPtr->value["chains"].GetArray()){
+            if(std::string("").compare(chain["chain"].GetString()) != 0){
+                return false;
+            }
+            else if(!chain["withdrawEnable"].IsBool()){
+                return false;
+            }
+            else if(!chain["depositEnable"].IsBool()){
+                return false;
+            }
+            else if(!memberCountChecker(chain, 3)){
+                return false;
+            }
         }
     }
 
@@ -1153,9 +1276,18 @@ bool TC_UpbitSpot_fetchWithdrawHistory_1(testDataType& testData){
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchWithdrawHistory";
-    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["withdrawals"]["currency"] is string
-        response["data"]["withdrawals"]["amount"] is string response["data"]["withdrawals"]["fee"] is string response["data"]["withdrawals"]["orderId"] is string
-        response["data"]["withdrawals"]["txid"] is string response["data"]["withdrawals"]["status"] is string response["data"]["withdrawals"]["created"] is uint64)";
+    testData.expectedResult = R"(response["success"]:true
+response["requestedApiCount"]:1
+response["data"]["withdrawals"]["currency"] is string
+response["data"]["withdrawals"]["amount"] is string
+response["data"]["withdrawals"]["fee"] is string
+response["data"]["withdrawals"]["orderId"] is string
+response["data"]["withdrawals"]["txid"] is string
+response["data"]["withdrawals"]["status"] is string
+response["data"]["withdrawals"]["created"] is uint64
+
+member count of response["data"] = 1
+member count of response["data"]["withdrawals"] = 7)";
     testData.actualResult.clear();
 
     OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
@@ -1165,13 +1297,13 @@ bool TC_UpbitSpot_fetchWithdrawHistory_1(testDataType& testData){
     rapidjson::Document respDoc;
     OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-    if(!respDoc["success"].GetBool()){
+    if(!successResponseChecker(response)){
         return false;
     }
-    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+    else if(respDoc["requestedApiCount"].GetUint() != 1){
         return false;
     }
-    else if(respDoc["data"]["withdrawals"].Size() == 0){
+    else if(!memberCountChecker(respDoc["data"], 1)){
         return false;
     }
     for(const auto& withdrawal : respDoc["data"]["withdrawals"].GetArray()){
@@ -1194,6 +1326,9 @@ bool TC_UpbitSpot_fetchWithdrawHistory_1(testDataType& testData){
             return false;
         }
         if(!withdrawal["created"].IsUint64()){
+            return false;
+        }
+        if(!memberCountChecker(withdrawal, 7)){
             return false;
         }
     }
@@ -1238,9 +1373,18 @@ bool TC_UpbitSpot_fetchDepositHistory_1(testDataType& testData){
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchDepositHistory";
-    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["deposits"]["currency"] is string
-        response["data"]["deposits"]["amount"] is string response["data"]["deposits"]["fee"] is string response["data"]["deposits"]["orderId"] is string
-        response["data"]["deposits"]["txid"] is string response["data"]["deposits"]["status"] is string response["data"]["deposits"]["created"] is uint64)";
+    testData.expectedResult = R"(response["success"]:true
+response["requestedApiCount"]:1
+response["data"]["deposits"]["currency"] is string
+response["data"]["deposits"]["amount"] is string
+response["data"]["deposits"]["fee"] is string
+response["data"]["deposits"]["orderId"] is string
+response["data"]["deposits"]["txid"] is string
+response["data"]["deposits"]["status"] is string
+response["data"]["deposits"]["created"] is uint64
+
+member count of response["data"] = 1
+member count of response["data"]["deposits"] = 7)";
     testData.actualResult.clear();
 
     OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
@@ -1250,13 +1394,13 @@ bool TC_UpbitSpot_fetchDepositHistory_1(testDataType& testData){
     rapidjson::Document respDoc;
     OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-    if(!respDoc["success"].GetBool()){
+    if(!successResponseChecker(response)){
         return false;
     }
-    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+    else if(respDoc["requestedApiCount"].GetUint() != 1){
         return false;
     }
-    else if(respDoc["data"]["deposits"].Size() == 0){
+    else if(!memberCountChecker(respDoc["data"], 1)){
         return false;
     }
     for(const auto& withdrawal : respDoc["data"]["deposits"].GetArray()){
@@ -1279,6 +1423,9 @@ bool TC_UpbitSpot_fetchDepositHistory_1(testDataType& testData){
             return false;
         }
         if(!withdrawal["created"].IsUint64()){
+            return false;
+        }
+        if(!memberCountChecker(withdrawal, 7)){
             return false;
         }
     }
@@ -1323,10 +1470,17 @@ bool TC_UpbitSpot_fetchDepositAddress_1(testDataType& testData){
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchDepositAddress";
-    testData.expectedResult = R"(rresponse["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["addresses"][currency] is array
-        response["data"]["addresses"][currency][0]["chain"] : "" response["data"]["addresses"][currency][0]["address"] is string
-        response["data"]["addresses"][currency][0]["tag"] is string
-        size of response["data"]["addresses"][currency] is greater than 0)";
+    testData.expectedResult = R"(response["success"]:true
+response["requestedApiCount"]:1
+response["data"]["addresses"][currency] is array
+response["data"]["addresses"][currency][0]["chain"] : ""
+response["data"]["addresses"][currency][0]["address"] is string
+response["data"]["addresses"][currency][0]["tag"] is string
+
+member count of response["data"] = 1
+member count of response["data"]["addresses"] is greater than 0
+size of response["data"]["addresses"][currency] is 1
+member count of response["data"]["addresses"][currency][0] = 3)";
     testData.actualResult.clear();
 
     OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
@@ -1336,15 +1490,19 @@ bool TC_UpbitSpot_fetchDepositAddress_1(testDataType& testData){
     rapidjson::Document respDoc;
     OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-    if(!respDoc["success"].GetBool()){
+    if(!successResponseChecker(response)){
         return false;
     }
-    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+    else if(respDoc["requestedApiCount"].GetUint() != 1){
         return false;
     }
-    else if(respDoc["data"]["addresses"].MemberCount() == 0){
+    else if(!(respDoc["data"]["addresses"].MemberCount() > 0)){
         return false;
     }
+    else if(!memberCountChecker(respDoc["data"], 1)){
+        return false;
+    }
+
     for(auto addressPtr = respDoc["data"]["addresses"].MemberBegin(); addressPtr != respDoc["data"]["addresses"].MemberEnd(); addressPtr++){
         if(!addressPtr->name.IsString()){
             return false;
@@ -1364,6 +1522,9 @@ bool TC_UpbitSpot_fetchDepositAddress_1(testDataType& testData){
         else if(!addressPtr->value[0]["tag"].IsString()){
             return false;
         }
+        if(!memberCountChecker(addressPtr->value[0], 3)){
+            return false;
+        }
     }
 
     return true;
@@ -1376,10 +1537,17 @@ bool TC_UpbitSpot_fetchDepositAddress_2(testDataType& testData){
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchDepositAddress";
-    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["addresses"]["BTC"] is array
-        response["data"]["addresses"]["BTC"][0]["chain"] : "" response["data"]["addresses"]["BTC"][0]["address"] is string response["data"]["addresses"]["BTC"][0]["tag"] is string
-        member count of response["data"]["addresses"] must be 1
-        size of response["data"]["addresses"][currency] is 1)";
+    testData.expectedResult = R"(response["success"]:true
+response["requestedApiCount"]:1
+response["data"]["addresses"]["BTC"] is array
+response["data"]["addresses"]["BTC"][0]["chain"] : ""
+response["data"]["addresses"]["BTC"][0]["address"] is string
+response["data"]["addresses"]["BTC"][0]["tag"] is string
+
+member count of response["data"] = 1
+member count of response["data"]["addresses"] = 1
+size of response["data"]["addresses"][currency] is 1
+member count of response["data"]["addresses"][currency][0] = 3)";
     testData.actualResult.clear();
 
     OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
@@ -1389,13 +1557,10 @@ bool TC_UpbitSpot_fetchDepositAddress_2(testDataType& testData){
     rapidjson::Document respDoc;
     OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-    if(!respDoc["success"].GetBool()){
+    if(!successResponseChecker(response)){
         return false;
     }
-    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
-        return false;
-    }
-    else if(respDoc["data"]["addresses"].MemberCount() != 1){
+    else if(respDoc["requestedApiCount"].GetUint() != 1){
         return false;
     }
     else if(!respDoc["data"]["addresses"]["BTC"].IsArray()){
@@ -1413,6 +1578,15 @@ bool TC_UpbitSpot_fetchDepositAddress_2(testDataType& testData){
     else if(!respDoc["data"]["addresses"]["BTC"][0]["tag"].IsString()){
         return false;
     }
+    else if(!memberCountChecker(respDoc["data"], 1)){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"]["addresses"], 1)){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"]["addresses"]["BTC"][0], 3)){
+        return false;
+    }
 
     return true;
 
@@ -1423,14 +1597,14 @@ bool TC_UpbitSpot_isDepositCompleted_1(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().isDepositCompleted";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
 
     OneXAPI::Upbit::Spot client;
     std::string response = client.isDepositCompleted("{}");
 
     testData.actualResult = response;
 
-    if(errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+    if(errorResponseChecker(response, "NOT_ENOUGH_PARAM", 0)){
         return true;
     }
 
@@ -1448,30 +1622,33 @@ bool TC_UpbitSpot_isDepositCompleted_2(testDataType& testData){
     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
     testData.testSubject = "OneXAPI::Upbit::Spot().isDepositCompleted";
     std::string findValue = R"(METHOD: GET, URL: https://api.upbit.com/v1/deposits?txids=testTxid)";
-    testData.expectedResult = findValue + R"(  and {"success":true,"data":{"requestedApiCount":1,"isDepositCompleted":false})";            
+    testData.expectedResult = findValue + R"(  and {"success":true,"requestedApiCount":1,"data":{"isDepositCompleted":false})";            
     testData.actualResult.clear();
     std::string input = R"({"txid":"testTxid"})";
     OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
 
-    std::string restResp = client.isDepositCompleted(input);
+    std::string response = client.isDepositCompleted(input);
     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-    std::string response = getLog(testStartTime);
+    std::string log = getLog(testStartTime);
     LOAD_LOGGER_SETTINGS
-    testData.actualResult = response + "  " + restResp;
+    testData.actualResult = log + "  " + response;
     rapidjson::Document respDoc;
-    OneXAPI::Internal::Util::parseJson(respDoc, restResp);
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-    if(!respDoc["success"].GetBool()){
+    if(!successResponseChecker(response)){
         return false;
     }
-    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+    else if(respDoc["requestedApiCount"].GetUint() != 1){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"], 1)){
         return false;
     }
     else if(respDoc["data"]["isDepositCompleted"].GetBool()){
         return false;
     }
 
-    if(response.find(findValue) != std::string::npos){
+    if(log.find(findValue) != std::string::npos){
         return true;
     }
 
@@ -1489,37 +1666,40 @@ bool TC_UpbitSpot_isDepositCompleted_3(testDataType& testData){
     uint64_t testStartTime = OneXAPI::Internal::Util::getCurrentMsEpoch()/1000;
     testData.testSubject = "OneXAPI::Upbit::Spot().isDepositCompleted";
     std::string findValue = R"(METHOD: GET, URL: https://api.upbit.com/v1/deposits?currency=SOL)";
-    testData.expectedResult = findValue + R"(  and {"success":true,"data":{"requestedApiCount":1,"isDepositCompleted":false})";            
+    testData.expectedResult = findValue + R"(  and {"success":true,"requestedApiCount":1,"data":{"isDepositCompleted":false}})";            
     testData.actualResult.clear();
     std::string input = R"({"currency":"sOl","amount":35.213843,"since":1656044045154})";
     OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
 
-    std::string restResp = client.isDepositCompleted(input);
+    std::string response = client.isDepositCompleted(input);
     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-    std::string response = getLog(testStartTime);
+    std::string log = getLog(testStartTime);
     LOAD_LOGGER_SETTINGS
-    testData.actualResult = response + "  " + restResp;
+    testData.actualResult = log + "  " + response;
     rapidjson::Document respDoc;
-    OneXAPI::Internal::Util::parseJson(respDoc, restResp);
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-    if(!respDoc["success"].GetBool()){
+    if(!successResponseChecker(response)){
         return false;
     }
-    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+    else if(respDoc["requestedApiCount"].GetUint() != 1){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"], 1)){
         return false;
     }
     else if(respDoc["data"]["isDepositCompleted"].GetBool()){
         return false;
     }
 
-    if(response.find(findValue) != std::string::npos){
+    if(log.find(findValue) != std::string::npos){
         return true;
     }
 
     TC_END
 }
 
-static const std::string subscribeBalanceExpectedResult = R"({"success":false,"data":{"errorType":"NOT_SUPPORTED_API","errorMsg":"~~~"}})";
+static const std::string subscribeBalanceExpectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_SUPPORTED_API","errorMsg":""}})";
 
 bool TC_UpbitSpot_subscribeBalance_1(testDataType& testData){
     TC_BEGIN
@@ -1532,7 +1712,7 @@ bool TC_UpbitSpot_subscribeBalance_1(testDataType& testData){
 
     testData.actualResult = response;
 
-    if(errorResponseChecker(response, "NOT_SUPPORTED_API")){
+    if(errorResponseChecker(response, "NOT_SUPPORTED_API", 0)){
         return true;
     }
 
@@ -1551,7 +1731,7 @@ bool TC_UpbitSpot_subscribeBalance_2(testDataType& testData){
 
     testData.actualResult = response;
 
-    if(errorResponseChecker(response, "NOT_SUPPORTED_API")){
+    if(errorResponseChecker(response, "NOT_SUPPORTED_API", 0)){
         return true;
     }
 
@@ -1570,7 +1750,7 @@ bool TC_UpbitSpot_subscribeBalance_3(testDataType& testData){
 
     testData.actualResult = response;
 
-    if(errorResponseChecker(response, "NOT_SUPPORTED_API")){
+    if(errorResponseChecker(response, "NOT_SUPPORTED_API", 0)){
         return true;
     }
 
@@ -1589,19 +1769,19 @@ bool TC_UpbitSpot_subscribeBalance_4(testDataType& testData){
 
     testData.actualResult = response;
 
-    if(errorResponseChecker(response, "NOT_SUPPORTED_API")){
+    if(errorResponseChecker(response, "NOT_SUPPORTED_API", 0)){
         return true;
     }
 
     TC_END
 }
 
-static const std::string unsubscribeBalanceExpectedResult = R"({"success":false,"data":{"errorType":"NOT_SUPPORTED_API","errorMsg":""}})";
+static const std::string unsubscribeBalanceExpectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_SUPPORTED_API","errorMsg":""}})";
 
 bool TC_UpbitSpot_unsubscribeBalance_1(testDataType& testData){
     TC_BEGIN
 
-    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeBalance";
+    testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeBalance";
     testData.expectedResult = unsubscribeBalanceExpectedResult;
 
     OneXAPI::Upbit::Spot client;
@@ -1609,7 +1789,7 @@ bool TC_UpbitSpot_unsubscribeBalance_1(testDataType& testData){
 
     testData.actualResult = response;
 
-    if(errorResponseChecker(response, "NOT_SUPPORTED_API")){
+    if(errorResponseChecker(response, "NOT_SUPPORTED_API", 0)){
         return true;
     }
 
@@ -1619,7 +1799,7 @@ bool TC_UpbitSpot_unsubscribeBalance_1(testDataType& testData){
 bool TC_UpbitSpot_unsubscribeBalance_2(testDataType& testData){
     TC_BEGIN
 
-    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeBalance";
+    testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeBalance";
     testData.expectedResult = unsubscribeBalanceExpectedResult;
 
     OneXAPI::Upbit::Spot client;
@@ -1628,7 +1808,7 @@ bool TC_UpbitSpot_unsubscribeBalance_2(testDataType& testData){
 
     testData.actualResult = response;
 
-    if(errorResponseChecker(response, "NOT_SUPPORTED_API")){
+    if(errorResponseChecker(response, "NOT_SUPPORTED_API", 0)){
         return true;
     }
 
@@ -1638,7 +1818,7 @@ bool TC_UpbitSpot_unsubscribeBalance_2(testDataType& testData){
 bool TC_UpbitSpot_unsubscribeBalance_3(testDataType& testData){
     TC_BEGIN
 
-    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeBalance";
+    testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeBalance";
     testData.expectedResult = unsubscribeBalanceExpectedResult;
 
     OneXAPI::Upbit::Spot client;
@@ -1647,7 +1827,7 @@ bool TC_UpbitSpot_unsubscribeBalance_3(testDataType& testData){
 
     testData.actualResult = response;
 
-    if(errorResponseChecker(response, "NOT_SUPPORTED_API")){
+    if(errorResponseChecker(response, "NOT_SUPPORTED_API", 0)){
         return true;
     }
 
@@ -1657,7 +1837,7 @@ bool TC_UpbitSpot_unsubscribeBalance_3(testDataType& testData){
 bool TC_UpbitSpot_unsubscribeBalance_4(testDataType& testData){
     TC_BEGIN
 
-    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeBalance";
+    testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeBalance";
     testData.expectedResult = unsubscribeBalanceExpectedResult;
 
     OneXAPI::Upbit::Spot client;
@@ -1666,19 +1846,19 @@ bool TC_UpbitSpot_unsubscribeBalance_4(testDataType& testData){
 
     testData.actualResult = response;
 
-    if(errorResponseChecker(response, "NOT_SUPPORTED_API")){
+    if(errorResponseChecker(response, "NOT_SUPPORTED_API", 0)){
         return true;
     }
 
     TC_END
 }
 
-static const std::string isSubscribingBalanceExpectedResult = R"({"success":true,"data":{"isSubscribing":false}})";
+static const std::string isSubscribingBalanceExpectedResult = R"({"success":true,"requestedApiCount":0,"data":{"isSubscribing":false}})";
 
 bool TC_UpbitSpot_isSubscribingBalance_1(testDataType& testData){
     TC_BEGIN
 
-    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeBalance";
+    testData.testSubject = "OneXAPI::Upbit::Spot().isSubscribingBalance";
     testData.expectedResult = isSubscribingBalanceExpectedResult;
 
     OneXAPI::Upbit::Spot client;
@@ -1696,7 +1876,7 @@ bool TC_UpbitSpot_isSubscribingBalance_1(testDataType& testData){
 bool TC_UpbitSpot_isSubscribingBalance_2(testDataType& testData){
     TC_BEGIN
 
-    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeBalance";
+    testData.testSubject = "OneXAPI::Upbit::Spot().isSubscribingBalance";
     testData.expectedResult = isSubscribingBalanceExpectedResult;
 
     OneXAPI::Upbit::Spot client;
@@ -1715,7 +1895,7 @@ bool TC_UpbitSpot_isSubscribingBalance_2(testDataType& testData){
 bool TC_UpbitSpot_isSubscribingBalance_3(testDataType& testData){
     TC_BEGIN
 
-    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeBalance";
+    testData.testSubject = "OneXAPI::Upbit::Spot().isSubscribingBalance";
     testData.expectedResult = isSubscribingBalanceExpectedResult;
 
     OneXAPI::Upbit::Spot client;
@@ -1734,8 +1914,8 @@ bool TC_UpbitSpot_isSubscribingBalance_3(testDataType& testData){
 bool TC_UpbitSpot_isSubscribingBalance_4(testDataType& testData){
     TC_BEGIN
 
-    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeBalance";
-    testData.expectedResult = isSubscribingBalanceExpectedResult;
+    testData.testSubject = "OneXAPI::Upbit::Spot().isSubscribingBalance";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":""}})";
 
     OneXAPI::Upbit::Spot client;
     std::string input = "Bqbqb@";
@@ -1743,14 +1923,15 @@ bool TC_UpbitSpot_isSubscribingBalance_4(testDataType& testData){
 
     testData.actualResult = response;
 
-    if(response.compare(testData.expectedResult) == 0){
-        return true;
+    if(!errorResponseChecker(response, "JSON_PARSING_ERROR", 0)){
+        return false;
     }
+    return true;
 
     TC_END
 }
 
-static const std::string getOrderRoundingRuleExpectedResult = R"({"success":true,"data":{"requestedApiCount":0,"limitBuyPrice":"round","limitBuyBaseAmount":"round","limitSellPrice":"round","limitSellBaseAmount":"round","marketBuyQuoteAmount":"round","marketSellBaseAmount":"round"}})";
+static const std::string getOrderRoundingRuleExpectedResult = R"({"success":true,"requestedApiCount":0,"data":{"limitBuyPrice":"round","limitBuyBaseAmount":"round","limitSellPrice":"round","limitSellBaseAmount":"round","marketBuyQuoteAmount":"round","marketSellBaseAmount":"round"}})";
 
 bool TC_UpbitSpot_getOrderRoundingRule_1(testDataType& testData){
     TC_BEGIN
@@ -1793,7 +1974,7 @@ bool TC_UpbitSpot_setOrderRoundingRule_1(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().setOrderRoundingRule";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"WRONG_VALUE","errorMsg":"~~~"}})";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"WRONG_VALUE","errorMsg":"~~~"}}})";
 
     OneXAPI::Upbit::Spot client;
     std::string input = R"({"limitBuyBaseAmount":"wrongData"})";
@@ -1801,7 +1982,7 @@ bool TC_UpbitSpot_setOrderRoundingRule_1(testDataType& testData){
 
     testData.actualResult = response;
 
-    if(!errorResponseChecker(response, "WRONG_VALUE")){
+    if(!errorResponseChecker(response, "WRONG_VALUE", 0)){
         return false;
     }
     return true;
@@ -1817,9 +1998,9 @@ bool TC_UpbitSpot_setOrderRoundingRule_2(testDataType& testData){
     testData.actualResult.clear();
     std::string getCheckStr = "";
     std::string getExpectedResult = "";
-    getExpectedResult.append(R"({"success":true,"data":{"requestedApiCount":0,"limitBuyPrice":"ceil","limitBuyBaseAmount":"ceil","limitSellPrice":"ceil","limitSellBaseAmount":"ceil","marketBuyQuoteAmount":"ceil","marketSellBaseAmount":"ceil"}})").append("\n");
-    getExpectedResult.append(R"({"success":true,"data":{"requestedApiCount":0,"limitBuyPrice":"floor","limitBuyBaseAmount":"floor","limitSellPrice":"floor","limitSellBaseAmount":"floor","marketBuyQuoteAmount":"floor","marketSellBaseAmount":"floor"}})").append("\n");
-    getExpectedResult.append(R"({"success":true,"data":{"requestedApiCount":0,"limitBuyPrice":"round","limitBuyBaseAmount":"round","limitSellPrice":"round","limitSellBaseAmount":"round","marketBuyQuoteAmount":"round","marketSellBaseAmount":"round"}})").append("\n");
+    getExpectedResult.append(R"({"success":true,"requestedApiCount":0,"data":{"limitBuyPrice":"ceil","limitBuyBaseAmount":"ceil","limitSellPrice":"ceil","limitSellBaseAmount":"ceil","marketBuyQuoteAmount":"ceil","marketSellBaseAmount":"ceil"}})").append("\n");
+    getExpectedResult.append(R"({"success":true,"requestedApiCount":0,"data":{"limitBuyPrice":"floor","limitBuyBaseAmount":"floor","limitSellPrice":"floor","limitSellBaseAmount":"floor","marketBuyQuoteAmount":"floor","marketSellBaseAmount":"floor"}})").append("\n");
+    getExpectedResult.append(R"({"success":true,"requestedApiCount":0,"data":{"limitBuyPrice":"round","limitBuyBaseAmount":"round","limitSellPrice":"round","limitSellBaseAmount":"round","marketBuyQuoteAmount":"round","marketSellBaseAmount":"round"}})").append("\n");
     OneXAPI::Upbit::Spot client;
     std::vector<std::string> testValueList = {
         "ceil",
@@ -1837,7 +2018,7 @@ bool TC_UpbitSpot_setOrderRoundingRule_2(testDataType& testData){
 
     for(const auto& testValue : testValueList){
         for(const auto& testKey : testKeyList){
-            testData.expectedResult.append(R"({"success":true,"data":{"requestedApiCount":0,")" + testKey + R"(":")" + testValue + R"("}})" + "\n");
+            testData.expectedResult.append(R"({"success":true,"requestedApiCount":0,"data":{")" + testKey + R"(":")" + testValue + R"("}})" + "\n");
             std::string input = R"({")" + testKey + R"(":")" + testValue + R"("})";
             std::string response = client.setOrderRoundingRule(input);
         
@@ -1857,7 +2038,7 @@ bool TC_UpbitSpot_orderLimitBuy_1(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().orderLimitBuy";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
     testData.actualResult.clear();
     OneXAPI::Upbit::Spot client;
 
@@ -1865,7 +2046,7 @@ bool TC_UpbitSpot_orderLimitBuy_1(testDataType& testData){
         
     testData.actualResult = response;
 
-    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM", 0)){
         return false;
     }
     return true;
@@ -1937,7 +2118,7 @@ bool TC_UpbitSpot_orderLimitSell_1(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().orderLimitSell";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
     testData.actualResult.clear();
     OneXAPI::Upbit::Spot client;
 
@@ -1945,7 +2126,7 @@ bool TC_UpbitSpot_orderLimitSell_1(testDataType& testData){
         
     testData.actualResult = response;
 
-    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM", 0)){
         return false;
     }
     return true;
@@ -2017,7 +2198,7 @@ bool TC_UpbitSpot_orderMarketBuy_1(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().orderMarketBuy";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
     testData.actualResult.clear();
     OneXAPI::Upbit::Spot client;
 
@@ -2025,7 +2206,7 @@ bool TC_UpbitSpot_orderMarketBuy_1(testDataType& testData){
         
     testData.actualResult = response;
 
-    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM", 0)){
         return false;
     }
     return true;
@@ -2097,7 +2278,7 @@ bool TC_UpbitSpot_orderMarketSell_1(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().orderMarketSell";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
     testData.actualResult.clear();
     OneXAPI::Upbit::Spot client;
 
@@ -2105,7 +2286,7 @@ bool TC_UpbitSpot_orderMarketSell_1(testDataType& testData){
         
     testData.actualResult = response;
 
-    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM", 0)){
         return false;
     }
     return true;
@@ -2176,7 +2357,7 @@ bool TC_UpbitSpot_orderCancel_1(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().orderCancel";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
     testData.actualResult.clear();
     OneXAPI::Upbit::Spot client;
 
@@ -2184,7 +2365,7 @@ bool TC_UpbitSpot_orderCancel_1(testDataType& testData){
         
     testData.actualResult = response;
 
-    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM", 0)){
         return false;
     }
     return true;
@@ -2256,7 +2437,7 @@ bool TC_UpbitSpot_fetchOrderInfo_1(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchOrderInfo";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
     testData.actualResult.clear();
     OneXAPI::Upbit::Spot client;
 
@@ -2264,7 +2445,7 @@ bool TC_UpbitSpot_fetchOrderInfo_1(testDataType& testData){
         
     testData.actualResult = response;
 
-    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM", 0)){
         return false;
     }
     return true;
@@ -2338,11 +2519,26 @@ bool TC_UpbitSpot_fetchOrderInfo_4(testDataType& testData){
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchOrderInfo";
-    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["baseCurrency"] is string response["data"]["quoteCurrency"] is string
-        response["data"]["symbol"] is string response["data"]["orderId"] = orderId response["data"]["clientOrderId"] is string response["data"]["side"] = "buy" or "sell" 
-        response["data"]["originalAmount"] is string response["data"]["filledAmount"] is string response["data"]["remainingAmount"] is string response["data"]["originalPrice"] is string 
-        response["data"]["avgFillPrice"] is string response["data"]["created"] is uint64 response["data"]["feeCurrency"] is string
-        response["data"]["feeAmount"] is string response["data"]["status"] is string response["data"]["fills"] is an empty array)";
+    testData.expectedResult = R"(response["success"]:true
+response["requestedApiCount"]:1
+response["data"]["baseCurrency"] is string
+response["data"]["quoteCurrency"] is string
+response["data"]["symbol"] is string
+response["data"]["orderId"] = orderId
+response["data"]["orderId"] is string
+response["data"]["side"] = buy or sell
+response["data"]["originalAmount"] is string
+response["data"]["filledAmount"] is string
+response["data"]["remainingAmount"] is string
+response["data"]["originalPrice"] is string
+response["data"]["avgFillPrice"] is string
+response["data"]["created"] is uint64
+response["data"]["feeCurrency"] is string
+response["data"]["feeAmount"] is string
+response["data"]["status"] is string
+response["data"]["fills"] is an empty array
+
+member count of response["data"] = 16)";
     testData.actualResult.clear();
 
     OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
@@ -2372,10 +2568,13 @@ bool TC_UpbitSpot_fetchOrderInfo_4(testDataType& testData){
     OneXAPI::Internal::Util::parseJson(respDoc, response);
 
     bool result = true;
-    if(!respDoc["success"].GetBool()){
+    if(!successResponseChecker(response)){
         result = false;
     }
-    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+    else if(respDoc["requestedApiCount"].GetUint() != 1){
+        result = false;
+    }
+    else if(!memberCountChecker(respDoc["data"], 16)){
         result = false;
     }
     else if(orderId.compare(respDoc["data"]["orderId"].GetString()) != 0 || std::string("buy").compare(respDoc["data"]["side"].GetString()) != 0){
@@ -2407,11 +2606,24 @@ bool TC_UpbitSpot_fetchOpenOrders_1(testDataType& testData){
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchOpenOrders";
-    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["openOrders"][]["baseCurrency"] is string
-        response["data"]["openOrders"][]["quoteCurrency"] is string response["data"]["openOrders"][]["symbol"] is string response["data"]["openOrders"][]["orderId"] is string
-        response["data"]["openOrders"][]["side"] is string response["data"]["openOrders"][]["originalAmount"] is string response["data"]["openOrders"][]["filledAmount"] is string
-        response["data"]["openOrders"][]["remainingAmount"] is string response["data"]["openOrders"][]["originalPrice"] is string response["data"]["openOrders"][]["status"] is uint64
-        response["data"]["openOrders"][]["lockedCurrency"] is string response["data"]["openOrders"][]["lockedAmount"] is string)";
+    testData.expectedResult = R"(response["success"]:true
+response["requestedApiCount"]:1
+response["data"]["openOrders"][]["baseCurrency"] is string
+response["data"]["openOrders"][]["quoteCurrency"] is string
+response["data"]["openOrders"][]["symbol"] is string
+response["data"]["openOrders"][]["orderId"] is string
+response["data"]["openOrders"][]["side"] is string
+response["data"]["openOrders"][]["originalAmount"] is string
+response["data"]["openOrders"][]["filledAmount"] is string
+response["data"]["openOrders"][]["remainingAmount"] is string
+response["data"]["openOrders"][]["originalPrice"] is string
+response["data"]["openOrders"][]["created"] is uint64
+response["data"]["openOrders"][]["lockedCurrency"] is string
+response["data"]["openOrders"][]["lockedAmount"] is string
+
+member count of response["data"] = 1
+size of response["data"]["openOrders"] is greater than 0
+member count of response["data"]["openOrders"][] = 12)";
     testData.actualResult.clear();
 
     OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
@@ -2440,17 +2652,23 @@ bool TC_UpbitSpot_fetchOpenOrders_1(testDataType& testData){
     OneXAPI::Internal::Util::parseJson(respDoc, response);
 
     bool result = true;
-    if(!respDoc["success"].GetBool()){
+    if(!successResponseChecker(response)){
         result = false;
     }
-    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+    else if(respDoc["requestedApiCount"].GetUint() != 1){
         result = false;
     }
-    else if(respDoc["data"]["openOrders"].Size() == 0){
+    else if(!memberCountChecker(respDoc["data"], 1)){
+        result = false;
+    }
+    else if(!(respDoc["data"]["openOrders"].Size() > 0)){
         result = false;
     }
     for(const auto& openorder : respDoc["data"]["openOrders"].GetArray()){
-        if( !openorder["baseCurrency"].IsString() || !openorder["quoteCurrency"].IsString() || !openorder["symbol"].IsString() ||
+        if(!memberCountChecker(openorder, 12)){
+            result = false;
+        }
+        else if( !openorder["baseCurrency"].IsString() || !openorder["quoteCurrency"].IsString() || !openorder["symbol"].IsString() ||
             !openorder["orderId"].IsString() || !openorder["side"].IsString() || !openorder["originalAmount"].IsString() ||
             !openorder["filledAmount"].IsString() || !openorder["remainingAmount"].IsString() || !openorder["originalPrice"].IsString() ||
             !openorder["created"].IsUint64() || !openorder["lockedCurrency"].IsString() || !openorder["lockedAmount"].IsString()){
@@ -2477,11 +2695,24 @@ bool TC_UpbitSpot_fetchOpenOrders_2(testDataType& testData){
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchOpenOrders";
-    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["openOrders"][]["baseCurrency"] is string
-        response["data"]["openOrders"][]["quoteCurrency"] is string response["data"]["openOrders"][]["symbol"] is string response["data"]["openOrders"][]["orderId"] is string
-        response["data"]["openOrders"][]["side"] is string response["data"]["openOrders"][]["originalAmount"] is string response["data"]["openOrders"][]["filledAmount"] is string
-        response["data"]["openOrders"][]["remainingAmount"] is string response["data"]["openOrders"][]["originalPrice"] is string response["data"]["openOrders"][]["lockedCurrency"] is string
-        response["data"]["openOrders"][]["lockedAmount"] is string response["data"]["openOrders"][]["status"] is string)";
+    testData.expectedResult = R"(response["success"]:true
+response["requestedApiCount"]:1
+response["data"]["openOrders"][]["baseCurrency"] is string
+response["data"]["openOrders"][]["quoteCurrency"] is string
+response["data"]["openOrders"][]["symbol"] is string
+response["data"]["openOrders"][]["orderId"] is string
+response["data"]["openOrders"][]["side"] is string
+response["data"]["openOrders"][]["originalAmount"] is string
+response["data"]["openOrders"][]["filledAmount"] is string
+response["data"]["openOrders"][]["remainingAmount"] is string
+response["data"]["openOrders"][]["originalPrice"] is string
+response["data"]["openOrders"][]["created"] is uint64
+response["data"]["openOrders"][]["lockedCurrency"] is string
+response["data"]["openOrders"][]["lockedAmount"] is string
+
+member count of response["data"] = 1
+size of response["data"]["openOrders"] is greater than 0
+member count of response["data"]["openOrders"][] = 12)";
     testData.actualResult.clear();
 
     OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
@@ -2510,17 +2741,23 @@ bool TC_UpbitSpot_fetchOpenOrders_2(testDataType& testData){
     OneXAPI::Internal::Util::parseJson(respDoc, response);
 
     bool result = true;
-    if(!respDoc["success"].GetBool()){
+    if(!successResponseChecker(response)){
         result = false;
     }
-    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+    else if(respDoc["requestedApiCount"].GetUint() != 1){
         result = false;
     }
-    else if(respDoc["data"]["openOrders"].Size() == 0){
+    else if(!memberCountChecker(respDoc["data"], 1)){
+        result = false;
+    }
+    else if(!(respDoc["data"]["openOrders"].Size() > 0)){
         result = false;
     }
     for(const auto& openorder : respDoc["data"]["openOrders"].GetArray()){
-        if( !openorder["baseCurrency"].IsString() || !openorder["quoteCurrency"].IsString() || !openorder["symbol"].IsString() ||
+        if(!memberCountChecker(openorder, 12)){
+            result = false;
+        }
+        else if( !openorder["baseCurrency"].IsString() || !openorder["quoteCurrency"].IsString() || !openorder["symbol"].IsString() ||
             !openorder["orderId"].IsString() || !openorder["side"].IsString() || !openorder["originalAmount"].IsString() ||
             !openorder["filledAmount"].IsString() || !openorder["remainingAmount"].IsString() || !openorder["originalPrice"].IsString() ||
             !openorder["created"].IsUint64() || !openorder["lockedCurrency"].IsString() || !openorder["lockedAmount"].IsString()){
@@ -2546,7 +2783,7 @@ bool TC_UpbitSpot_fetchTradingFee_1(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchTradingFee";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
     testData.actualResult.clear();
     OneXAPI::Upbit::Spot client;
 
@@ -2554,7 +2791,7 @@ bool TC_UpbitSpot_fetchTradingFee_1(testDataType& testData){
         
     testData.actualResult = response;
 
-    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM", 0)){
         return false;
     }
     return true;
@@ -2566,7 +2803,7 @@ bool TC_UpbitSpot_fetchTradingFee_2(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchTradingFee";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":1,"fees":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC","makerFee":"0.0005","takerFee":"0.0005"}]}})";
+    testData.expectedResult = R"({"success":true,"requestedApiCount":1,"data":{"fees":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC","makerFee":"0.0005","takerFee":"0.0005"}]}})";
 
     OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
     std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"KRw"})";
@@ -2581,7 +2818,7 @@ bool TC_UpbitSpot_fetchTradingFee_2(testDataType& testData){
     TC_END
 }
 
-static const std::string getCandleIntervalCandidatesExpectedResult = R"({"success":true,"data":{"requestedApiCount":0,"intervals":["10min","15min","1day","1hour","1min","1month","1week","30min","3min","4hour","5min"]}})";
+static const std::string getCandleIntervalCandidatesExpectedResult = R"({"success":true,"requestedApiCount":0,"data":{"intervals":["10min","15min","1day","1hour","1min","1month","1week","30min","3min","4hour","5min"]}})";
 
 bool TC_UpbitSpot_getCandleIntervalCandidates_1(testDataType& testData){
     TC_BEGIN
@@ -2625,8 +2862,15 @@ bool TC_UpbitSpot_fetchMarkets_1(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchMarkets";
-    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["markets"][]["baseCurrency"]:string
-        response["data"]["markets"][]["quoteCurrency"]:string response["data"]["markets"][]["symbol"]:string)";
+    testData.expectedResult = R"(response["success"]:true
+response["requestedApiCount"]:1
+response["data"]["markets"][]["baseCurrency"]:string
+response["data"]["markets"][]["quoteCurrency"]:string
+response["data"]["markets"][]["symbol"]:string
+
+member count of response["data"] = 1
+size of response["data"]["markets"] is greater than 10
+member count of response["data"]["markets"][] = 3)";
 
     OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
 
@@ -2635,17 +2879,23 @@ bool TC_UpbitSpot_fetchMarkets_1(testDataType& testData){
     rapidjson::Document respDoc;
     OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-    if(!respDoc["success"].GetBool()){
+    if(!successResponseChecker(response)){
         return false;
     }
-    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+    else if(respDoc["requestedApiCount"].GetUint() != 1){
         return false;
     }
-    else if(respDoc["data"]["markets"].Size() == 0){
+    else if(!memberCountChecker(respDoc["data"], 1)){
+        return false;
+    }
+    else if(!(respDoc["data"]["markets"].Size() > 10)){
         return false;
     }
 
     for(const auto& market : respDoc["data"]["markets"].GetArray()){
+        if(!memberCountChecker(market, 3)){
+            return false;
+        }
         if(!market["baseCurrency"].IsString() || !market["quoteCurrency"].IsString() || !market["symbol"].IsString()){
             return false;
         }
@@ -2661,8 +2911,15 @@ bool TC_UpbitSpot_fetchMarkets_2(testDataType& testData){
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchMarkets";
-    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:1 response["data"]["markets"][]["baseCurrency"]:string
-        response["data"]["markets"][]["quoteCurrency"]:string response["data"]["markets"][]["symbol"]:string)";
+    testData.expectedResult = R"(response["success"]:true
+response["requestedApiCount"]:1
+response["data"]["markets"][]["baseCurrency"]:string
+response["data"]["markets"][]["quoteCurrency"]:string
+response["data"]["markets"][]["symbol"]:string
+
+member count of response["data"] = 1
+member count of response["data"]["markets"][] = 3
+size of response["data"]["markets"] is 1)";
 
     OneXAPI::Upbit::Spot client(std::string(R"({"accessKey":")") + UPBIT_ACCESS_KEY + R"(", "secretKey":")" + UPBIT_SECRET_KEY + R"("})");
 
@@ -2671,10 +2928,13 @@ bool TC_UpbitSpot_fetchMarkets_2(testDataType& testData){
     rapidjson::Document respDoc;
     OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-    if(!respDoc["success"].GetBool()){
+    if(!successResponseChecker(response)){
         return false;
     }
-    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+    else if(respDoc["requestedApiCount"].GetUint() != 1){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"], 1)){
         return false;
     }
     else if(respDoc["data"]["markets"].Size() != 1){
@@ -2682,6 +2942,9 @@ bool TC_UpbitSpot_fetchMarkets_2(testDataType& testData){
     }
 
     for(const auto& market : respDoc["data"]["markets"].GetArray()){
+        if(!memberCountChecker(market, 3)){
+            return false;
+        }
         if(!market["baseCurrency"].IsString() || !market["quoteCurrency"].IsString() || !market["symbol"].IsString()){
             return false;
         }
@@ -2696,7 +2959,7 @@ bool TC_UpbitSpot_fetchTicker_1(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchTicker";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
     testData.actualResult.clear();
     OneXAPI::Upbit::Spot client;
 
@@ -2704,7 +2967,7 @@ bool TC_UpbitSpot_fetchTicker_1(testDataType& testData){
         
     testData.actualResult = response;
 
-    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM", 0)){
         return false;
     }
     return true;
@@ -2717,10 +2980,21 @@ bool TC_UpbitSpot_fetchTicker_2(testDataType& testData){
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchTicker";
-    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"] = 1 response["data"]["baseCurrency"] = "BTC" response["data"]["quoteCurrency"] = "KRW"
-        response["data"]["symbol"] = "KRW-BTC" response["data"]["fetchType"] = "rest" response["data"]["openTime"]:uint64 response["data"]["openPrice"]:string
-        response["data"]["closePrice"]:string response["data"]["lowPrice"]:string response["data"]["highPrice"]:string response["data"]["baseVolume"]:string
-        response["data"]["quoteVolume"]:string)";
+    testData.expectedResult = R"(response["success"]:true
+response["requestedApiCount"] = 1
+response["data"]["baseCurrency"] = "BTC"
+response["data"]["quoteCurrency"] = "KRW"
+response["data"]["symbol"] = "KRW-BTC"
+response["data"]["fetchType"] = "rest"
+response["data"]["openTime"]:uint64
+response["data"]["openPrice"]:string
+response["data"]["closePrice"]:string
+response["data"]["lowPrice"]:string
+response["data"]["highPrice"]:string
+response["data"]["baseVolume"]:string
+response["data"]["quoteVolume"]:string
+
+member count of response["data"] = 11)";
 
     OneXAPI::Upbit::Spot client;
 
@@ -2729,10 +3003,13 @@ bool TC_UpbitSpot_fetchTicker_2(testDataType& testData){
     rapidjson::Document respDoc;
     OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-    if(!respDoc["success"].GetBool()){
+    if(!successResponseChecker(response)){
         return false;
     }
-    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+    else if(respDoc["requestedApiCount"].GetUint() != 1){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"], 11)){
         return false;
     }
     else if(std::string("BTC").compare(respDoc["data"]["baseCurrency"].GetString()) != 0){
@@ -2761,10 +3038,21 @@ bool TC_UpbitSpot_fetchTicker_3(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchTicker";
-    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"] = 1 response["data"]["baseCurrency"] = "BTC" response["data"]["quoteCurrency"] = "KRW"
-        response["data"]["symbol"] = "KRW-BTC" response["data"]["fetchType"] = "orderbook" response["data"]["openTime"]:uint64 response["data"]["openPrice"]:string
-        response["data"]["closePrice"]:string response["data"]["lowPrice"]:string response["data"]["highPrice"]:string response["data"]["baseVolume"]:string
-        response["data"]["quoteVolume"]:string)";
+    testData.expectedResult = R"(response["success"]:true
+response["requestedApiCount"] = 0
+response["data"]["baseCurrency"] = "BTC"
+response["data"]["quoteCurrency"] = "KRW"
+response["data"]["symbol"] = "KRW-BTC"
+response["data"]["fetchType"] = "websocket"
+response["data"]["openTime"]:uint64
+response["data"]["openPrice"]:string
+response["data"]["closePrice"]:string
+response["data"]["lowPrice"]:string
+response["data"]["highPrice"]:string
+response["data"]["baseVolume"]:string
+response["data"]["quoteVolume"]:string
+
+member count of response["data"] = 11)";
 
     OneXAPI::Upbit::Spot client;
 
@@ -2774,10 +3062,13 @@ bool TC_UpbitSpot_fetchTicker_3(testDataType& testData){
     rapidjson::Document respDoc;
     OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-    if(!respDoc["success"].GetBool()){
+    if(!successResponseChecker(response)){
         return false;
     }
-    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 0){
+    else if(respDoc["requestedApiCount"].GetUint() != 0){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"], 11)){
         return false;
     }
     else if(std::string("BTC").compare(respDoc["data"]["baseCurrency"].GetString()) != 0){
@@ -2807,10 +3098,21 @@ bool TC_UpbitSpot_fetchTicker_4(testDataType& testData){
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchTicker";
-    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"] = 1 response["data"]["baseCurrency"] = "BTC" response["data"]["quoteCurrency"] = "KRW"
-        response["data"]["symbol"] = "KRW-BTC" response["data"]["fetchType"] = "rest" response["data"]["openTime"]:uint64 response["data"]["openPrice"]:string
-        response["data"]["closePrice"]:string response["data"]["lowPrice"]:string response["data"]["highPrice"]:string response["data"]["baseVolume"]:string
-        response["data"]["quoteVolume"]:string)";
+    testData.expectedResult = R"(response["success"]:true
+response["requestedApiCount"] = 1
+response["data"]["baseCurrency"] = "BTC"
+response["data"]["quoteCurrency"] = "KRW"
+response["data"]["symbol"] = "KRW-BTC"
+response["data"]["fetchType"] = "rest"
+response["data"]["openTime"]:uint64
+response["data"]["openPrice"]:string
+response["data"]["closePrice"]:string
+response["data"]["lowPrice"]:string
+response["data"]["highPrice"]:string
+response["data"]["baseVolume"]:string
+response["data"]["quoteVolume"]:string
+
+member count of response["data"] = 11)";
 
     OneXAPI::Upbit::Spot client;
 
@@ -2820,10 +3122,13 @@ bool TC_UpbitSpot_fetchTicker_4(testDataType& testData){
     rapidjson::Document respDoc;
     OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-    if(!respDoc["success"].GetBool()){
+    if(!successResponseChecker(response)){
         return false;
     }
-    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+    else if(respDoc["requestedApiCount"].GetUint() != 1){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"], 11)){
         return false;
     }
     else if(std::string("BTC").compare(respDoc["data"]["baseCurrency"].GetString()) != 0){
@@ -2852,7 +3157,7 @@ bool TC_UpbitSpot_fetchOrderbook_1(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchOrderbook";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
     testData.actualResult.clear();
     OneXAPI::Upbit::Spot client;
 
@@ -2860,7 +3165,7 @@ bool TC_UpbitSpot_fetchOrderbook_1(testDataType& testData){
         
     testData.actualResult = response;
 
-    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM", 0)){
         return false;
     }
     return true;
@@ -2873,9 +3178,21 @@ bool TC_UpbitSpot_fetchOrderbook_2(testDataType& testData){
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchOrderbook";
-    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"] = 1 response["data"]["baseCurrency"] = "BTC" response["data"]["quoteCurrency"] = "KRW"
-        response["data"]["symbol"] = "KRW-BTC" response["data"]["fetchType"] = "rest" response["data"]["timestamp"]:uint64 response["data"]["bids"][]["price"]:string
-        response["data"]["bids"][]["size"]:string response["data"]["asks"][]["price"]:string response["data"]["asks"][]["size"]:string)";
+    testData.expectedResult = R"(response["success"]:true
+response["requestedApiCount"] = 1
+response["data"]["baseCurrency"] = "BTC"
+response["data"]["quoteCurrency"] = "KRW"
+response["data"]["symbol"] = "KRW-BTC"
+response["data"]["fetchType"] = "rest"
+response["data"]["timestamp"]:uint64
+response["data"]["bids"][]["price"]:string
+response["data"]["bids"][]["size"]:string
+response["data"]["asks"][]["price"]:string
+response["data"]["asks"][]["size"]:string
+
+member count of response["data"] = 7
+member count of response["data"]["bids"][] = 2
+member count of response["data"]["asks"][] = 2)";
 
     OneXAPI::Upbit::Spot client;
 
@@ -2884,10 +3201,13 @@ bool TC_UpbitSpot_fetchOrderbook_2(testDataType& testData){
     rapidjson::Document respDoc;
     OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-    if(!respDoc["success"].GetBool()){
+    if(!successResponseChecker(response)){
         return false;
     }
-    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+    else if(respDoc["requestedApiCount"].GetUint() != 1){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"], 7)){
         return false;
     }
     else if(std::string("BTC").compare(respDoc["data"]["baseCurrency"].GetString()) != 0){
@@ -2909,12 +3229,18 @@ bool TC_UpbitSpot_fetchOrderbook_2(testDataType& testData){
         return false;
     }
     for(const auto& bid : respDoc["data"]["bids"].GetArray()){
-        if(!bid["price"].IsString() || !bid["size"].IsString()){
+        if(!memberCountChecker(bid, 2)){
+            return false;
+        }
+        else if(!bid["price"].IsString() || !bid["size"].IsString()){
             return false;
         }
     }
     for(const auto& ask : respDoc["data"]["asks"].GetArray()){
-        if(!ask["price"].IsString() || !ask["size"].IsString()){
+        if(!memberCountChecker(ask, 2)){
+            return false;
+        }
+        else if(!ask["price"].IsString() || !ask["size"].IsString()){
             return false;
         }
     }
@@ -2928,9 +3254,21 @@ bool TC_UpbitSpot_fetchOrderbook_3(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchOrderbook";
-    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"] = 1 response["data"]["baseCurrency"] = "BTC" response["data"]["quoteCurrency"] = "KRW"
-        response["data"]["symbol"] = "KRW-BTC" response["data"]["fetchType"] = "rest" response["data"]["timestamp"]:uint64 response["data"]["bids"][]["price"]:string
-        response["data"]["bids"][]["size"]:string response["data"]["asks"][]["price"]:string response["data"]["asks"][]["size"]:string)";
+    testData.expectedResult = R"(response["success"]:true
+response["requestedApiCount"] = 0
+response["data"]["baseCurrency"] = "BTC"
+response["data"]["quoteCurrency"] = "KRW"
+response["data"]["symbol"] = "KRW-BTC"
+response["data"]["fetchType"] = "websocket"
+response["data"]["timestamp"]:uint64
+response["data"]["bids"][]["price"]:string
+response["data"]["bids"][]["size"]:string
+response["data"]["asks"][]["price"]:string
+response["data"]["asks"][]["size"]:string
+
+member count of response["data"] = 7
+member count of response["data"]["bids"][] = 2
+member count of response["data"]["asks"][] = 2)";
 
     OneXAPI::Upbit::Spot client;
 
@@ -2940,10 +3278,13 @@ bool TC_UpbitSpot_fetchOrderbook_3(testDataType& testData){
     rapidjson::Document respDoc;
     OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-    if(!respDoc["success"].GetBool()){
+    if(!successResponseChecker(response)){
         return false;
     }
-    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 0){
+    else if(respDoc["requestedApiCount"].GetUint() != 0){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"], 7)){
         return false;
     }
     else if(std::string("BTC").compare(respDoc["data"]["baseCurrency"].GetString()) != 0){
@@ -2965,12 +3306,18 @@ bool TC_UpbitSpot_fetchOrderbook_3(testDataType& testData){
         return false;
     }
     for(const auto& bid : respDoc["data"]["bids"].GetArray()){
-        if(!bid["price"].IsString() || !bid["size"].IsString()){
+        if(!memberCountChecker(bid, 2)){
+            return false;
+        }
+        else if(!bid["price"].IsString() || !bid["size"].IsString()){
             return false;
         }
     }
     for(const auto& ask : respDoc["data"]["asks"].GetArray()){
-        if(!ask["price"].IsString() || !ask["size"].IsString()){
+        if(!memberCountChecker(ask, 2)){
+            return false;
+        }
+        else if(!ask["price"].IsString() || !ask["size"].IsString()){
             return false;
         }
     }
@@ -2985,9 +3332,21 @@ bool TC_UpbitSpot_fetchOrderbook_4(testDataType& testData){
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchOrderbook";
-    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"] = 1 response["data"]["baseCurrency"] = "BTC" response["data"]["quoteCurrency"] = "KRW"
-        response["data"]["symbol"] = "KRW-BTC" response["data"]["fetchType"] = "rest" response["data"]["timestamp"]:uint64 response["data"]["bids"][]["price"]:string
-        response["data"]["bids"][]["size"]:string response["data"]["asks"][]["price"]:string response["data"]["asks"][]["size"]:string)";
+    testData.expectedResult = R"(response["success"]:true
+response["requestedApiCount"] = 1
+response["data"]["baseCurrency"] = "BTC"
+response["data"]["quoteCurrency"] = "KRW"
+response["data"]["symbol"] = "KRW-BTC"
+response["data"]["fetchType"] = "rest"
+response["data"]["timestamp"]:uint64
+response["data"]["bids"][]["price"]:string
+response["data"]["bids"][]["size"]:string
+response["data"]["asks"][]["price"]:string
+response["data"]["asks"][]["size"]:string
+
+member count of response["data"] = 7
+member count of response["data"]["bids"][] = 2
+member count of response["data"]["asks"][] = 2)";
 
     OneXAPI::Upbit::Spot client;
 
@@ -2997,10 +3356,13 @@ bool TC_UpbitSpot_fetchOrderbook_4(testDataType& testData){
     rapidjson::Document respDoc;
     OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-    if(!respDoc["success"].GetBool()){
+    if(!successResponseChecker(response)){
         return false;
     }
-    else if(respDoc["data"]["requestedApiCount"].GetUint64() != 1){
+    else if(respDoc["requestedApiCount"].GetUint() != 1){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"], 7)){
         return false;
     }
     else if(std::string("BTC").compare(respDoc["data"]["baseCurrency"].GetString()) != 0){
@@ -3022,12 +3384,18 @@ bool TC_UpbitSpot_fetchOrderbook_4(testDataType& testData){
         return false;
     }
     for(const auto& bid : respDoc["data"]["bids"].GetArray()){
-        if(!bid["price"].IsString() || !bid["size"].IsString()){
+        if(!memberCountChecker(bid, 2)){
+            return false;
+        }
+        else if(!bid["price"].IsString() || !bid["size"].IsString()){
             return false;
         }
     }
     for(const auto& ask : respDoc["data"]["asks"].GetArray()){
-        if(!ask["price"].IsString() || !ask["size"].IsString()){
+        if(!memberCountChecker(ask, 2)){
+            return false;
+        }
+        else if(!ask["price"].IsString() || !ask["size"].IsString()){
             return false;
         }
     }
@@ -3041,7 +3409,7 @@ bool TC_UpbitSpot_fetchCandleHistory_1(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchCandleHistory";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
     testData.actualResult.clear();
     OneXAPI::Upbit::Spot client;
 
@@ -3049,7 +3417,7 @@ bool TC_UpbitSpot_fetchCandleHistory_1(testDataType& testData){
         
     testData.actualResult = response;
 
-    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+    if(!errorResponseChecker(response, "NOT_ENOUGH_PARAM", 0)){
         return false;
     }
     return true;
@@ -3062,9 +3430,22 @@ bool TC_UpbitSpot_fetchCandleHistory_2(testDataType& testData){
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchCandleHistory";
-    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:uint64 response["data"]["baseCurrency"]:string response["data"]["quoteCurrency"]:string
-        response["data"]["symbol"]:string response["data"]["candles"][]["timestamp"]:uint64 response["data"]["candles"][]["openPrice"]:string response["data"]["candles"][]["closePrice"]:string
-        response["data"]["candles"][]["highPrice"]:string response["data"]["candles"][]["lowPrice"]:string response["data"]["candles"][]["baseVolume"]:string response["data"]["candles"][]["quoteVolume"]:string)";
+    testData.expectedResult = R"(response["success"]:true
+response["requestedApiCount"]:uint64
+response["data"]["baseCurrency"]:string
+response["data"]["quoteCurrency"]:string
+response["data"]["symbol"]:string
+response["data"]["candles"][]["timestamp"]:uint64
+response["data"]["candles"][]["openPrice"]:string
+response["data"]["candles"][]["closePrice"]:string
+response["data"]["candles"][]["highPrice"]:string
+response["data"]["candles"][]["lowPrice"]:string
+response["data"]["candles"][]["baseVolume"]:string
+response["data"]["candles"][]["quoteVolume"]:string
+
+member count of response["data"] = 4
+member count of response["data"]["candles"][] = 7
+size of response["data"]["candles"][] is greater than 50)";
 
     OneXAPI::Upbit::Spot client;
 
@@ -3074,17 +3455,26 @@ bool TC_UpbitSpot_fetchCandleHistory_2(testDataType& testData){
     rapidjson::Document respDoc;
     OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-    if(!respDoc["success"].GetBool()){
+    if(!successResponseChecker(response)){
         return false;
     }
-    else if(!respDoc["data"]["requestedApiCount"].IsUint64() || !respDoc["data"]["baseCurrency"].IsString() || 
+    else if(!respDoc["requestedApiCount"].IsUint()){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"], 4)){
+        return false;
+    }
+    else if(!respDoc["data"]["baseCurrency"].IsString() || 
         !respDoc["data"]["quoteCurrency"].IsString() || !respDoc["data"]["symbol"].IsString()){
         return false;
     }
-    else if(respDoc["data"]["candles"].Size() == 0){
+    else if(!(respDoc["data"]["candles"].Size() > 50)){
         return false;
     }
     for(const auto& candle : respDoc["data"]["candles"].GetArray()){
+        if(!memberCountChecker(candle, 7)){
+            return false;
+        }
         if( !candle["timestamp"].IsUint64() || !candle["openPrice"].IsString() || !candle["closePrice"].IsString() || !candle["highPrice"].IsString() ||
             !candle["lowPrice"].IsString() || !candle["baseVolume"].IsString() || !candle["quoteVolume"].IsString()){
             return false;
@@ -3101,9 +3491,22 @@ bool TC_UpbitSpot_fetchCandleHistory_3(testDataType& testData){
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     testData.testSubject = "OneXAPI::Upbit::Spot().fetchCandleHistory";
-    testData.expectedResult = R"(response["success"]:true response["data"]["requestedApiCount"]:uint64 response["data"]["baseCurrency"]:string response["data"]["quoteCurrency"]:string
-        response["data"]["symbol"]:string response["data"]["candles"][]["timestamp"]:uint64 response["data"]["candles"][]["openPrice"]:string response["data"]["candles"][]["closePrice"]:string
-        response["data"]["candles"][]["highPrice"]:string response["data"]["candles"][]["lowPrice"]:string response["data"]["candles"][]["baseVolume"]:string response["data"]["candles"][]["quoteVolume"]:string)";
+    testData.expectedResult = R"(response["success"]:true
+response["requestedApiCount"]:uint64
+response["data"]["baseCurrency"]:string
+response["data"]["quoteCurrency"]:string
+response["data"]["symbol"]:string
+response["data"]["candles"][]["timestamp"]:uint64
+response["data"]["candles"][]["openPrice"]:string
+response["data"]["candles"][]["closePrice"]:string
+response["data"]["candles"][]["highPrice"]:string
+response["data"]["candles"][]["lowPrice"]:string
+response["data"]["candles"][]["baseVolume"]:string
+response["data"]["candles"][]["quoteVolume"]:string
+
+member count of response["data"] = 4
+member count of response["data"]["candles"][] = 7
+size of response["data"]["candles"][] is greater than 50)";
 
     OneXAPI::Upbit::Spot client;
 
@@ -3112,17 +3515,26 @@ bool TC_UpbitSpot_fetchCandleHistory_3(testDataType& testData){
     rapidjson::Document respDoc;
     OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-    if(!respDoc["success"].GetBool()){
+    if(!successResponseChecker(response)){
         return false;
     }
-    else if(!respDoc["data"]["requestedApiCount"].IsUint64() || !respDoc["data"]["baseCurrency"].IsString() || 
+    else if(!respDoc["requestedApiCount"].IsUint()){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"], 4)){
+        return false;
+    }
+    else if(!respDoc["data"]["baseCurrency"].IsString() || 
         !respDoc["data"]["quoteCurrency"].IsString() || !respDoc["data"]["symbol"].IsString()){
         return false;
     }
-    else if(respDoc["data"]["candles"].Size() == 0){
+    else if(!(respDoc["data"]["candles"].Size() > 50)){
         return false;
     }
     for(const auto& candle : respDoc["data"]["candles"].GetArray()){
+        if(!memberCountChecker(candle, 7)){
+            return false;
+        }
         if( !candle["timestamp"].IsUint64() || !candle["openPrice"].IsString() || !candle["closePrice"].IsString() || !candle["highPrice"].IsString() ||
             !candle["lowPrice"].IsString() || !candle["baseVolume"].IsString() || !candle["quoteVolume"].IsString()){
             return false;
@@ -3134,7 +3546,7 @@ bool TC_UpbitSpot_fetchCandleHistory_3(testDataType& testData){
     TC_END
 }
 
-static const std::string getSubscribingTickersExpectedResult = R"({"success":true,"data":{"tickers":[]}})";
+static const std::string getSubscribingTickersExpectedResult = R"({"success":true,"requestedApiCount":0,"data":{"tickers":[]}})";
 
 bool TC_UpbitSpot_getSubscribingTickers_1(testDataType& testData){
     TC_BEGIN
@@ -3196,7 +3608,7 @@ bool TC_UpbitSpot_getSubscribingTickers_4(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingTickers";
-    testData.expectedResult = getSubscribingTickersExpectedResult;
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
 
     OneXAPI::Upbit::Spot client;
     std::string input = "Bqbqb@";
@@ -3204,9 +3616,10 @@ bool TC_UpbitSpot_getSubscribingTickers_4(testDataType& testData){
 
     testData.actualResult = response;
 
-    if(response.compare(testData.expectedResult) == 0){
-        return true;
+    if(!errorResponseChecker(response, "JSON_PARSING_ERROR", 0)){
+        return false;
     }
+    return true;
 
     TC_END
 }
@@ -3215,7 +3628,7 @@ bool TC_UpbitSpot_getSubscribingTickers_5(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingTickers";
-    testData.expectedResult = R"({"success":true,"data":{"tickers":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"BTC","symbol":"BTC-ETH"}]}})";
+    testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"tickers":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"BTC","symbol":"BTC-ETH"}]}})";
 
     OneXAPI::Upbit::Spot client;
     client.subscribeTicker(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"BTC"}]})");
@@ -3225,12 +3638,6 @@ bool TC_UpbitSpot_getSubscribingTickers_5(testDataType& testData){
 
     client.unsubscribeTicker(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"BTC"}],requestTimeout:0})");
 
-    testDataType tempData;
-
-    if(!TC_UpbitSpot_getSubscribingTickers_1(tempData)){
-        LOGGER.critical(__func__ + std::string(": Websocket is alive"));
-    }
-
     if(response.compare(testData.expectedResult) == 0){
         return true;
     }
@@ -3238,7 +3645,7 @@ bool TC_UpbitSpot_getSubscribingTickers_5(testDataType& testData){
     TC_END
 }
 
-static const std::string getSubscribingOrderbooksExpectedResult = R"({"success":true,"data":{"orderbooks":[]}})";
+static const std::string getSubscribingOrderbooksExpectedResult = R"({"success":true,"requestedApiCount":0,"data":{"orderbooks":[]}})";
 
 bool TC_UpbitSpot_getSubscribingOrderbooks_1(testDataType& testData){
     TC_BEGIN
@@ -3308,9 +3715,10 @@ bool TC_UpbitSpot_getSubscribingOrderbooks_4(testDataType& testData){
 
     testData.actualResult = response;
 
-    if(response.compare(testData.expectedResult) == 0){
-        return true;
+    if(!errorResponseChecker(response, "JSON_PARSING_ERROR", 0)){
+        return false;
     }
+    return true;
 
     TC_END
 }
@@ -3319,7 +3727,7 @@ bool TC_UpbitSpot_getSubscribingOrderbooks_5(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingOrderbooks";
-    testData.expectedResult = R"({"success":true,"data":{"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"BTC","symbol":"BTC-ETH"}]}})";
+    testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"BTC","symbol":"BTC-ETH"}]}})";
 
     OneXAPI::Upbit::Spot client;
     client.subscribeOrderbook(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"BTC"}]})");
@@ -3340,15 +3748,14 @@ bool TC_UpbitSpot_subscribeTicker_1(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().subscribeTicker";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
 
     OneXAPI::Upbit::Spot client;
-    std::string input = "";
-    std::string response = client.subscribeTicker(input);
+    std::string response = client.subscribeTicker();
 
     testData.actualResult = response;
 
-    if(errorResponseChecker(response, "JSON_PARSING_ERROR")){
+    if(errorResponseChecker(response, "NOT_ENOUGH_PARAM", 0)){
         return true;
     }
 
@@ -3359,15 +3766,15 @@ bool TC_UpbitSpot_subscribeTicker_2(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().subscribeTicker";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
 
     OneXAPI::Upbit::Spot client;
-    std::string input = "{}";
+    std::string input = "";
     std::string response = client.subscribeTicker(input);
 
     testData.actualResult = response;
 
-    if(errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+    if(errorResponseChecker(response, "NOT_ENOUGH_PARAM", 0)){
         return true;
     }
 
@@ -3378,15 +3785,15 @@ bool TC_UpbitSpot_subscribeTicker_3(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().subscribeTicker";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
 
     OneXAPI::Upbit::Spot client;
-    std::string input = "Bqbqb@";
+    std::string input = "{}";
     std::string response = client.subscribeTicker(input);
 
     testData.actualResult = response;
 
-    if(errorResponseChecker(response, "JSON_PARSING_ERROR")){
+    if(errorResponseChecker(response, "NOT_ENOUGH_PARAM", 0)){
         return true;
     }
 
@@ -3394,6 +3801,25 @@ bool TC_UpbitSpot_subscribeTicker_3(testDataType& testData){
 }
 
 bool TC_UpbitSpot_subscribeTicker_4(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeTicker";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
+
+    OneXAPI::Upbit::Spot client;
+    std::string input = "Bqbqb@";
+    std::string response = client.subscribeTicker(input);
+
+    testData.actualResult = response;
+
+    if(errorResponseChecker(response, "JSON_PARSING_ERROR", 0)){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_UpbitSpot_subscribeTicker_5(testDataType& testData){
     TC_BEGIN
     testData.testSubject = "OneXAPI::Upbit::Spot().subscribeTicker";
 
@@ -3403,81 +3829,20 @@ bool TC_UpbitSpot_subscribeTicker_4(testDataType& testData){
         std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"}]})";
         std::string response = client.subscribeTicker(input);
 
-        testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"}],"subscribeFailed":[]}})";
+        testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"}],"subscribeFailed":[]}})";
         testData.actualResult = response;
-
-        if(response.compare(testData.expectedResult) != 0){
-            return false;
-        }
 
         response = client.getSubscribingTickers();
 
-        testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingTickers";
-        testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"tickers":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"}]}})";
-        testData.actualResult = response;
+        testData.expectedResult.append("\n").append(R"({"success":true,"requestedApiCount":0,"data":{"tickers":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"}]}})");
+        testData.actualResult.append("\n").append(response);
 
-        if(response.compare(testData.expectedResult) != 0){
+        if(testData.actualResult.compare(testData.expectedResult) != 0){
             return false;
         }
     }
 
     return true;
-    TC_END
-}
-
-bool TC_UpbitSpot_subscribeTicker_5(testDataType& testData){
-    TC_BEGIN
-
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeTicker";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"BTC","symbol":"BTC-ETH"}],"subscribeFailed":[]}})";
-
-    OneXAPI::Upbit::Spot client;
-    std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"BTC"}]})";
-    std::string response = client.subscribeTicker(input);
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingTickers";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"tickers":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"BTC","symbol":"BTC-ETH"}]}})";
-    response = client.getSubscribingTickers();
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeTicker";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"subscribed":[{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}],"subscribeFailed":[]}})";
-    input = R"({"market":[{"baseCurrency":"ETH","quoteCurrency":"KRW"}], "reconnect": true})";
-    response = client.subscribeTicker(input);
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) != 0){
-        client.unsubscribeTicker(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}],"requestTimeout":0})");
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingTickers";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"tickers":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"BTC","symbol":"BTC-ETH"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})";
-    response = client.getSubscribingTickers();
-
-    testData.actualResult = response;
-    
-    client.unsubscribeTicker(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}],"requestTimeout":0})");
-    
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    return true;
-
     TC_END
 }
 
@@ -3486,83 +3851,34 @@ bool TC_UpbitSpot_subscribeTicker_6(testDataType& testData){
 
     std::this_thread::sleep_for(std::chrono::seconds(1));
     testData.testSubject = "OneXAPI::Upbit::Spot().subscribeTicker";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,})";
+    testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"BTC","symbol":"BTC-ETH"}],"subscribeFailed":[]}})";
 
     OneXAPI::Upbit::Spot client;
-    std::vector<std::string> allCurrencys = {"BTC", "ETH", "ETC", "BCH", "OMG", "POWR", "REP", "SNT", "STORJ", "MTL", "TIX", "LTC", "QTUM", "DGD", "XRP", 
-    "MYST", "BTG", "WAVES", "SNGLS", "XAUR", "MER", "EDG", "AMP", "MAID", "AGRS", "FUN", "ANT", "MANA", "SRN", "WAXP", "ZRX", "VEE", "STEEM", "SBD", 
-    "BCPT", "BAT", "SALT", "BNT", "MCO", "RCN", "CFI", "HMQ", "WINGS", "NMR", "GUP", "SWT", "DNT", "GLM", "CVC", "PAY", "RLC", "ENG", "UKG", "VIB", 
-    "ADX", "QRL", "GNO", "PTOY", "ADT", "STRAX", "ADA", "TRX", "1ST", "LRC", "NEO", "XMR", "PIVX", "UP", "STMX", "ICX", "EOS", "DMT", "DASH", "ARK", 
-    "ZEC", "ARDR", "IGNIS", "XEM", "KMD", "GRS", "EMC2", "VTC", "LSK", "LUN", "POLY", "XLM", "XVG", "RDD", "EMC", "PRO", "SC", "GTO", "ONT", "ZIL", 
-    "BLT", "DCR", "AID", "NGC", "OCN", "LOOM", "CMCT", "NXT", "BKX", "MFT", "IOST", "RFR", "IQ", "CLOAK", "PART", "DOGE", "IOP", "VIA", "NAV", "IOTA", 
-    "OST", "BFT", "SYS", "ZEN", "OK", "UPP", "ENJ", "MET", "HYDRO", "CRW", "DTA", "EDR", "BOXX", "GAS", "ONG", "IHT", "MED", "TX", "BLOCK", "RVN", "ION", 
-    "BITB", "BSD", "FTC", "RVR", "LBC", "GAME", "ELF", "PMA", "KNC", "PAL", "UNB", "MOC", "PUNDIX", "SPC", "NXS", "SYNX", "KORE", "DYN", "VAL", "DGB", 
-    "SIB", "VRC", "MEME", "EXCL", "BAY", "SHIFT", "MONA", "BLK", "XHV", "TUBE", "UBQ", "GO", "EXP", "XZC", "MUE", "NBT", "BURST", "DCT", "SPHR", "SLS", 
-    "XEL", "GBYTE", "XDN", "FCT", "BSV", "XNK", "THETA", "NCASH", "JNT", "LBA", "DENT", "DRGN", "QKC", "CPT", "BTM", "BTT", "VITE", "IOTX", "BTU", "SOLVE", 
-    "NKN", "CTXC", "QNT", "STRK", "META", "MOBI", "SERV", "ANKR", "COSM", "CRO", "TFUEL", "BTS", "FSN", "MARO", "ORBS", "HST", "AERGO", "PI", "VBK", "ATOM", 
-    "TT", "ACN", "CRE", "VDX", "STPT", "MBL", "LAMB", "LUNC", "DAI", "MKR", "BORA", "TSHP", "HBAR", "WIN", "MLK", "PXL", "VET", "CHZ", "VTHO", "XPR", "FX", 
-    "OGN", "ITAM", "XTZ", "OBSR", "DKA", "AHT", "RINGX", "GOM2", "LINK", "JST", "KAVA", "RVC", "PCI", "TON", "CTSI", "DOT", "DAD", "CHR", "COMP", "SXP", 
-    "HUNT", "ONIT", "CRV", "ALGO", "RSR", "OXT", "PLA", "SAND", "SUN", "SRM", "QTCON", "MVL", "REI", "AQT", "AXS", "FCT2", "SSX", "FIL", "XEC", "UNI", "INJ", 
-    "BASIC", "PROM", "CBK", "FOR", "ONX", "MIR", "BFC", "LINA", "HUM", "PICA", "CELO", "STX", "LZM", "DON", "NEAR", "AUCTION", "DAWN", "FLOW", "GRT", "SNX", 
-    "XYM", "APENFT", "SGB", "SOL", "MATIC", "NU", "QI", "1INCH", "AAVE", "MASK", "AUDIO", "BOBA", "YGG", "GTC", "OCEAN", "CTC", "LPT", "WEMIX", "AVAX", "IMX", 
-    "RNDR", "RLY", "T", "AQUA", "RAD", "AGLD", "API3", "ARPA", "ENS", "GMT", "APE", "LUNA2", "OGV", "RAY", "ETHW", "ETHF"};
-
-    rapidjson::Document requestDoc, responseDoc;
-
-    requestDoc.SetObject();
-    requestDoc.AddMember("market", rapidjson::Value(rapidjson::kArrayType), requestDoc.GetAllocator());
-
-    for(const auto& baseCurrency : allCurrencys){
-        rapidjson::Value objectValue(rapidjson::kObjectType);
-
-        objectValue.AddMember("baseCurrency", baseCurrency, requestDoc.GetAllocator());
-        objectValue.AddMember("quoteCurrency", "KRW", requestDoc.GetAllocator());
-        requestDoc["market"].PushBack(objectValue, requestDoc.GetAllocator());
-    }
-
-    std::string input = OneXAPI::Internal::Util::jsonToString(requestDoc);
+    std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"BTC"}]})";
     std::string response = client.subscribeTicker(input);
 
     testData.actualResult = response;
 
-    OneXAPI::Internal::Util::parseJson(responseDoc, response);
-
-    if(responseDoc["success"].GetBool() == false){
-        return false;
-    }
-
-    std::vector<std::string> subscribedList, subscribeFailedList;
-    
-    for(const auto& object : responseDoc["data"]["subscribed"].GetArray()){
-        subscribedList.emplace_back(object["symbol"].GetString());
-    }
-
-    for(const auto& object : responseDoc["data"]["subscribeFailed"].GetArray()){
-        subscribeFailedList.emplace_back(object["symbol"].GetString());
-    }
-
+    testData.expectedResult.append("\n").append(R"({"success":true,"requestedApiCount":0,"data":{"tickers":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"BTC","symbol":"BTC-ETH"}]}})");
     response = client.getSubscribingTickers();
 
-    testData.actualResult = response;
-    OneXAPI::Internal::Util::parseJson(responseDoc, response);
+    testData.actualResult.append("\n").append(response);
 
-    if(responseDoc["success"].GetBool() == false){
+    testData.expectedResult.append("\n").append(R"({"success":true,"requestedApiCount":0,"data":{"subscribed":[{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}],"subscribeFailed":[]}})");
+    input = R"({"market":[{"baseCurrency":"ETH","quoteCurrency":"KRW"}], "reconnect": true})";
+    response = client.subscribeTicker(input);
+
+    testData.actualResult.append("\n").append(response);
+
+    testData.expectedResult.append("\n").append(R"({"success":true,"requestedApiCount":0,"data":{"tickers":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"BTC","symbol":"BTC-ETH"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})");
+    response = client.getSubscribingTickers();
+
+    testData.actualResult.append("\n").append(response);
+    
+    client.unsubscribeTicker(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}],"requestTimeout":0})");
+    
+    if(testData.actualResult.compare(testData.expectedResult) != 0){
         return false;
-    }
-
-    for(const auto& ticker : responseDoc["data"]["tickers"].GetArray()){
-        std::string symbol = ticker["symbol"].GetString();
-
-        if(IN_VECTOR(subscribedList, symbol)){
-            continue;
-        }
-        else{
-            return false;
-        }
-
-        if(IN_VECTOR(subscribeFailedList, symbol)){
-            return false;
-        }
     }
 
     return true;
@@ -3575,28 +3891,137 @@ bool TC_UpbitSpot_subscribeTicker_7(testDataType& testData){
 
     std::this_thread::sleep_for(std::chrono::seconds(1));
     testData.testSubject = "OneXAPI::Upbit::Spot().subscribeTicker";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"subscribed":[],"subscribeFailed":[{"baseCurrency":"HYUNKYU","quoteCurrency":"KRW","symbol":"KRW-HYUNKYU"}]}})";
+    testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"}......................],"subscribeFailed":[]}}
+
+member count of response["data"] is 2
+response["data"]["subscribed"] type is array
+response["data"]["subscribeFailed"] type is array
+
+member count of response["data"]["subscribed"][] is 3
+member count of response["data"]["subscribeFailed"][] is 3
+
+{"success":true,"requestedApiCount":0,"data":{"funcName":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},.....................................]}}
+
+Element in subscribed list of result 1 must be in funcName list
+Element in subscribeFailed list of result 1 must not be in funcName list
+
+member count of response["data"] is 1
+response["data"]["funcName"] type is array
+member count of response["data"]["funcName"][] is 3
+
+funcName is getSubscribing Type
+getSubscribingTickers -> funcName = tickers
+getSubscribingOrderbooks -> funcName = orderbooks)";
 
     OneXAPI::Upbit::Spot client;
-    std::string input = R"({"market":[{"baseCurrency":"HYUNKYU","quoteCurrency":"KRW"}]})";
+    std::vector<std::string> allCurrencies = {"BTC", "ETH", "ETC", "BCH", "OMG", "POWR", "REP", "SNT", "STORJ", "MTL", "TIX", "LTC", "QTUM", "DGD", "XRP", 
+    "MYST", "BTG", "WAVES", "SNGLS", "XAUR", "MER", "EDG", "AMP", "MAID", "AGRS", "FUN", "ANT", "MANA", "SRN", "WAXP", "ZRX", "VEE", "STEEM", "SBD", 
+    "BCPT", "BAT", "SALT", "BNT", "MCO", "RCN", "CFI", "HMQ", "WINGS", "NMR", "GUP", "SWT", "DNT", "GLM", "CVC", "PAY", "RLC", "ENG", "UKG", "VIB", 
+    "ADX", "QRL", "GNO", "PTOY", "ADT", "STRAX", "ADA", "TRX", "1ST", "LRC", "NEO", "XMR", "PIVX", "UP", "STMX", "ICX", "EOS", "DMT", "DASH", "ARK", 
+    "ZEC", "ARDR", "IGNIS", "XEM", "KMD", "GRS", "EMC2", "VTC", "LSK", "LUN", "POLY", "XLM", "XVG", "RDD", "EMC", "PRO", "SC", "GTO", "ONT", "ZIL", 
+    "BLT", "DCR", "AID", "NGC", "OCN", "LOOM", "CMCT", "NXT", "BKX", "MFT", "IOST", "RFR", "IQ", "CLOAK", "PART", "DOGE", "IOP", "VIA", "NAV", "IOTA", 
+    "OST", "BFT", "SYS", "ZEN", "OK", "UPP", "ENJ", "MET", "HYDRO", "CRW", "DTA", "EDR", "BOXX", "GAS", "ONG", "IHT", "MED", "TX", "BLOCK", "RVN", "ION", 
+    "BITB", "BSD", "FTC", "RVR", "LBC", "GAME", "ELF", "PMA", "KNC", "PAL", "UNB", "MOC", "PUNDIX", "SPC", "NXS", "SYNX", "KORE", "DYN", "VAL", "DGB", 
+    "SIB", "VRC", "MEME", "EXCL", "BAY", "SHIFT", "MONA", "BLK", "XHV", "TUBE", "UBQ", "GO", "EXP", "XZC", "MUE", "NBT", "BURST", "DCT", "SPHR", "SLS", 
+    "XEL", "GBYTE", "XDN", "FCT", "BSV", "XNK", "THETA", "NCASH", "JNT", "LBA", "DENT", "DRGN", "QKC", "CPT", "BTM", "BTT", "VITE", "IOTX", "BTU", "SOLVE", 
+    "NKN", "CTXC", "QNT", "STRK", "META", "MOBI", "SERV", "ANKR", "COSM", "CRO", "TFUEL", "BTS", "FSN", "MARO", "ORBS", "HST", "AERGO", "PI", "VBK", "ATOM", 
+    "TT", "ACN", "CRE", "VDX", "STPT", "MBL", "LAMB", "LUNC", "DAI", "MKR", "BORA", "TSHP", "HBAR", "WIN", "MLK", "PXL", "VET", "CHZ", "VTHO", "XPR", "FX", 
+    "OGN", "ITAM", "XTZ", "OBSR", "DKA", "AHT", "RINGX", "GOM2", "LINK", "JST", "KAVA", "RVC", "PCI", "TON", "CTSI", "DOT", "DAD", "CHR", "COMP", "SXP", 
+    "HUNT", "ONIT", "CRV", "ALGO", "RSR", "OXT", "PLA", "SAND", "SUN", "SRM", "QTCON", "MVL", "REI", "AQT", "AXS", "FCT2", "SSX", "FIL", "XEC", "UNI", "INJ", 
+    "BASIC", "PROM", "CBK", "FOR", "ONX", "MIR", "BFC", "LINA", "HUM", "PICA", "CELO", "STX", "LZM", "DON", "NEAR", "AUCTION", "DAWN", "FLOW", "GRT", "SNX", 
+    "XYM", "APENFT", "SGB", "SOL", "MATIC", "NU", "QI", "1INCH", "AAVE", "MASK", "AUDIO", "BOBA", "YGG", "GTC", "OCEAN", "CTC", "LPT", "WEMIX", "AVAX", "IMX", 
+    "RNDR", "RLY", "T", "AQUA", "RAD", "AGLD", "API3", "ARPA", "ENS", "GMT", "APE", "LUNA2", "OGV", "RAY", "ETHW", "ETHF"};
+
+    rapidjson::Document requestDoc, respDoc;
+
+    requestDoc.SetObject();
+    requestDoc.AddMember("market", rapidjson::Value(rapidjson::kArrayType), requestDoc.GetAllocator());
+
+    for(const auto& baseCurrency : allCurrencies){
+        rapidjson::Value objectValue(rapidjson::kObjectType);
+
+        objectValue.AddMember("baseCurrency", baseCurrency, requestDoc.GetAllocator());
+        objectValue.AddMember("quoteCurrency", "KRW", requestDoc.GetAllocator());
+        requestDoc["market"].PushBack(objectValue, requestDoc.GetAllocator());
+    }
+
+    std::string input = OneXAPI::Internal::Util::jsonToString(requestDoc);
     std::string response = client.subscribeTicker(input);
 
     testData.actualResult = response;
 
-    if(response.compare(testData.expectedResult) != 0){
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+
+    if(!successResponseChecker(response)){
+        return false;
+    }
+    else if(respDoc["requestedApiCount"].GetUint() != 0){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"], 2)){
+        return false;
+    }
+    else if(!respDoc["data"]["subscribed"].IsArray()){
+        return false;
+    }
+    else if(!respDoc["data"]["subscribeFailed"].IsArray()){
         return false;
     }
 
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"tickers":[]}})";
+    std::vector<std::string> subscribedList, subscribeFailedList;
+    
+    for(const auto& object : respDoc["data"]["subscribed"].GetArray()){
+        if(!memberCountChecker(object, 3)){
+            return false;
+        }
+        subscribedList.emplace_back(object["symbol"].GetString());
+    }
+
+    for(const auto& object : respDoc["data"]["subscribeFailed"].GetArray()){
+        if(!memberCountChecker(object, 3)){
+            return false;
+        }
+        subscribeFailedList.emplace_back(object["symbol"].GetString());
+    }
+
     response = client.getSubscribingTickers();
 
-    testData.actualResult = response;
+    testData.actualResult.append("\n").append(response);
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-    if(response.compare(testData.expectedResult) != 0){
+    if(!successResponseChecker(response)){
         return false;
+    }
+    else if(respDoc["requestedApiCount"].GetUint() != 0){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"], 1)){
+        return false;
+    }
+    else if(respDoc["data"]["tickers"].Size() != subscribedList.size()){
+        return false;
+    }
+
+    for(const auto& ticker : respDoc["data"]["tickers"].GetArray()){
+        std::string symbol = ticker["symbol"].GetString();
+        if(!memberCountChecker(ticker, 3)){
+            return false;
+        }
+
+        if(IN_VECTOR(subscribedList, symbol)){
+            continue;
+        }
+        else{
+            return false;
+        }
+
+        if(IN_VECTOR(subscribeFailedList, symbol)){
+            return false;
+        }
     }
 
     return true;
+
     TC_END
 }
 
@@ -3604,8 +4029,35 @@ bool TC_UpbitSpot_subscribeTicker_8(testDataType& testData){
     TC_BEGIN
 
     std::this_thread::sleep_for(std::chrono::seconds(1));
-    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeTicker_1";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}],"subscribeFailed":[]}})";
+    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeTicker";
+    testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"subscribed":[],"subscribeFailed":[{"baseCurrency":"HYUNKYU","quoteCurrency":"KRW","symbol":"KRW-HYUNKYU"}]}})";
+
+    OneXAPI::Upbit::Spot client;
+    std::string input = R"({"market":[{"baseCurrency":"HYUNKYU","quoteCurrency":"KRW"}]})";
+    std::string response = client.subscribeTicker(input);
+
+    testData.actualResult = response;
+
+    testData.expectedResult.append("\n").append(R"({"success":true,"requestedApiCount":0,"data":{"tickers":[]}})");
+    response = client.getSubscribingTickers();
+
+    testData.actualResult.append("\n").append(response);
+
+    if(testData.actualResult.compare(testData.expectedResult) != 0){
+        return false;
+    }
+
+    return true;
+
+    TC_END
+}
+
+bool TC_UpbitSpot_subscribeTicker_9(testDataType& testData){
+    TC_BEGIN
+
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeTicker";
+    testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}],"subscribeFailed":[]}})";
 
     OneXAPI::Upbit::Spot client;
     std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}]})";
@@ -3613,31 +4065,21 @@ bool TC_UpbitSpot_subscribeTicker_8(testDataType& testData){
 
     testData.actualResult = response;
 
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingTickers_2";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"tickers":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})";
+    testData.expectedResult.append("\n").append(R"({"success":true,"requestedApiCount":0,"data":{"tickers":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})");
     response = client.getSubscribingTickers();
 
-    testData.actualResult = response;
+    testData.actualResult.append("\n").append(response);
 
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeTicker_3";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"subscribed":[],"subscribeFailed":[]}})";
+    testData.expectedResult.append("\n").append(R"({"success":true,"requestedApiCount":0,"data":{"subscribed":[],"subscribeFailed":[]}})");
     response = client.subscribeTicker(R"({"market":[],"reconnect":true})");
     
-    testData.actualResult = response;
+    testData.actualResult.append("\n").append(response);
 
-    if(response.compare(testData.expectedResult) != 0){
+    if(testData.actualResult.compare(testData.expectedResult) != 0){
         return false;
     }
-
     return true;
+
     TC_END
 }
 
@@ -3645,15 +4087,14 @@ bool TC_UpbitSpot_unsubscribeTicker_1(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeTicker";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
 
     OneXAPI::Upbit::Spot client;
-    std::string input = "";
-    std::string response = client.unsubscribeTicker(input);
+    std::string response = client.unsubscribeTicker();
 
     testData.actualResult = response;
 
-    if(errorResponseChecker(response, "JSON_PARSING_ERROR")){
+    if(errorResponseChecker(response, "NOT_ENOUGH_PARAM", 0)){
         return true;
     }
 
@@ -3664,15 +4105,15 @@ bool TC_UpbitSpot_unsubscribeTicker_2(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeTicker";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
 
     OneXAPI::Upbit::Spot client;
-    std::string input = "{}";
+    std::string input = "";
     std::string response = client.unsubscribeTicker(input);
 
     testData.actualResult = response;
 
-    if(errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+    if(errorResponseChecker(response, "NOT_ENOUGH_PARAM", 0)){
         return true;
     }
 
@@ -3683,15 +4124,15 @@ bool TC_UpbitSpot_unsubscribeTicker_3(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeTicker";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
 
     OneXAPI::Upbit::Spot client;
-    std::string input = "Bqbqb@";
+    std::string input = "{}";
     std::string response = client.unsubscribeTicker(input);
 
     testData.actualResult = response;
 
-    if(errorResponseChecker(response, "JSON_PARSING_ERROR")){
+    if(errorResponseChecker(response, "NOT_ENOUGH_PARAM", 0)){
         return true;
     }
 
@@ -3701,27 +4142,18 @@ bool TC_UpbitSpot_unsubscribeTicker_3(testDataType& testData){
 bool TC_UpbitSpot_unsubscribeTicker_4(testDataType& testData){
     TC_BEGIN
 
-    std::this_thread::sleep_for(std::chrono::seconds(1));
     testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeTicker";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"unsubscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"}],"unsubscribeFailed":[]}})";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
 
     OneXAPI::Upbit::Spot client;
-    client.subscribeTicker(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}]})");
-
-    std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"}]})";
+    std::string input = "Bqbqb@";
     std::string response = client.unsubscribeTicker(input);
 
     testData.actualResult = response;
 
-    if(response.compare(testData.expectedResult) == 0){
+    if(errorResponseChecker(response, "JSON_PARSING_ERROR", 0)){
         return true;
     }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingTickers";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"tickers":[{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}])";
-    response = client.getSubscribingTickers();
-
-    testData.actualResult = response;
 
     TC_END
 }
@@ -3731,7 +4163,35 @@ bool TC_UpbitSpot_unsubscribeTicker_5(testDataType& testData){
 
     std::this_thread::sleep_for(std::chrono::seconds(1));
     testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeTicker";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"unsubscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"}],"unsubscribeFailed":[]}})";
+    testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"unsubscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"}],"unsubscribeFailed":[]}})";
+
+    OneXAPI::Upbit::Spot client;
+    client.subscribeTicker(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}]})");
+
+    std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"}]})";
+    std::string response = client.unsubscribeTicker(input);
+
+    testData.actualResult = response;
+
+    testData.expectedResult.append("\n").append(R"({"success":true,"requestedApiCount":0,"data":{"tickers":[{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})");
+    response = client.getSubscribingTickers();
+
+    testData.actualResult.append("\n").append(response);
+
+    if(testData.actualResult.compare(testData.expectedResult) != 0){
+        return false;
+    }
+    return true;
+
+    TC_END
+}
+
+bool TC_UpbitSpot_unsubscribeTicker_6(testDataType& testData){
+    TC_BEGIN
+
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeTicker";
+    testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"unsubscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"}],"unsubscribeFailed":[]}})";
 
     OneXAPI::Upbit::Spot client;
     client.subscribeTicker(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}]})");
@@ -3741,27 +4201,42 @@ bool TC_UpbitSpot_unsubscribeTicker_5(testDataType& testData){
 
     testData.actualResult = response;
 
-    if(response.compare(testData.expectedResult) == 0){
-        return true;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingTickers";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"tickers":[{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}])";
+    testData.expectedResult.append("\n").append(R"({"success":true,"requestedApiCount":0,"data":{"tickers":[{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})");
     response = client.getSubscribingTickers();
 
-    testData.actualResult = response;
+    testData.actualResult.append("\n").append(response);
+
+    if(testData.actualResult.compare(testData.expectedResult) != 0){
+        return false;
+    }
+    return true;
 
     TC_END
 }
 
-bool TC_UpbitSpot_unsubscribeTicker_6(testDataType& testData){
+bool TC_UpbitSpot_unsubscribeTicker_7(testDataType& testData){
     TC_BEGIN
     std::this_thread::sleep_for(std::chrono::seconds(1));
-    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeTicker";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,})";
+    testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeTicker";
+    testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"unsubscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"}.........................],"unsubscribeFailed":[]}}
+
+unsubscribe request same as pre-condition subscribe request
+
+member count of response["data"] is 2
+response["data"]["unsubscribed"] type is array
+response["data"]["unsubscribeFailed"] type is array
+
+member count of response["data"]["unsubscribed"][] is 3
+member count of response["data"]["unsubscribeFailed"][] is 3
+
+{"success":true,"requestedApiCount":0,"data":{"funcName":[]}}
+
+funcName is getSubscribing Type
+getSubscribingTickers -> funcName = tickers
+getSubscribingOrderbooks -> funcName = orderbooks)";
 
     OneXAPI::Upbit::Spot client;
-    std::vector<std::string> allCurrencys = {"BTC", "ETH", "ETC", "BCH", "OMG", "POWR", "REP", "SNT", "STORJ", "MTL", "TIX", "LTC", "QTUM", "DGD", "XRP", 
+    std::vector<std::string> allCurrencies = {"BTC", "ETH", "ETC", "BCH", "OMG", "POWR", "REP", "SNT", "STORJ", "MTL", "TIX", "LTC", "QTUM", "DGD", "XRP", 
     "MYST", "BTG", "WAVES", "SNGLS", "XAUR", "MER", "EDG", "AMP", "MAID", "AGRS", "FUN", "ANT", "MANA", "SRN", "WAXP", "ZRX", "VEE", "STEEM", "SBD", 
     "BCPT", "BAT", "SALT", "BNT", "MCO", "RCN", "CFI", "HMQ", "WINGS", "NMR", "GUP", "SWT", "DNT", "GLM", "CVC", "PAY", "RLC", "ENG", "UKG", "VIB", 
     "ADX", "QRL", "GNO", "PTOY", "ADT", "STRAX", "ADA", "TRX", "1ST", "LRC", "NEO", "XMR", "PIVX", "UP", "STMX", "ICX", "EOS", "DMT", "DASH", "ARK", 
@@ -3779,12 +4254,12 @@ bool TC_UpbitSpot_unsubscribeTicker_6(testDataType& testData){
     "XYM", "APENFT", "SGB", "SOL", "MATIC", "NU", "QI", "1INCH", "AAVE", "MASK", "AUDIO", "BOBA", "YGG", "GTC", "OCEAN", "CTC", "LPT", "WEMIX", "AVAX", "IMX", 
     "RNDR", "RLY", "T", "AQUA", "RAD", "AGLD", "API3", "ARPA", "ENS", "GMT", "APE", "LUNA2", "OGV", "RAY", "ETHW", "ETHF"};
 
-    rapidjson::Document requestDoc, responseDoc;
+    rapidjson::Document requestDoc, respDoc;
 
     requestDoc.SetObject();
     requestDoc.AddMember("market", rapidjson::Value(rapidjson::kArrayType), requestDoc.GetAllocator());
 
-    for(const auto& baseCurrency : allCurrencys){
+    for(const auto& baseCurrency : allCurrencies){
         rapidjson::Value objectValue(rapidjson::kObjectType);
 
         objectValue.AddMember("baseCurrency", baseCurrency, requestDoc.GetAllocator());
@@ -3793,90 +4268,62 @@ bool TC_UpbitSpot_unsubscribeTicker_6(testDataType& testData){
     }
 
     std::string input = OneXAPI::Internal::Util::jsonToString(requestDoc);
-    std::string response = client.subscribeTicker(input);
+    client.subscribeTicker(input);
+
+    std::string response = client.unsubscribeTicker(input);
 
     testData.actualResult = response;
 
-    OneXAPI::Internal::Util::parseJson(responseDoc, response);
-
-    if(responseDoc["success"].GetBool() == false){
-        return false;
-    }
-
-    std::vector<std::string> subscribedList, subscribeFailedList;
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
     
-    for(const auto& object : responseDoc["data"]["subscribed"].GetArray()){
-        subscribedList.emplace_back(object["symbol"].GetString());
-    }
-
-    for(const auto& object : responseDoc["data"]["subscribeFailed"].GetArray()){
-        subscribeFailedList.emplace_back(object["symbol"].GetString());
-    }
-
-    response = client.getSubscribingTickers();
-
-    testData.actualResult = response;
-    OneXAPI::Internal::Util::parseJson(responseDoc, response);
-
-    rapidjson::Document unsubscribeRequest;
-
-    unsubscribeRequest.SetObject();
-    unsubscribeRequest.AddMember("market", rapidjson::kArrayType, unsubscribeRequest.GetAllocator());
-
-    if(responseDoc["success"].GetBool() == false){
+    if(!successResponseChecker(response)){
         return false;
     }
-
-    for(const auto& ticker : responseDoc["data"]["tickers"].GetArray()){
-        std::string baseCurrency = ticker["baseCurrency"].GetString();
-        std::string quoteCurrency = ticker["quoteCurrency"].GetString();
-        std::string symbol = ticker["symbol"].GetString();
-
-        rapidjson::Value marketObject(rapidjson::kObjectType);
-
-        marketObject.AddMember("baseCurrency", baseCurrency, unsubscribeRequest.GetAllocator());
-        marketObject.AddMember("quoteCurrency", quoteCurrency, unsubscribeRequest.GetAllocator());
-
-        unsubscribeRequest["market"].PushBack(marketObject, unsubscribeRequest.GetAllocator());
-
-        if(IN_VECTOR(subscribedList, symbol)){
-            continue;
-        }
-        else{
-            return false;
-        }
-
-        if(IN_VECTOR(subscribeFailedList, symbol)){
+    else if(respDoc["requestedApiCount"].GetUint() != 0){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"], 2)){
+        return false;
+    }
+    else if(!respDoc["data"]["unsubscribed"].IsArray()){
+        return false;
+    }
+    else if(!respDoc["data"]["unsubscribeFailed"].IsArray()){
+        return false;
+    }
+    
+    for(const auto& object : respDoc["data"]["unsubscribed"].GetArray()){
+        if(!memberCountChecker(object, 3)){
             return false;
         }
     }
 
-    testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeTicker";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,})";
-
-    client.unsubscribeTicker(OneXAPI::Internal::Util::jsonToString(unsubscribeRequest));
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingTicker";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"tickers":[]}})";
+    for(const auto& object : respDoc["data"]["unsubscribeFailed"].GetArray()){
+        if(!memberCountChecker(object, 3)){
+            return false;
+        }
+    }
 
     response = client.getSubscribingTickers();
 
-    testData.actualResult = response;
+    testData.actualResult.append("\n").append(response);
 
-    if(response.compare(testData.expectedResult) != 0){
+    std::string getSubscribingExpectedRes = R"({"success":true,"requestedApiCount":0,"data":{"tickers":[]}})";
+
+    if(response.compare(getSubscribingExpectedRes) != 0){
         return false;
     }
-
     return true;
+
     TC_END
 }
 
-bool TC_UpbitSpot_unsubscribeTicker_7(testDataType& testData){
+bool TC_UpbitSpot_unsubscribeTicker_8(testDataType& testData){
     TC_BEGIN
 
     std::this_thread::sleep_for(std::chrono::seconds(1));
     testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeTicker";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"unsubscribed":[],"unsubscribeFailed":[{"baseCurrency":"HYUNKYU","quoteCurrency":"KRW","symbol":"KRW-HYUNKYU"}]}})";
+    testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"unsubscribed":[],"unsubscribeFailed":[{"baseCurrency":"HYUNKYU","quoteCurrency":"KRW","symbol":"KRW-HYUNKYU"}]}})";
 
     OneXAPI::Upbit::Spot client;
     std::string input = R"({"market":[{"baseCurrency":"HYUNKYU","quoteCurrency":"KRW"}]})";
@@ -3887,26 +4334,18 @@ bool TC_UpbitSpot_unsubscribeTicker_7(testDataType& testData){
     if(response.compare(testData.expectedResult) != 0){
         return false;
     }
-
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"tickers":[]}})";
-    response = client.getSubscribingTickers();
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
     return true;
+    
     TC_END
 }
 
-bool TC_UpbitSpot_unsubscribeTicker_8(testDataType& testData){
+bool TC_UpbitSpot_unsubscribeTicker_9(testDataType& testData){
     TC_BEGIN
 
     std::this_thread::sleep_for(std::chrono::seconds(1));
-    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeTicker_1";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}],"subscribeFailed":[]}})";
+    testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeTicker";
+
+    testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}],"subscribeFailed":[]}})";
 
     OneXAPI::Upbit::Spot client;
     std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}]})";
@@ -3914,31 +4353,21 @@ bool TC_UpbitSpot_unsubscribeTicker_8(testDataType& testData){
 
     testData.actualResult = response;
 
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingTickers_2";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"tickers":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})";
+    testData.expectedResult.append("\n").append(R"({"success":true,"requestedApiCount":0,"data":{"tickers":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})");
     response = client.getSubscribingTickers();
 
-    testData.actualResult = response;
+    testData.actualResult.append("\n").append(response);
 
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeTicker_3";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"unsubscribed":[],"unsubscribeFailed":[]}})";
+    testData.expectedResult.append("\n").append(R"({"success":true,"requestedApiCount":0,"data":{"unsubscribed":[],"unsubscribeFailed":[]}})");
     response = client.unsubscribeTicker(R"({"market":[],"reconnect":true})");
     
-    testData.actualResult = response;
+    testData.actualResult.append("\n").append(response);
 
-    if(response.compare(testData.expectedResult) != 0){
+    if(testData.actualResult.compare(testData.expectedResult) != 0){
         return false;
     }
-
     return true;
+
     TC_END
 }
 
@@ -3946,15 +4375,14 @@ bool TC_UpbitSpot_subscribeOrderbook_1(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().subscribeOrderbook";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
 
     OneXAPI::Upbit::Spot client;
-    std::string input = "";
-    std::string response = client.subscribeOrderbook(input);
+    std::string response = client.subscribeOrderbook();
 
     testData.actualResult = response;
 
-    if(errorResponseChecker(response, "JSON_PARSING_ERROR")){
+    if(errorResponseChecker(response, "NOT_ENOUGH_PARAM", 0)){
         return true;
     }
 
@@ -3965,15 +4393,15 @@ bool TC_UpbitSpot_subscribeOrderbook_2(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().subscribeOrderbook";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
 
     OneXAPI::Upbit::Spot client;
-    std::string input = "{}";
+    std::string input = "";
     std::string response = client.subscribeOrderbook(input);
 
     testData.actualResult = response;
 
-    if(errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
+    if(errorResponseChecker(response, "NOT_ENOUGH_PARAM", 0)){
         return true;
     }
 
@@ -3984,15 +4412,15 @@ bool TC_UpbitSpot_subscribeOrderbook_3(testDataType& testData){
     TC_BEGIN
 
     testData.testSubject = "OneXAPI::Upbit::Spot().subscribeOrderbook";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
 
     OneXAPI::Upbit::Spot client;
-    std::string input = "Bqbqb@";
+    std::string input = "{}";
     std::string response = client.subscribeOrderbook(input);
 
     testData.actualResult = response;
 
-    if(errorResponseChecker(response, "JSON_PARSING_ERROR")){
+    if(errorResponseChecker(response, "NOT_ENOUGH_PARAM", 0)){
         return true;
     }
 
@@ -4000,6 +4428,25 @@ bool TC_UpbitSpot_subscribeOrderbook_3(testDataType& testData){
 }
 
 bool TC_UpbitSpot_subscribeOrderbook_4(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeOrderbook";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
+
+    OneXAPI::Upbit::Spot client;
+    std::string input = "Bqbqb@";
+    std::string response = client.subscribeOrderbook(input);
+
+    testData.actualResult = response;
+
+    if(errorResponseChecker(response, "JSON_PARSING_ERROR", 0)){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_UpbitSpot_subscribeOrderbook_5(testDataType& testData){
     TC_BEGIN
     testData.testSubject = "OneXAPI::Upbit::Spot().subscribeOrderbook";
 
@@ -4009,81 +4456,20 @@ bool TC_UpbitSpot_subscribeOrderbook_4(testDataType& testData){
         std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"}]})";
         std::string response = client.subscribeOrderbook(input);
 
-        testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"}],"subscribeFailed":[]}})";
+        testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"}],"subscribeFailed":[]}})";
         testData.actualResult = response;
-
-        if(response.compare(testData.expectedResult) != 0){
-            return false;
-        }
 
         response = client.getSubscribingOrderbooks();
 
-        testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingOrderbooks";
-        testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"}]}})";
-        testData.actualResult = response;
+        testData.expectedResult.append("\n").append(R"({"success":true,"requestedApiCount":0,"data":{"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"}]}})");
+        testData.actualResult.append("\n").append(response);
 
-        if(response.compare(testData.expectedResult) != 0){
+        if(testData.actualResult.compare(testData.expectedResult) != 0){
             return false;
         }
     }
 
     return true;
-    TC_END
-}
-
-bool TC_UpbitSpot_subscribeOrderbook_5(testDataType& testData){
-    TC_BEGIN
-
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeOrderbook";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"BTC","symbol":"BTC-ETH"}],"subscribeFailed":[]}})";
-
-    OneXAPI::Upbit::Spot client;
-    std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"BTC"}]})";
-    std::string response = client.subscribeOrderbook(input);
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingOrderbooks";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"BTC","symbol":"BTC-ETH"}]}})";
-    response = client.getSubscribingOrderbooks();
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeOrderbook";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"subscribed":[{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}],"subscribeFailed":[]}})";
-    input = R"({"market":[{"baseCurrency":"ETH","quoteCurrency":"KRW"}], "reconnect": true})";
-    response = client.subscribeOrderbook(input);
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) != 0){
-        client.unsubscribeOrderbook(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}],"requestTimeout":0})");
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingOrderbooks";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"BTC","symbol":"BTC-ETH"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})";
-    response = client.getSubscribingOrderbooks();
-
-    testData.actualResult = response;
-    
-    client.unsubscribeOrderbook(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}],"requestTimeout":0})");
-    
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    return true;
-
     TC_END
 }
 
@@ -4092,83 +4478,34 @@ bool TC_UpbitSpot_subscribeOrderbook_6(testDataType& testData){
 
     std::this_thread::sleep_for(std::chrono::seconds(1));
     testData.testSubject = "OneXAPI::Upbit::Spot().subscribeOrderbook";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,})";
+    testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"BTC","symbol":"BTC-ETH"}],"subscribeFailed":[]}})";
 
     OneXAPI::Upbit::Spot client;
-    std::vector<std::string> allCurrencys = {"BTC", "ETH", "ETC", "BCH", "OMG", "POWR", "REP", "SNT", "STORJ", "MTL", "TIX", "LTC", "QTUM", "DGD", "XRP", 
-    "MYST", "BTG", "WAVES", "SNGLS", "XAUR", "MER", "EDG", "AMP", "MAID", "AGRS", "FUN", "ANT", "MANA", "SRN", "WAXP", "ZRX", "VEE", "STEEM", "SBD", 
-    "BCPT", "BAT", "SALT", "BNT", "MCO", "RCN", "CFI", "HMQ", "WINGS", "NMR", "GUP", "SWT", "DNT", "GLM", "CVC", "PAY", "RLC", "ENG", "UKG", "VIB", 
-    "ADX", "QRL", "GNO", "PTOY", "ADT", "STRAX", "ADA", "TRX", "1ST", "LRC", "NEO", "XMR", "PIVX", "UP", "STMX", "ICX", "EOS", "DMT", "DASH", "ARK", 
-    "ZEC", "ARDR", "IGNIS", "XEM", "KMD", "GRS", "EMC2", "VTC", "LSK", "LUN", "POLY", "XLM", "XVG", "RDD", "EMC", "PRO", "SC", "GTO", "ONT", "ZIL", 
-    "BLT", "DCR", "AID", "NGC", "OCN", "LOOM", "CMCT", "NXT", "BKX", "MFT", "IOST", "RFR", "IQ", "CLOAK", "PART", "DOGE", "IOP", "VIA", "NAV", "IOTA", 
-    "OST", "BFT", "SYS", "ZEN", "OK", "UPP", "ENJ", "MET", "HYDRO", "CRW", "DTA", "EDR", "BOXX", "GAS", "ONG", "IHT", "MED", "TX", "BLOCK", "RVN", "ION", 
-    "BITB", "BSD", "FTC", "RVR", "LBC", "GAME", "ELF", "PMA", "KNC", "PAL", "UNB", "MOC", "PUNDIX", "SPC", "NXS", "SYNX", "KORE", "DYN", "VAL", "DGB", 
-    "SIB", "VRC", "MEME", "EXCL", "BAY", "SHIFT", "MONA", "BLK", "XHV", "TUBE", "UBQ", "GO", "EXP", "XZC", "MUE", "NBT", "BURST", "DCT", "SPHR", "SLS", 
-    "XEL", "GBYTE", "XDN", "FCT", "BSV", "XNK", "THETA", "NCASH", "JNT", "LBA", "DENT", "DRGN", "QKC", "CPT", "BTM", "BTT", "VITE", "IOTX", "BTU", "SOLVE", 
-    "NKN", "CTXC", "QNT", "STRK", "META", "MOBI", "SERV", "ANKR", "COSM", "CRO", "TFUEL", "BTS", "FSN", "MARO", "ORBS", "HST", "AERGO", "PI", "VBK", "ATOM", 
-    "TT", "ACN", "CRE", "VDX", "STPT", "MBL", "LAMB", "LUNC", "DAI", "MKR", "BORA", "TSHP", "HBAR", "WIN", "MLK", "PXL", "VET", "CHZ", "VTHO", "XPR", "FX", 
-    "OGN", "ITAM", "XTZ", "OBSR", "DKA", "AHT", "RINGX", "GOM2", "LINK", "JST", "KAVA", "RVC", "PCI", "TON", "CTSI", "DOT", "DAD", "CHR", "COMP", "SXP", 
-    "HUNT", "ONIT", "CRV", "ALGO", "RSR", "OXT", "PLA", "SAND", "SUN", "SRM", "QTCON", "MVL", "REI", "AQT", "AXS", "FCT2", "SSX", "FIL", "XEC", "UNI", "INJ", 
-    "BASIC", "PROM", "CBK", "FOR", "ONX", "MIR", "BFC", "LINA", "HUM", "PICA", "CELO", "STX", "LZM", "DON", "NEAR", "AUCTION", "DAWN", "FLOW", "GRT", "SNX", 
-    "XYM", "APENFT", "SGB", "SOL", "MATIC", "NU", "QI", "1INCH", "AAVE", "MASK", "AUDIO", "BOBA", "YGG", "GTC", "OCEAN", "CTC", "LPT", "WEMIX", "AVAX", "IMX", 
-    "RNDR", "RLY", "T", "AQUA", "RAD", "AGLD", "API3", "ARPA", "ENS", "GMT", "APE", "LUNA2", "OGV", "RAY", "ETHW", "ETHF"};
-
-    rapidjson::Document requestDoc, responseDoc;
-
-    requestDoc.SetObject();
-    requestDoc.AddMember("market", rapidjson::Value(rapidjson::kArrayType), requestDoc.GetAllocator());
-
-    for(const auto& baseCurrency : allCurrencys){
-        rapidjson::Value objectValue(rapidjson::kObjectType);
-
-        objectValue.AddMember("baseCurrency", baseCurrency, requestDoc.GetAllocator());
-        objectValue.AddMember("quoteCurrency", "KRW", requestDoc.GetAllocator());
-        requestDoc["market"].PushBack(objectValue, requestDoc.GetAllocator());
-    }
-
-    std::string input = OneXAPI::Internal::Util::jsonToString(requestDoc);
+    std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"BTC"}]})";
     std::string response = client.subscribeOrderbook(input);
 
     testData.actualResult = response;
 
-    OneXAPI::Internal::Util::parseJson(responseDoc, response);
-
-    if(responseDoc["success"].GetBool() == false){
-        return false;
-    }
-
-    std::vector<std::string> subscribedList, subscribeFailedList;
-    
-    for(const auto& object : responseDoc["data"]["subscribed"].GetArray()){
-        subscribedList.emplace_back(object["symbol"].GetString());
-    }
-
-    for(const auto& object : responseDoc["data"]["subscribeFailed"].GetArray()){
-        subscribeFailedList.emplace_back(object["symbol"].GetString());
-    }
-
+    testData.expectedResult.append("\n").append(R"({"success":true,"requestedApiCount":0,"data":{"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"BTC","symbol":"BTC-ETH"}]}})");
     response = client.getSubscribingOrderbooks();
 
-    testData.actualResult = response;
-    OneXAPI::Internal::Util::parseJson(responseDoc, response);
+    testData.actualResult.append("\n").append(response);
 
-    if(responseDoc["success"].GetBool() == false){
+    testData.expectedResult.append("\n").append(R"({"success":true,"requestedApiCount":0,"data":{"subscribed":[{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}],"subscribeFailed":[]}})");
+    input = R"({"market":[{"baseCurrency":"ETH","quoteCurrency":"KRW"}], "reconnect": true})";
+    response = client.subscribeOrderbook(input);
+
+    testData.actualResult.append("\n").append(response);
+
+    testData.expectedResult.append("\n").append(R"({"success":true,"requestedApiCount":0,"data":{"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"BTC","symbol":"BTC-ETH"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})");
+    response = client.getSubscribingOrderbooks();
+
+    testData.actualResult.append("\n").append(response);
+    
+    client.unsubscribeOrderbook(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}],"requestTimeout":0})");
+    
+    if(testData.actualResult.compare(testData.expectedResult) != 0){
         return false;
-    }
-
-    for(const auto& Orderbook : responseDoc["data"]["orderbooks"].GetArray()){
-        std::string symbol = Orderbook["symbol"].GetString();
-
-        if(IN_VECTOR(subscribedList, symbol)){
-            continue;
-        }
-        else{
-            return false;
-        }
-
-        if(IN_VECTOR(subscribeFailedList, symbol)){
-            return false;
-        }
     }
 
     return true;
@@ -4181,193 +4518,30 @@ bool TC_UpbitSpot_subscribeOrderbook_7(testDataType& testData){
 
     std::this_thread::sleep_for(std::chrono::seconds(1));
     testData.testSubject = "OneXAPI::Upbit::Spot().subscribeOrderbook";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"subscribed":[],"subscribeFailed":[{"baseCurrency":"HYUNKYU","quoteCurrency":"KRW","symbol":"KRW-HYUNKYU"}]}})";
+    testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"}......................],"subscribeFailed":[]}}
+
+member count of response["data"] is 2
+response["data"]["subscribed"] type is array
+response["data"]["subscribeFailed"] type is array
+
+member count of response["data"]["subscribed"][] is 3
+member count of response["data"]["subscribeFailed"][] is 3
+
+{"success":true,"requestedApiCount":0,"data":{"funcName":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},.....................................]}}
+
+Element in subscribed list of result 1 must be in funcName list
+Element in subscribeFailed list of result 1 must not be in funcName list
+
+member count of response["data"] is 1
+response["data"]["funcName"] type is array
+member count of response["data"]["funcName"][] is 3
+
+funcName is getSubscribing Type
+getSubscribingTickers -> funcName = tickers
+getSubscribingOrderbooks -> funcName = orderbooks)";
 
     OneXAPI::Upbit::Spot client;
-    std::string input = R"({"market":[{"baseCurrency":"HYUNKYU","quoteCurrency":"KRW"}]})";
-    std::string response = client.subscribeOrderbook(input);
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"orderbooks":[]}})";
-    response = client.getSubscribingOrderbooks();
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    return true;
-    TC_END
-}
-
-bool TC_UpbitSpot_subscribeOrderbook_8(testDataType& testData){
-    TC_BEGIN
-
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeOrderbook_1";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}],"subscribeFailed":[]}})";
-
-    OneXAPI::Upbit::Spot client;
-    std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}]})";
-    std::string response = client.subscribeOrderbook(input);
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingOrderbooks_2";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})";
-    response = client.getSubscribingOrderbooks();
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeOrderbook_3";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"subscribed":[],"subscribeFailed":[]}})";
-    response = client.subscribeOrderbook(R"({"market":[],"reconnect":true})");
-    
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    return true;
-    TC_END
-}
-
-bool TC_UpbitSpot_unsubscribeOrderbook_1(testDataType& testData){
-    TC_BEGIN
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeOrderbook";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
-
-    OneXAPI::Upbit::Spot client;
-    std::string input = "";
-    std::string response = client.unsubscribeOrderbook(input);
-
-    testData.actualResult = response;
-
-    if(errorResponseChecker(response, "JSON_PARSING_ERROR")){
-        return true;
-    }
-
-    TC_END
-}
-
-bool TC_UpbitSpot_unsubscribeOrderbook_2(testDataType& testData){
-    TC_BEGIN
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeOrderbook";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
-
-    OneXAPI::Upbit::Spot client;
-    std::string input = "{}";
-    std::string response = client.unsubscribeOrderbook(input);
-
-    testData.actualResult = response;
-
-    if(errorResponseChecker(response, "NOT_ENOUGH_PARAM")){
-        return true;
-    }
-
-    TC_END
-}
-
-bool TC_UpbitSpot_unsubscribeOrderbook_3(testDataType& testData){
-    TC_BEGIN
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeOrderbook";
-    testData.expectedResult = R"({"success":false,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
-
-    OneXAPI::Upbit::Spot client;
-    std::string input = "Bqbqb@";
-    std::string response = client.unsubscribeOrderbook(input);
-
-    testData.actualResult = response;
-
-    if(errorResponseChecker(response, "JSON_PARSING_ERROR")){
-        return true;
-    }
-
-    TC_END
-}
-
-bool TC_UpbitSpot_unsubscribeOrderbook_4(testDataType& testData){
-    TC_BEGIN
-
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeOrderbook";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"unsubscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"}],"unsubscribeFailed":[]}})";
-
-    OneXAPI::Upbit::Spot client;
-    client.subscribeOrderbook(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}]})");
-
-    std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"}]})";
-    std::string response = client.unsubscribeOrderbook(input);
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) == 0){
-        return true;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingOrderbooks";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"orderbooks":[{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}])";
-    response = client.getSubscribingOrderbooks();
-
-    testData.actualResult = response;
-
-    TC_END
-}
-
-bool TC_UpbitSpot_unsubscribeOrderbook_5(testDataType& testData){
-    TC_BEGIN
-
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeOrderbook";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"unsubscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"}],"unsubscribeFailed":[]}})";
-
-    OneXAPI::Upbit::Spot client;
-    client.subscribeOrderbook(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}]})");
-
-    std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"}],"reconnect":true})";
-    std::string response = client.unsubscribeOrderbook(input);
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) == 0){
-        return true;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingOrderbooks";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"orderbooks":[{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}])";
-    response = client.getSubscribingOrderbooks();
-
-    testData.actualResult = response;
-
-    TC_END
-}
-
-bool TC_UpbitSpot_unsubscribeOrderbook_6(testDataType& testData){
-    TC_BEGIN
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeOrderbook";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,})";
-
-    OneXAPI::Upbit::Spot client;
-    std::vector<std::string> allCurrencys = {"BTC", "ETH", "ETC", "BCH", "OMG", "POWR", "REP", "SNT", "STORJ", "MTL", "TIX", "LTC", "QTUM", "DGD", "XRP", 
+    std::vector<std::string> allCurrencies = {"BTC", "ETH", "ETC", "BCH", "OMG", "POWR", "REP", "SNT", "STORJ", "MTL", "TIX", "LTC", "QTUM", "DGD", "XRP", 
     "MYST", "BTG", "WAVES", "SNGLS", "XAUR", "MER", "EDG", "AMP", "MAID", "AGRS", "FUN", "ANT", "MANA", "SRN", "WAXP", "ZRX", "VEE", "STEEM", "SBD", 
     "BCPT", "BAT", "SALT", "BNT", "MCO", "RCN", "CFI", "HMQ", "WINGS", "NMR", "GUP", "SWT", "DNT", "GLM", "CVC", "PAY", "RLC", "ENG", "UKG", "VIB", 
     "ADX", "QRL", "GNO", "PTOY", "ADT", "STRAX", "ADA", "TRX", "1ST", "LRC", "NEO", "XMR", "PIVX", "UP", "STMX", "ICX", "EOS", "DMT", "DASH", "ARK", 
@@ -4385,12 +4559,12 @@ bool TC_UpbitSpot_unsubscribeOrderbook_6(testDataType& testData){
     "XYM", "APENFT", "SGB", "SOL", "MATIC", "NU", "QI", "1INCH", "AAVE", "MASK", "AUDIO", "BOBA", "YGG", "GTC", "OCEAN", "CTC", "LPT", "WEMIX", "AVAX", "IMX", 
     "RNDR", "RLY", "T", "AQUA", "RAD", "AGLD", "API3", "ARPA", "ENS", "GMT", "APE", "LUNA2", "OGV", "RAY", "ETHW", "ETHF"};
 
-    rapidjson::Document requestDoc, responseDoc;
+    rapidjson::Document requestDoc, respDoc;
 
     requestDoc.SetObject();
     requestDoc.AddMember("market", rapidjson::Value(rapidjson::kArrayType), requestDoc.GetAllocator());
 
-    for(const auto& baseCurrency : allCurrencys){
+    for(const auto& baseCurrency : allCurrencies){
         rapidjson::Value objectValue(rapidjson::kObjectType);
 
         objectValue.AddMember("baseCurrency", baseCurrency, requestDoc.GetAllocator());
@@ -4403,47 +4577,63 @@ bool TC_UpbitSpot_unsubscribeOrderbook_6(testDataType& testData){
 
     testData.actualResult = response;
 
-    OneXAPI::Internal::Util::parseJson(responseDoc, response);
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-    if(responseDoc["success"].GetBool() == false){
+    if(!successResponseChecker(response)){
+        return false;
+    }
+    else if(respDoc["requestedApiCount"].GetUint() != 0){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"], 2)){
+        return false;
+    }
+    else if(!respDoc["data"]["subscribed"].IsArray()){
+        return false;
+    }
+    else if(!respDoc["data"]["subscribeFailed"].IsArray()){
         return false;
     }
 
     std::vector<std::string> subscribedList, subscribeFailedList;
     
-    for(const auto& object : responseDoc["data"]["subscribed"].GetArray()){
+    for(const auto& object : respDoc["data"]["subscribed"].GetArray()){
+        if(!memberCountChecker(object, 3)){
+            return false;
+        }
         subscribedList.emplace_back(object["symbol"].GetString());
     }
 
-    for(const auto& object : responseDoc["data"]["subscribeFailed"].GetArray()){
+    for(const auto& object : respDoc["data"]["subscribeFailed"].GetArray()){
+        if(!memberCountChecker(object, 3)){
+            return false;
+        }
         subscribeFailedList.emplace_back(object["symbol"].GetString());
     }
 
     response = client.getSubscribingOrderbooks();
 
-    testData.actualResult = response;
-    OneXAPI::Internal::Util::parseJson(responseDoc, response);
+    testData.actualResult.append("\n").append(response);
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
 
-    rapidjson::Document unsubscribeRequest;
-
-    unsubscribeRequest.SetObject();
-    unsubscribeRequest.AddMember("market", rapidjson::kArrayType, unsubscribeRequest.GetAllocator());
-
-    if(responseDoc["success"].GetBool() == false){
+    if(!successResponseChecker(response)){
+        return false;
+    }
+    else if(respDoc["requestedApiCount"].GetUint() != 0){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"], 1)){
+        return false;
+    }
+    else if(respDoc["data"]["orderbooks"].Size() != subscribedList.size()){
         return false;
     }
 
-    for(const auto& Orderbook : responseDoc["data"]["orderbooks"].GetArray()){
-        std::string baseCurrency = Orderbook["baseCurrency"].GetString();
-        std::string quoteCurrency = Orderbook["quoteCurrency"].GetString();
-        std::string symbol = Orderbook["symbol"].GetString();
-
-        rapidjson::Value marketObject(rapidjson::kObjectType);
-
-        marketObject.AddMember("baseCurrency", baseCurrency, unsubscribeRequest.GetAllocator());
-        marketObject.AddMember("quoteCurrency", quoteCurrency, unsubscribeRequest.GetAllocator());
-
-        unsubscribeRequest["market"].PushBack(marketObject, unsubscribeRequest.GetAllocator());
+    for(const auto& orderbook : respDoc["data"]["orderbooks"].GetArray()){
+        std::string symbol = orderbook["symbol"].GetString();
+        if(!memberCountChecker(orderbook, 3)){
+            return false;
+        }
 
         if(IN_VECTOR(subscribedList, symbol)){
             continue;
@@ -4457,32 +4647,311 @@ bool TC_UpbitSpot_unsubscribeOrderbook_6(testDataType& testData){
         }
     }
 
-    testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeOrderbook";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,})";
+    return true;
 
-    client.unsubscribeOrderbook(OneXAPI::Internal::Util::jsonToString(unsubscribeRequest));
+    TC_END
+}
 
-    testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingOrderbook";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"orderbooks":[]}})";
+bool TC_UpbitSpot_subscribeOrderbook_8(testDataType& testData){
+    TC_BEGIN
 
-    response = client.getSubscribingOrderbooks();
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeOrderbook";
+    testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"subscribed":[],"subscribeFailed":[{"baseCurrency":"HYUNKYU","quoteCurrency":"KRW","symbol":"KRW-HYUNKYU"}]}})";
+
+    OneXAPI::Upbit::Spot client;
+    std::string input = R"({"market":[{"baseCurrency":"HYUNKYU","quoteCurrency":"KRW"}]})";
+    std::string response = client.subscribeOrderbook(input);
 
     testData.actualResult = response;
 
-    if(response.compare(testData.expectedResult) != 0){
+    testData.expectedResult.append("\n").append(R"({"success":true,"requestedApiCount":0,"data":{"orderbooks":[]}})");
+    response = client.getSubscribingOrderbooks();
+
+    testData.actualResult.append("\n").append(response);
+
+    if(testData.actualResult.compare(testData.expectedResult) != 0){
         return false;
     }
 
     return true;
+
+    TC_END
+}
+
+bool TC_UpbitSpot_subscribeOrderbook_9(testDataType& testData){
+    TC_BEGIN
+
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeOrderbook";
+    testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}],"subscribeFailed":[]}})";
+
+    OneXAPI::Upbit::Spot client;
+    std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}]})";
+    std::string response = client.subscribeOrderbook(input);
+
+    testData.actualResult = response;
+
+    testData.expectedResult.append("\n").append(R"({"success":true,"requestedApiCount":0,"data":{"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})");
+    response = client.getSubscribingOrderbooks();
+
+    testData.actualResult.append("\n").append(response);
+
+    testData.expectedResult.append("\n").append(R"({"success":true,"requestedApiCount":0,"data":{"subscribed":[],"subscribeFailed":[]}})");
+    response = client.subscribeOrderbook(R"({"market":[],"reconnect":true})");
+    
+    testData.actualResult.append("\n").append(response);
+
+    if(testData.actualResult.compare(testData.expectedResult) != 0){
+        return false;
+    }
+
+    return true;
+
+    TC_END
+}
+
+bool TC_UpbitSpot_unsubscribeOrderbook_1(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeOrderbook";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+
+    OneXAPI::Upbit::Spot client;
+    std::string response = client.unsubscribeOrderbook();
+
+    testData.actualResult = response;
+
+    if(errorResponseChecker(response, "NOT_ENOUGH_PARAM", 0)){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_UpbitSpot_unsubscribeOrderbook_2(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeOrderbook";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+
+    OneXAPI::Upbit::Spot client;
+    std::string input = "";
+    std::string response = client.unsubscribeOrderbook(input);
+
+    testData.actualResult = response;
+
+    if(errorResponseChecker(response, "NOT_ENOUGH_PARAM", 0)){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_UpbitSpot_unsubscribeOrderbook_3(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeOrderbook";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
+
+    OneXAPI::Upbit::Spot client;
+    std::string input = "{}";
+    std::string response = client.unsubscribeOrderbook(input);
+
+    testData.actualResult = response;
+
+    if(errorResponseChecker(response, "NOT_ENOUGH_PARAM", 0)){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_UpbitSpot_unsubscribeOrderbook_4(testDataType& testData){
+    TC_BEGIN
+
+    testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeOrderbook";
+    testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
+
+    OneXAPI::Upbit::Spot client;
+    std::string input = "Bqbqb@";
+    std::string response = client.unsubscribeOrderbook(input);
+
+    testData.actualResult = response;
+
+    if(errorResponseChecker(response, "JSON_PARSING_ERROR", 0)){
+        return true;
+    }
+
+    TC_END
+}
+
+bool TC_UpbitSpot_unsubscribeOrderbook_5(testDataType& testData){
+    TC_BEGIN
+
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeOrderbook";
+    testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"unsubscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"}],"unsubscribeFailed":[]}})";
+
+    OneXAPI::Upbit::Spot client;
+    client.subscribeOrderbook(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}]})");
+
+    std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"}]})";
+    std::string response = client.unsubscribeOrderbook(input);
+
+    testData.actualResult = response;
+
+    testData.expectedResult.append("\n").append(R"({"success":true,"requestedApiCount":0,"data":{"orderbooks":[{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})");
+    response = client.getSubscribingOrderbooks();
+
+    testData.actualResult.append("\n").append(response);
+
+    if(testData.actualResult.compare(testData.expectedResult) != 0){
+        return false;
+    }
+    return true;
+
+    TC_END
+}
+
+bool TC_UpbitSpot_unsubscribeOrderbook_6(testDataType& testData){
+    TC_BEGIN
+
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeOrderbook";
+    testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"unsubscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"}],"unsubscribeFailed":[]}})";
+
+    OneXAPI::Upbit::Spot client;
+    client.subscribeOrderbook(R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}]})");
+
+    std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"}],"reconnect":true})";
+    std::string response = client.unsubscribeOrderbook(input);
+
+    testData.actualResult = response;
+
+    testData.expectedResult.append("\n").append(R"({"success":true,"requestedApiCount":0,"data":{"orderbooks":[{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})");
+    response = client.getSubscribingOrderbooks();
+
+    testData.actualResult.append("\n").append(response);
+
+    if(testData.actualResult.compare(testData.expectedResult) != 0){
+        return false;
+    }
+    return true;
+
     TC_END
 }
 
 bool TC_UpbitSpot_unsubscribeOrderbook_7(testDataType& testData){
     TC_BEGIN
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeOrderbook";
+    testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"unsubscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"}.........................],"unsubscribeFailed":[]}}
+
+unsubscribe request same as pre-condition subscribe request
+
+member count of response["data"] is 2
+response["data"]["unsubscribed"] type is array
+response["data"]["unsubscribeFailed"] type is array
+
+member count of response["data"]["unsubscribed"][] is 3
+member count of response["data"]["unsubscribeFailed"][] is 3
+
+{"success":true,"requestedApiCount":0,"data":{"funcName":[]}}
+
+funcName is getSubscribing Type
+getSubscribingTickers -> funcName = tickers
+getSubscribingOrderbooks -> funcName = orderbooks)";
+
+    OneXAPI::Upbit::Spot client;
+    std::vector<std::string> allCurrencies = {"BTC", "ETH", "ETC", "BCH", "OMG", "POWR", "REP", "SNT", "STORJ", "MTL", "TIX", "LTC", "QTUM", "DGD", "XRP", 
+    "MYST", "BTG", "WAVES", "SNGLS", "XAUR", "MER", "EDG", "AMP", "MAID", "AGRS", "FUN", "ANT", "MANA", "SRN", "WAXP", "ZRX", "VEE", "STEEM", "SBD", 
+    "BCPT", "BAT", "SALT", "BNT", "MCO", "RCN", "CFI", "HMQ", "WINGS", "NMR", "GUP", "SWT", "DNT", "GLM", "CVC", "PAY", "RLC", "ENG", "UKG", "VIB", 
+    "ADX", "QRL", "GNO", "PTOY", "ADT", "STRAX", "ADA", "TRX", "1ST", "LRC", "NEO", "XMR", "PIVX", "UP", "STMX", "ICX", "EOS", "DMT", "DASH", "ARK", 
+    "ZEC", "ARDR", "IGNIS", "XEM", "KMD", "GRS", "EMC2", "VTC", "LSK", "LUN", "POLY", "XLM", "XVG", "RDD", "EMC", "PRO", "SC", "GTO", "ONT", "ZIL", 
+    "BLT", "DCR", "AID", "NGC", "OCN", "LOOM", "CMCT", "NXT", "BKX", "MFT", "IOST", "RFR", "IQ", "CLOAK", "PART", "DOGE", "IOP", "VIA", "NAV", "IOTA", 
+    "OST", "BFT", "SYS", "ZEN", "OK", "UPP", "ENJ", "MET", "HYDRO", "CRW", "DTA", "EDR", "BOXX", "GAS", "ONG", "IHT", "MED", "TX", "BLOCK", "RVN", "ION", 
+    "BITB", "BSD", "FTC", "RVR", "LBC", "GAME", "ELF", "PMA", "KNC", "PAL", "UNB", "MOC", "PUNDIX", "SPC", "NXS", "SYNX", "KORE", "DYN", "VAL", "DGB", 
+    "SIB", "VRC", "MEME", "EXCL", "BAY", "SHIFT", "MONA", "BLK", "XHV", "TUBE", "UBQ", "GO", "EXP", "XZC", "MUE", "NBT", "BURST", "DCT", "SPHR", "SLS", 
+    "XEL", "GBYTE", "XDN", "FCT", "BSV", "XNK", "THETA", "NCASH", "JNT", "LBA", "DENT", "DRGN", "QKC", "CPT", "BTM", "BTT", "VITE", "IOTX", "BTU", "SOLVE", 
+    "NKN", "CTXC", "QNT", "STRK", "META", "MOBI", "SERV", "ANKR", "COSM", "CRO", "TFUEL", "BTS", "FSN", "MARO", "ORBS", "HST", "AERGO", "PI", "VBK", "ATOM", 
+    "TT", "ACN", "CRE", "VDX", "STPT", "MBL", "LAMB", "LUNC", "DAI", "MKR", "BORA", "TSHP", "HBAR", "WIN", "MLK", "PXL", "VET", "CHZ", "VTHO", "XPR", "FX", 
+    "OGN", "ITAM", "XTZ", "OBSR", "DKA", "AHT", "RINGX", "GOM2", "LINK", "JST", "KAVA", "RVC", "PCI", "TON", "CTSI", "DOT", "DAD", "CHR", "COMP", "SXP", 
+    "HUNT", "ONIT", "CRV", "ALGO", "RSR", "OXT", "PLA", "SAND", "SUN", "SRM", "QTCON", "MVL", "REI", "AQT", "AXS", "FCT2", "SSX", "FIL", "XEC", "UNI", "INJ", 
+    "BASIC", "PROM", "CBK", "FOR", "ONX", "MIR", "BFC", "LINA", "HUM", "PICA", "CELO", "STX", "LZM", "DON", "NEAR", "AUCTION", "DAWN", "FLOW", "GRT", "SNX", 
+    "XYM", "APENFT", "SGB", "SOL", "MATIC", "NU", "QI", "1INCH", "AAVE", "MASK", "AUDIO", "BOBA", "YGG", "GTC", "OCEAN", "CTC", "LPT", "WEMIX", "AVAX", "IMX", 
+    "RNDR", "RLY", "T", "AQUA", "RAD", "AGLD", "API3", "ARPA", "ENS", "GMT", "APE", "LUNA2", "OGV", "RAY", "ETHW", "ETHF"};
+
+    rapidjson::Document requestDoc, respDoc;
+
+    requestDoc.SetObject();
+    requestDoc.AddMember("market", rapidjson::Value(rapidjson::kArrayType), requestDoc.GetAllocator());
+
+    for(const auto& baseCurrency : allCurrencies){
+        rapidjson::Value objectValue(rapidjson::kObjectType);
+
+        objectValue.AddMember("baseCurrency", baseCurrency, requestDoc.GetAllocator());
+        objectValue.AddMember("quoteCurrency", "KRW", requestDoc.GetAllocator());
+        requestDoc["market"].PushBack(objectValue, requestDoc.GetAllocator());
+    }
+
+    std::string input = OneXAPI::Internal::Util::jsonToString(requestDoc);
+    client.subscribeOrderbook(input);
+
+    std::string response = client.unsubscribeOrderbook(input);
+
+    testData.actualResult = response;
+
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+    
+    if(!successResponseChecker(response)){
+        return false;
+    }
+    else if(respDoc["requestedApiCount"].GetUint() != 0){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"], 2)){
+        return false;
+    }
+    else if(!respDoc["data"]["unsubscribed"].IsArray()){
+        return false;
+    }
+    else if(!respDoc["data"]["unsubscribeFailed"].IsArray()){
+        return false;
+    }
+    
+    for(const auto& object : respDoc["data"]["unsubscribed"].GetArray()){
+        if(!memberCountChecker(object, 3)){
+            return false;
+        }
+    }
+
+    for(const auto& object : respDoc["data"]["unsubscribeFailed"].GetArray()){
+        if(!memberCountChecker(object, 3)){
+            return false;
+        }
+    }
+
+    response = client.getSubscribingOrderbooks();
+
+    testData.actualResult.append("\n").append(response);
+
+    std::string getSubscribingExpectedRes = R"({"success":true,"requestedApiCount":0,"data":{"orderbooks":[]}})";
+
+    if(response.compare(getSubscribingExpectedRes) != 0){
+        return false;
+    }
+    return true;
+
+    TC_END
+}
+
+bool TC_UpbitSpot_unsubscribeOrderbook_8(testDataType& testData){
+    TC_BEGIN
 
     std::this_thread::sleep_for(std::chrono::seconds(1));
     testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeOrderbook";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"unsubscribed":[],"unsubscribeFailed":[{"baseCurrency":"HYUNKYU","quoteCurrency":"KRW","symbol":"KRW-HYUNKYU"}]}})";
+    testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"unsubscribed":[],"unsubscribeFailed":[{"baseCurrency":"HYUNKYU","quoteCurrency":"KRW","symbol":"KRW-HYUNKYU"}]}})";
 
     OneXAPI::Upbit::Spot client;
     std::string input = R"({"market":[{"baseCurrency":"HYUNKYU","quoteCurrency":"KRW"}]})";
@@ -4493,26 +4962,17 @@ bool TC_UpbitSpot_unsubscribeOrderbook_7(testDataType& testData){
     if(response.compare(testData.expectedResult) != 0){
         return false;
     }
-
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"orderbooks":[]}})";
-    response = client.getSubscribingOrderbooks();
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
     return true;
+
     TC_END
 }
 
-bool TC_UpbitSpot_unsubscribeOrderbook_8(testDataType& testData){
+bool TC_UpbitSpot_unsubscribeOrderbook_9(testDataType& testData){
     TC_BEGIN
 
     std::this_thread::sleep_for(std::chrono::seconds(1));
-    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeOrderbook_1";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}],"subscribeFailed":[]}})";
+    testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeOrderbook";
+    testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}],"subscribeFailed":[]}})";
 
     OneXAPI::Upbit::Spot client;
     std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}]})";
@@ -4520,198 +4980,19 @@ bool TC_UpbitSpot_unsubscribeOrderbook_8(testDataType& testData){
 
     testData.actualResult = response;
 
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingOrderbooks_2";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})";
+    testData.expectedResult.append("\n").append(R"({"success":true,"requestedApiCount":0,"data":{"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})");
     response = client.getSubscribingOrderbooks();
 
-    testData.actualResult = response;
+    testData.actualResult.append("\n").append(response);
 
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeOrderbook_3";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"unsubscribed":[],"unsubscribeFailed":[]}})";
+    testData.expectedResult.append("\n").append(R"({"success":true,"requestedApiCount":0,"data":{"unsubscribed":[],"unsubscribeFailed":[]}})");
     response = client.unsubscribeOrderbook(R"({"market":[],"reconnect":true})");
     
-    testData.actualResult = response;
+    testData.actualResult.append("\n").append(response);
 
-    if(response.compare(testData.expectedResult) != 0){
+    if(testData.actualResult.compare(testData.expectedResult) != 0){
         return false;
     }
-
-    return true;
-    TC_END
-}
-
-bool TC_UpbitSpot_websocketFullTest(testDataType& testData){
-    TC_BEGIN
-
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeTicker_1";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}],"subscribeFailed":[]}})";
-
-    OneXAPI::Upbit::Spot client;
-    std::string input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}]})";
-    std::string response = client.subscribeTicker(input);
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingTickers_2";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"tickers":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})";
-
-    response = client.getSubscribingTickers();
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeOrderbook_3";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}],"subscribeFailed":[]}})";
-
-    input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}],"reconnect":true})";
-    response = client.subscribeOrderbook(input);
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingTickers_4";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"tickers":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})";
-
-    response = client.getSubscribingTickers();
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingOrderbooks_5";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})";
-
-    response = client.getSubscribingOrderbooks();
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeTicker_6";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"unsubscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"}],"unsubscribeFailed":[]}})";
-
-    input = R"({"market":[{"baseCurrency":"BTC","quoteCurrency":"KRW"}],"reconnect":true})";
-    response = client.unsubscribeTicker(input);
-
-    testData.actualResult = response;
-    
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingTickers_7";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"tickers":[{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})";
-
-    response = client.getSubscribingTickers();
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingOrderbooks_8";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})";
-
-    response = client.getSubscribingOrderbooks();
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().unsubscribeOrderbook_9";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"unsubscribed":[{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}],"unsubscribeFailed":[]}})";
-
-    input = R"({"market":[{"baseCurrency":"ETH","quoteCurrency":"KRW"}],"reconnect":true})";
-    response = client.unsubscribeOrderbook(input);
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingTickers_10";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"tickers":[{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})";
-
-    response = client.getSubscribingTickers();
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingOrderbooks_11";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"}]}})";
-
-    response = client.getSubscribingOrderbooks();
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().subscribeOrderbook_12";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"subscribed":[{"baseCurrency":"XRP","quoteCurrency":"KRW","symbol":"KRW-XRP"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}],"subscribeFailed":[]}})";
-
-    input = R"({"market":[{"baseCurrency":"XRP","quoteCurrency":"KRW"},{"baseCurrency":"ETH","quoteCurrency":"KRW"}],"reconnect":true})";
-    response = client.subscribeOrderbook(input);
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingTickers_13";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"tickers":[{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})";
-
-    response = client.getSubscribingTickers();
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
-    testData.testSubject = "OneXAPI::Upbit::Spot().getSubscribingOrderbooks_14";
-    testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"orderbooks":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"},{"baseCurrency":"XRP","quoteCurrency":"KRW","symbol":"KRW-XRP"},{"baseCurrency":"ETH","quoteCurrency":"KRW","symbol":"KRW-ETH"}]}})";
-
-    response = client.getSubscribingOrderbooks();
-
-    testData.actualResult = response;
-
-    if(response.compare(testData.expectedResult) != 0){
-        return false;
-    }
-
     return true;
 
     TC_END
