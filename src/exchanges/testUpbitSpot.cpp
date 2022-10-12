@@ -941,6 +941,9 @@ member count of response["data"]["currencies"][currency] = 1)";
     else if(!(respDoc["data"]["currencies"].MemberCount() > 10)){
         return false;
     }
+    else if(!memberCountChecker(respDoc["data"], 1)){
+        return false;
+    }
 
     for(auto currencyPtr = respDoc["data"]["currencies"].MemberBegin(); currencyPtr != respDoc["data"]["currencies"].MemberEnd(); currencyPtr++){
         if(!currencyPtr->name.IsString()){
@@ -1176,7 +1179,7 @@ member count of response["data"]["currencies"][currency]["chains"][] = 3)";
         else if(!memberCountChecker(currencyPtr->value, 1)){
             return false;
         }
-        ;
+        
         for(const auto& chain : currencyPtr->value["chains"].GetArray()){
             if(std::string("").compare(chain["chain"].GetString()) != 0){
                 return false;
@@ -1403,29 +1406,29 @@ member count of response["data"]["deposits"] = 7)";
     else if(!memberCountChecker(respDoc["data"], 1)){
         return false;
     }
-    for(const auto& withdrawal : respDoc["data"]["deposits"].GetArray()){
-        if(!withdrawal["currency"].IsString()){
+    for(const auto& deposit : respDoc["data"]["deposits"].GetArray()){
+        if(!deposit["currency"].IsString()){
             return false;
         }
-        if(!withdrawal["amount"].IsString()){
+        if(!deposit["amount"].IsString()){
             return false;
         }
-        if(!withdrawal["fee"].IsString()){
+        if(!deposit["fee"].IsString()){
             return false;
         }
-        if(!withdrawal["orderId"].IsString()){
+        if(!deposit["orderId"].IsString()){
             return false;
         }
-        if(!withdrawal["txid"].IsString()){
+        if(!deposit["txid"].IsString()){
             return false;
         }
-        if(!withdrawal["status"].IsString()){
+        if(!deposit["status"].IsString()){
             return false;
         }
-        if(!withdrawal["created"].IsUint64()){
+        if(!deposit["created"].IsUint64()){
             return false;
         }
-        if(!memberCountChecker(withdrawal, 7)){
+        if(!memberCountChecker(deposit, 7)){
             return false;
         }
     }
@@ -3893,6 +3896,8 @@ bool TC_UpbitSpot_subscribeTicker_7(testDataType& testData){
     testData.testSubject = "OneXAPI::Upbit::Spot().subscribeTicker";
     testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"}......................],"subscribeFailed":[]}}
 
+size of response["data"]["subscribed"] greater than 50
+
 member count of response["data"] is 2
 response["data"]["subscribed"] type is array
 response["data"]["subscribeFailed"] type is array
@@ -3914,23 +3919,12 @@ getSubscribingTickers -> funcName = tickers
 getSubscribingOrderbooks -> funcName = orderbooks)";
 
     OneXAPI::Upbit::Spot client;
-    std::vector<std::string> allCurrencies = {"BTC", "ETH", "ETC", "BCH", "OMG", "POWR", "REP", "SNT", "STORJ", "MTL", "TIX", "LTC", "QTUM", "DGD", "XRP", 
-    "MYST", "BTG", "WAVES", "SNGLS", "XAUR", "MER", "EDG", "AMP", "MAID", "AGRS", "FUN", "ANT", "MANA", "SRN", "WAXP", "ZRX", "VEE", "STEEM", "SBD", 
-    "BCPT", "BAT", "SALT", "BNT", "MCO", "RCN", "CFI", "HMQ", "WINGS", "NMR", "GUP", "SWT", "DNT", "GLM", "CVC", "PAY", "RLC", "ENG", "UKG", "VIB", 
-    "ADX", "QRL", "GNO", "PTOY", "ADT", "STRAX", "ADA", "TRX", "1ST", "LRC", "NEO", "XMR", "PIVX", "UP", "STMX", "ICX", "EOS", "DMT", "DASH", "ARK", 
-    "ZEC", "ARDR", "IGNIS", "XEM", "KMD", "GRS", "EMC2", "VTC", "LSK", "LUN", "POLY", "XLM", "XVG", "RDD", "EMC", "PRO", "SC", "GTO", "ONT", "ZIL", 
-    "BLT", "DCR", "AID", "NGC", "OCN", "LOOM", "CMCT", "NXT", "BKX", "MFT", "IOST", "RFR", "IQ", "CLOAK", "PART", "DOGE", "IOP", "VIA", "NAV", "IOTA", 
-    "OST", "BFT", "SYS", "ZEN", "OK", "UPP", "ENJ", "MET", "HYDRO", "CRW", "DTA", "EDR", "BOXX", "GAS", "ONG", "IHT", "MED", "TX", "BLOCK", "RVN", "ION", 
-    "BITB", "BSD", "FTC", "RVR", "LBC", "GAME", "ELF", "PMA", "KNC", "PAL", "UNB", "MOC", "PUNDIX", "SPC", "NXS", "SYNX", "KORE", "DYN", "VAL", "DGB", 
-    "SIB", "VRC", "MEME", "EXCL", "BAY", "SHIFT", "MONA", "BLK", "XHV", "TUBE", "UBQ", "GO", "EXP", "XZC", "MUE", "NBT", "BURST", "DCT", "SPHR", "SLS", 
-    "XEL", "GBYTE", "XDN", "FCT", "BSV", "XNK", "THETA", "NCASH", "JNT", "LBA", "DENT", "DRGN", "QKC", "CPT", "BTM", "BTT", "VITE", "IOTX", "BTU", "SOLVE", 
-    "NKN", "CTXC", "QNT", "STRK", "META", "MOBI", "SERV", "ANKR", "COSM", "CRO", "TFUEL", "BTS", "FSN", "MARO", "ORBS", "HST", "AERGO", "PI", "VBK", "ATOM", 
-    "TT", "ACN", "CRE", "VDX", "STPT", "MBL", "LAMB", "LUNC", "DAI", "MKR", "BORA", "TSHP", "HBAR", "WIN", "MLK", "PXL", "VET", "CHZ", "VTHO", "XPR", "FX", 
-    "OGN", "ITAM", "XTZ", "OBSR", "DKA", "AHT", "RINGX", "GOM2", "LINK", "JST", "KAVA", "RVC", "PCI", "TON", "CTSI", "DOT", "DAD", "CHR", "COMP", "SXP", 
-    "HUNT", "ONIT", "CRV", "ALGO", "RSR", "OXT", "PLA", "SAND", "SUN", "SRM", "QTCON", "MVL", "REI", "AQT", "AXS", "FCT2", "SSX", "FIL", "XEC", "UNI", "INJ", 
-    "BASIC", "PROM", "CBK", "FOR", "ONX", "MIR", "BFC", "LINA", "HUM", "PICA", "CELO", "STX", "LZM", "DON", "NEAR", "AUCTION", "DAWN", "FLOW", "GRT", "SNX", 
-    "XYM", "APENFT", "SGB", "SOL", "MATIC", "NU", "QI", "1INCH", "AAVE", "MASK", "AUDIO", "BOBA", "YGG", "GTC", "OCEAN", "CTC", "LPT", "WEMIX", "AVAX", "IMX", 
-    "RNDR", "RLY", "T", "AQUA", "RAD", "AGLD", "API3", "ARPA", "ENS", "GMT", "APE", "LUNA2", "OGV", "RAY", "ETHW", "ETHF"};
+    std::vector<std::string> allCurrencies = {"BTC", "ETH", "BCH", "AAVE", "BSV", "SOL", "ETC", "BTG", "AVAX", "STRK",
+        "ATOM", "AXS", "NEO", "LINK", "REP", "DOT", "WAVES", "NEAR", "QTUM", "SBD",
+        "GAS", "WEMIX", "OMG", "FLOW", "TON", "KAVA", "XTZ", "AQT", "EOS", "KNC",
+        "MTL", "THETA", "LSK", "MATIC", "SAND", "CBK", "CELO", "SRM", "GMT", "DAWN",
+        "MANA", "1INCH", "STRAX", "HIVE", "XRP", "PUNDIX", "ENJ", "STORJ", "ADA", "ARK",
+        "HUNT", "SXP", "ONG", "ALGO", "STX", "MLK", "PLA", "GRS", "BAT", "IOTA"};
 
     rapidjson::Document requestDoc, respDoc;
 
@@ -3962,6 +3956,9 @@ getSubscribingOrderbooks -> funcName = orderbooks)";
         return false;
     }
     else if(!respDoc["data"]["subscribed"].IsArray()){
+        return false;
+    }
+    else if(!(respDoc["data"]["subscribed"].Size() > 50)){
         return false;
     }
     else if(!respDoc["data"]["subscribeFailed"].IsArray()){
@@ -4236,23 +4233,12 @@ getSubscribingTickers -> funcName = tickers
 getSubscribingOrderbooks -> funcName = orderbooks)";
 
     OneXAPI::Upbit::Spot client;
-    std::vector<std::string> allCurrencies = {"BTC", "ETH", "ETC", "BCH", "OMG", "POWR", "REP", "SNT", "STORJ", "MTL", "TIX", "LTC", "QTUM", "DGD", "XRP", 
-    "MYST", "BTG", "WAVES", "SNGLS", "XAUR", "MER", "EDG", "AMP", "MAID", "AGRS", "FUN", "ANT", "MANA", "SRN", "WAXP", "ZRX", "VEE", "STEEM", "SBD", 
-    "BCPT", "BAT", "SALT", "BNT", "MCO", "RCN", "CFI", "HMQ", "WINGS", "NMR", "GUP", "SWT", "DNT", "GLM", "CVC", "PAY", "RLC", "ENG", "UKG", "VIB", 
-    "ADX", "QRL", "GNO", "PTOY", "ADT", "STRAX", "ADA", "TRX", "1ST", "LRC", "NEO", "XMR", "PIVX", "UP", "STMX", "ICX", "EOS", "DMT", "DASH", "ARK", 
-    "ZEC", "ARDR", "IGNIS", "XEM", "KMD", "GRS", "EMC2", "VTC", "LSK", "LUN", "POLY", "XLM", "XVG", "RDD", "EMC", "PRO", "SC", "GTO", "ONT", "ZIL", 
-    "BLT", "DCR", "AID", "NGC", "OCN", "LOOM", "CMCT", "NXT", "BKX", "MFT", "IOST", "RFR", "IQ", "CLOAK", "PART", "DOGE", "IOP", "VIA", "NAV", "IOTA", 
-    "OST", "BFT", "SYS", "ZEN", "OK", "UPP", "ENJ", "MET", "HYDRO", "CRW", "DTA", "EDR", "BOXX", "GAS", "ONG", "IHT", "MED", "TX", "BLOCK", "RVN", "ION", 
-    "BITB", "BSD", "FTC", "RVR", "LBC", "GAME", "ELF", "PMA", "KNC", "PAL", "UNB", "MOC", "PUNDIX", "SPC", "NXS", "SYNX", "KORE", "DYN", "VAL", "DGB", 
-    "SIB", "VRC", "MEME", "EXCL", "BAY", "SHIFT", "MONA", "BLK", "XHV", "TUBE", "UBQ", "GO", "EXP", "XZC", "MUE", "NBT", "BURST", "DCT", "SPHR", "SLS", 
-    "XEL", "GBYTE", "XDN", "FCT", "BSV", "XNK", "THETA", "NCASH", "JNT", "LBA", "DENT", "DRGN", "QKC", "CPT", "BTM", "BTT", "VITE", "IOTX", "BTU", "SOLVE", 
-    "NKN", "CTXC", "QNT", "STRK", "META", "MOBI", "SERV", "ANKR", "COSM", "CRO", "TFUEL", "BTS", "FSN", "MARO", "ORBS", "HST", "AERGO", "PI", "VBK", "ATOM", 
-    "TT", "ACN", "CRE", "VDX", "STPT", "MBL", "LAMB", "LUNC", "DAI", "MKR", "BORA", "TSHP", "HBAR", "WIN", "MLK", "PXL", "VET", "CHZ", "VTHO", "XPR", "FX", 
-    "OGN", "ITAM", "XTZ", "OBSR", "DKA", "AHT", "RINGX", "GOM2", "LINK", "JST", "KAVA", "RVC", "PCI", "TON", "CTSI", "DOT", "DAD", "CHR", "COMP", "SXP", 
-    "HUNT", "ONIT", "CRV", "ALGO", "RSR", "OXT", "PLA", "SAND", "SUN", "SRM", "QTCON", "MVL", "REI", "AQT", "AXS", "FCT2", "SSX", "FIL", "XEC", "UNI", "INJ", 
-    "BASIC", "PROM", "CBK", "FOR", "ONX", "MIR", "BFC", "LINA", "HUM", "PICA", "CELO", "STX", "LZM", "DON", "NEAR", "AUCTION", "DAWN", "FLOW", "GRT", "SNX", 
-    "XYM", "APENFT", "SGB", "SOL", "MATIC", "NU", "QI", "1INCH", "AAVE", "MASK", "AUDIO", "BOBA", "YGG", "GTC", "OCEAN", "CTC", "LPT", "WEMIX", "AVAX", "IMX", 
-    "RNDR", "RLY", "T", "AQUA", "RAD", "AGLD", "API3", "ARPA", "ENS", "GMT", "APE", "LUNA2", "OGV", "RAY", "ETHW", "ETHF"};
+    std::vector<std::string> allCurrencies = {"BTC", "ETH", "BCH", "AAVE", "BSV", "SOL", "ETC", "BTG", "AVAX", "STRK",
+        "ATOM", "AXS", "NEO", "LINK", "REP", "DOT", "WAVES", "NEAR", "QTUM", "SBD",
+        "GAS", "WEMIX", "OMG", "FLOW", "TON", "KAVA", "XTZ", "AQT", "EOS", "KNC",
+        "MTL", "THETA", "LSK", "MATIC", "SAND", "CBK", "CELO", "SRM", "GMT", "DAWN",
+        "MANA", "1INCH", "STRAX", "HIVE", "XRP", "PUNDIX", "ENJ", "STORJ", "ADA", "ARK",
+        "HUNT", "SXP", "ONG", "ALGO", "STX", "MLK", "PLA", "GRS", "BAT", "IOTA"};
 
     rapidjson::Document requestDoc, respDoc;
 
@@ -4268,9 +4254,17 @@ getSubscribingOrderbooks -> funcName = orderbooks)";
     }
 
     std::string input = OneXAPI::Internal::Util::jsonToString(requestDoc);
-    client.subscribeTicker(input);
+    std::string response = client.subscribeTicker(input);
 
-    std::string response = client.unsubscribeTicker(input);
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+    if(!successResponseChecker(response)){
+        return false;
+    }
+    else if(!(respDoc["data"]["subscribed"].Size() > 50)){
+        return false;
+    }
+
+    response = client.unsubscribeTicker(input);
 
     testData.actualResult = response;
 
@@ -4520,6 +4514,8 @@ bool TC_UpbitSpot_subscribeOrderbook_7(testDataType& testData){
     testData.testSubject = "OneXAPI::Upbit::Spot().subscribeOrderbook";
     testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"subscribed":[{"baseCurrency":"BTC","quoteCurrency":"KRW","symbol":"KRW-BTC"}......................],"subscribeFailed":[]}}
 
+size of response["data"]["subscribed"] greater than 50
+
 member count of response["data"] is 2
 response["data"]["subscribed"] type is array
 response["data"]["subscribeFailed"] type is array
@@ -4541,23 +4537,12 @@ getSubscribingTickers -> funcName = tickers
 getSubscribingOrderbooks -> funcName = orderbooks)";
 
     OneXAPI::Upbit::Spot client;
-    std::vector<std::string> allCurrencies = {"BTC", "ETH", "ETC", "BCH", "OMG", "POWR", "REP", "SNT", "STORJ", "MTL", "TIX", "LTC", "QTUM", "DGD", "XRP", 
-    "MYST", "BTG", "WAVES", "SNGLS", "XAUR", "MER", "EDG", "AMP", "MAID", "AGRS", "FUN", "ANT", "MANA", "SRN", "WAXP", "ZRX", "VEE", "STEEM", "SBD", 
-    "BCPT", "BAT", "SALT", "BNT", "MCO", "RCN", "CFI", "HMQ", "WINGS", "NMR", "GUP", "SWT", "DNT", "GLM", "CVC", "PAY", "RLC", "ENG", "UKG", "VIB", 
-    "ADX", "QRL", "GNO", "PTOY", "ADT", "STRAX", "ADA", "TRX", "1ST", "LRC", "NEO", "XMR", "PIVX", "UP", "STMX", "ICX", "EOS", "DMT", "DASH", "ARK", 
-    "ZEC", "ARDR", "IGNIS", "XEM", "KMD", "GRS", "EMC2", "VTC", "LSK", "LUN", "POLY", "XLM", "XVG", "RDD", "EMC", "PRO", "SC", "GTO", "ONT", "ZIL", 
-    "BLT", "DCR", "AID", "NGC", "OCN", "LOOM", "CMCT", "NXT", "BKX", "MFT", "IOST", "RFR", "IQ", "CLOAK", "PART", "DOGE", "IOP", "VIA", "NAV", "IOTA", 
-    "OST", "BFT", "SYS", "ZEN", "OK", "UPP", "ENJ", "MET", "HYDRO", "CRW", "DTA", "EDR", "BOXX", "GAS", "ONG", "IHT", "MED", "TX", "BLOCK", "RVN", "ION", 
-    "BITB", "BSD", "FTC", "RVR", "LBC", "GAME", "ELF", "PMA", "KNC", "PAL", "UNB", "MOC", "PUNDIX", "SPC", "NXS", "SYNX", "KORE", "DYN", "VAL", "DGB", 
-    "SIB", "VRC", "MEME", "EXCL", "BAY", "SHIFT", "MONA", "BLK", "XHV", "TUBE", "UBQ", "GO", "EXP", "XZC", "MUE", "NBT", "BURST", "DCT", "SPHR", "SLS", 
-    "XEL", "GBYTE", "XDN", "FCT", "BSV", "XNK", "THETA", "NCASH", "JNT", "LBA", "DENT", "DRGN", "QKC", "CPT", "BTM", "BTT", "VITE", "IOTX", "BTU", "SOLVE", 
-    "NKN", "CTXC", "QNT", "STRK", "META", "MOBI", "SERV", "ANKR", "COSM", "CRO", "TFUEL", "BTS", "FSN", "MARO", "ORBS", "HST", "AERGO", "PI", "VBK", "ATOM", 
-    "TT", "ACN", "CRE", "VDX", "STPT", "MBL", "LAMB", "LUNC", "DAI", "MKR", "BORA", "TSHP", "HBAR", "WIN", "MLK", "PXL", "VET", "CHZ", "VTHO", "XPR", "FX", 
-    "OGN", "ITAM", "XTZ", "OBSR", "DKA", "AHT", "RINGX", "GOM2", "LINK", "JST", "KAVA", "RVC", "PCI", "TON", "CTSI", "DOT", "DAD", "CHR", "COMP", "SXP", 
-    "HUNT", "ONIT", "CRV", "ALGO", "RSR", "OXT", "PLA", "SAND", "SUN", "SRM", "QTCON", "MVL", "REI", "AQT", "AXS", "FCT2", "SSX", "FIL", "XEC", "UNI", "INJ", 
-    "BASIC", "PROM", "CBK", "FOR", "ONX", "MIR", "BFC", "LINA", "HUM", "PICA", "CELO", "STX", "LZM", "DON", "NEAR", "AUCTION", "DAWN", "FLOW", "GRT", "SNX", 
-    "XYM", "APENFT", "SGB", "SOL", "MATIC", "NU", "QI", "1INCH", "AAVE", "MASK", "AUDIO", "BOBA", "YGG", "GTC", "OCEAN", "CTC", "LPT", "WEMIX", "AVAX", "IMX", 
-    "RNDR", "RLY", "T", "AQUA", "RAD", "AGLD", "API3", "ARPA", "ENS", "GMT", "APE", "LUNA2", "OGV", "RAY", "ETHW", "ETHF"};
+    std::vector<std::string> allCurrencies = {"BTC", "ETH", "BCH", "AAVE", "BSV", "SOL", "ETC", "BTG", "AVAX", "STRK",
+        "ATOM", "AXS", "NEO", "LINK", "REP", "DOT", "WAVES", "NEAR", "QTUM", "SBD",
+        "GAS", "WEMIX", "OMG", "FLOW", "TON", "KAVA", "XTZ", "AQT", "EOS", "KNC",
+        "MTL", "THETA", "LSK", "MATIC", "SAND", "CBK", "CELO", "SRM", "GMT", "DAWN",
+        "MANA", "1INCH", "STRAX", "HIVE", "XRP", "PUNDIX", "ENJ", "STORJ", "ADA", "ARK",
+        "HUNT", "SXP", "ONG", "ALGO", "STX", "MLK", "PLA", "GRS", "BAT", "IOTA"};
 
     rapidjson::Document requestDoc, respDoc;
 
@@ -4589,6 +4574,9 @@ getSubscribingOrderbooks -> funcName = orderbooks)";
         return false;
     }
     else if(!respDoc["data"]["subscribed"].IsArray()){
+        return false;
+    }
+    else if(!(respDoc["data"]["subscribed"].Size() > 50)){
         return false;
     }
     else if(!respDoc["data"]["subscribeFailed"].IsArray()){
@@ -4864,23 +4852,12 @@ getSubscribingTickers -> funcName = tickers
 getSubscribingOrderbooks -> funcName = orderbooks)";
 
     OneXAPI::Upbit::Spot client;
-    std::vector<std::string> allCurrencies = {"BTC", "ETH", "ETC", "BCH", "OMG", "POWR", "REP", "SNT", "STORJ", "MTL", "TIX", "LTC", "QTUM", "DGD", "XRP", 
-    "MYST", "BTG", "WAVES", "SNGLS", "XAUR", "MER", "EDG", "AMP", "MAID", "AGRS", "FUN", "ANT", "MANA", "SRN", "WAXP", "ZRX", "VEE", "STEEM", "SBD", 
-    "BCPT", "BAT", "SALT", "BNT", "MCO", "RCN", "CFI", "HMQ", "WINGS", "NMR", "GUP", "SWT", "DNT", "GLM", "CVC", "PAY", "RLC", "ENG", "UKG", "VIB", 
-    "ADX", "QRL", "GNO", "PTOY", "ADT", "STRAX", "ADA", "TRX", "1ST", "LRC", "NEO", "XMR", "PIVX", "UP", "STMX", "ICX", "EOS", "DMT", "DASH", "ARK", 
-    "ZEC", "ARDR", "IGNIS", "XEM", "KMD", "GRS", "EMC2", "VTC", "LSK", "LUN", "POLY", "XLM", "XVG", "RDD", "EMC", "PRO", "SC", "GTO", "ONT", "ZIL", 
-    "BLT", "DCR", "AID", "NGC", "OCN", "LOOM", "CMCT", "NXT", "BKX", "MFT", "IOST", "RFR", "IQ", "CLOAK", "PART", "DOGE", "IOP", "VIA", "NAV", "IOTA", 
-    "OST", "BFT", "SYS", "ZEN", "OK", "UPP", "ENJ", "MET", "HYDRO", "CRW", "DTA", "EDR", "BOXX", "GAS", "ONG", "IHT", "MED", "TX", "BLOCK", "RVN", "ION", 
-    "BITB", "BSD", "FTC", "RVR", "LBC", "GAME", "ELF", "PMA", "KNC", "PAL", "UNB", "MOC", "PUNDIX", "SPC", "NXS", "SYNX", "KORE", "DYN", "VAL", "DGB", 
-    "SIB", "VRC", "MEME", "EXCL", "BAY", "SHIFT", "MONA", "BLK", "XHV", "TUBE", "UBQ", "GO", "EXP", "XZC", "MUE", "NBT", "BURST", "DCT", "SPHR", "SLS", 
-    "XEL", "GBYTE", "XDN", "FCT", "BSV", "XNK", "THETA", "NCASH", "JNT", "LBA", "DENT", "DRGN", "QKC", "CPT", "BTM", "BTT", "VITE", "IOTX", "BTU", "SOLVE", 
-    "NKN", "CTXC", "QNT", "STRK", "META", "MOBI", "SERV", "ANKR", "COSM", "CRO", "TFUEL", "BTS", "FSN", "MARO", "ORBS", "HST", "AERGO", "PI", "VBK", "ATOM", 
-    "TT", "ACN", "CRE", "VDX", "STPT", "MBL", "LAMB", "LUNC", "DAI", "MKR", "BORA", "TSHP", "HBAR", "WIN", "MLK", "PXL", "VET", "CHZ", "VTHO", "XPR", "FX", 
-    "OGN", "ITAM", "XTZ", "OBSR", "DKA", "AHT", "RINGX", "GOM2", "LINK", "JST", "KAVA", "RVC", "PCI", "TON", "CTSI", "DOT", "DAD", "CHR", "COMP", "SXP", 
-    "HUNT", "ONIT", "CRV", "ALGO", "RSR", "OXT", "PLA", "SAND", "SUN", "SRM", "QTCON", "MVL", "REI", "AQT", "AXS", "FCT2", "SSX", "FIL", "XEC", "UNI", "INJ", 
-    "BASIC", "PROM", "CBK", "FOR", "ONX", "MIR", "BFC", "LINA", "HUM", "PICA", "CELO", "STX", "LZM", "DON", "NEAR", "AUCTION", "DAWN", "FLOW", "GRT", "SNX", 
-    "XYM", "APENFT", "SGB", "SOL", "MATIC", "NU", "QI", "1INCH", "AAVE", "MASK", "AUDIO", "BOBA", "YGG", "GTC", "OCEAN", "CTC", "LPT", "WEMIX", "AVAX", "IMX", 
-    "RNDR", "RLY", "T", "AQUA", "RAD", "AGLD", "API3", "ARPA", "ENS", "GMT", "APE", "LUNA2", "OGV", "RAY", "ETHW", "ETHF"};
+    std::vector<std::string> allCurrencies = {"BTC", "ETH", "BCH", "AAVE", "BSV", "SOL", "ETC", "BTG", "AVAX", "STRK",
+        "ATOM", "AXS", "NEO", "LINK", "REP", "DOT", "WAVES", "NEAR", "QTUM", "SBD",
+        "GAS", "WEMIX", "OMG", "FLOW", "TON", "KAVA", "XTZ", "AQT", "EOS", "KNC",
+        "MTL", "THETA", "LSK", "MATIC", "SAND", "CBK", "CELO", "SRM", "GMT", "DAWN",
+        "MANA", "1INCH", "STRAX", "HIVE", "XRP", "PUNDIX", "ENJ", "STORJ", "ADA", "ARK",
+        "HUNT", "SXP", "ONG", "ALGO", "STX", "MLK", "PLA", "GRS", "BAT", "IOTA"};
 
     rapidjson::Document requestDoc, respDoc;
 
@@ -4896,9 +4873,17 @@ getSubscribingOrderbooks -> funcName = orderbooks)";
     }
 
     std::string input = OneXAPI::Internal::Util::jsonToString(requestDoc);
-    client.subscribeOrderbook(input);
+    std::string response = client.subscribeOrderbook(input);
 
-    std::string response = client.unsubscribeOrderbook(input);
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+    if(!successResponseChecker(response)){
+        return false;
+    }
+    else if(!(respDoc["data"]["subscribed"].Size() > 50)){
+        return false;
+    }
+
+    response = client.unsubscribeOrderbook(input);
 
     testData.actualResult = response;
 

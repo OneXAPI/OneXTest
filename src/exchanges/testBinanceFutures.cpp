@@ -749,7 +749,7 @@ member count of response["data"] = 2
 member count of response["data"]["balance"][currency] = 3)";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     std::string response = client.fetchBalance(R"({"currencies":[]})");
     testData.actualResult = response;
@@ -808,7 +808,7 @@ member count of response["data"]["balance"] is 3
 member count of response["data"]["balance"][currency] = 3)";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     std::string response = client.fetchBalance(R"({"currencies":["bTc","xRP","eTh"],"zeroBalance":true})");
     testData.actualResult = response;
@@ -871,7 +871,7 @@ member count of response["data"]["balance"] is 3
 member count of response["data"]["balance"][currency] = 3)";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
     client.subscribeBalance();
     std::string response = client.fetchBalance(R"({"currencies":["bTc","xRP","eTh"],"zeroBalance":true})");
     testData.actualResult = response;
@@ -933,7 +933,7 @@ member count of response["data"] = 2
 member count of response["data"]["balance"][currency] = 3)";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
     client.subscribeBalance();
     std::string response = client.fetchBalance(R"({"currencies":["bTc","xRP","eTh"],"zeroBalance":false, "forceRestApi":true})");
     testData.actualResult = response;
@@ -999,7 +999,7 @@ member count of response["data"] = 2
 member count of response["data"]["positions"] is 9)";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     std::string response = client.fetchPositions(R"({})");
     testData.actualResult = response;
@@ -1085,7 +1085,7 @@ member count of response["data"] = 2
 member count of response["data"]["positions"] is 9)";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     std::string response = client.fetchPositions(R"({"baseCurrency":"bTC","zeroAmount":true})");
     testData.actualResult = response;
@@ -1171,7 +1171,7 @@ member count of response["data"] = 2
 member count of response["data"]["positions"] is 9)";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     std::string response = client.fetchPositions(R"({"baseCurrency":"etH","quoteCurrency":"usdT","expiration":"PerP","zeroAmount":true})");
     testData.actualResult = response;
@@ -1257,7 +1257,7 @@ member count of response["data"] = 2
 member count of response["data"]["positions"] is 9)";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     client.subscribeBalance();
     std::string response = client.fetchPositions(R"({"baseCurrency":"etH"})");
@@ -1355,7 +1355,7 @@ member count of response["data"] = 2
 member count of response["data"]["positions"] is 9)";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     client.subscribeBalance();
     std::string response = client.fetchPositions(R"({"baseCurrency":"etH","zeroAmount":true})");
@@ -1445,7 +1445,7 @@ member count of response["data"] = 2
 member count of response["data"]["positions"] is 9)";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     client.subscribeBalance();
     std::string response = client.fetchPositions(R"({"baseCurrency":"etH","zeroAmount":true, "forceRestApi":true})");
@@ -1520,7 +1520,7 @@ bool TC_BinanceFutures_fetchFundingFeeIncomeHistory_1(testDataType& testData){
     testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"NOT_ENOUGH_PARAM","errorMsg":"~~~"}})";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     std::string response = client.fetchFundingFeeIncomeHistory(R"({})");    
     testData.actualResult = response;
@@ -1552,7 +1552,7 @@ member count of response["data"] = 1
 member count of response["data"]["incomes"] is 7)";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     std::string oneYearBeforeFromNow = std::to_string(OneXAPI::Internal::Util::getCurrentMsEpoch() - ((uint64_t)365*(uint64_t)24*(uint64_t)60*(uint64_t)60*(uint64_t)1000));
     std::string response = client.fetchFundingFeeIncomeHistory(R"({"startTime":)" + oneYearBeforeFromNow + R"(})");
@@ -1633,7 +1633,7 @@ member count of response["data"] = 1
 member count of response["data"]["incomes"] is 7)";            
     testData.actualResult.clear();
     std::string input = R"({"baseCurrency":"dOGe","quoteCurrency":"uSdT","expiration":"PerP","startTime":)" + oneYearBeforeFromNow + R"(,"endTime":)" + now + R"(})";
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     std::string response = client.fetchFundingFeeIncomeHistory(input);
     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
@@ -1643,7 +1643,7 @@ member count of response["data"]["incomes"] is 7)";
     LOAD_LOGGER_SETTINGS
 
     if(log.find(findValue) == std::string::npos){
-        std::cout << findValue << std::endl;
+        std::cout << "findValue" << std::endl;
     }
 
     rapidjson::Document respDoc;
@@ -1699,7 +1699,7 @@ bool TC_BinanceFutures_subscribeBalance_1(testDataType& testData){
     testData.expectedResult = R"({"success":true,"requestedApiCount":2,"data":{}})";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
     std::string response = client.subscribeBalance();
 
     testData.actualResult = response;
@@ -1716,7 +1716,7 @@ bool TC_BinanceFutures_subscribeBalance_2(testDataType& testData){
     testData.expectedResult = R"({"success":true,"requestedApiCount":2,"data":{}})";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
     std::string response = client.subscribeBalance("");
 
     testData.actualResult = response;
@@ -1733,7 +1733,7 @@ bool TC_BinanceFutures_subscribeBalance_3(testDataType& testData){
     testData.expectedResult = R"({"success":true,"requestedApiCount":2,"data":{}})";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
     std::string response = client.subscribeBalance("{}");
 
     testData.actualResult = response;
@@ -1750,7 +1750,7 @@ bool TC_BinanceFutures_subscribeBalance_4(testDataType& testData){
     testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
     std::string response = client.subscribeBalance("Bqbqb@");
 
     testData.actualResult = response;
@@ -1768,7 +1768,7 @@ bool TC_BinanceFutures_unsubscribeBalance_1(testDataType& testData){
     testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{}})";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
     std::string response = client.unsubscribeBalance();
 
     testData.actualResult = response;
@@ -1785,7 +1785,7 @@ bool TC_BinanceFutures_unsubscribeBalance_2(testDataType& testData){
     testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{}})";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
     std::string response = client.unsubscribeBalance("");
 
     testData.actualResult = response;
@@ -1802,7 +1802,7 @@ bool TC_BinanceFutures_unsubscribeBalance_3(testDataType& testData){
     testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{}})";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
     client.subscribeBalance();
     std::string response = client.unsubscribeBalance("{}");
 
@@ -1820,7 +1820,7 @@ bool TC_BinanceFutures_unsubscribeBalance_4(testDataType& testData){
     testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
     client.subscribeBalance();
     std::string response = client.unsubscribeBalance("Bqbqb@");
 
@@ -1839,7 +1839,7 @@ bool TC_BinanceFutures_isSubscribingBalance_1(testDataType& testData){
     testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"isSubscribing":false}})";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
     std::string response = client.isSubscribingBalance();
 
     testData.actualResult = response;
@@ -1856,7 +1856,7 @@ bool TC_BinanceFutures_isSubscribingBalance_2(testDataType& testData){
     testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"isSubscribing":false}})";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
     std::string response = client.isSubscribingBalance("");
 
     testData.actualResult = response;
@@ -1873,7 +1873,7 @@ bool TC_BinanceFutures_isSubscribingBalance_3(testDataType& testData){
     testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"isSubscribing":true}})";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
     client.subscribeBalance();
     std::string response = client.isSubscribingBalance("{}");
 
@@ -1891,7 +1891,7 @@ bool TC_BinanceFutures_isSubscribingBalance_4(testDataType& testData){
     testData.expectedResult = R"({"success":false,"requestedApiCount":0,"data":{"errorType":"JSON_PARSING_ERROR","errorMsg":"~~~"}})";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
     client.subscribeBalance();
     std::string response = client.isSubscribingBalance("Bqbqb@");
 
@@ -2565,7 +2565,7 @@ response["data"]["fills"] is an empty array
 member count of response["data"] = 19)";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     std::string orderbook = client.fetchOrderbook(R"({"baseCurrency":"XRP","quoteCurrency":"USDT"})");
     rapidjson::Document orderbookDoc;
@@ -2652,7 +2652,7 @@ size of response["data"]["openOrders"] is greater than 0
 member count of response["data"]["openOrders"][] = 13)";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     std::string orderbook = client.fetchOrderbook(R"({"baseCurrency":"XRP","quoteCurrency":"USDT"})");
     rapidjson::Document orderbookDoc;
@@ -2743,7 +2743,7 @@ size of response["data"]["openOrders"] is 1
 member count of response["data"]["openOrders"][] = 13)";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     std::string orderbook = client.fetchOrderbook(R"({"baseCurrency":"XRP","quoteCurrency":"USDT"})");
     rapidjson::Document orderbookDoc;
@@ -2846,7 +2846,7 @@ member count of response["data"] = 1
 size of response["data"]["fees"] is 1
 member count of response["data"]["fees"][] = 6)";
     testData.actualResult.clear();
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     std::string input = R"({"baseCurrency":"bTC","quoteCurrency":"UsdT","expiration":"PerP"})";
     std::string response = client.fetchTradingFee(input);
@@ -2918,7 +2918,7 @@ size of response["data"]["leverages"] is greater than 10
 member count of response["data"]["leverages"][] = 5)";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     std::string response = client.fetchLeverage(R"({})");
@@ -2979,7 +2979,7 @@ size of response["data"]["leverages"] is 1
 member count of response["data"]["leverages"][] = 5)";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     std::string response = client.fetchLeverage(R"({"baseCurrency":"bTc","quoteCurrency":"USdt","expiration":"peRp"})");
@@ -3049,7 +3049,7 @@ member count of response["data"]["leverages"][] = 5
 member count of response["data"] = 2)";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     client.subscribeBalance();
     std::string response = client.fetchLeverage(R"({"baseCurrency":"eth"})");
@@ -3119,7 +3119,7 @@ member count of response["data"]["leverages"][] = 5
 member count of response["data"] = 2)";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     client.subscribeBalance();
     std::string response = client.fetchLeverage(R"({"baseCurrency":"eth", "forceRestApi": true})");
@@ -3205,7 +3205,7 @@ response["data"]["leverage"] is 5
 
 member count of response["data"] = 5)";
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     std::string responsePre = client.fetchLeverage(R"({"baseCurrency":"bTc","quoteCurrency":"USdt","expiration":"peRp"})");
     rapidjson::Document respPreDoc;
@@ -3285,7 +3285,7 @@ size of response["data"]["marginTypes"] is greater than 10
 member count of response["data"]["marginTypes"][] = 5)";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     std::string response = client.fetchMarginType(R"({})");
@@ -3349,7 +3349,7 @@ size of response["data"]["marginTypes"] is 1
 member count of response["data"]["marginTypes"][] = 5)";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     std::string response = client.fetchMarginType(R"({"baseCurrency":"bTc","quoteCurrency":"USdt","expiration":"peRp"})");
@@ -3419,7 +3419,7 @@ member count of response["data"]["marginTypes"][] = 5
 member count of response["data"] = 2)";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     client.subscribeBalance();
     std::string response = client.fetchMarginType(R"({"baseCurrency":"eth"})");
@@ -3494,7 +3494,7 @@ member count of response["data"]["marginTypes"][] = 5
 member count of response["data"] = 2)";
     testData.actualResult.clear();
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     client.subscribeBalance();
     std::string response = client.fetchMarginType(R"({"baseCurrency":"eth", "forceRestApi": true})");
@@ -3586,7 +3586,7 @@ response["data"]["marginType"] is requested value
 
 member count of response["data"] = 5)";
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     std::string responsePre = client.fetchMarginType(R"({"baseCurrency":"bTc","quoteCurrency":"USdt","expiration":"peRp"})");
     rapidjson::Document respPreDoc;
@@ -3704,7 +3704,7 @@ member count of response["data"] = 1
 size of response["data"]["markets"] is greater than 0
 member count of response["data"]["markets"][] = 4)";
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     std::string response = client.fetchMarkets("{}");
     testData.actualResult = response;
@@ -3753,7 +3753,7 @@ member count of response["data"] = 1
 size of response["data"]["markets"] is 1
 member count of response["data"]["markets"][] = 4)";
 
-    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_SECRET_KEY + R"("})");
+    OneXAPI::Binance::Futures client(std::string(R"({"accessKey":")") + BINANCE_FUTURES_ACCESS_KEY + R"(", "secretKey":")" + BINANCE_FUTURES_SECRET_KEY + R"("})");
 
     std::string response = client.fetchMarkets(R"({"baseCurrency":"bTC","quoteCurrency":"usDT","expiration":"perP"})");
     testData.actualResult = response;
@@ -5040,6 +5040,8 @@ bool TC_BinanceFutures_subscribeMarketInfo_7(testDataType& testData){
 otherwise : response["requestedApiCount"] is 0
 N is request market size
 
+size of response["data"]["subscribed"] greater than 50
+
 member count of response["data"] is 2
 response["data"]["subscribed"] type is array
 response["data"]["subscribeFailed"] type is array
@@ -5062,23 +5064,14 @@ getSubscribingOrderbooks -> funcName = orderbooks
 getSubscribingMarketInfo -> funcName = marketInfo)";
 
     OneXAPI::Binance::Futures client;
-    std::vector<std::string> allCurrencies = {"BTC", "ETH", "ETC", "BCH", "OMG", "POWR", "REP", "SNT", "STORJ", "MTL", "TIX", "LTC", "QTUM", "DGD", "XRP", 
-    "MYST", "BTG", "WAVES", "SNGLS", "XAUR", "MER", "EDG", "AMP", "MAID", "AGRS", "FUN", "ANT", "MANA", "SRN", "WAXP", "ZRX", "VEE", "STEEM", "SBD", 
-    "BCPT", "BAT", "SALT", "BNT", "MCO", "RCN", "CFI", "HMQ", "WINGS", "NMR", "GUP", "SWT", "DNT", "GLM", "CVC", "PAY", "RLC", "ENG", "UKG", "VIB", 
-    "ADX", "QRL", "GNO", "PTOY", "ADT", "STRAX", "ADA", "TRX", "1ST", "LRC", "NEO", "XMR", "PIVX", "UP", "STMX", "ICX", "EOS", "DMT", "DASH", "ARK", 
-    "ZEC", "ARDR", "IGNIS", "XEM", "KMD", "GRS", "EMC2", "VTC", "LSK", "LUN", "POLY", "XLM", "XVG", "RDD", "EMC", "PRO", "SC", "GTO", "ONT", "ZIL", 
-    "BLT", "DCR", "AID", "NGC", "OCN", "LOOM", "CMCT", "NXT", "BKX", "MFT", "IOST", "RFR", "IQ", "CLOAK", "PART", "DOGE", "IOP", "VIA", "NAV", "IOTA", 
-    "OST", "BFT", "SYS", "ZEN", "OK", "UPP", "ENJ", "MET", "HYDRO", "CRW", "DTA", "EDR", "BOXX", "GAS", "ONG", "IHT", "MED", "TX", "BLOCK", "RVN", "ION", 
-    "BITB", "BSD", "FTC", "RVR", "LBC", "GAME", "ELF", "PMA", "KNC", "PAL", "UNB", "MOC", "PUNDIX", "SPC", "NXS", "SYNX", "KORE", "DYN", "VAL", "DGB", 
-    "SIB", "VRC", "MEME", "EXCL", "BAY", "SHIFT", "MONA", "BLK", "XHV", "TUBE", "UBQ", "GO", "EXP", "XZC", "MUE", "NBT", "BURST", "DCT", "SPHR", "SLS", 
-    "XEL", "GBYTE", "XDN", "FCT", "BSV", "XNK", "THETA", "NCASH", "JNT", "LBA", "DENT", "DRGN", "QKC", "CPT", "BTM", "BTT", "VITE", "IOTX", "BTU", "SOLVE", 
-    "NKN", "CTXC", "QNT", "STRK", "META", "MOBI", "SERV", "ANKR", "COSM", "CRO", "TFUEL", "BTS", "FSN", "MARO", "ORBS", "HST", "AERGO", "PI", "VBK", "ATOM", 
-    "TT", "ACN", "CRE", "VDX", "STPT", "MBL", "LAMB", "LUNC", "DAI", "MKR", "BORA", "TSHP", "HBAR", "WIN", "MLK", "PXL", "VET", "CHZ", "VTHO", "XPR", "FX", 
-    "OGN", "ITAM", "XTZ", "OBSR", "DKA", "AHT", "RINGX", "GOM2", "LINK", "JST", "KAVA", "RVC", "PCI", "TON", "CTSI", "DOT", "DAD", "CHR", "COMP", "SXP", 
-    "HUNT", "ONIT", "CRV", "ALGO", "RSR", "OXT", "PLA", "SAND", "SUN", "SRM", "QTCON", "MVL", "REI", "AQT", "AXS", "FCT2", "SSX", "FIL", "XEC", "UNI", "INJ", 
-    "BASIC", "PROM", "CBK", "FOR", "ONX", "MIR", "BFC", "LINA", "HUM", "PICA", "CELO", "STX", "LZM", "DON", "NEAR", "AUCTION", "DAWN", "FLOW", "GRT", "SNX", 
-    "XYM", "APENFT", "SGB", "SOL", "MATIC", "NU", "QI", "1INCH", "AAVE", "MASK", "AUDIO", "BOBA", "YGG", "GTC", "OCEAN", "CTC", "LPT", "WEMIX", "AVAX", "IMX", 
-    "RNDR", "RLY", "T", "AQUA", "RAD", "AGLD", "API3", "ARPA", "ENS", "GMT", "APE", "LUNA2", "OGV", "RAY", "ETHW", "ETHF"};
+    std::vector<std::string> allCurrencies = {"1INCH", "AAVE", "ADA", "ALGO", "ALICE", "ALPHA", "ANKR", "ANT", 
+        "APE", "API3", "ARPA", "AR", "ATA", "ATOM", "AUDIO", "AVAX", "AXS", "BAKE", 
+        "BAL", "BAND", "BAT", "BCH", "BEL", "BLZ", "BNB", "BNX", "BTCDOM", "BTCST", 
+        "BTC", "BTS", "C98", "CELO", "CELR", "CHR", "CHZ", "COMP", "COTI", "CRV", "CTK", 
+        "CTSI", "CVC", "CVX", "DAR", "DASH", "DEFI", "DENT", "DGB", "DOGE", "DOT", "DUSK", 
+        "DYDX", "EGLD", "ENJ", "ENS", "EOS", "ETC", "ETH", "FIL", "FLM", "FLOW", "FOOTBALL", 
+        "FTM", "FTT", "GALA", "GAL", "GMT", "GRT", "GTC", "HBAR", "HNT", "HOT", "ICP", "ICX", 
+        "IMX", "INJ", "IOST", "IOTA"};
 
     rapidjson::Document requestDoc, respDoc;
 
@@ -5110,6 +5103,9 @@ getSubscribingMarketInfo -> funcName = marketInfo)";
         return false;
     }
     else if(!respDoc["data"]["subscribed"].IsArray()){
+        return false;
+    }
+    else if(!(respDoc["data"]["subscribed"].Size() > 50)){
         return false;
     }
     else if(!respDoc["data"]["subscribeFailed"].IsArray()){
@@ -5150,9 +5146,9 @@ getSubscribingMarketInfo -> funcName = marketInfo)";
         return false;
     }
 
-    for(const auto& orderbook : respDoc["data"]["marketInfo"].GetArray()){
-        std::string symbol = orderbook["symbol"].GetString();
-        if(!memberCountChecker(orderbook, 4)){
+    for(const auto& marketInfo : respDoc["data"]["marketInfo"].GetArray()){
+        std::string symbol = marketInfo["symbol"].GetString();
+        if(!memberCountChecker(marketInfo, 4)){
             return false;
         }
 
@@ -5360,116 +5356,105 @@ bool TC_BinanceFutures_unsubscribeMarketInfo_7(testDataType& testData){
     TC_BEGIN
     std::this_thread::sleep_for(std::chrono::seconds(1));
     testData.testSubject = "OneXAPI::Binance::Futures().unsubscribeMarketInfo";
-    // testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,})";
+    testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"unsubscribed":[{"baseCurrency":"BTC","quoteCurrency":"USDT","expiration":"PERP","symbol":"BTCUSDT"}.........................],"unsubscribeFailed":[]}}
 
-    // OneXAPI::Binance::Futures client;
-    // std::vector<std::string> allCurrencies = {"BTC", "ETH", "ETC", "BCH", "OMG", "POWR", "REP", "SNT", "STORJ", "MTL", "TIX", "LTC", "QTUM", "DGD", "XRP", 
-    // "MYST", "BTG", "WAVES", "SNGLS", "XAUR", "MER", "EDG", "AMP", "MAID", "AGRS", "FUN", "ANT", "MANA", "SRN", "WAXP", "ZRX", "VEE", "STEEM", "SBD", 
-    // "BCPT", "BAT", "SALT", "BNT", "MCO", "RCN", "CFI", "HMQ", "WINGS", "NMR", "GUP", "SWT", "DNT", "GLM", "CVC", "PAY", "RLC", "ENG", "UKG", "VIB", 
-    // "ADX", "QRL", "GNO", "PTOY", "ADT", "STRAX", "ADA", "TRX", "1ST", "LRC", "NEO", "XMR", "PIVX", "UP", "STMX", "ICX", "EOS", "DMT", "DASH", "ARK", 
-    // "ZEC", "ARDR", "IGNIS", "XEM", "KMD", "GRS", "EMC2", "VTC", "LSK", "LUN", "POLY", "XLM", "XVG", "RDD", "EMC", "PRO", "SC", "GTO", "ONT", "ZIL", 
-    // "BLT", "DCR", "AID", "NGC", "OCN", "LOOM", "CMCT", "NXT", "BKX", "MFT", "IOST", "RFR", "IQ", "CLOAK", "PART", "DOGE", "IOP", "VIA", "NAV", "IOTA", 
-    // "OST", "BFT", "SYS", "ZEN", "OK", "UPP", "ENJ", "MET", "HYDRO", "CRW", "DTA", "EDR", "BOXX", "GAS", "ONG", "IHT", "MED", "TX", "BLOCK", "RVN", "ION", 
-    // "BITB", "BSD", "FTC", "RVR", "LBC", "GAME", "ELF", "PMA", "KNC", "PAL", "UNB", "MOC", "PUNDIX", "SPC", "NXS", "SYNX", "KORE", "DYN", "VAL", "DGB", 
-    // "SIB", "VRC", "MEME", "EXCL", "BAY", "SHIFT", "MONA", "BLK", "XHV", "TUBE", "UBQ", "GO", "EXP", "XZC", "MUE", "NBT", "BURST", "DCT", "SPHR", "SLS", 
-    // "XEL", "GBYTE", "XDN", "FCT", "BSV", "XNK", "THETA", "NCASH", "JNT", "LBA", "DENT", "DRGN", "QKC", "CPT", "BTM", "BTT", "VITE", "IOTX", "BTU", "SOLVE", 
-    // "NKN", "CTXC", "QNT", "STRK", "META", "MOBI", "SERV", "ANKR", "COSM", "CRO", "TFUEL", "BTS", "FSN", "MARO", "ORBS", "HST", "AERGO", "PI", "VBK", "ATOM", 
-    // "TT", "ACN", "CRE", "VDX", "STPT", "MBL", "LAMB", "LUNC", "DAI", "MKR", "BORA", "TSHP", "HBAR", "WIN", "MLK", "PXL", "VET", "CHZ", "VTHO", "XPR", "FX", 
-    // "OGN", "ITAM", "XTZ", "OBSR", "DKA", "AHT", "RINGX", "GOM2", "LINK", "JST", "KAVA", "RVC", "PCI", "TON", "CTSI", "DOT", "DAD", "CHR", "COMP", "SXP", 
-    // "HUNT", "ONIT", "CRV", "ALGO", "RSR", "OXT", "PLA", "SAND", "SUN", "SRM", "QTCON", "MVL", "REI", "AQT", "AXS", "FCT2", "SSX", "FIL", "XEC", "UNI", "INJ", 
-    // "BASIC", "PROM", "CBK", "FOR", "ONX", "MIR", "BFC", "LINA", "HUM", "PICA", "CELO", "STX", "LZM", "DON", "NEAR", "AUCTION", "DAWN", "FLOW", "GRT", "SNX", 
-    // "XYM", "APENFT", "SGB", "SOL", "MATIC", "NU", "QI", "1INCH", "AAVE", "MASK", "AUDIO", "BOBA", "YGG", "GTC", "OCEAN", "CTC", "LPT", "WEMIX", "AVAX", "IMX", 
-    // "RNDR", "RLY", "T", "AQUA", "RAD", "AGLD", "API3", "ARPA", "ENS", "GMT", "APE", "LUNA2", "OGV", "RAY", "ETHW", "ETHF"};
+unsubscribe request same as pre-condition subscribe request
 
-    // rapidjson::Document requestDoc, responseDoc;
+member count of response["data"] is 2
+response["data"]["unsubscribed"] type is array
+response["data"]["unsubscribeFailed"] type is array
 
-    // requestDoc.SetObject();
-    // requestDoc.AddMember("market", rapidjson::Value(rapidjson::kArrayType), requestDoc.GetAllocator());
+member count of response["data"]["unsubscribed"][] is 4
+member count of response["data"]["unsubscribeFailed"][] is 4
 
-    // for(const auto& baseCurrency : allCurrencies){
-    //     rapidjson::Value objectValue(rapidjson::kObjectType);
+{"success":true,"requestedApiCount":0,"data":{"funcName":[]}}
 
-    //     objectValue.AddMember("baseCurrency", baseCurrency, requestDoc.GetAllocator());
-    //     objectValue.AddMember("quoteCurrency", "USDT", requestDoc.GetAllocator());
-    //     requestDoc["market"].PushBack(objectValue, requestDoc.GetAllocator());
-    // }
+funcName is getSubscribing Type
+getSubscribingTickers -> funcName = tickers
+getSubscribingOrderbooks -> funcName = orderbooks
+getSubscribingMarketInfo -> funcName = marketInfo)";
 
-    // std::string input = OneXAPI::Internal::Util::jsonToString(requestDoc);
-    // std::string response = client.subscribeMarketInfo(input);
+    OneXAPI::Binance::Futures client;
+    std::vector<std::string> allCurrencies = {"1INCH", "AAVE", "ADA", "ALGO", "ALICE", "ALPHA", "ANKR", "ANT", 
+        "APE", "API3", "ARPA", "AR", "ATA", "ATOM", "AUDIO", "AVAX", "AXS", "BAKE", 
+        "BAL", "BAND", "BAT", "BCH", "BEL", "BLZ", "BNB", "BNX", "BTCDOM", "BTCST", 
+        "BTC", "BTS", "C98", "CELO", "CELR", "CHR", "CHZ", "COMP", "COTI", "CRV", "CTK", 
+        "CTSI", "CVC", "CVX", "DAR", "DASH", "DEFI", "DENT", "DGB", "DOGE", "DOT", "DUSK", 
+        "DYDX", "EGLD", "ENJ", "ENS", "EOS", "ETC", "ETH", "FIL", "FLM", "FLOW", "FOOTBALL", 
+        "FTM", "FTT", "GALA", "GAL", "GMT", "GRT", "GTC", "HBAR", "HNT", "HOT", "ICP", "ICX", 
+        "IMX", "INJ", "IOST", "IOTA"};
 
-    // testData.actualResult = response;
+    rapidjson::Document requestDoc, respDoc;
 
-    // OneXAPI::Internal::Util::parseJson(responseDoc, response);
+    requestDoc.SetObject();
+    requestDoc.AddMember("market", rapidjson::Value(rapidjson::kArrayType), requestDoc.GetAllocator());
 
-    // if(responseDoc["success"].GetBool() == false){
-    //     return false;
-    // }
+    for(const auto& baseCurrency : allCurrencies){
+        rapidjson::Value objectValue(rapidjson::kObjectType);
 
-    // std::vector<std::string> subscribedList, subscribeFailedList;
+        objectValue.AddMember("baseCurrency", baseCurrency, requestDoc.GetAllocator());
+        objectValue.AddMember("quoteCurrency", "USDT", requestDoc.GetAllocator());
+        requestDoc["market"].PushBack(objectValue, requestDoc.GetAllocator());
+    }
+
+    std::string input = OneXAPI::Internal::Util::jsonToString(requestDoc);
+    std::string response = client.subscribeMarketInfo(input);
+
+    testData.actualResult = response;
+
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+    if(!successResponseChecker(response)){
+        return false;
+    }
+    else if(!(respDoc["data"]["subscribed"].Size() > 50)){
+        return false;
+    }
+
+    response = client.unsubscribeMarketInfo(input);
+
+    testData.actualResult = response;
+
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
     
-    // for(const auto& object : responseDoc["data"]["subscribed"].GetArray()){
-    //     subscribedList.emplace_back(object["symbol"].GetString());
-    // }
+    if(!successResponseChecker(response)){
+        return false;
+    }
+    else if(respDoc["requestedApiCount"].GetUint() != 0){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"], 2)){
+        return false;
+    }
+    else if(!respDoc["data"]["unsubscribed"].IsArray()){
+        return false;
+    }
+    else if(!respDoc["data"]["unsubscribeFailed"].IsArray()){
+        return false;
+    }
+    
+    for(const auto& object : respDoc["data"]["unsubscribed"].GetArray()){
+        if(!memberCountChecker(object, 4)){
+            return false;
+        }
+    }
 
-    // for(const auto& object : responseDoc["data"]["subscribeFailed"].GetArray()){
-    //     subscribeFailedList.emplace_back(object["symbol"].GetString());
-    // }
+    for(const auto& object : respDoc["data"]["unsubscribeFailed"].GetArray()){
+        if(!memberCountChecker(object, 4)){
+            return false;
+        }
+    }
 
-    // response = client.getSubscribingMarketInfo();
+    response = client.getSubscribingMarketInfo();
 
-    // testData.actualResult = response;
-    // OneXAPI::Internal::Util::parseJson(responseDoc, response);
+    testData.actualResult.append("\n").append(response);
 
-    // rapidjson::Document unsubscribeRequest;
+    std::string getSubscribingExpectedRes = R"({"success":true,"requestedApiCount":0,"data":{"marketInfo":[]}})";
 
-    // unsubscribeRequest.SetObject();
-    // unsubscribeRequest.AddMember("market", rapidjson::kArrayType, unsubscribeRequest.GetAllocator());
-
-    // if(responseDoc["success"].GetBool() == false){
-    //     return false;
-    // }
-
-    // for(const auto& MarketInfo : responseDoc["data"]["marketInfo"].GetArray()){
-    //     std::string baseCurrency = MarketInfo["baseCurrency"].GetString();
-    //     std::string quoteCurrency = MarketInfo["quoteCurrency"].GetString();
-    //     std::string symbol = MarketInfo["symbol"].GetString();
-
-    //     rapidjson::Value marketObject(rapidjson::kObjectType);
-
-    //     marketObject.AddMember("baseCurrency", baseCurrency, unsubscribeRequest.GetAllocator());
-    //     marketObject.AddMember("quoteCurrency", quoteCurrency, unsubscribeRequest.GetAllocator());
-
-    //     unsubscribeRequest["market"].PushBack(marketObject, unsubscribeRequest.GetAllocator());
-
-    //     if(IN_VECTOR(subscribedList, symbol)){
-    //         continue;
-    //     }
-    //     else{
-    //         return false;
-    //     }
-
-    //     if(IN_VECTOR(subscribeFailedList, symbol)){
-    //         return false;
-    //     }
-    // }
-
-    // testData.testSubject = "OneXAPI::Binance::Futures().unsubscribeMarketInfo";
-    // testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,})";
-
-    // client.unsubscribeMarketInfo(OneXAPI::Internal::Util::jsonToString(unsubscribeRequest));
-
-    // testData.testSubject = "OneXAPI::Binance::Futures().getSubscribingMarketInfo";
-    // testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"marketInfo":[]}})";
-
-    // response = client.getSubscribingMarketInfo();
-
-    // testData.actualResult = response;
-
-    // if(response.compare(testData.expectedResult) != 0){
-    //     return false;
-    // }
-
-    // return true;
+    if(response.compare(getSubscribingExpectedRes) != 0){
+        return false;
+    }
+    return true;
+    
     TC_END
 }
 
@@ -5678,6 +5663,8 @@ bool TC_BinanceFutures_subscribeTicker_7(testDataType& testData){
 otherwise : response["requestedApiCount"] is 0
 N is request market size
 
+size of response["data"]["subscribed"] greater than 50
+
 member count of response["data"] is 2
 response["data"]["subscribed"] type is array
 response["data"]["subscribeFailed"] type is array
@@ -5700,23 +5687,12 @@ getSubscribingOrderbooks -> funcName = orderbooks
 getSubscribingMarketInfo -> funcName = marketInfo)";
 
     OneXAPI::Binance::Futures client;
-    std::vector<std::string> allCurrencies = {"BTC", "ETH", "ETC", "BCH", "OMG", "POWR", "REP", "SNT", "STORJ", "MTL", "TIX", "LTC", "QTUM", "DGD", "XRP", 
-    "MYST", "BTG", "WAVES", "SNGLS", "XAUR", "MER", "EDG", "AMP", "MAID", "AGRS", "FUN", "ANT", "MANA", "SRN", "WAXP", "ZRX", "VEE", "STEEM", "SBD", 
-    "BCPT", "BAT", "SALT", "BNT", "MCO", "RCN", "CFI", "HMQ", "WINGS", "NMR", "GUP", "SWT", "DNT", "GLM", "CVC", "PAY", "RLC", "ENG", "UKG", "VIB", 
-    "ADX", "QRL", "GNO", "PTOY", "ADT", "STRAX", "ADA", "TRX", "1ST", "LRC", "NEO", "XMR", "PIVX", "UP", "STMX", "ICX", "EOS", "DMT", "DASH", "ARK", 
-    "ZEC", "ARDR", "IGNIS", "XEM", "KMD", "GRS", "EMC2", "VTC", "LSK", "LUN", "POLY", "XLM", "XVG", "RDD", "EMC", "PRO", "SC", "GTO", "ONT", "ZIL", 
-    "BLT", "DCR", "AID", "NGC", "OCN", "LOOM", "CMCT", "NXT", "BKX", "MFT", "IOST", "RFR", "IQ", "CLOAK", "PART", "DOGE", "IOP", "VIA", "NAV", "IOTA", 
-    "OST", "BFT", "SYS", "ZEN", "OK", "UPP", "ENJ", "MET", "HYDRO", "CRW", "DTA", "EDR", "BOXX", "GAS", "ONG", "IHT", "MED", "TX", "BLOCK", "RVN", "ION", 
-    "BITB", "BSD", "FTC", "RVR", "LBC", "GAME", "ELF", "PMA", "KNC", "PAL", "UNB", "MOC", "PUNDIX", "SPC", "NXS", "SYNX", "KORE", "DYN", "VAL", "DGB", 
-    "SIB", "VRC", "MEME", "EXCL", "BAY", "SHIFT", "MONA", "BLK", "XHV", "TUBE", "UBQ", "GO", "EXP", "XZC", "MUE", "NBT", "BURST", "DCT", "SPHR", "SLS", 
-    "XEL", "GBYTE", "XDN", "FCT", "BSV", "XNK", "THETA", "NCASH", "JNT", "LBA", "DENT", "DRGN", "QKC", "CPT", "BTM", "BTT", "VITE", "IOTX", "BTU", "SOLVE", 
-    "NKN", "CTXC", "QNT", "STRK", "META", "MOBI", "SERV", "ANKR", "COSM", "CRO", "TFUEL", "BTS", "FSN", "MARO", "ORBS", "HST", "AERGO", "PI", "VBK", "ATOM", 
-    "TT", "ACN", "CRE", "VDX", "STPT", "MBL", "LAMB", "LUNC", "DAI", "MKR", "BORA", "TSHP", "HBAR", "WIN", "MLK", "PXL", "VET", "CHZ", "VTHO", "XPR", "FX", 
-    "OGN", "ITAM", "XTZ", "OBSR", "DKA", "AHT", "RINGX", "GOM2", "LINK", "JST", "KAVA", "RVC", "PCI", "TON", "CTSI", "DOT", "DAD", "CHR", "COMP", "SXP", 
-    "HUNT", "ONIT", "CRV", "ALGO", "RSR", "OXT", "PLA", "SAND", "SUN", "SRM", "QTCON", "MVL", "REI", "AQT", "AXS", "FCT2", "SSX", "FIL", "XEC", "UNI", "INJ", 
-    "BASIC", "PROM", "CBK", "FOR", "ONX", "MIR", "BFC", "LINA", "HUM", "PICA", "CELO", "STX", "LZM", "DON", "NEAR", "AUCTION", "DAWN", "FLOW", "GRT", "SNX", 
-    "XYM", "APENFT", "SGB", "SOL", "MATIC", "NU", "QI", "1INCH", "AAVE", "MASK", "AUDIO", "BOBA", "YGG", "GTC", "OCEAN", "CTC", "LPT", "WEMIX", "AVAX", "IMX", 
-    "RNDR", "RLY", "T", "AQUA", "RAD", "AGLD", "API3", "ARPA", "ENS", "GMT", "APE", "LUNA2", "OGV", "RAY", "ETHW", "ETHF"};
+    std::vector<std::string> allCurrencies = {"1INCH", "AAVE", "ADA", "ALGO", "ALICE", "ALPHA", "ANKR", "ANT", 
+        "APE", "API3", "ARPA", "AR", "ATA", "ATOM", "AUDIO", "AVAX", "AXS", "BAKE", 
+        "BAL", "BAND", "BAT", "BCH", "BEL", "BLZ", "BNB", "BNX", "BTCDOM", "BTCST", 
+        "BTC", "BTS", "C98", "CELO", "CELR", "CHR", "CHZ", "COMP", "COTI", "CRV", "CTK", 
+        "CTSI", "CVC", "CVX", "DAR", "DASH", "DEFI", "DENT", "DGB", "DOGE", "DOT", "DUSK", 
+        "DYDX", "EGLD"};
 
     rapidjson::Document requestDoc, respDoc;
 
@@ -5748,6 +5724,9 @@ getSubscribingMarketInfo -> funcName = marketInfo)";
         return false;
     }
     else if(!respDoc["data"]["subscribed"].IsArray()){
+        return false;
+    }
+    else if(!(respDoc["data"]["subscribed"].Size() > 50)){
         return false;
     }
     else if(!respDoc["data"]["subscribeFailed"].IsArray()){
@@ -5788,9 +5767,9 @@ getSubscribingMarketInfo -> funcName = marketInfo)";
         return false;
     }
 
-    for(const auto& orderbook : respDoc["data"]["tickers"].GetArray()){
-        std::string symbol = orderbook["symbol"].GetString();
-        if(!memberCountChecker(orderbook, 4)){
+    for(const auto& ticker : respDoc["data"]["tickers"].GetArray()){
+        std::string symbol = ticker["symbol"].GetString();
+        if(!memberCountChecker(ticker, 4)){
             return false;
         }
 
@@ -6006,116 +5985,105 @@ bool TC_BinanceFutures_unsubscribeTicker_7(testDataType& testData){
     TC_BEGIN
     std::this_thread::sleep_for(std::chrono::seconds(1));
     testData.testSubject = "OneXAPI::Binance::Futures().unsubscribeTicker";
-    // testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,})";
+    testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"unsubscribed":[{"baseCurrency":"BTC","quoteCurrency":"USDT","expiration":"PERP","symbol":"BTCUSDT"}.........................],"unsubscribeFailed":[]}}
 
-    // OneXAPI::Binance::Futures client;
-    // std::vector<std::string> allCurrencies = {"BTC", "ETH", "ETC", "BCH", "OMG", "POWR", "REP", "SNT", "STORJ", "MTL", "TIX", "LTC", "QTUM", "DGD", "XRP", 
-    // "MYST", "BTG", "WAVES", "SNGLS", "XAUR", "MER", "EDG", "AMP", "MAID", "AGRS", "FUN", "ANT", "MANA", "SRN", "WAXP", "ZRX", "VEE", "STEEM", "SBD", 
-    // "BCPT", "BAT", "SALT", "BNT", "MCO", "RCN", "CFI", "HMQ", "WINGS", "NMR", "GUP", "SWT", "DNT", "GLM", "CVC", "PAY", "RLC", "ENG", "UKG", "VIB", 
-    // "ADX", "QRL", "GNO", "PTOY", "ADT", "STRAX", "ADA", "TRX", "1ST", "LRC", "NEO", "XMR", "PIVX", "UP", "STMX", "ICX", "EOS", "DMT", "DASH", "ARK", 
-    // "ZEC", "ARDR", "IGNIS", "XEM", "KMD", "GRS", "EMC2", "VTC", "LSK", "LUN", "POLY", "XLM", "XVG", "RDD", "EMC", "PRO", "SC", "GTO", "ONT", "ZIL", 
-    // "BLT", "DCR", "AID", "NGC", "OCN", "LOOM", "CMCT", "NXT", "BKX", "MFT", "IOST", "RFR", "IQ", "CLOAK", "PART", "DOGE", "IOP", "VIA", "NAV", "IOTA", 
-    // "OST", "BFT", "SYS", "ZEN", "OK", "UPP", "ENJ", "MET", "HYDRO", "CRW", "DTA", "EDR", "BOXX", "GAS", "ONG", "IHT", "MED", "TX", "BLOCK", "RVN", "ION", 
-    // "BITB", "BSD", "FTC", "RVR", "LBC", "GAME", "ELF", "PMA", "KNC", "PAL", "UNB", "MOC", "PUNDIX", "SPC", "NXS", "SYNX", "KORE", "DYN", "VAL", "DGB", 
-    // "SIB", "VRC", "MEME", "EXCL", "BAY", "SHIFT", "MONA", "BLK", "XHV", "TUBE", "UBQ", "GO", "EXP", "XZC", "MUE", "NBT", "BURST", "DCT", "SPHR", "SLS", 
-    // "XEL", "GBYTE", "XDN", "FCT", "BSV", "XNK", "THETA", "NCASH", "JNT", "LBA", "DENT", "DRGN", "QKC", "CPT", "BTM", "BTT", "VITE", "IOTX", "BTU", "SOLVE", 
-    // "NKN", "CTXC", "QNT", "STRK", "META", "MOBI", "SERV", "ANKR", "COSM", "CRO", "TFUEL", "BTS", "FSN", "MARO", "ORBS", "HST", "AERGO", "PI", "VBK", "ATOM", 
-    // "TT", "ACN", "CRE", "VDX", "STPT", "MBL", "LAMB", "LUNC", "DAI", "MKR", "BORA", "TSHP", "HBAR", "WIN", "MLK", "PXL", "VET", "CHZ", "VTHO", "XPR", "FX", 
-    // "OGN", "ITAM", "XTZ", "OBSR", "DKA", "AHT", "RINGX", "GOM2", "LINK", "JST", "KAVA", "RVC", "PCI", "TON", "CTSI", "DOT", "DAD", "CHR", "COMP", "SXP", 
-    // "HUNT", "ONIT", "CRV", "ALGO", "RSR", "OXT", "PLA", "SAND", "SUN", "SRM", "QTCON", "MVL", "REI", "AQT", "AXS", "FCT2", "SSX", "FIL", "XEC", "UNI", "INJ", 
-    // "BASIC", "PROM", "CBK", "FOR", "ONX", "MIR", "BFC", "LINA", "HUM", "PICA", "CELO", "STX", "LZM", "DON", "NEAR", "AUCTION", "DAWN", "FLOW", "GRT", "SNX", 
-    // "XYM", "APENFT", "SGB", "SOL", "MATIC", "NU", "QI", "1INCH", "AAVE", "MASK", "AUDIO", "BOBA", "YGG", "GTC", "OCEAN", "CTC", "LPT", "WEMIX", "AVAX", "IMX", 
-    // "RNDR", "RLY", "T", "AQUA", "RAD", "AGLD", "API3", "ARPA", "ENS", "GMT", "APE", "LUNA2", "OGV", "RAY", "ETHW", "ETHF"};
+unsubscribe request same as pre-condition subscribe request
 
-    // rapidjson::Document requestDoc, responseDoc;
+member count of response["data"] is 2
+response["data"]["unsubscribed"] type is array
+response["data"]["unsubscribeFailed"] type is array
 
-    // requestDoc.SetObject();
-    // requestDoc.AddMember("market", rapidjson::Value(rapidjson::kArrayType), requestDoc.GetAllocator());
+member count of response["data"]["unsubscribed"][] is 4
+member count of response["data"]["unsubscribeFailed"][] is 4
 
-    // for(const auto& baseCurrency : allCurrencies){
-    //     rapidjson::Value objectValue(rapidjson::kObjectType);
+{"success":true,"requestedApiCount":0,"data":{"funcName":[]}}
 
-    //     objectValue.AddMember("baseCurrency", baseCurrency, requestDoc.GetAllocator());
-    //     objectValue.AddMember("quoteCurrency", "USDT", requestDoc.GetAllocator());
-    //     requestDoc["market"].PushBack(objectValue, requestDoc.GetAllocator());
-    // }
+funcName is getSubscribing Type
+getSubscribingTickers -> funcName = tickers
+getSubscribingOrderbooks -> funcName = orderbooks
+getSubscribingMarketInfo -> funcName = marketInfo)";
 
-    // std::string input = OneXAPI::Internal::Util::jsonToString(requestDoc);
-    // std::string response = client.subscribeTicker(input);
+    OneXAPI::Binance::Futures client;
+    std::vector<std::string> allCurrencies = {"1INCH", "AAVE", "ADA", "ALGO", "ALICE", "ALPHA", "ANKR", "ANT", 
+        "APE", "API3", "ARPA", "AR", "ATA", "ATOM", "AUDIO", "AVAX", "AXS", "BAKE", 
+        "BAL", "BAND", "BAT", "BCH", "BEL", "BLZ", "BNB", "BNX", "BTCDOM", "BTCST", 
+        "BTC", "BTS", "C98", "CELO", "CELR", "CHR", "CHZ", "COMP", "COTI", "CRV", "CTK", 
+        "CTSI", "CVC", "CVX", "DAR", "DASH", "DEFI", "DENT", "DGB", "DOGE", "DOT", "DUSK", 
+        "DYDX", "EGLD", "ENJ", "ENS", "EOS", "ETC", "ETH", "FIL", "FLM", "FLOW", "FOOTBALL", 
+        "FTM", "FTT", "GALA", "GAL", "GMT", "GRT", "GTC", "HBAR", "HNT", "HOT", "ICP", "ICX", 
+        "IMX", "INJ", "IOST", "IOTA"};
 
-    // testData.actualResult = response;
+    rapidjson::Document requestDoc, respDoc;
 
-    // OneXAPI::Internal::Util::parseJson(responseDoc, response);
+    requestDoc.SetObject();
+    requestDoc.AddMember("market", rapidjson::Value(rapidjson::kArrayType), requestDoc.GetAllocator());
 
-    // if(responseDoc["success"].GetBool() == false){
-    //     return false;
-    // }
+    for(const auto& baseCurrency : allCurrencies){
+        rapidjson::Value objectValue(rapidjson::kObjectType);
 
-    // std::vector<std::string> subscribedList, subscribeFailedList;
+        objectValue.AddMember("baseCurrency", baseCurrency, requestDoc.GetAllocator());
+        objectValue.AddMember("quoteCurrency", "USDT", requestDoc.GetAllocator());
+        requestDoc["market"].PushBack(objectValue, requestDoc.GetAllocator());
+    }
+
+    std::string input = OneXAPI::Internal::Util::jsonToString(requestDoc);
+    std::string response = client.subscribeTicker(input);
+
+    testData.actualResult = response;
+
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+    if(!successResponseChecker(response)){
+        return false;
+    }
+    else if(!(respDoc["data"]["subscribed"].Size() > 50)){
+        return false;
+    }
+
+    response = client.unsubscribeTicker(input);
+
+    testData.actualResult = response;
+
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
     
-    // for(const auto& object : responseDoc["data"]["subscribed"].GetArray()){
-    //     subscribedList.emplace_back(object["symbol"].GetString());
-    // }
+    if(!successResponseChecker(response)){
+        return false;
+    }
+    else if(respDoc["requestedApiCount"].GetUint() != 0){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"], 2)){
+        return false;
+    }
+    else if(!respDoc["data"]["unsubscribed"].IsArray()){
+        return false;
+    }
+    else if(!respDoc["data"]["unsubscribeFailed"].IsArray()){
+        return false;
+    }
+    
+    for(const auto& object : respDoc["data"]["unsubscribed"].GetArray()){
+        if(!memberCountChecker(object, 4)){
+            return false;
+        }
+    }
 
-    // for(const auto& object : responseDoc["data"]["subscribeFailed"].GetArray()){
-    //     subscribeFailedList.emplace_back(object["symbol"].GetString());
-    // }
+    for(const auto& object : respDoc["data"]["unsubscribeFailed"].GetArray()){
+        if(!memberCountChecker(object, 4)){
+            return false;
+        }
+    }
 
-    // response = client.getSubscribingTickers();
+    response = client.getSubscribingTickers();
 
-    // testData.actualResult = response;
-    // OneXAPI::Internal::Util::parseJson(responseDoc, response);
+    testData.actualResult.append("\n").append(response);
 
-    // rapidjson::Document unsubscribeRequest;
+    std::string getSubscribingExpectedRes = R"({"success":true,"requestedApiCount":0,"data":{"tickers":[]}})";
 
-    // unsubscribeRequest.SetObject();
-    // unsubscribeRequest.AddMember("market", rapidjson::kArrayType, unsubscribeRequest.GetAllocator());
+    if(response.compare(getSubscribingExpectedRes) != 0){
+        return false;
+    }
+    return true;
 
-    // if(responseDoc["success"].GetBool() == false){
-    //     return false;
-    // }
-
-    // for(const auto& ticker : responseDoc["data"]["tickers"].GetArray()){
-    //     std::string baseCurrency = ticker["baseCurrency"].GetString();
-    //     std::string quoteCurrency = ticker["quoteCurrency"].GetString();
-    //     std::string symbol = ticker["symbol"].GetString();
-
-    //     rapidjson::Value marketObject(rapidjson::kObjectType);
-
-    //     marketObject.AddMember("baseCurrency", baseCurrency, unsubscribeRequest.GetAllocator());
-    //     marketObject.AddMember("quoteCurrency", quoteCurrency, unsubscribeRequest.GetAllocator());
-
-    //     unsubscribeRequest["market"].PushBack(marketObject, unsubscribeRequest.GetAllocator());
-
-    //     if(IN_VECTOR(subscribedList, symbol)){
-    //         continue;
-    //     }
-    //     else{
-    //         return false;
-    //     }
-
-    //     if(IN_VECTOR(subscribeFailedList, symbol)){
-    //         return false;
-    //     }
-    // }
-
-    // testData.testSubject = "OneXAPI::Binance::Futures().unsubscribeTicker";
-    // testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,})";
-
-    // client.unsubscribeTicker(OneXAPI::Internal::Util::jsonToString(unsubscribeRequest));
-
-    // testData.testSubject = "OneXAPI::Binance::Futures().getSubscribingTicker";
-    // testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"tickers":[]}})";
-
-    // response = client.getSubscribingTickers();
-
-    // testData.actualResult = response;
-
-    // if(response.compare(testData.expectedResult) != 0){
-    //     return false;
-    // }
-
-    // return true;
     TC_END
 }
 
@@ -6324,6 +6292,8 @@ bool TC_BinanceFutures_subscribeOrderbook_7(testDataType& testData){
 otherwise : response["requestedApiCount"] is 0
 N is request market size
 
+size of response["data"]["subscribed"] greater than 50
+
 member count of response["data"] is 2
 response["data"]["subscribed"] type is array
 response["data"]["subscribeFailed"] type is array
@@ -6346,24 +6316,15 @@ getSubscribingOrderbooks -> funcName = orderbooks
 getSubscribingMarketInfo -> funcName = marketInfo)";
 
     OneXAPI::Binance::Futures client;
-    std::vector<std::string> allCurrencies = {"BTC", "ETH", "ETC", "BCH", "OMG", "POWR", "REP", "SNT", "STORJ", "MTL", "TIX", "LTC", "QTUM", "DGD", "XRP", 
-    "MYST", "BTG", "WAVES", "SNGLS", "XAUR", "MER", "EDG", "AMP", "MAID", "AGRS", "FUN", "ANT", "MANA", "SRN", "WAXP", "ZRX", "VEE", "STEEM", "SBD", 
-    "BCPT", "BAT", "SALT", "BNT", "MCO", "RCN", "CFI", "HMQ", "WINGS", "NMR", "GUP", "SWT", "DNT", "GLM", "CVC", "PAY", "RLC", "ENG", "UKG", "VIB", 
-    "ADX", "QRL", "GNO", "PTOY", "ADT", "STRAX", "ADA", "TRX", "1ST", "LRC", "NEO", "XMR", "PIVX", "UP", "STMX", "ICX", "EOS", "DMT", "DASH", "ARK", 
-    "ZEC", "ARDR", "IGNIS", "XEM", "KMD", "GRS", "EMC2", "VTC", "LSK", "LUN", "POLY", "XLM", "XVG", "RDD", "EMC", "PRO", "SC", "GTO", "ONT", "ZIL", 
-    "BLT", "DCR", "AID", "NGC", "OCN", "LOOM", "CMCT", "NXT", "BKX", "MFT", "IOST", "RFR", "IQ", "CLOAK", "PART", "DOGE", "IOP", "VIA", "NAV", "IOTA", 
-    "OST", "BFT", "SYS", "ZEN", "OK", "UPP", "ENJ", "MET", "HYDRO", "CRW", "DTA", "EDR", "BOXX", "GAS", "ONG", "IHT", "MED", "TX", "BLOCK", "RVN", "ION", 
-    "BITB", "BSD", "FTC", "RVR", "LBC", "GAME", "ELF", "PMA", "KNC", "PAL", "UNB", "MOC", "PUNDIX", "SPC", "NXS", "SYNX", "KORE", "DYN", "VAL", "DGB", 
-    "SIB", "VRC", "MEME", "EXCL", "BAY", "SHIFT", "MONA", "BLK", "XHV", "TUBE", "UBQ", "GO", "EXP", "XZC", "MUE", "NBT", "BURST", "DCT", "SPHR", "SLS", 
-    "XEL", "GBYTE", "XDN", "FCT", "BSV", "XNK", "THETA", "NCASH", "JNT", "LBA", "DENT", "DRGN", "QKC", "CPT", "BTM", "BTT", "VITE", "IOTX", "BTU", "SOLVE", 
-    "NKN", "CTXC", "QNT", "STRK", "META", "MOBI", "SERV", "ANKR", "COSM", "CRO", "TFUEL", "BTS", "FSN", "MARO", "ORBS", "HST", "AERGO", "PI", "VBK", "ATOM", 
-    "TT", "ACN", "CRE", "VDX", "STPT", "MBL", "LAMB", "LUNC", "DAI", "MKR", "BORA", "TSHP", "HBAR", "WIN", "MLK", "PXL", "VET", "CHZ", "VTHO", "XPR", "FX", 
-    "OGN", "ITAM", "XTZ", "OBSR", "DKA", "AHT", "RINGX", "GOM2", "LINK", "JST", "KAVA", "RVC", "PCI", "TON", "CTSI", "DOT", "DAD", "CHR", "COMP", "SXP", 
-    "HUNT", "ONIT", "CRV", "ALGO", "RSR", "OXT", "PLA", "SAND", "SUN", "SRM", "QTCON", "MVL", "REI", "AQT", "AXS", "FCT2", "SSX", "FIL", "XEC", "UNI", "INJ", 
-    "BASIC", "PROM", "CBK", "FOR", "ONX", "MIR", "BFC", "LINA", "HUM", "PICA", "CELO", "STX", "LZM", "DON", "NEAR", "AUCTION", "DAWN", "FLOW", "GRT", "SNX", 
-    "XYM", "APENFT", "SGB", "SOL", "MATIC", "NU", "QI", "1INCH", "AAVE", "MASK", "AUDIO", "BOBA", "YGG", "GTC", "OCEAN", "CTC", "LPT", "WEMIX", "AVAX", "IMX", 
-    "RNDR", "RLY", "T", "AQUA", "RAD", "AGLD", "API3", "ARPA", "ENS", "GMT", "APE", "LUNA2", "OGV", "RAY", "ETHW", "ETHF"};
-
+    std::vector<std::string> allCurrencies = {"1INCH", "AAVE", "ADA", "ALGO", "ALICE", "ALPHA", "ANKR", "ANT", 
+        "APE", "API3", "ARPA", "AR", "ATA", "ATOM", "AUDIO", "AVAX", "AXS", "BAKE", 
+        "BAL", "BAND", "BAT", "BCH", "BEL", "BLZ", "BNB", "BNX", "BTCDOM", "BTCST", 
+        "BTC", "BTS", "C98", "CELO", "CELR", "CHR", "CHZ", "COMP", "COTI", "CRV", "CTK", 
+        "CTSI", "CVC", "CVX", "DAR", "DASH", "DEFI", "DENT", "DGB", "DOGE", "DOT", "DUSK", 
+        "DYDX", "EGLD", "ENJ", "ENS", "EOS", "ETC", "ETH", "FIL", "FLM", "FLOW", "FOOTBALL", 
+        "FTM", "FTT", "GALA", "GAL", "GMT", "GRT", "GTC", "HBAR", "HNT", "HOT", "ICP", "ICX", 
+        "IMX", "INJ", "IOST", "IOTA"};
+        
     rapidjson::Document requestDoc, respDoc;
 
     requestDoc.SetObject();
@@ -6394,6 +6355,9 @@ getSubscribingMarketInfo -> funcName = marketInfo)";
         return false;
     }
     else if(!respDoc["data"]["subscribed"].IsArray()){
+        return false;
+    }
+    else if(!(respDoc["data"]["subscribed"].Size() > 50)){
         return false;
     }
     else if(!respDoc["data"]["subscribeFailed"].IsArray()){
@@ -6652,116 +6616,105 @@ bool TC_BinanceFutures_unsubscribeOrderbook_7(testDataType& testData){
     TC_BEGIN
     std::this_thread::sleep_for(std::chrono::seconds(1));
     testData.testSubject = "OneXAPI::Binance::Futures().unsubscribeOrderbook";
-    // testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,})";
+    testData.expectedResult = R"({"success":true,"requestedApiCount":0,"data":{"unsubscribed":[{"baseCurrency":"BTC","quoteCurrency":"USDT","expiration":"PERP","symbol":"BTCUSDT"}.........................],"unsubscribeFailed":[]}}
 
-    // OneXAPI::Binance::Futures client;
-    // std::vector<std::string> allCurrencies = {"BTC", "ETH", "ETC", "BCH", "OMG", "POWR", "REP", "SNT", "STORJ", "MTL", "TIX", "LTC", "QTUM", "DGD", "XRP", 
-    // "MYST", "BTG", "WAVES", "SNGLS", "XAUR", "MER", "EDG", "AMP", "MAID", "AGRS", "FUN", "ANT", "MANA", "SRN", "WAXP", "ZRX", "VEE", "STEEM", "SBD", 
-    // "BCPT", "BAT", "SALT", "BNT", "MCO", "RCN", "CFI", "HMQ", "WINGS", "NMR", "GUP", "SWT", "DNT", "GLM", "CVC", "PAY", "RLC", "ENG", "UKG", "VIB", 
-    // "ADX", "QRL", "GNO", "PTOY", "ADT", "STRAX", "ADA", "TRX", "1ST", "LRC", "NEO", "XMR", "PIVX", "UP", "STMX", "ICX", "EOS", "DMT", "DASH", "ARK", 
-    // "ZEC", "ARDR", "IGNIS", "XEM", "KMD", "GRS", "EMC2", "VTC", "LSK", "LUN", "POLY", "XLM", "XVG", "RDD", "EMC", "PRO", "SC", "GTO", "ONT", "ZIL", 
-    // "BLT", "DCR", "AID", "NGC", "OCN", "LOOM", "CMCT", "NXT", "BKX", "MFT", "IOST", "RFR", "IQ", "CLOAK", "PART", "DOGE", "IOP", "VIA", "NAV", "IOTA", 
-    // "OST", "BFT", "SYS", "ZEN", "OK", "UPP", "ENJ", "MET", "HYDRO", "CRW", "DTA", "EDR", "BOXX", "GAS", "ONG", "IHT", "MED", "TX", "BLOCK", "RVN", "ION", 
-    // "BITB", "BSD", "FTC", "RVR", "LBC", "GAME", "ELF", "PMA", "KNC", "PAL", "UNB", "MOC", "PUNDIX", "SPC", "NXS", "SYNX", "KORE", "DYN", "VAL", "DGB", 
-    // "SIB", "VRC", "MEME", "EXCL", "BAY", "SHIFT", "MONA", "BLK", "XHV", "TUBE", "UBQ", "GO", "EXP", "XZC", "MUE", "NBT", "BURST", "DCT", "SPHR", "SLS", 
-    // "XEL", "GBYTE", "XDN", "FCT", "BSV", "XNK", "THETA", "NCASH", "JNT", "LBA", "DENT", "DRGN", "QKC", "CPT", "BTM", "BTT", "VITE", "IOTX", "BTU", "SOLVE", 
-    // "NKN", "CTXC", "QNT", "STRK", "META", "MOBI", "SERV", "ANKR", "COSM", "CRO", "TFUEL", "BTS", "FSN", "MARO", "ORBS", "HST", "AERGO", "PI", "VBK", "ATOM", 
-    // "TT", "ACN", "CRE", "VDX", "STPT", "MBL", "LAMB", "LUNC", "DAI", "MKR", "BORA", "TSHP", "HBAR", "WIN", "MLK", "PXL", "VET", "CHZ", "VTHO", "XPR", "FX", 
-    // "OGN", "ITAM", "XTZ", "OBSR", "DKA", "AHT", "RINGX", "GOM2", "LINK", "JST", "KAVA", "RVC", "PCI", "TON", "CTSI", "DOT", "DAD", "CHR", "COMP", "SXP", 
-    // "HUNT", "ONIT", "CRV", "ALGO", "RSR", "OXT", "PLA", "SAND", "SUN", "SRM", "QTCON", "MVL", "REI", "AQT", "AXS", "FCT2", "SSX", "FIL", "XEC", "UNI", "INJ", 
-    // "BASIC", "PROM", "CBK", "FOR", "ONX", "MIR", "BFC", "LINA", "HUM", "PICA", "CELO", "STX", "LZM", "DON", "NEAR", "AUCTION", "DAWN", "FLOW", "GRT", "SNX", 
-    // "XYM", "APENFT", "SGB", "SOL", "MATIC", "NU", "QI", "1INCH", "AAVE", "MASK", "AUDIO", "BOBA", "YGG", "GTC", "OCEAN", "CTC", "LPT", "WEMIX", "AVAX", "IMX", 
-    // "RNDR", "RLY", "T", "AQUA", "RAD", "AGLD", "API3", "ARPA", "ENS", "GMT", "APE", "LUNA2", "OGV", "RAY", "ETHW", "ETHF"};
+unsubscribe request same as pre-condition subscribe request
 
-    // rapidjson::Document requestDoc, responseDoc;
+member count of response["data"] is 2
+response["data"]["unsubscribed"] type is array
+response["data"]["unsubscribeFailed"] type is array
 
-    // requestDoc.SetObject();
-    // requestDoc.AddMember("market", rapidjson::Value(rapidjson::kArrayType), requestDoc.GetAllocator());
+member count of response["data"]["unsubscribed"][] is 4
+member count of response["data"]["unsubscribeFailed"][] is 4
 
-    // for(const auto& baseCurrency : allCurrencies){
-    //     rapidjson::Value objectValue(rapidjson::kObjectType);
+{"success":true,"requestedApiCount":0,"data":{"funcName":[]}}
 
-    //     objectValue.AddMember("baseCurrency", baseCurrency, requestDoc.GetAllocator());
-    //     objectValue.AddMember("quoteCurrency", "USDT", requestDoc.GetAllocator());
-    //     requestDoc["market"].PushBack(objectValue, requestDoc.GetAllocator());
-    // }
+funcName is getSubscribing Type
+getSubscribingTickers -> funcName = tickers
+getSubscribingOrderbooks -> funcName = orderbooks
+getSubscribingMarketInfo -> funcName = marketInfo)";
 
-    // std::string input = OneXAPI::Internal::Util::jsonToString(requestDoc);
-    // std::string response = client.subscribeOrderbook(input);
+    OneXAPI::Binance::Futures client;
+    std::vector<std::string> allCurrencies = {"1INCH", "AAVE", "ADA", "ALGO", "ALICE", "ALPHA", "ANKR", "ANT", 
+        "APE", "API3", "ARPA", "AR", "ATA", "ATOM", "AUDIO", "AVAX", "AXS", "BAKE", 
+        "BAL", "BAND", "BAT", "BCH", "BEL", "BLZ", "BNB", "BNX", "BTCDOM", "BTCST", 
+        "BTC", "BTS", "C98", "CELO", "CELR", "CHR", "CHZ", "COMP", "COTI", "CRV", "CTK", 
+        "CTSI", "CVC", "CVX", "DAR", "DASH", "DEFI", "DENT", "DGB", "DOGE", "DOT", "DUSK", 
+        "DYDX", "EGLD", "ENJ", "ENS", "EOS", "ETC", "ETH", "FIL", "FLM", "FLOW", "FOOTBALL", 
+        "FTM", "FTT", "GALA", "GAL", "GMT", "GRT", "GTC", "HBAR", "HNT", "HOT", "ICP", "ICX", 
+        "IMX", "INJ", "IOST", "IOTA"};
 
-    // testData.actualResult = response;
+    rapidjson::Document requestDoc, respDoc;
 
-    // OneXAPI::Internal::Util::parseJson(responseDoc, response);
+    requestDoc.SetObject();
+    requestDoc.AddMember("market", rapidjson::Value(rapidjson::kArrayType), requestDoc.GetAllocator());
 
-    // if(responseDoc["success"].GetBool() == false){
-    //     return false;
-    // }
+    for(const auto& baseCurrency : allCurrencies){
+        rapidjson::Value objectValue(rapidjson::kObjectType);
 
-    // std::vector<std::string> subscribedList, subscribeFailedList;
+        objectValue.AddMember("baseCurrency", baseCurrency, requestDoc.GetAllocator());
+        objectValue.AddMember("quoteCurrency", "USDT", requestDoc.GetAllocator());
+        requestDoc["market"].PushBack(objectValue, requestDoc.GetAllocator());
+    }
+
+    std::string input = OneXAPI::Internal::Util::jsonToString(requestDoc);
+    std::string response = client.subscribeOrderbook(input);
+
+    testData.actualResult = response;
+
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
+    if(!successResponseChecker(response)){
+        return false;
+    }
+    else if(!(respDoc["data"]["subscribed"].Size() > 50)){
+        return false;
+    }
+
+    response = client.unsubscribeOrderbook(input);
+
+    testData.actualResult = response;
+
+    OneXAPI::Internal::Util::parseJson(respDoc, response);
     
-    // for(const auto& object : responseDoc["data"]["subscribed"].GetArray()){
-    //     subscribedList.emplace_back(object["symbol"].GetString());
-    // }
+    if(!successResponseChecker(response)){
+        return false;
+    }
+    else if(respDoc["requestedApiCount"].GetUint() != 0){
+        return false;
+    }
+    else if(!memberCountChecker(respDoc["data"], 2)){
+        return false;
+    }
+    else if(!respDoc["data"]["unsubscribed"].IsArray()){
+        return false;
+    }
+    else if(!respDoc["data"]["unsubscribeFailed"].IsArray()){
+        return false;
+    }
+    
+    for(const auto& object : respDoc["data"]["unsubscribed"].GetArray()){
+        if(!memberCountChecker(object, 4)){
+            return false;
+        }
+    }
 
-    // for(const auto& object : responseDoc["data"]["subscribeFailed"].GetArray()){
-    //     subscribeFailedList.emplace_back(object["symbol"].GetString());
-    // }
+    for(const auto& object : respDoc["data"]["unsubscribeFailed"].GetArray()){
+        if(!memberCountChecker(object, 4)){
+            return false;
+        }
+    }
 
-    // response = client.getSubscribingOrderbooks();
+    response = client.getSubscribingOrderbooks();
 
-    // testData.actualResult = response;
-    // OneXAPI::Internal::Util::parseJson(responseDoc, response);
+    testData.actualResult.append("\n").append(response);
 
-    // rapidjson::Document unsubscribeRequest;
+    std::string getSubscribingExpectedRes = R"({"success":true,"requestedApiCount":0,"data":{"orderbooks":[]}})";
 
-    // unsubscribeRequest.SetObject();
-    // unsubscribeRequest.AddMember("market", rapidjson::kArrayType, unsubscribeRequest.GetAllocator());
+    if(response.compare(getSubscribingExpectedRes) != 0){
+        return false;
+    }
+    return true;
 
-    // if(responseDoc["success"].GetBool() == false){
-    //     return false;
-    // }
-
-    // for(const auto& Orderbook : responseDoc["data"]["orderbooks"].GetArray()){
-    //     std::string baseCurrency = Orderbook["baseCurrency"].GetString();
-    //     std::string quoteCurrency = Orderbook["quoteCurrency"].GetString();
-    //     std::string symbol = Orderbook["symbol"].GetString();
-
-    //     rapidjson::Value marketObject(rapidjson::kObjectType);
-
-    //     marketObject.AddMember("baseCurrency", baseCurrency, unsubscribeRequest.GetAllocator());
-    //     marketObject.AddMember("quoteCurrency", quoteCurrency, unsubscribeRequest.GetAllocator());
-
-    //     unsubscribeRequest["market"].PushBack(marketObject, unsubscribeRequest.GetAllocator());
-
-    //     if(IN_VECTOR(subscribedList, symbol)){
-    //         continue;
-    //     }
-    //     else{
-    //         return false;
-    //     }
-
-    //     if(IN_VECTOR(subscribeFailedList, symbol)){
-    //         return false;
-    //     }
-    // }
-
-    // testData.testSubject = "OneXAPI::Binance::Futures().unsubscribeOrderbook";
-    // testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,})";
-
-    // client.unsubscribeOrderbook(OneXAPI::Internal::Util::jsonToString(unsubscribeRequest));
-
-    // testData.testSubject = "OneXAPI::Binance::Futures().getSubscribingOrderbook";
-    // testData.expectedResult = R"({"success":true,"data":{"requestedApiCount":0,"orderbooks":[]}})";
-
-    // response = client.getSubscribingOrderbooks();
-
-    // testData.actualResult = response;
-
-    // if(response.compare(testData.expectedResult) != 0){
-    //     return false;
-    // }
-
-    // return true;
     TC_END
 }
 

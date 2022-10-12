@@ -162,6 +162,7 @@ extern bool TC_BinanceSpot_subscribeTicker_5(testDataType& testData);
 extern bool TC_BinanceSpot_subscribeTicker_6(testDataType& testData);
 extern bool TC_BinanceSpot_subscribeTicker_7(testDataType& testData);
 extern bool TC_BinanceSpot_subscribeTicker_8(testDataType& testData);
+extern bool TC_BinanceSpot_subscribeTicker_9(testDataType& testData);
 
 extern bool TC_BinanceSpot_unsubscribeTicker_1(testDataType& testData);
 extern bool TC_BinanceSpot_unsubscribeTicker_2(testDataType& testData);
@@ -171,6 +172,7 @@ extern bool TC_BinanceSpot_unsubscribeTicker_5(testDataType& testData);
 extern bool TC_BinanceSpot_unsubscribeTicker_6(testDataType& testData);
 extern bool TC_BinanceSpot_unsubscribeTicker_7(testDataType& testData);
 extern bool TC_BinanceSpot_unsubscribeTicker_8(testDataType& testData);
+extern bool TC_BinanceSpot_unsubscribeTicker_9(testDataType& testData);
 
 extern bool TC_BinanceSpot_subscribeOrderbook_1(testDataType& testData);
 extern bool TC_BinanceSpot_subscribeOrderbook_2(testDataType& testData);
@@ -180,6 +182,7 @@ extern bool TC_BinanceSpot_subscribeOrderbook_5(testDataType& testData);
 extern bool TC_BinanceSpot_subscribeOrderbook_6(testDataType& testData);
 extern bool TC_BinanceSpot_subscribeOrderbook_7(testDataType& testData);
 extern bool TC_BinanceSpot_subscribeOrderbook_8(testDataType& testData);
+extern bool TC_BinanceSpot_subscribeOrderbook_9(testDataType& testData);
 
 extern bool TC_BinanceSpot_unsubscribeOrderbook_1(testDataType& testData);
 extern bool TC_BinanceSpot_unsubscribeOrderbook_2(testDataType& testData);
@@ -189,5 +192,4 @@ extern bool TC_BinanceSpot_unsubscribeOrderbook_5(testDataType& testData);
 extern bool TC_BinanceSpot_unsubscribeOrderbook_6(testDataType& testData);
 extern bool TC_BinanceSpot_unsubscribeOrderbook_7(testDataType& testData);
 extern bool TC_BinanceSpot_unsubscribeOrderbook_8(testDataType& testData);
-
-extern bool TC_BinanceSpot_websocketFullTest(testDataType& testData);
+extern bool TC_BinanceSpot_unsubscribeOrderbook_9(testDataType& testData);
