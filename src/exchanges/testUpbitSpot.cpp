@@ -674,7 +674,7 @@ bool TC_UpbitSpot_has_3(testDataType& testData){
 
     testData.actualResult = response;
 
-    if(!errorResponseChecker(response, "JSON_PARSING_ERROR")){
+    if(!errorResponseChecker(response, "JSON_PARSING_ERROR", 0)){
         return false;
     }
     return true;
@@ -728,7 +728,7 @@ bool TC_UpbitSpot_has_5(testDataType& testData){
 
     testData.actualResult = response;
 
-    if(!errorResponseChecker(response, "WRONG_VALUE")){
+    if(!errorResponseChecker(response, "WRONG_VALUE", 0)){
         return false;
     }
     return true;
@@ -787,7 +787,7 @@ bool TC_UpbitSpot_setWithdrawRoundingRule_1(testDataType& testData){
 
     testData.actualResult = response;
 
-    if(!errorResponseChecker(response, "WRONG_VALUE")){
+    if(!errorResponseChecker(response, "WRONG_VALUE", 0)){
         return false;
     }
     return true;
