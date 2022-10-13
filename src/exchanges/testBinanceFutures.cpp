@@ -5692,7 +5692,9 @@ getSubscribingMarketInfo -> funcName = marketInfo)";
         "BAL", "BAND", "BAT", "BCH", "BEL", "BLZ", "BNB", "BNX", "BTCDOM", "BTCST", 
         "BTC", "BTS", "C98", "CELO", "CELR", "CHR", "CHZ", "COMP", "COTI", "CRV", "CTK", 
         "CTSI", "CVC", "CVX", "DAR", "DASH", "DEFI", "DENT", "DGB", "DOGE", "DOT", "DUSK", 
-        "DYDX", "EGLD"};
+        "DYDX", "EGLD", "ENJ", "ENS", "EOS", "ETC", "ETH", "FIL", "FLM", "FLOW", "FOOTBALL", 
+        "FTM", "FTT", "GALA", "GAL", "GMT", "GRT", "GTC", "HBAR", "HNT", "HOT", "ICP", "ICX", 
+        "IMX", "INJ", "IOST", "IOTA"};
 
     rapidjson::Document requestDoc, respDoc;
 
