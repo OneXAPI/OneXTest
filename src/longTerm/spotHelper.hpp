@@ -2,6 +2,7 @@
 #include "tgbot/tgbot.h"
 
 std::string (*safeSymbolFunc)(const std::string&, const std::string&);
+TgBot::Bot *errorTgBot = new TgBot::Bot("Input Telegram Bot Key");
 
 enum subscribeType{
     TICKER,
@@ -36,7 +37,7 @@ std::string binanceSpotSafeSymbol(const std::string& base, const std::string& qu
     return boost::to_upper_copy(base + quote);
 }
 
-std::string makeRequest(const std::vector<std::pair<std::string, std::string>>& Currencys){
+std::string makeRequest(const std::vector<std::pair<std::string, std::string>>& Currencys, uint64_t requestTimeout){
     rapidjson::Document doc;
 
     doc.SetObject();
@@ -58,6 +59,7 @@ void error(const std::string& msg)
     try
     {
         LOGGER.critical(msg);
+        errorTgBot->getApi().sendMessage("Input user number", msg);
     }
     catch(const std::exception& e)
     {
@@ -107,8 +109,16 @@ private:
 public:
     spotHelper(OneXAPI::Internal::Exchange::SpotBase& client)
         : client(client) {};
-    
+
     std::vector<symbolDetail> fetchMarkets(){
+        if(this->markets.size() == 0){
+            this->getMarkets();
+        }
+
+        return this->markets;
+    }
+    
+    std::vector<symbolDetail> getMarkets(){
         rapidjson::Document resDoc;
 
         OneXAPI::Internal::Util::parseJson(resDoc, this->client.fetchMarkets());
@@ -133,7 +143,7 @@ public:
         std::vector<Ticker> tickers;
 
         if(this->markets.size() == 0){
-            this->fetchMarkets();
+            this->getMarkets();
         }
 
         this->fetchTickers(tickers, quoteCurrency);
@@ -141,9 +151,9 @@ public:
     }
 
     void subscriber(const subscribeType& type, std::vector<std::pair<std::string, std::string>>& exchangePairs,
-        const std::vector<std::pair<std::string, std::string>>& Currencys, const std::string& head){
+        const std::vector<std::pair<std::string, std::string>>& Currencys, const std::string& head, uint64_t requestTimeout = 5){
 
-        std::string request = makeRequest(Currencys);
+        std::string request = makeRequest(Currencys, requestTimeout);
         std::string subscribeResponse;
 
         if(type == subscribeType::TICKER){
@@ -153,76 +163,86 @@ public:
             subscribeResponse = client.subscribeOrderbook(request);
         }
 
-        LOGGER.critical(head + "subscribe\n" + request + "\n" + subscribeResponse);
+        LOGGER.error(head + "subscribe\n" + request + "\n" + subscribeResponse);
 
         rapidjson::Document respSubDoc;
         OneXAPI::Internal::Util::parseJson(respSubDoc, subscribeResponse);
 
-        std::vector<std::string> subscribedSymbols, failedSymbols;
+        if(respSubDoc["success"].GetBool()){
+            std::vector<std::string> subscribedSymbols, failedSymbols;
 
-        for(const auto& object : respSubDoc["data"]["subscribed"].GetArray()){
-            subscribedSymbols.emplace_back(object["symbol"].GetString());
-        }
-
-        for(const auto& object : respSubDoc["data"]["subscribeFailed"].GetArray()){
-            failedSymbols.emplace_back(object["symbol"].GetString());
-        }
-
-        std::string funcType, getSubscribingResponse;
-        if(type == subscribeType::TICKER){
-            getSubscribingResponse = client.getSubscribingTickers();
-            funcType = "tickers";
-        }
-        else if(type == subscribeType::ORDERBOOK){
-            getSubscribingResponse = client.getSubscribingOrderbooks();
-            funcType = "orderbooks";
-        }
-
-        OneXAPI::Internal::Util::parseJson(respSubDoc, getSubscribingResponse);
-
-        for(const auto& symbol : subscribedSymbols){
-            bool isFound = false;
-            
-            for(const auto& object : respSubDoc["data"][funcType].GetArray()){
-                if(!IN_VECTOR(exchangePairs, (std::pair<std::string, std::string>(object["baseCurrency"].GetString(), object["quoteCurrency"].GetString())))){
-                    exchangePairs.emplace_back(std::pair<std::string, std::string>(object["baseCurrency"].GetString(), object["quoteCurrency"].GetString()));
-                }
-
-                if(symbol.compare(object["symbol"].GetString()) == 0){
-                    isFound = true;
-                }
+            for(const auto& object : respSubDoc["data"]["subscribed"].GetArray()){
+                subscribedSymbols.emplace_back(object["symbol"].GetString());
             }
 
-            if(!isFound){
-                error(head + " subscribed symbol not found [" + symbol + "]\n" + getSubscribingResponse);
-            }
-        }
-        
-        for(const auto& symbol : failedSymbols){
-            bool isFound = false;
-            
-            for(const auto& object : respSubDoc["data"][funcType].GetArray()){
-                if(IN_VECTOR(exchangePairs, (std::pair<std::string, std::string>(object["baseCurrency"].GetString(), object["quoteCurrency"].GetString())))){
-                    exchangePairs.erase(
-                        std::remove(exchangePairs.begin(), exchangePairs.end(), 
-                            std::pair<std::string, std::string>(object["baseCurrency"].GetString(), object["quoteCurrency"].GetString())), 
-                        exchangePairs.end()
-                    );
-                }
-
-                if(symbol.compare(object["symbol"].GetString()) == 0){
-                    isFound = true;
-                }
+            for(const auto& object : respSubDoc["data"]["subscribeFailed"].GetArray()){
+                failedSymbols.emplace_back(object["symbol"].GetString());
             }
 
-            if(isFound){
-                error(head + " subscribefailed symbol found [" + symbol + "]\n" + getSubscribingResponse);
+            std::string funcType, getSubscribingResponse;
+            if(type == subscribeType::TICKER){
+                getSubscribingResponse = client.getSubscribingTickers();
+                funcType = "tickers";
+            }
+            else if(type == subscribeType::ORDERBOOK){
+                getSubscribingResponse = client.getSubscribingOrderbooks();
+                funcType = "orderbooks";
+            }
+
+            OneXAPI::Internal::Util::parseJson(respSubDoc, getSubscribingResponse);
+
+            if(respSubDoc["success"].GetBool()){
+                for(const auto& symbol : subscribedSymbols){
+                    bool isFound = false;
+                    
+                    for(const auto& object : respSubDoc["data"][funcType].GetArray()){
+                        if(!IN_VECTOR(exchangePairs, (std::pair<std::string, std::string>(object["baseCurrency"].GetString(), object["quoteCurrency"].GetString())))){
+                            exchangePairs.emplace_back(std::pair<std::string, std::string>(object["baseCurrency"].GetString(), object["quoteCurrency"].GetString()));
+                        }
+
+                        if(symbol.compare(object["symbol"].GetString()) == 0){
+                            isFound = true;
+                        }
+                    }
+
+                    if(!isFound){
+                        error(head + " subscribed symbol not found [" + symbol + "]\n" + getSubscribingResponse);
+                    }
+                }
+                
+                for(const auto& symbol : failedSymbols){
+                    bool isFound = false;
+                    
+                    for(const auto& object : respSubDoc["data"][funcType].GetArray()){
+                        if(IN_VECTOR(exchangePairs, (std::pair<std::string, std::string>(object["baseCurrency"].GetString(), object["quoteCurrency"].GetString())))){
+                            exchangePairs.erase(
+                                std::remove(exchangePairs.begin(), exchangePairs.end(), 
+                                    std::pair<std::string, std::string>(object["baseCurrency"].GetString(), object["quoteCurrency"].GetString())), 
+                                exchangePairs.end()
+                            );
+                        }
+
+                        if(symbol.compare(object["symbol"].GetString()) == 0){
+                            isFound = true;
+                        }
+                    }
+
+                    if(isFound){
+                        error(head + " subscribefailed symbol found [" + symbol + "]\n" + getSubscribingResponse);
+                    }
+                }
+            }
+            else{
+                error(head + "getSubscribe Failed in subscribe Func\n" + getSubscribingResponse);
             }
         }
+        else{
+            error(head + "subscribe Faild\n" + subscribeResponse);
+        }   
     }
 
     void unsubscriber(const subscribeType& type, std::vector<std::pair<std::string, std::string>>& exchangePairs,
-        const std::vector<std::pair<std::string, std::string>>& Currencys, const std::string& head){
+        const std::vector<std::pair<std::string, std::string>>& Currencys, const std::string& head, uint64_t requestTimeout = 5){
 
         // add missingSymbol
         rapidjson::Document respSubDoc;
@@ -255,7 +275,7 @@ public:
         }
 
         // start unsubscribe logic
-        std::string request = makeRequest(Currencys);
+        std::string request = makeRequest(Currencys, requestTimeout);
         std::string unsubscribeResponse;
 
         if(type == subscribeType::TICKER){
@@ -265,7 +285,7 @@ public:
             unsubscribeResponse = client.unsubscribeOrderbook(request);
         }
 
-        LOGGER.critical(head + "unsubscribe\n" + request + "\n" + unsubscribeResponse);
+        LOGGER.error(head + "unsubscribe\n" + request + "\n" + unsubscribeResponse);
 
         OneXAPI::Internal::Util::parseJson(respSubDoc, unsubscribeResponse);
 
@@ -376,7 +396,7 @@ public:
         std::map<std::string, uint64_t> orderbookTime;
 
         for(const auto& tickerPair : tickerPairs){
-            std::string request = R"({"baseCurrency":")" + tickerPair.first + R"(","quoteCurrency":")" + tickerPair.second + R"("})";
+            std::string request = R"({"baseCurrency":")" + tickerPair.first + R"(","quoteCurrency":")" + tickerPair.second + "\"}";
             std::string tickerInfo = client.fetchTicker(request);
 
             rapidjson::Document tickerDoc;
@@ -435,14 +455,13 @@ public:
             }
 
             if(head.compare("binanceSpot") == 0){
-                timeout = 5000;
+                timeout = 10000;
             }
 
             if(now - orderbook.second > timeout && now > orderbook.second){
                 error(head + " " +  middle + " " + orderbook.first + " delayed : " + std::to_string(now - orderbook.second) +
                 ", now : " + std::to_string(now) + ", recvTime : " + std::to_string(orderbook.second));
             }
-            LOGGER.info(orderbookMsg);
         }
     }
 };
