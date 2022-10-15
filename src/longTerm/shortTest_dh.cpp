@@ -75,75 +75,9 @@ void websocketTest(string tag){
             !tickerRespDoc["success"].GetBool()){
             throw(tag + exchangeInfo + " Ws Error : getSubscribing success \n" + orderbookResp + "\n" + tickerResp);
         }
-        else if(orderbookRespDoc["data"]["orderbooks"].Size() != spotGroupA[idx].size() ||
-                tickerRespDoc["data"]["tickers"].Size() != spotGroupD[idx].size()){
+        else if(orderbookRespDoc["data"]["orderbooks"].Size() < 1 ||
+                tickerRespDoc["data"]["tickers"].Size() < 1){
             throw(tag + exchangeInfo + " Ws Error : getSubscribing size \n" + orderbookResp + "\n" + tickerResp);
-        }
-        for(const auto& orderbook : orderbookRespDoc["data"]["orderbooks"].GetArray()){
-            pair<string, string> pair{boost::to_upper_copy(string(orderbook["baseCurrency"].GetString())), boost::to_upper_copy(string(orderbook["quoteCurrency"].GetString()))};
-            if(!IN_VECTOR(spotGroupA[idx], pair)){
-                throw(tag + exchangeInfo + " Ws Error : subscribingOrderbooks find \n" + orderbookResp);
-            }
-        }
-        for(const auto& ticker : tickerRespDoc["data"]["tickers"].GetArray()){
-            pair<string, string> pair{boost::to_upper_copy(string(ticker["baseCurrency"].GetString())), boost::to_upper_copy(string(ticker["quoteCurrency"].GetString()))};
-            if(!IN_VECTOR(spotGroupD[idx], pair)){
-                throw(tag + exchangeInfo + " Ws Error : subscribingTickers find \n" + tickerResp);
-            }
-        }
-
-        uint64_t timestampMax = 0;
-        std::string maxOrderbook = "";
-        /* Orderbook */
-        for(auto symbol:spotGroupA[idx]){
-            Document orderbookDoc;
-
-            std::string orderbook = spotClients[idx]->fetchOrderbook(R"({"baseCurrency":")" + symbol.first + R"(","quoteCurrency":")" + symbol.second + R"("})");
-
-            parseJson(orderbookDoc, orderbook);
-
-            if( !orderbookDoc["success"].GetBool()){
-                throw(tag + exchangeInfo + " Ws Error : fetch success \n" + orderbook);
-            }
-            else if(orderbookDoc["requestedApiCount"].GetUint() != 0){
-                throw(tag + exchangeInfo + " Ws Error : fetch count \n" + orderbook);
-            }
-            else if(string("websocket").compare(orderbookDoc["data"]["fetchType"].GetString()) != 0){
-                throw(tag + exchangeInfo + " Ws Error : fetch fetchType \n" + orderbook);
-            }
-            else if(orderbookDoc["data"]["timestamp"].GetUint64() < getCurrentMsEpoch()-1800000){
-                throw(tag + exchangeInfo + " Ws Error : fetchOrderbook timestamp \n" + orderbook);
-            }
-
-            if(timestampMax < orderbookDoc["data"]["timestamp"].GetUint64()){
-                timestampMax = orderbookDoc["data"]["timestamp"].GetUint64();
-                maxOrderbook = orderbook;
-            }
-        }
-        if(timestampMax < getCurrentMsEpoch()-60000){
-            throw(tag + exchangeInfo + " Ws Error : fetchOrderbook timestamp Max \n" + maxOrderbook);
-        }
-
-        /* Ticker */
-        for(auto symbol:spotGroupD[idx]){
-            Document tickerDoc;
-
-            std::string ticker = spotClients[idx]->fetchTicker(R"({"baseCurrency":")" + symbol.first + R"(","quoteCurrency":")" + symbol.second + R"("})");
-
-            parseJson(tickerDoc, ticker);
-
-            if( !tickerDoc["success"].GetBool()){
-                throw(tag + exchangeInfo + " Ws Error : fetch success \n" + ticker);
-            }
-            else if(tickerDoc["requestedApiCount"].GetUint() != 0){
-                throw(tag + exchangeInfo + " Ws Error : fetch count \n" + ticker);
-            }
-            else if(string("websocket").compare(tickerDoc["data"]["fetchType"].GetString()) != 0){
-                throw(tag + exchangeInfo + " Ws Error : fetch fetchType \n" + ticker);
-            }
-            else if(tickerDoc["data"]["openTime"].GetUint64() < getCurrentMsEpoch()-170000000){
-                throw(tag + exchangeInfo + " Ws Error : fetchTicker openTime \n" + ticker);
-            }
         }
     }
 
@@ -165,87 +99,10 @@ void websocketTest(string tag){
             !marketInfoRespDoc["success"].GetBool()){
             throw(tag + exchangeInfo + " Ws Error : getSubscribing success \n" + orderbookResp + "\n" + tickerResp + "\n" + marketInfoResp);
         }
-        else if(orderbookRespDoc["data"]["orderbooks"].Size() != futuresGroupA[idx].size() ||
-                tickerRespDoc["data"]["tickers"].Size() != futuresGroupD[idx].size() ||
-                marketInfoRespDoc["data"]["marketInfo"].Size() < futuresGroupA[idx].size()){
+        else if(orderbookRespDoc["data"]["orderbooks"].Size() < 1 ||
+                tickerRespDoc["data"]["tickers"].Size() < 1 ||
+                marketInfoRespDoc["data"]["marketInfo"].Size() < 1){
             throw(tag + exchangeInfo + " Ws Error : getSubscribing size \n" + orderbookResp + "\n" + tickerResp + "\n" + marketInfoResp);
-        }
-        for(const auto& orderbook : orderbookRespDoc["data"]["orderbooks"].GetArray()){
-            pair<string, string> pair{boost::to_upper_copy(string(orderbook["baseCurrency"].GetString())), boost::to_upper_copy(string(orderbook["quoteCurrency"].GetString()))};
-            if(!IN_VECTOR(futuresGroupA[idx], pair)){
-                throw(tag + exchangeInfo + " Ws Error : subscribingOrderbooks find \n" + orderbookResp);
-            }
-        }
-        for(const auto& ticker : tickerRespDoc["data"]["tickers"].GetArray()){
-            pair<string, string> pair{boost::to_upper_copy(string(ticker["baseCurrency"].GetString())), boost::to_upper_copy(string(ticker["quoteCurrency"].GetString()))};
-            if(!IN_VECTOR(futuresGroupD[idx], pair)){
-                throw(tag + exchangeInfo + " Ws Error : subscribingTickers find \n" + tickerResp);
-            }
-        }
-        // for(const auto& marketInfo : marketInfoRespDoc["data"]["marketInfo"].GetArray()){
-        //     pair<string, string> pair{boost::to_upper_copy(string(marketInfo["baseCurrency"].GetString())), boost::to_upper_copy(string(marketInfo["quoteCurrency"].GetString()))};
-        //     if(!IN_VECTOR(futuresGroupA[idx], pair)){
-        //         throw(tag + exchangeInfo + " Ws Error : subscribingMarketInfo find \n" + marketInfoResp);
-        //     }
-        // }
-
-        uint64_t timestampMax = 0;
-        std::string maxOrderbook = "";
-        /* Orderbook & MarketInfo */
-        for(auto symbol:futuresGroupA[idx]){
-            Document orderbookDoc, marketInfoDoc;
-
-            std::string orderbook = futuresClients[idx]->fetchOrderbook(R"({"baseCurrency":")" + symbol.first + R"(","quoteCurrency":")" + symbol.second + R"("})");
-            std::string marketInfo = futuresClients[idx]->fetchMarketInfo(R"({"baseCurrency":")" + symbol.first + R"(","quoteCurrency":")" + symbol.second + R"("})");
-
-            parseJson(orderbookDoc, orderbook);
-            parseJson(marketInfoDoc, marketInfo);
-
-            if( !orderbookDoc["success"].GetBool() ||
-                !marketInfoDoc["success"].GetBool()){
-                throw(tag + exchangeInfo + " Ws Error : fetch success \n" + orderbook + "\n" + marketInfo);
-            }
-            else if(orderbookDoc["requestedApiCount"].GetUint() != 0 ||
-                    marketInfoDoc["requestedApiCount"].GetUint() != 0){
-                throw(tag + exchangeInfo + " Ws Error : fetch count \n" + orderbook + "\n" + marketInfo);
-            }
-            else if(string("websocket").compare(orderbookDoc["data"]["fetchType"].GetString()) != 0 ||
-                    string("websocket").compare(marketInfoDoc["data"]["fetchType"].GetString()) != 0){
-                throw(tag + exchangeInfo + " Ws Error : fetch fetchType \n" + orderbook + "\n" + marketInfo);
-            }
-            else if(orderbookDoc["data"]["timestamp"].GetUint64() < getCurrentMsEpoch()-1800000){
-                throw(tag + exchangeInfo + " Ws Error : fetchOrderbook timestamp \n" + orderbook);
-            }
-
-            if(timestampMax < orderbookDoc["data"]["timestamp"].GetUint64()){
-                timestampMax = orderbookDoc["data"]["timestamp"].GetUint64();
-                maxOrderbook = orderbook;
-            }
-        }
-        if(timestampMax < getCurrentMsEpoch()-60000){
-            throw(tag + exchangeInfo + " Ws Error : fetchOrderbook timestamp Max \n" + maxOrderbook);
-        }
-
-        /* Ticker */
-        for(auto symbol:futuresGroupD[idx]){
-            Document tickerDoc;
-
-            std::string ticker = futuresClients[idx]->fetchTicker(R"({"baseCurrency":")" + symbol.first + R"(","quoteCurrency":")" + symbol.second + R"("})");
-
-            parseJson(tickerDoc, ticker);
-
-            if( !tickerDoc["success"].GetBool()){
-                throw(tag + exchangeInfo + " Ws Error : fetch success \n" + ticker);
-            }
-            else if(tickerDoc["requestedApiCount"].GetUint() != 0){
-                throw(tag + exchangeInfo + " Ws Error : fetch count \n" + ticker);
-            }
-            else if(string("websocket").compare(tickerDoc["data"]["fetchType"].GetString()) != 0 ){
-                throw(tag + exchangeInfo + " Ws Error : fetch fetchType \n" + ticker);
-            }
-            else if(tickerDoc["data"]["openTime"].GetUint64() < getCurrentMsEpoch()-170000000){
-                throw(tag + exchangeInfo + " Ws Error : fetchTicker openTime \n" + ticker);
-            }
         }
     }
 }
@@ -398,56 +255,24 @@ void balanceTest(string tag){
         parseJson(isSubscribingBalanceDoc, isSubscribingBalance);
         parseJson(fetchBalanceDoc, fetchBalance);
 
-        Document hasCheckDoc;
-        parseJson(hasCheckDoc, spotClients[idx]->has(R"({"api":"subscribeBalance"})"));
-        if(!hasCheckDoc.HasMember("data")){
-            LOGGER.critical(tag + exchangeInfo + " subscribe balance has Check failed : " + jsonToString(hasCheckDoc));
-            sendTgMsg("Has Check Error");
+        if( !isSubscribingBalanceDoc["success"].GetBool() ||
+            !fetchBalanceDoc["success"].GetBool()){
+            throw(tag + exchangeInfo + " Ws Error : balance success \n" + isSubscribingBalance + "\n" + fetchBalance);
         }
-        else if(!hasCheckDoc["data"].HasMember("subscribeBalance")){
-            LOGGER.critical(tag + exchangeInfo + " subscribe balance has Check2 failed : " + jsonToString(hasCheckDoc));
-            LOGGER.critical(spotClients[idx]->has());
-            sendTgMsg("Has Check2 Error");
+        else if(isSubscribingBalanceDoc["requestedApiCount"].GetUint() != 0){
+            throw(tag + exchangeInfo + " Ws Error : isSubscribingBalance requestedApiCount \n" + isSubscribingBalance);
         }
-
-        if(hasCheckDoc["data"]["subscribeBalance"].GetBool()){
-            if( !isSubscribingBalanceDoc["success"].GetBool() ||
-                !fetchBalanceDoc["success"].GetBool()){
-                throw(tag + exchangeInfo + " Ws Error : balance success \n" + isSubscribingBalance + "\n" + fetchBalance);
-            }
-            else if(isSubscribingBalanceDoc["requestedApiCount"].GetUint() != 0){
-                throw(tag + exchangeInfo + " Ws Error : isSubscribingBalance requestedApiCount \n" + isSubscribingBalance);
-            }
-            else if(!isSubscribingBalanceDoc["data"]["isSubscribing"].GetBool()){
-                throw(tag + exchangeInfo + " Ws Error : isSubscribingBalance isSubscribing \n" + isSubscribingBalance);
-            }
-            else if(fetchBalanceDoc["requestedApiCount"].GetUint() != 0){
-                throw(tag + exchangeInfo + " Ws Error : fetchBalance requestedApiCount \n" + fetchBalance);
-            }
-            else if(string("websocket").compare(fetchBalanceDoc["data"]["fetchType"].GetString()) != 0){
-                throw(tag + exchangeInfo + " Ws Error : fetchBalance fetchType \n" + fetchBalance);
-            }
+        else if(isSubscribingBalanceDoc["data"]["isSubscribing"].GetBool()){
+            throw(tag + exchangeInfo + " Ws Error : isSubscribingBalance isSubscribing \n" + isSubscribingBalance);
         }
-        else{
-            if( !isSubscribingBalanceDoc["success"].GetBool() ||
-                !fetchBalanceDoc["success"].GetBool()){
-                throw(tag + exchangeInfo + " Ws Error : balance success \n" + isSubscribingBalance + "\n" + fetchBalance);
-            }
-            else if(isSubscribingBalanceDoc["requestedApiCount"].GetUint() != 0){
-                throw(tag + exchangeInfo + " Ws Error : isSubscribingBalance requestedApiCount \n" + isSubscribingBalance);
-            }
-            else if(isSubscribingBalanceDoc["data"]["isSubscribing"].GetBool()){
-                throw(tag + exchangeInfo + " Ws Error : isSubscribingBalance isSubscribing \n" + isSubscribingBalance);
-            }
-            else if(fetchBalanceDoc["requestedApiCount"].GetUint() < 1){
-                throw(tag + exchangeInfo + " Ws Error : fetchBalance requestedApiCount \n" + fetchBalance);
-            }
-            else if(string("rest").compare(fetchBalanceDoc["data"]["fetchType"].GetString()) != 0){
-                throw(tag + exchangeInfo + " Ws Error : fetchBalance fetchType \n" + fetchBalance);
-            }
+        else if(fetchBalanceDoc["requestedApiCount"].GetUint() < 1){
+            throw(tag + exchangeInfo + " Ws Error : fetchBalance requestedApiCount \n" + fetchBalance);
+        }
+        else if(string("rest").compare(fetchBalanceDoc["data"]["fetchType"].GetString()) != 0){
+            throw(tag + exchangeInfo + " Ws Error : fetchBalance fetchType \n" + fetchBalance);
         }
     }
-    
+
     for(uint32_t idx = 0; idx < futuresClients.size(); idx++){
         Document getConfigResp;
         parseJson(getConfigResp, futuresClients[idx]->getConfig());
@@ -460,53 +285,21 @@ void balanceTest(string tag){
         parseJson(isSubscribingBalanceDoc, isSubscribingBalance);
         parseJson(fetchBalanceDoc, fetchBalance);
 
-        Document hasCheckDoc;
-        parseJson(hasCheckDoc, futuresClients[idx]->has(R"({"api":"subscribeBalance"})"));
-        if(!hasCheckDoc.HasMember("data")){
-            LOGGER.critical(tag + exchangeInfo + " subscribe balance has Check failed : " + jsonToString(hasCheckDoc));
-            sendTgMsg("Has Check Error");
+        if( !isSubscribingBalanceDoc["success"].GetBool() ||
+            !fetchBalanceDoc["success"].GetBool()){
+            throw(tag + exchangeInfo + " Ws Error : balance success \n" + isSubscribingBalance + "\n" + fetchBalance);
         }
-        else if(!hasCheckDoc["data"].HasMember("subscribeBalance")){
-            LOGGER.critical(tag + exchangeInfo + " subscribe balance has Check2 failed : " + jsonToString(hasCheckDoc));
-            LOGGER.critical(futuresClients[idx]->has());
-            sendTgMsg("Has Check2 Error");
+        else if(isSubscribingBalanceDoc["requestedApiCount"].GetUint() != 0){
+            throw(tag + exchangeInfo + " Ws Error : isSubscribingBalance requestedApiCount \n" + isSubscribingBalance);
         }
-
-        if(hasCheckDoc["data"]["subscribeBalance"].GetBool()){
-            if( !isSubscribingBalanceDoc["success"].GetBool() ||
-                !fetchBalanceDoc["success"].GetBool()){
-                throw(tag + exchangeInfo + " Ws Error : balance success \n" + isSubscribingBalance + "\n" + fetchBalance);
-            }
-            else if(isSubscribingBalanceDoc["requestedApiCount"].GetUint() != 0){
-                throw(tag + exchangeInfo + " Ws Error : isSubscribingBalance requestedApiCount \n" + isSubscribingBalance);
-            }
-            else if(!isSubscribingBalanceDoc["data"]["isSubscribing"].GetBool()){
-                throw(tag + exchangeInfo + " Ws Error : isSubscribingBalance isSubscribing \n" + isSubscribingBalance);
-            }
-            else if(fetchBalanceDoc["requestedApiCount"].GetUint() != 0){
-                throw(tag + exchangeInfo + " Ws Error : fetchBalance requestedApiCount \n" + fetchBalance);
-            }
-            else if(string("websocket").compare(fetchBalanceDoc["data"]["fetchType"].GetString()) != 0){
-                throw(tag + exchangeInfo + " Ws Error : fetchBalance fetchType \n" + fetchBalance);
-            }
+        else if(isSubscribingBalanceDoc["data"]["isSubscribing"].GetBool()){
+            throw(tag + exchangeInfo + " Ws Error : isSubscribingBalance isSubscribing \n" + isSubscribingBalance);
         }
-        else{
-            if( !isSubscribingBalanceDoc["success"].GetBool() ||
-                !fetchBalanceDoc["success"].GetBool()){
-                throw(tag + exchangeInfo + " Ws Error : balance success \n" + isSubscribingBalance + "\n" + fetchBalance);
-            }
-            else if(isSubscribingBalanceDoc["requestedApiCount"].GetUint() != 0){
-                throw(tag + exchangeInfo + " Ws Error : isSubscribingBalance requestedApiCount \n" + isSubscribingBalance);
-            }
-            else if(isSubscribingBalanceDoc["data"]["isSubscribing"].GetBool()){
-                throw(tag + exchangeInfo + " Ws Error : isSubscribingBalance isSubscribing \n" + isSubscribingBalance);
-            }
-            else if(fetchBalanceDoc["requestedApiCount"].GetUint() < 1){
-                throw(tag + exchangeInfo + " Ws Error : fetchBalance requestedApiCount \n" + fetchBalance);
-            }
-            else if(string("rest").compare(fetchBalanceDoc["data"]["fetchType"].GetString()) != 0){
-                throw(tag + exchangeInfo + " Ws Error : fetchBalance fetchType \n" + fetchBalance);
-            }
+        else if(fetchBalanceDoc["requestedApiCount"].GetUint() < 1){
+            throw(tag + exchangeInfo + " Ws Error : fetchBalance requestedApiCount \n" + fetchBalance);
+        }
+        else if(string("rest").compare(fetchBalanceDoc["data"]["fetchType"].GetString()) != 0){
+            throw(tag + exchangeInfo + " Ws Error : fetchBalance fetchType \n" + fetchBalance);
         }
     }
 }
@@ -517,10 +310,11 @@ void subscribe(string tag){
         parseJson(getConfigResp, spotClients[idx]->getConfig());
         string exchangeInfo = string(getConfigResp["data"]["exchange"].GetString()) + string(getConfigResp["data"]["instrument"].GetString());
 
-        vector<pair<string,string>> groupAC;
-        groupAC.insert(groupAC.end(), spotGroupA[idx].begin(), spotGroupA[idx].end());
-        groupAC.insert(groupAC.end(), spotGroupC[idx].begin(), spotGroupC[idx].end());
-        std::string request = pairToRequest(groupAC);
+        vector<pair<string,string>> groupABC;
+        groupABC.insert(groupABC.end(), spotGroupA[idx].begin(), spotGroupA[idx].end());
+        groupABC.insert(groupABC.end(), spotGroupB[idx].begin(), spotGroupB[idx].end());
+        groupABC.insert(groupABC.end(), spotGroupC[idx].begin(), spotGroupC[idx].end());
+        std::string request = pairToRequest(groupABC);
 
         for(int retry = 0; ; retry++){
             Document orderbookRespDoc, tickerRespDoc;
@@ -530,9 +324,10 @@ void subscribe(string tag){
             parseJson(tickerRespDoc, tickerResp);
 
             if(orderbookRespDoc["success"].GetBool() && tickerRespDoc["success"].GetBool()){
-                if( orderbookRespDoc["data"]["subscribed"].Size() == spotGroupA[idx].size() && 
+                if( orderbookRespDoc["data"]["subscribed"].Size() == spotGroupA[idx].size() + spotGroupB[idx].size() && 
                     orderbookRespDoc["data"]["subscribeFailed"].Size() == spotGroupC[idx].size() &&
-                    tickerRespDoc["data"]["subscribed"].Size() > spotGroupA[idx].size()/2){
+                    tickerRespDoc["data"]["subscribed"].Size() > (spotGroupA[idx].size() + spotGroupB[idx].size())/2){
+                    spotGroupD[idx].clear();
                     for(const auto& symbol : tickerRespDoc["data"]["subscribed"].GetArray()){
                         pair<string, string> subscribedData(symbol["baseCurrency"].GetString(),symbol["quoteCurrency"].GetString());
                         spotGroupD[idx].push_back(subscribedData);
@@ -543,17 +338,18 @@ void subscribe(string tag){
                     }
                     break;
                 }
-                else if(orderbookRespDoc["data"]["subscribed"].Size() > spotGroupA[idx].size() - 2){
+                else if(orderbookRespDoc["data"]["subscribed"].Size() > (spotGroupA[idx].size() + spotGroupB[idx].size()) - 2){
                     spotGroupA[idx].clear();
                     for(const auto& symbol : orderbookRespDoc["data"]["subscribed"].GetArray()){
                         pair<string, string> subscribedData(symbol["baseCurrency"].GetString(),symbol["quoteCurrency"].GetString());
                         spotGroupA[idx].push_back(subscribedData);
                     }
 
-                    vector<pair<string,string>> groupAC_new;
-                    groupAC_new.insert(groupAC_new.end(), spotGroupA[idx].begin(), spotGroupA[idx].end());
-                    groupAC_new.insert(groupAC_new.end(), spotGroupC[idx].begin(), spotGroupC[idx].end());
-                    request = pairToRequest(groupAC_new);
+                    vector<pair<string,string>> groupABC_new;
+                    groupABC_new.insert(groupABC_new.end(), spotGroupA[idx].begin(), spotGroupA[idx].end());
+                    groupABC_new.insert(groupABC_new.end(), spotGroupB[idx].begin(), spotGroupB[idx].end());
+                    groupABC_new.insert(groupABC_new.end(), spotGroupC[idx].begin(), spotGroupC[idx].end());
+                    request = pairToRequest(groupABC_new);
                 }
             }
 
@@ -610,10 +406,11 @@ void subscribe(string tag){
         parseJson(getConfigResp, futuresClients[idx]->getConfig());
         string exchangeInfo = string(getConfigResp["data"]["exchange"].GetString()) + string(getConfigResp["data"]["instrument"].GetString());
 
-        vector<pair<string,string>> groupAC;
-        groupAC.insert(groupAC.end(), futuresGroupA[idx].begin(), futuresGroupA[idx].end());
-        groupAC.insert(groupAC.end(), futuresGroupC[idx].begin(), futuresGroupC[idx].end());
-        std::string request = pairToRequest(groupAC);
+        vector<pair<string,string>> groupABC;
+        groupABC.insert(groupABC.end(), futuresGroupA[idx].begin(), futuresGroupA[idx].end());
+        groupABC.insert(groupABC.end(), futuresGroupB[idx].begin(), futuresGroupB[idx].end());
+        groupABC.insert(groupABC.end(), futuresGroupC[idx].begin(), futuresGroupC[idx].end());
+        std::string request = pairToRequest(groupABC);
 
         for(int retry = 0; ; retry++){
             Document orderbookRespDoc, tickerRespDoc, marketInfoRespDoc;
@@ -625,11 +422,12 @@ void subscribe(string tag){
             parseJson(marketInfoRespDoc, marketInfoResp);
 
             if(orderbookRespDoc["success"].GetBool() && tickerRespDoc["success"].GetBool() && marketInfoRespDoc["success"].GetBool()){
-                if( orderbookRespDoc["data"]["subscribed"].Size() == futuresGroupA[idx].size() && 
+                if( orderbookRespDoc["data"]["subscribed"].Size() == (futuresGroupA[idx].size() + futuresGroupB[idx].size()) && 
                     orderbookRespDoc["data"]["subscribeFailed"].Size() == futuresGroupC[idx].size() &&
-                    marketInfoRespDoc["data"]["subscribed"].Size() == futuresGroupA[idx].size() && 
+                    marketInfoRespDoc["data"]["subscribed"].Size() == (futuresGroupA[idx].size() + futuresGroupB[idx].size()) && 
                     marketInfoRespDoc["data"]["subscribeFailed"].Size() == futuresGroupC[idx].size() &&
-                    tickerRespDoc["data"]["subscribed"].Size() > futuresGroupA[idx].size()/2){
+                    tickerRespDoc["data"]["subscribed"].Size() > (futuresGroupA[idx].size() + futuresGroupB[idx].size())/2){
+                    futuresGroupD[idx].clear();
                     for(const auto& symbol : tickerRespDoc["data"]["subscribed"].GetArray()){
                         pair<string, string> subscribedData(symbol["baseCurrency"].GetString(),symbol["quoteCurrency"].GetString());
                         futuresGroupD[idx].push_back(subscribedData);
@@ -640,17 +438,18 @@ void subscribe(string tag){
                     }
                     break;
                 }
-                else if(orderbookRespDoc["data"]["subscribed"].Size() > futuresGroupA[idx].size() - 2){
+                else if(orderbookRespDoc["data"]["subscribed"].Size() > (futuresGroupA[idx].size() + futuresGroupB[idx].size()) - 2){
                     futuresGroupA[idx].clear();
                     for(const auto& symbol : orderbookRespDoc["data"]["subscribed"].GetArray()){
                         pair<string, string> subscribedData(symbol["baseCurrency"].GetString(),symbol["quoteCurrency"].GetString());
                         futuresGroupA[idx].push_back(subscribedData);
                     }
 
-                    vector<pair<string,string>> groupAC_new;
-                    groupAC_new.insert(groupAC_new.end(), futuresGroupA[idx].begin(), futuresGroupA[idx].end());
-                    groupAC_new.insert(groupAC_new.end(), futuresGroupC[idx].begin(), futuresGroupC[idx].end());
-                    request = pairToRequest(groupAC_new);
+                    vector<pair<string,string>> groupABC_new;
+                    groupABC_new.insert(groupABC_new.end(), futuresGroupA[idx].begin(), futuresGroupA[idx].end());
+                    groupABC_new.insert(groupABC_new.end(), futuresGroupB[idx].begin(), futuresGroupB[idx].end());
+                    groupABC_new.insert(groupABC_new.end(), futuresGroupC[idx].begin(), futuresGroupC[idx].end());
+                    request = pairToRequest(groupABC_new);
                 }
             }
 
@@ -703,6 +502,167 @@ void subscribe(string tag){
     }
 }
 
+void unsubscribe(string tag){
+    for(uint32_t idx = 0; idx < spotClients.size(); idx++){
+        Document getConfigResp;
+        parseJson(getConfigResp, spotClients[idx]->getConfig());
+        string exchangeInfo = string(getConfigResp["data"]["exchange"].GetString()) + string(getConfigResp["data"]["instrument"].GetString());
+
+        std::string request = pairToRequest(spotGroupB[idx]);
+
+        for(auto symbol : spotGroupB[idx]){
+            spotGroupA[idx].erase(remove(spotGroupA[idx].begin(), spotGroupA[idx].end(), symbol), spotGroupA[idx].end());
+            spotGroupD[idx].erase(remove(spotGroupD[idx].begin(), spotGroupD[idx].end(), symbol), spotGroupD[idx].end());
+        }
+
+        for(int retry = 0; ; retry++){
+            Document orderbookRespDoc, tickerRespDoc;
+            std::string orderbookResp = spotClients[idx]->unsubscribeOrderbook(request);
+            std::string tickerResp = spotClients[idx]->unsubscribeTicker(request);
+            parseJson(orderbookRespDoc, orderbookResp);
+            parseJson(tickerRespDoc, tickerResp);
+
+            if(orderbookRespDoc["success"].GetBool() && tickerRespDoc["success"].GetBool()){
+                if( orderbookRespDoc["data"]["unsubscribed"].Size() + orderbookRespDoc["data"]["unsubscribeFailed"].Size() == spotGroupB[idx].size() &&
+                    tickerRespDoc["data"]["unsubscribed"].Size() + tickerRespDoc["data"]["unsubscribeFailed"].Size() == spotGroupB[idx].size()){
+                    if(retry > 0){
+                        LOGGER.critical("Success Log : ");
+                        LOGGER.critical(orderbookResp + "\n\n" + tickerResp);
+                    }
+                    break;
+                }
+            }
+
+            LOGGER.critical(tag + exchangeInfo + " unsubscribe failed at trial " + to_string(retry));
+            LOGGER.critical(request);
+            LOGGER.critical(orderbookResp + "\n\n" + tickerResp);
+
+            if(!(retry < 5)){
+                throw(tag + exchangeInfo + " unsubscribe not successful");
+            }
+            sleep(1);
+        }
+
+        Document hasCheckDoc;
+        parseJson(hasCheckDoc, spotClients[idx]->has(R"({"api":"unsubscribeBalance"})"));
+        if(!hasCheckDoc.HasMember("data")){
+            LOGGER.critical(tag + exchangeInfo + " unsubscribe balance has Check failed : " + jsonToString(hasCheckDoc));
+            sendTgMsg("Has Check Error");
+        }
+        else if(!hasCheckDoc["data"].HasMember("unsubscribeBalance")){
+            LOGGER.critical(tag + exchangeInfo + " unsubscribe balance has Check2 failed : " + jsonToString(hasCheckDoc));
+            LOGGER.critical(spotClients[idx]->has());
+            sendTgMsg("Has Check2 Error");
+        }
+
+        if(hasCheckDoc["data"]["unsubscribeBalance"].GetBool()){
+            for(int retry = 0; ; retry++){
+                Document respDoc;
+                std::string resp = spotClients[idx]->unsubscribeBalance("{}");
+                parseJson(respDoc, resp);
+
+                if(respDoc["success"].GetBool()){
+                    if(retry > 0){
+                        LOGGER.critical("Success Log : ");
+                        LOGGER.critical(resp);
+                    }
+                    break;
+                }
+
+                LOGGER.critical(tag + exchangeInfo + " unsubscribe balance failed at trial " + to_string(retry));
+                LOGGER.critical(resp);
+
+                if(!(retry < 5)){
+                    throw(tag + exchangeInfo + " unsubscribe balance not successful");
+                }
+
+                sleep(1);
+            }
+        }
+    }
+
+    for(uint32_t idx = 0; idx < futuresClients.size(); idx++){
+        Document getConfigResp;
+        parseJson(getConfigResp, futuresClients[idx]->getConfig());
+        string exchangeInfo = string(getConfigResp["data"]["exchange"].GetString()) + string(getConfigResp["data"]["instrument"].GetString());
+
+        std::string request = pairToRequest(futuresGroupB[idx]);
+
+        for(auto symbol : futuresGroupB[idx]){
+            futuresGroupA[idx].erase(remove(futuresGroupA[idx].begin(), futuresGroupA[idx].end(), symbol), futuresGroupA[idx].end());
+            futuresGroupD[idx].erase(remove(futuresGroupD[idx].begin(), futuresGroupD[idx].end(), symbol), futuresGroupD[idx].end());
+        }
+
+        for(int retry = 0; ; retry++){
+            Document orderbookRespDoc, tickerRespDoc, marketInfoRespDoc;
+            std::string orderbookResp = futuresClients[idx]->unsubscribeOrderbook(request);
+            std::string tickerResp = futuresClients[idx]->unsubscribeTicker(request);
+            std::string marketInfoResp = futuresClients[idx]->unsubscribeMarketInfo(request);
+            parseJson(orderbookRespDoc, orderbookResp);
+            parseJson(tickerRespDoc, tickerResp);
+            parseJson(marketInfoRespDoc, marketInfoResp);
+
+            if(orderbookRespDoc["success"].GetBool() && tickerRespDoc["success"].GetBool() && marketInfoRespDoc["success"].GetBool()){
+                if( orderbookRespDoc["data"]["unsubscribed"].Size() + orderbookRespDoc["data"]["unsubscribeFailed"].Size() == futuresGroupB[idx].size() &&
+                    tickerRespDoc["data"]["unsubscribed"].Size() + tickerRespDoc["data"]["unsubscribeFailed"].Size() == futuresGroupB[idx].size() &&
+                    marketInfoRespDoc["data"]["unsubscribed"].Size() + marketInfoRespDoc["data"]["unsubscribeFailed"].Size() == futuresGroupB[idx].size()){
+                    if(retry > 0){
+                        LOGGER.critical("Success Log : ");
+                        LOGGER.critical(orderbookResp + "\n\n" + tickerResp + "\n\n" + marketInfoResp);
+                    }
+                    break;
+                }
+            }
+
+            LOGGER.critical(tag + exchangeInfo + " unsubscribe failed at trial " + to_string(retry));
+            LOGGER.critical(request);
+            LOGGER.critical(orderbookResp + "\n\n" + tickerResp + "\n\n" + marketInfoResp);
+
+            if(!(retry < 5)){
+                throw(tag + exchangeInfo + " unsubscribe not successful");
+            }
+            sleep(1);
+        }
+
+        Document hasCheckDoc;
+        parseJson(hasCheckDoc, futuresClients[idx]->has(R"({"api":"unsubscribeBalance"})"));
+        if(!hasCheckDoc.HasMember("data")){
+            LOGGER.critical(tag + exchangeInfo + " unsubscribe balance has Check failed : " + jsonToString(hasCheckDoc));
+            sendTgMsg("Has Check Error");
+        }
+        else if(!hasCheckDoc["data"].HasMember("unsubscribeBalance")){
+            LOGGER.critical(tag + exchangeInfo + " unsubscribe balance has Check2 failed : " + jsonToString(hasCheckDoc));
+            LOGGER.critical(futuresClients[idx]->has());
+            sendTgMsg("Has Check2 Error");
+        }
+
+        if(hasCheckDoc["data"]["unsubscribeBalance"].GetBool()){
+            for(int retry = 0; ; retry++){
+                Document respDoc;
+                std::string resp = futuresClients[idx]->unsubscribeBalance("{}");
+                parseJson(respDoc, resp);
+
+                if(respDoc["success"].GetBool()){
+                    if(retry > 0){
+                        LOGGER.critical("Success Log : ");
+                        LOGGER.critical(resp);
+                    }
+                    break;
+                }
+
+                LOGGER.critical(tag + exchangeInfo + " unsubscribe balance failed at trial " + to_string(retry));
+                LOGGER.critical(resp);
+
+                if(!(retry < 5)){
+                    throw(tag + exchangeInfo + " unsubscribe balance not successful");
+                }
+
+                sleep(1);
+            }
+        }
+    }
+}
+
 void generateClients(){
     Document getInfoDoc;
     OneXAPI::Internal::Util::parseJson(getInfoDoc, OneXAPI::getInfo());
@@ -733,9 +693,47 @@ void generateClients(){
     }
 }
 
+void deleteClients(){
+    while(spotClients.size() > 0){
+        auto client = spotClients.back();
+
+        Document getConfigResp;
+        parseJson(getConfigResp, client->getConfig());
+        string exchangeName = string(getConfigResp["data"]["exchange"].GetString());
+
+        if(exchangeName.compare("Upbit") == 0){
+            delete(dynamic_cast<OneXAPI::Upbit::Spot*>(client));
+        }
+        else if(exchangeName.compare("Binance") == 0){
+            delete(dynamic_cast<OneXAPI::Binance::Spot*>(client));
+        }
+        else{
+            throw("Cannot find exchange spot name : " + exchangeName);
+        }        
+        client = nullptr;
+        spotClients.pop_back();
+    }
+    while(futuresClients.size() > 0){
+        auto client = futuresClients.back();
+
+        Document getConfigResp;
+        parseJson(getConfigResp, client->getConfig());
+        string exchangeName = string(getConfigResp["data"]["exchange"].GetString());
+
+        if(exchangeName.compare("Binance") == 0){
+            delete(dynamic_cast<OneXAPI::Binance::Futures*>(client));
+        }
+        else{
+            throw("Cannot find exchange futures name : " + exchangeName);
+        }
+        client = nullptr;
+        futuresClients.pop_back();
+    }
+}
+
 void createGroups(){
     uint32_t groupACnt = 30;
-    uint32_t groupBCnt = 2;
+    uint32_t groupBCnt = 10;
 
     for(auto client : spotClients){
         vector<pair<string, string>> groupA = {};
@@ -819,15 +817,21 @@ int main(){
     try{
         generateClients();
         createGroups();
-
-        subscribe("First Subscribe ");
+        deleteClients();
 
         uint64_t loopCnt = 0;
         while(true){
+            generateClients();
+            subscribe("Subscribe First : ");
+            subscribe("Subscribe Second : ");
+            unsubscribe("Unsubscribe First : ");
+            unsubscribe("Unsubscribe Second : ");
+
             websocketTest("Websocket Test ");
             restTest("Rest Test ");
             failTest("Fail Test ");
             balanceTest("Loop Balance ");
+            deleteClients();
 
             if(loopCnt > 10){
                 LOGGER.critical("Program is Running!");
@@ -844,19 +848,19 @@ int main(){
     catch(std::exception& e){
         LOGGER.critical(e.what());
         sendTgMsg(e.what());
-        LOGGER.critical("Websocket BackTesting Finished");
-        sendTgMsg("Websocket BackTesting Finished");
+        LOGGER.critical("Websocket Short  BackTesting Finished");
+        sendTgMsg("Websocket Short BackTesting Finished");
     }
     catch(std::string& e){
         LOGGER.critical(e);
         sendTgMsg(e);
-        LOGGER.critical("Websocket BackTesting Finished");
-        sendTgMsg("Websocket BackTesting Finished");
+        LOGGER.critical("Websocket Short BackTesting Finished");
+        sendTgMsg("Websocket Short BackTesting Finished");
     }
     catch(...){
         LOGGER.critical("Unexpected Error");
         sendTgMsg("Unexpected Error");
-        LOGGER.critical("Websocket BackTesting Finished");
-        sendTgMsg("Websocket BackTesting Finished");
+        LOGGER.critical("Websocket Short BackTesting Finished");
+        sendTgMsg("Websocket Short BackTesting Finished");
     }
 }
