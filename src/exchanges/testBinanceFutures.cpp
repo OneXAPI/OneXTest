@@ -5040,7 +5040,7 @@ bool TC_BinanceFutures_subscribeMarketInfo_7(testDataType& testData){
 otherwise : response["requestedApiCount"] is 0
 N is request market size
 
-size of response["data"]["subscribed"] greater than 50
+size of response["data"]["subscribed"] greater than 25
 
 member count of response["data"] is 2
 response["data"]["subscribed"] type is array
@@ -5105,7 +5105,7 @@ getSubscribingMarketInfo -> funcName = marketInfo)";
     else if(!respDoc["data"]["subscribed"].IsArray()){
         return false;
     }
-    else if(!(respDoc["data"]["subscribed"].Size() > 50)){
+    else if(!(respDoc["data"]["subscribed"].Size() > 25)){
         return false;
     }
     else if(!respDoc["data"]["subscribeFailed"].IsArray()){
@@ -5406,7 +5406,7 @@ getSubscribingMarketInfo -> funcName = marketInfo)";
     if(!successResponseChecker(response)){
         return false;
     }
-    else if(!(respDoc["data"]["subscribed"].Size() > 50)){
+    else if(!(respDoc["data"]["subscribed"].Size() > 25)){
         return false;
     }
 
@@ -5663,7 +5663,7 @@ bool TC_BinanceFutures_subscribeTicker_7(testDataType& testData){
 otherwise : response["requestedApiCount"] is 0
 N is request market size
 
-size of response["data"]["subscribed"] greater than 50
+size of response["data"]["subscribed"] greater than 25
 
 member count of response["data"] is 2
 response["data"]["subscribed"] type is array
@@ -5728,7 +5728,7 @@ getSubscribingMarketInfo -> funcName = marketInfo)";
     else if(!respDoc["data"]["subscribed"].IsArray()){
         return false;
     }
-    else if(!(respDoc["data"]["subscribed"].Size() > 50)){
+    else if(!(respDoc["data"]["subscribed"].Size() > 25)){
         return false;
     }
     else if(!respDoc["data"]["subscribeFailed"].IsArray()){
@@ -6037,7 +6037,7 @@ getSubscribingMarketInfo -> funcName = marketInfo)";
     if(!successResponseChecker(response)){
         return false;
     }
-    else if(!(respDoc["data"]["subscribed"].Size() > 50)){
+    else if(!(respDoc["data"]["subscribed"].Size() > 25)){
         return false;
     }
 
@@ -6294,7 +6294,7 @@ bool TC_BinanceFutures_subscribeOrderbook_7(testDataType& testData){
 otherwise : response["requestedApiCount"] is 0
 N is request market size
 
-size of response["data"]["subscribed"] greater than 50
+size of response["data"]["subscribed"] greater than 25
 
 member count of response["data"] is 2
 response["data"]["subscribed"] type is array
@@ -6359,7 +6359,7 @@ getSubscribingMarketInfo -> funcName = marketInfo)";
     else if(!respDoc["data"]["subscribed"].IsArray()){
         return false;
     }
-    else if(!(respDoc["data"]["subscribed"].Size() > 50)){
+    else if(!(respDoc["data"]["subscribed"].Size() > 25)){
         return false;
     }
     else if(!respDoc["data"]["subscribeFailed"].IsArray()){
@@ -6668,7 +6668,7 @@ getSubscribingMarketInfo -> funcName = marketInfo)";
     if(!successResponseChecker(response)){
         return false;
     }
-    else if(!(respDoc["data"]["subscribed"].Size() > 50)){
+    else if(!(respDoc["data"]["subscribed"].Size() > 25)){
         return false;
     }
 
