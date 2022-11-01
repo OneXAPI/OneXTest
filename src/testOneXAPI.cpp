@@ -4,7 +4,7 @@
 #define EXCEPTION_MSG               std::string("exception occurred : ") + e.what()
 #define UNEXPECTED_EXCEPTION_MSG    "unexpected exception occurred"
 
-static const std::string getInfoExpectedResult = R"({"success":true,"requestedApiCount":0,"data":{"supportedExchanges":[{"exchange":"Binance","instrument":"Spot"},{"exchange":"Binance","instrument":"Futures"},{"exchange":"Upbit","instrument":"Spot"}],"onexapiVersion":"0.0.2"}})";
+static const std::string getInfoExpectedResult = R"({"success":true,"requestedApiCount":0,"data":{"supportedExchanges":[{"exchange":"Binance","instrument":"Spot"},{"exchange":"Binance","instrument":"Futures"},{"exchange":"Upbit","instrument":"Spot"}],"onexapiVersion":"0.1.0"}})";
 
 bool TC_OneXAPI_getInfo_1(testDataType& testData){
     try{
